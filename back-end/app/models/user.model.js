@@ -11,9 +11,12 @@ const User = mongoose.model(
 		type: String,
 		maxlength: 50
 	},
-	role: { // 역할, 권한 (관리자, 수정가능 등.)
-		type: Number
-	},
+	roles: [ // 권한
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "Role"
+		}
+	],
 	militaryRank: { // 계급 (example 1:이등병, 2:일병, 3:상병, 4:병장, 5:하사, 5.5:하사(진), 6:중사 .... 군무원, 전문인력 등)
 		type: Number
 	},
@@ -58,12 +61,6 @@ const User = mongoose.model(
 		type: String,
 		trim: true,
 		unique: 1
-	},
-	token: {
-		type: String
-	},
-	tokenExp: {
-		type: Number
 	}
 })
 );
