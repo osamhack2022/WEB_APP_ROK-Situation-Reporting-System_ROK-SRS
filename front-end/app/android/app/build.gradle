@@ -228,6 +228,14 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            if (project.hasProperty('ANDROID_BUILD_KEY')) {
+                storeFile file(ANDROID_BUILD_KEY)
+                storePassword ANDROID_BUILD_KEY_ALIAS
+                keyAlias ANDROID_BUILD_KEY_PASSWORD
+                keyPassword ANDROID_BUILD_STORE_PASSWORD
+            }
+        }
     }
     buildTypes {
         debug {
