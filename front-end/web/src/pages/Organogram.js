@@ -1,34 +1,17 @@
-import React, { useState, useCallback } from 'react';
-import { Tree, TreeNode } from 'react-organizational-chart';
-
+import React from 'react';
 import * as go from 'gojs';
 import { ReactDiagram } from 'gojs-react';
 
 const myData = {
     "class": "go.TreeModel",
     "nodeDataArray": [
-        { "key": 1, "name": "Stella Payne Diaz", "title": "CEO", "pic": "1.jpg" },
-        { "key": 2, "name": "Luke Warm", "title": "VP Marketing/Sales", "pic": "2.jpg", "parent": 1 },
-        { "key": 3, "name": "Meg Meehan Hoffa", "title": "Sales", "pic": "3.jpg", "parent": 2 },
-        { "key": 4, "name": "Peggy Flaming", "title": "VP Engineering", "pic": "4.jpg", "parent": 1 },
-        { "key": 5, "name": "Saul Wellingood", "title": "Manufacturing", "pic": "5.jpg", "parent": 4 },
-        { "key": 6, "name": "Al Ligori", "title": "Marketing", "pic": "6.jpg", "parent": 2 },
-        { "key": 7, "name": "Dot Stubadd", "title": "Sales Rep", "pic": "7.jpg", "parent": 3 },
-        { "key": 8, "name": "Les Ismore", "title": "Project Mgr", "pic": "8.jpg", "parent": 5 },
-        { "key": 9, "name": "April Lynn Parris", "title": "Events Mgr", "pic": "9.jpg", "parent": 6 },
-        { "key": 10, "name": "Xavier Breath", "title": "Engineering", "pic": "10.jpg", "parent": 4 },
-        { "key": 11, "name": "Anita Hammer", "title": "Process", "pic": "11.jpg", "parent": 5 },
-        { "key": 12, "name": "Billy Aiken", "title": "Software", "pic": "12.jpg", "parent": 10 },
-        { "key": 13, "name": "Stan Wellback", "title": "Testing", "pic": "13.jpg", "parent": 10 },
-        { "key": 14, "name": "Marge Innovera", "title": "Hardware", "pic": "14.jpg", "parent": 10 },
-        { "key": 15, "name": "Evan Elpus", "title": "Quality", "pic": "15.jpg", "parent": 5 },
-        { "key": 16, "name": "Lotta B. Essen", "title": "Sales Rep", "pic": "16.jpg", "parent": 3 }
+        { "key": 1, "username": "Choe", "roles": "editable", "militaryRank": "private", "pic": null },
     ]
 }
 
-function findHeadShot(pic) {
+const findHeadShot = (pic) => {
     return './logo512.png';
-}
+};
 
 function initDiagram() {
     const $ = go.GraphObject.make;
@@ -104,7 +87,7 @@ function initDiagram() {
     }
 
     myDiagram.nodeTemplate =
-        $(go.Node, "Spot",
+        $(go.Node, 
             {
                 selectionObjectName: "BODY",
                 mouseEnter: (e, node) => node.findObject("BUTTON").opacity = node.findObject("BUTTONX").opacity = 1,
@@ -175,19 +158,31 @@ function initDiagram() {
                                 editable: true, isMultiline: false,
                                 minSize: new go.Size(50, 16)
                             },
-                            new go.Binding("text", "name").makeTwoWay()),
-                        $(go.TextBlock, "Title: ", textStyle(),
-                            { row: 1, column: 0 }),
+                            new go.Binding("text", "username").makeTwoWay()),
                         $(go.TextBlock, textStyle(),
                             {
-                                row: 1, column: 1, columnSpan: 4,
+                                row: 1,
+                                column: 1,
+                                columnSpan: 8,
+                                editable: true,
+                                isMultiline: false,
+                                minSize: new go.Size(50, 14),
+                                margin: new go.Margin(0, 0, 0, 3),
+                                textAlign: 'right'
+                            },
+                            new go.Binding("text", "militaryRank").makeTwoWay()),
+                        $(go.TextBlock, "roles: ", textStyle(),
+                            { row: 2, column: 0 }),
+                        $(go.TextBlock, textStyle(),
+                            {
+                                row: 2, column: 1, columnSpan: 4,
                                 editable: true, isMultiline: false,
                                 minSize: new go.Size(50, 14),
                                 margin: new go.Margin(0, 0, 0, 3)
                             },
-                            new go.Binding("text", "title").makeTwoWay()),
+                            new go.Binding("text", "roles").makeTwoWay()),
                         $(go.TextBlock, textStyle(),
-                            { row: 2, column: 0 },
+                            { row: 3, column: 0 },
                             new go.Binding("text", "key", v => "ID: " + v)),
                         $(go.TextBlock, textStyle(),  // the comments
                             {
@@ -226,7 +221,7 @@ function initDiagram() {
         if (!node) return;
         const thisemp = node.data;
         myDiagram.startTransaction("add employee");
-        const newemp = { name: "(new person)", title: "(title)", comments: "", parent: thisemp.key };
+        const newemp = { username: "(new person)", militaryRank: "(rank)", roles: 'only view', comments: "", parent: thisemp.key };
         myDiagram.model.addNodeData(newemp);
         const newnode = myDiagram.findNodeForData(newemp);
         if (newnode) newnode.location = node.location;
@@ -315,44 +310,14 @@ function initDiagram() {
         return k;
     };
 
-
-    // support editing the properties of the selected person in HTML
-    // if (window.Inspector) myInspector = new Inspector("myInspector", myDiagram,
-    //     {
-    //         properties: {
-    //             "key": { readOnly: true },
-    //             "comments": {}
-    //         }
-    //     }
-    // );
-
     return myDiagram;
 } // end init
 
 function Organogram() {
-    const [childNode, setChildNode] = useState([]);
-
-    const addChildNode = useCallback(() => {
-        setChildNode(node => [...node, <TreeNode label={node.length} />])
-    }, [setChildNode]);
-
     return (
         <ReactDiagram
             initDiagram={initDiagram}
             divClassName="diagram-component"
-            nodeDataArray={[
-                { key: 0, text: 'Alpha', color: 'lightblue', loc: '0 0' },
-                { key: 1, text: 'Beta', color: 'orange', loc: '150 0' },
-                { key: 2, text: 'Gamma', color: 'lightgreen', loc: '0 150' },
-                { key: 3, text: 'Delta', color: 'pink', loc: '150 150' }
-            ]}
-            linkDataArray={[
-                { key: -1, from: 0, to: 1 },
-                { key: -2, from: 0, to: 2 },
-                { key: -3, from: 1, to: 1 },
-                { key: -4, from: 2, to: 3 },
-                { key: -5, from: 3, to: 0 }
-            ]}
         />
     )
 }
