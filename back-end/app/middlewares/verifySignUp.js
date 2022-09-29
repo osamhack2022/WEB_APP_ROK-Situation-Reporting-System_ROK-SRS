@@ -5,9 +5,9 @@ const ROLES = db.ROLES;
 const User = db.user;
 
 checkDuplicateUsernameOrEmail = (req, res, next) => {
-  // Username
+  // 군번
   User.findOne({
-    username: req.body.username
+    serviceNumber: req.body.serviceNumber
   }).exec((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
@@ -15,7 +15,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
     }
 
     if (user) {
-      res.status(400).send({ message: "Failed! Username is already in use!" });
+      res.status(400).send({ message: "[오류] 이미 사용중인 군번입니다." });
       return;
     }
 
@@ -29,7 +29,7 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
       }
 
       if (user) {
-        res.status(400).send({ message: "Failed! Email is already in use!" });
+        res.status(400).send({ message: "[오류] 이미 사용중인 이메일입니다." });
         return;
       }
 
@@ -43,7 +43,7 @@ checkRolesExisted = (req, res, next) => {
     for (let i = 0; i < req.body.roles.length; i++) {
       if (!ROLES.includes(req.body.roles[i])) {
         res.status(400).send({
-          message: `Failed! Role ${req.body.roles[i]} does not exist!`
+          message: `[오류] ${req.body.roles[i]} 은(는) 존재하지 않는 권한입니다.`
         });
         return;
       }

@@ -24,7 +24,7 @@ const User = mongoose.model(
 		maxlength: 50,
 		unique: 1
 	},
-	battalion: { // 부대(Unit)
+	battalion: { // 부대(unit)
 		type: String,
 		maxlength: 50
 	},
