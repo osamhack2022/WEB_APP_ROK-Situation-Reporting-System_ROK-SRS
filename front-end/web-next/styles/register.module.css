@@ -1,0 +1,32 @@
+.inputfield {
+    width: 300px;
+    height: 35px;
+    margin: auto;
+    font-size: 17px;
+    display: block;
+    border-top: none; 
+    border-left: none; 
+    border-right: none; 
+  }
+  
+  .buttonfield {
+    width: 180px;
+    height: 36px;
+    background-color: #008272;
+    color: white; 
+    border-radius: 5px;
+    border: none;
+    margin: auto;
+    margin-top: 5px;
+    display: block;
+  }
+  
+  .buttonfield:hover {
+    cursor: pointer; 
+    background-color: #016459;
+  }
+  
+  .inputfield:focus{
+    outline: none;
+    border-bottom: 2px solid black; 
+  }
