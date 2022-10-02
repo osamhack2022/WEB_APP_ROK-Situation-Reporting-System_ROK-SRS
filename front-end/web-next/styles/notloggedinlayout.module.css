@@ -1,0 +1,27 @@
+.container {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: absolute; 
+    margin: 0px;
+    padding: 0px;
+}
+
+#idcontainer {
+    width: 420px; 
+    height: 650px; 
+    background-color: white;
+    border-radius: 10px; 
+    position: absolute;
+    top: 50%; 
+    left: 75%;
+    transform: translateX(-50%) translateY(-50%);
+
+}
+#logo {
+    margin-top: 30px;
+    padding-top: 30px;
+}
+
+#logocontainer {
+    margin-top: 30px;
+}

@@ -1,33 +1,47 @@
-.container {
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  position: absolute; 
-  margin: 0px;
-  padding: 0px;
-}
-
-#idcontainer {
-  width: 450px; 
-  height: 650px; 
-  background-color: white;
-  border-radius: 10px; 
-  position: absolute;
-  top: 50%; 
-  left: 75%;
-  transform: translateX(-50%) translateY(-50%);
-
-}
-#logo {
-  margin-top: 20px;
-  padding-top: 20px;
-}
-
-#logocontainer {
-  margin-top: 20px;
-}
 
 .inputfield {
   width: 250px;
   height: 25px;
   margin: auto;
+  display: block;
+  border-top: none; 
+  border-left: none; 
+  border-right: none; 
+}
+
+.buttonfield {
+  width: 130px;
+  height: 30px;
+  background-color: #008272;
+  color: white; 
+  border-radius: 5px;
+  border: none;
+  margin: auto;
+  margin-top: 5px;
+  display: block;
+}
+
+.buttonfield:hover {
+  cursor: pointer; 
+  background-color: #016459;
+}
+
+.inputfield:focus{
+  outline: none;
+  border-bottom: 2px solid black; 
+}
+
+#loginfooter {
+  width: 340px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.links {
+  color: skyblue;
+  font-size: 12px;
+}
+.links a {
+  color: skyblue;
+  margin-left: 20px; 
 }

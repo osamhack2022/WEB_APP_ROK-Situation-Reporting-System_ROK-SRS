@@ -1,32 +1,27 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import background from '../img/marpat2.jpg'
-import logo from '../img/logotransparent.png'
+import Link from "next/link"
+import NotLoggedinLayout from '../componenets/notloggedinlayout'
 
 export default function Home() {
   return (
     <>
-    <div className={styles.container} style = {{
-      backgroundImage: `url(${background.src})`,
-      width: '100%',
-      height: '100%',
-    }}>
-      <div id={styles.idcontainer}>
-        <div id = {styles.logocontainer}>
-          <Image id={styles.logo} src = {logo.src} width = '450px' height = '150px'/>
-
-        </div>
-        <form action="/send-data-here" method="post" style = {{display: 'block', width: '450px'}}>
-          <input className={styles.inputfield} type="text" name="ID" style = {{margin: 'auto'}} />
+    <Head>
+      <title>로그인</title>
+    </Head>
+      <NotLoggedinLayout>
+        <h2 style = {{textAlign: 'center', marginBottom: '20px', marginTop: '20px'}}>로그인</h2>
+        <form action="/send-data-here" method="post" style = {{width: '250px', margin: 'auto'}}>
+          <input className={styles.inputfield} type="text" placeholder='군번' name="ID" style = {{margin: 'auto', display: 'block'}} required/>
           <br></br>
-          <input className={styles.inputfield} type="password" name="password" />
+          <input className={styles.inputfield} type="password" placeholder='비밀번호' name="password" required/>
           <br></br>
-          <button type="submit">Submit</button>
+          <button className={styles.buttonfield} type="submit">로그인</button>
         </form>
-
-      </div>
-    </div>
+        <div id={styles.loginfooter}>
+          <Link className={styles.links} href = "/register" style = {{color: "skyblue"}}>회원가입하기</Link>
+        </div>
+      </NotLoggedinLayout>
     </>
   )
 }
