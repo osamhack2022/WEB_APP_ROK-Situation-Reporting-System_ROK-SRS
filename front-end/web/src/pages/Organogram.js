@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
-import { Card, Button, Modal } from 'antd';
+import { Card, Button, Image } from 'antd';
 import styles from './style';
 
 function renderNode(node) {
@@ -8,7 +8,10 @@ function renderNode(node) {
         return;
 
     return (
-        <TreeNode label={<TreeNodeElement name={node.username} rank={node.militaryRank} roles={node.roles} />}>
+        <TreeNode
+            key={node.key}
+            label={<TreeNodeElement name={node.username} rank={node.militaryRank} roles={node.roles} />}
+        >
             {node.children && node.children.map((childNode) => (renderNode(childNode)))}
         </TreeNode>
     );
@@ -18,11 +21,22 @@ function TreeNodeElement(props) {
     return (
         <Button
             style={styles.cardButton}
-            onClick={() => console.log("push!")}
+            onClick={() => console.log(props.name + props.rank)}
         >
-            <Card title={props.name}>
-                <p>militaryRank: {props.rank}</p>
-                <p>roles: {props.roles}</p>
+            <Card
+                cover={
+                    <Image
+                        style={styles.profileImage}
+                        preview={false}
+                        src="https://joeschmoe.io/api/v1/random"
+                    />
+                }
+                style={styles.cardContent}
+                hoverable
+            >
+                <p><b>{props.name}</b></p>
+                <p>계급: {props.rank}</p>
+                <p>권한: {props.roles}</p>
             </Card>
         </Button>
     )
@@ -37,38 +51,35 @@ function Organogram() {
         'pic': null,
         'children': [
             {
-                'key': 1,
+                'key': 2,
                 'username': 'Jo',
-                'roles': 'editable',
+                'roles': 'viewable',
                 'militaryRank': '상병',
                 'pic': null,
                 'children': [{
-                    'key': 1,
+                    'key': 4,
                     'username': 'Choe',
-                    'roles': 'editable',
+                    'roles': 'none',
                     'militaryRank': '일병',
                     'pic': null,
                     'children': null
                 }]
             },
             {
-                'key': 1,
+                'key': 3,
                 'username': 'Kim',
-                'roles': 'editable',
+                'roles': 'viewable',
                 'militaryRank': '병장',
                 'pic': null,
                 'children': null
             },
         ]
     };
-    const [childNode, setChildNode] = useState(myData);
 
     return (
-        <>
-            <Tree label="Parent">
-                {renderNode(myData)}
-            </Tree>
-        </>
+        <Tree label="❤❤대대">
+            {renderNode(myData)}
+        </Tree>
     )
 }
 
