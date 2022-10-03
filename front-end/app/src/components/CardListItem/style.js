@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
-  cardItem: {
+  cardListItem: {
     width: '95%',
     elevation: 0,
     borderBottomWidth: 1,
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   flexRowEnd: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: 8,
+    marginTop: 5,
   },
   text: {
     fontSize: 15,

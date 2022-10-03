@@ -7,13 +7,17 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
   },
+  guideTextView: {
+    marginBottom: (30 / 812) * window.height,
+    width: '100%',
+    alignItems: 'flex-end',
+  },
   signUpView: {
     width: '85%',
     alignItems: 'center',
   },
   signUpTextInput: {
     width: '100%',
-    marginBottom: (30 / 812) * window.height,
     backgroundColor: 'white',
   },
 })

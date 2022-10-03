@@ -2,15 +2,22 @@ import React from 'react'
 import { TouchableOpacity, Text, View } from 'react-native'
 import { Card, Title, Paragraph } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
+import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
 import { styles } from './style'
 
-export function CardItem() {
+export function CardListItem() {
   let [fontsLoaded] = useNunitoFonts()
 
+  const navigation = useNavigation()
+
+  const goReportScreen = () => {
+    navigation.navigate('ReportScreen')
+  }
+
   return (
-    <TouchableOpacity>
-      <Card style={styles.cardItem}>
+    <TouchableOpacity onPress={goReportScreen}>
+      <Card style={styles.cardListItem}>
         <Card.Content style={{ paddingBottom: 5 }}>
           <View style={styles.flexRow}>
             <Title style={styles.title}>3초소 거수자 발견</Title>

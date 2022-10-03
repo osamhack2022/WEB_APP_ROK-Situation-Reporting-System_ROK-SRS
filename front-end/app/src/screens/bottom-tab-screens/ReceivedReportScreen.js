@@ -1,4 +1,4 @@
-import { CardItem } from '../../components/CardItem'
+import { CardListItem } from '../../components/CardListItem'
 import { SafeAreaView, View, StyleSheet, ScrollView } from 'react-native'
 import { FAB } from 'react-native-paper'
 import { Alert } from 'react-native'
@@ -10,15 +10,15 @@ export function ReceivedReportScreen() {
         contentContainerStyle={styles.scrollView}
         showsVerticalScrollIndicator={false}
       >
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
-        <CardItem />
+        <CardListItem />
+        <CardListItem />
+        <CardListItem />
+        <CardListItem />
+        <CardListItem />
+        <CardListItem />
+        <CardListItem />
+        <CardListItem />
+        <CardListItem />
       </ScrollView>
       <View style={{ position: 'absolute', bottom: 20, right: 20 }}>
         <FAB

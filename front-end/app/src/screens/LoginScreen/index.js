@@ -5,13 +5,15 @@ import { TextInput } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
+import { GuideText } from '../../components/GuideText'
+import AppLoading from 'expo-app-loading'
 
 export function LoginScreen() {
+  let [fontsLoaded] = useNunitoFonts()
+
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
   const [passwordVisible, setPasswordVisible] = useState(true)
-
-  const [fontsLoaded] = useNunitoFonts()
 
   const navigation = useNavigation()
 
@@ -24,6 +26,9 @@ export function LoginScreen() {
     []
   )
 
+  if (!fontsLoaded) {
+    return <AppLoading />
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoView}>
@@ -40,6 +45,9 @@ export function LoginScreen() {
           style={styles.loginTextInput}
           onChangeText={(id) => setId(id)}
         />
+        <View style={styles.guideTextView}>
+          <GuideText guideText={`2x-xxxxxxxx`} />
+        </View>
         <TextInput
           label="비밀번호"
           dense={true}
@@ -54,6 +62,9 @@ export function LoginScreen() {
           style={styles.loginTextInput}
           onChangeText={(password) => setPassword(password)}
         />
+        <View style={styles.guideTextView}>
+          <GuideText guideText={`${password.length}/15`} />
+        </View>
         <View style={styles.loginButtonView}>
           <TouchableOpacity onPress={goChatNavigator}>
             <Text style={styles.LoginText}>로 그 인</Text>
