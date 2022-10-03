@@ -1,8 +1,8 @@
 
 .inputfield {
-  width: 250px;
+  width: 400px;
   height: 25px;
-  margin: auto;
+  font-size: 17px;
   display: block;
   border-top: none; 
   border-left: none; 
@@ -10,8 +10,9 @@
 }
 
 .buttonfield {
-  width: 130px;
-  height: 30px;
+  width: 170px;
+  height: 33px;
+  font-size: 18px;
   background-color: #008272;
   color: white; 
   border-radius: 5px;
@@ -30,18 +31,46 @@
   outline: none;
   border-bottom: 2px solid black; 
 }
-
 #loginfooter {
-  width: 340px;
+  width: 400px;
   margin: auto;
   margin-top: 20px;
 }
+#demofooter {
+  width: 400px;
+  margin: auto;
+  margin-top: 55px;
+}
+#demofooterh2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.desctext {
+  font-size: 10px;
+}
+
+
+#demofooter button {
+  background-color: #008272;
+  color: white; 
+  border-radius: 5px;
+  border: none;
+  margin-top: 5px;
+  height: 28px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#demofooter button:hover {
+  cursor: pointer; 
+  background-color: #016459;
+}
 
 .links {
-  color: skyblue;
-  font-size: 12px;
+  color: blue;
+  font-size: 15px;
 }
-.links a {
-  color: skyblue;
-  margin-left: 20px; 
+.links:hover {
+  color:rgb(0, 0, 158);
+  text-decoration: underline;
+
 }

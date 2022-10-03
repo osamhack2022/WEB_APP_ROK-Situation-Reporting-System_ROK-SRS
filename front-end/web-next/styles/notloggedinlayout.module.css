@@ -1,27 +1,37 @@
 .container {
     background-repeat: no-repeat;
     background-attachment: fixed;
+    background-size: cover;
     position: absolute; 
     margin: 0px;
     padding: 0px;
 }
 
 #idcontainer {
-    width: 470px; 
-    height: 700px; 
+    width: 600px; 
+    height: 900px; 
     background-color: white;
     border-radius: 10px; 
     position: absolute;
     top: 50%; 
-    left: 75%;
+    left: 80%;
     transform: translateX(-50%) translateY(-50%);
 
 }
 #logo {
     margin-top: 30px;
     padding-top: 30px;
+    margin: auto;
+    display: block;
 }
 
 #logocontainer {
     margin-top: 30px;
+    margin: auto;
+    display: block;
+}
+#childcontainer {
+    width: 500px; 
+    margin: auto;
+
 }
