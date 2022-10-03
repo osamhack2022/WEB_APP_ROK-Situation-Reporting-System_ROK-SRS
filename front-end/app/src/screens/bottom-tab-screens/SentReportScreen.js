@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 
-export function NoteScreen() {
+export function SentReportScreen() {
   return (
     <View
       style={{
@@ -10,7 +10,7 @@ export function NoteScreen() {
         backgroundColor: 'white',
       }}
     >
-      <Text>Note</Text>
+      <Text>SentReportScreen</Text>
     </View>
   )
 }

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { Colors } from 'react-native-paper'
 
 const styles = StyleSheet.create({
   container: {
@@ -6,6 +7,8 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     padding: 10,
+    borderColor: Colors.grey200,
+    borderBottomWidth: 1,
   },
   lefContainer: {
     flexDirection: 'row',
@@ -14,21 +17,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   avatar: {
-    width: 60,
-    height: 60,
-    borderRadius: 50,
+    width: 45,
+    height: 45,
+    borderRadius: 15,
     marginRight: 15,
   },
   username: {
-    fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 15,
+    fontFamily: 'NunitoSans_600SemiBold',
   },
   lastMessage: {
-    fontSize: 16,
+    fontFamily: 'NunitoSans_400Regular',
+    fontSize: 13,
     color: 'grey',
   },
   time: {
-    fontSize: 14,
+    fontFamily: 'NunitoSans_400Regular',
+    fontSize: 11,
     color: 'grey',
   },
 })

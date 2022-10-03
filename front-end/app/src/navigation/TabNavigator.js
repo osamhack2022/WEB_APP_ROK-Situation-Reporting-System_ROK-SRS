@@ -2,15 +2,20 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Colors } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-//prettier-ignore
-import { NoteScreen, ChatListScreen, ChartScreen, NotificationScreen, SettingScreen } from '../screens/bottom-tab-screens'
+import { ReportNavigator } from '../navigation/ReportNavigator'
+import {
+  ChatListScreen,
+  OrgChartScreen,
+  NotificationScreen,
+  SettingScreen,
+} from '../screens/bottom-tab-screens'
 
 const Tab = createBottomTabNavigator()
 
 const icons = {
-  NoteScreen: ['note-text', 'note-text-outline'],
+  ReportNavigator: ['note-text', 'note-text-outline'],
   ChatListScreen: ['message-text', 'message-text-outline'],
-  ChartScreen: ['graph', 'graph-outline'],
+  OrgChartScreen: ['graph', 'graph-outline'],
   NotificationScreen: ['bell', 'bell-outline'],
   SettingScreen: ['cog', 'cog-outline'],
 }
@@ -44,9 +49,9 @@ export function TabNavigator() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
-        name="NoteScreen"
+        name="ReportNavigator"
         options={{ title: '메모보고' }}
-        component={NoteScreen}
+        component={ReportNavigator}
       />
       <Tab.Screen
         name="ChatListScreen"
@@ -56,9 +61,9 @@ export function TabNavigator() {
         component={ChatListScreen}
       />
       <Tab.Screen
-        name="ChartScreen"
+        name="OrgChartScreen"
         options={{ title: '조직도' }}
-        component={ChartScreen}
+        component={OrgChartScreen}
       />
       <Tab.Screen
         name="NotificationScreen"

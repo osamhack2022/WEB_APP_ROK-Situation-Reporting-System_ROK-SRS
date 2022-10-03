@@ -5,9 +5,11 @@ import { TabNavigator } from './TabNavigator'
 
 const Stack = createStackNavigator()
 
-export function StackNavigator() {
+export function ChatNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}
+    >
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
       <Stack.Screen
         name="ChatRoomScreen"

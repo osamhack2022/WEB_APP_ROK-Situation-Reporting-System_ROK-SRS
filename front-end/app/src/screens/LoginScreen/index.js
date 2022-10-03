@@ -4,26 +4,19 @@ import { Image, SafeAreaView, View, Text, TouchableOpacity } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { styles } from './style'
-import {
-  useFonts,
-  NunitoSans_400Regular,
-  NunitoSans_600SemiBold,
-} from '@expo-google-fonts/nunito-sans'
+import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 
-export default function LoginScreen() {
-  let [fontsLoaded] = useFonts({
-    NunitoSans_400Regular,
-    NunitoSans_600SemiBold,
-  })
-
+export function LoginScreen() {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
   const [passwordVisible, setPasswordVisible] = useState(true)
 
+  const [fontsLoaded] = useNunitoFonts()
+
   const navigation = useNavigation()
 
-  const goStackNavigator = useCallback(
-    () => navigation.navigate('StackNavigator'),
+  const goChatNavigator = useCallback(
+    () => navigation.navigate('ChatNavigator'),
     []
   )
   const goSignUpScreen = useCallback(
@@ -62,17 +55,17 @@ export default function LoginScreen() {
           onChangeText={(password) => setPassword(password)}
         />
         <View style={styles.loginButtonView}>
-          <TouchableOpacity onPress={goStackNavigator}>
-            <Text style={styles.LoginText}>Login</Text>
+          <TouchableOpacity onPress={goChatNavigator}>
+            <Text style={styles.LoginText}>로 그 인</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.signUpView}>
           <TouchableOpacity>
-            <Text style={styles.signUpText}>Forgot Password</Text>
+            <Text style={styles.signUpText}>비밀번호 찾기</Text>
           </TouchableOpacity>
-          <Text>{'      |      '}</Text>
+          <Text style={{ marginLeft: 20, marginRight: 20 }}>|</Text>
           <TouchableOpacity onPress={goSignUpScreen}>
-            <Text style={styles.signUpText}>Sign Up</Text>
+            <Text style={styles.signUpText}>사용신청</Text>
           </TouchableOpacity>
         </View>
       </View>

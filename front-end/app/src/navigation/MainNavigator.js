@@ -1,8 +1,8 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import LoginScreen from '../screens/LoginScreen'
-import SignUpScreen from '../screens/SignUpScreen'
-import { StackNavigator } from './StackNavigator'
+import { LoginScreen } from '../screens/LoginScreen'
+import { SignUpScreen } from '../screens/SignUpScreen'
+import { ChatNavigator } from './ChatNavigator'
 
 const Stack = createStackNavigator()
 
@@ -19,7 +19,7 @@ export default function MainNavigator() {
         name="SignUpScreen"
         component={SignUpScreen}
       />
-      <Stack.Screen name="StackNavigator" component={StackNavigator} />
+      <Stack.Screen name="ChatNavigator" component={ChatNavigator} />
     </Stack.Navigator>
   )
 }

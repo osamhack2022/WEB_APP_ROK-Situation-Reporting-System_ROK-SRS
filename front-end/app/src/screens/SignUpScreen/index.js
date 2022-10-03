@@ -3,7 +3,7 @@ import { TextInput } from 'react-native-paper'
 import { View, SafeAreaView } from 'react-native'
 import { styles } from './style'
 
-export default function SignUpScreen() {
+export function SignUpScreen() {
   const [id, setId] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')

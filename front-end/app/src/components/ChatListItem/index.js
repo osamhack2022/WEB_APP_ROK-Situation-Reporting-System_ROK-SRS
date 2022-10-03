@@ -3,8 +3,11 @@ import { Image, View, Text, TouchableOpacity } from 'react-native'
 import styles from './style'
 import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
+import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 
 export const ChatListItem = ({ name, lastMessage, createAt }) => {
+  let [fontsLoaded] = useNunitoFonts()
+
   const navigation = useNavigation()
   const goChatRoom = () => {
     navigation.navigate('ChatRoomScreen')
@@ -15,7 +18,7 @@ export const ChatListItem = ({ name, lastMessage, createAt }) => {
       <View style={styles.container}>
         <View style={styles.lefContainer}>
           <Image
-            source={require('../../assets/images/avatar.png')}
+            source={{ uri: 'https://placeimg.com/140/140/people' }}
             style={styles.avatar}
           />
           <View style={styles.midContainer}>
@@ -25,9 +28,7 @@ export const ChatListItem = ({ name, lastMessage, createAt }) => {
             </Text>
           </View>
         </View>
-        <Text style={styles.time}>
-          {moment('2022-01-01').format('DD/MM/YYYY')}
-        </Text>
+        <Text style={styles.time}>{moment('2022-10-03 04:00').fromNow()}</Text>
       </View>
     </TouchableOpacity>
   )

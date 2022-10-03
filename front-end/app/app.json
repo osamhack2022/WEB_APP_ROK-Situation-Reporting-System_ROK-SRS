@@ -23,7 +23,8 @@
         "foregroundImage": "./src/assets/images/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.gudmin0526.roksrs"
+      "package": "com.gudmin0526.roksrs",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./src/assets/images/favicon.png"
