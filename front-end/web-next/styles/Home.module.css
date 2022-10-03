@@ -1,8 +1,7 @@
 
 .inputfield {
-  width: 300px;
+  width: 400px;
   height: 25px;
-  margin: auto;
   font-size: 17px;
   display: block;
   border-top: none; 
@@ -33,12 +32,12 @@
   border-bottom: 2px solid black; 
 }
 #loginfooter {
-  width: 410px;
+  width: 400px;
   margin: auto;
   margin-top: 20px;
 }
 #demofooter {
-  width: 410px; 
+  width: 400px;
   margin: auto;
   margin-top: 55px;
 }
@@ -68,7 +67,7 @@
 
 .links {
   color: blue;
-  font-size: 12px;
+  font-size: 15px;
 }
 .links:hover {
   color:rgb(0, 0, 158);
