@@ -70,13 +70,13 @@ function initial() {
       });
 
       new Role({
-        name: "moderator"
+        name: "master" // 부대장, 인사담당관 등
       }).save(err => {
         if (err) {
           console.log("error", err);
         }
 
-        console.log("added 'moderator' to roles collection");
+        console.log("added 'master' to roles collection");
       });
 
       new Role({

@@ -4,8 +4,7 @@ const User = mongoose.model(
   "User",
   new mongoose.Schema({
 	password: {
-		type: String,
-		maxlength: 50
+		type: String
 	},
 	username: { // 성명
 		type: String,
@@ -25,7 +24,7 @@ const User = mongoose.model(
 		maxlength: 50,
 		unique: 1
 	},
-	battalion: { // 대대
+	battalion: { // 부대(unit)
 		type: String,
 		maxlength: 50
 	},

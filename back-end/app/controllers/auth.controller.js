@@ -39,7 +39,7 @@ exports.signup = (req, res) => {
               return;
             }
 
-            res.send({ message: "User was registered successfully!" });
+            res.send({ message: "이용자 등록에 성공했습니다." });
           });
         }
       );
@@ -57,7 +57,7 @@ exports.signup = (req, res) => {
             return;
           }
 
-          res.send({ message: "User was registered successfully!" });
+          res.send({ message: "이용자 등록에 성공했습니다." });
         });
       });
     }
@@ -76,7 +76,7 @@ exports.signin = (req, res) => {
       }
 
       if (!user) {
-        return res.status(404).send({ message: "User Not found." });
+        return res.status(404).send({ message: "등록되지 않은 이용자입니다." });
       }
 
       var passwordIsValid = bcrypt.compareSync(
@@ -85,7 +85,7 @@ exports.signin = (req, res) => {
       );
 
       if (!passwordIsValid) {
-        return res.status(401).send({ message: "Invalid Password!" });
+        return res.status(401).send({ message: "비밀번호가 틀렸습니다." });
       }
 
       var token = jwt.sign({ id: user.id }, config.secret, {
@@ -112,7 +112,7 @@ exports.signin = (req, res) => {
 exports.signout = async (req, res) => {
   try {
     req.session = null;
-    return res.status(200).send({ message: "You've been signed out!" });
+    return res.status(200).send({ message: "로그아웃 되었습니다." });
   } catch (err) {
     this.next(err);
   }
