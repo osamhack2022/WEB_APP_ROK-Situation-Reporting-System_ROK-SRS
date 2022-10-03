@@ -124,6 +124,8 @@ export default Organogram;
 
 const styles = {
 	cardButton: {
+        width: 'auto',
+        height: 'auto',
 		padding: 0,
 		border: 'transparent',
 		borderRadius: '30pt',
@@ -140,6 +142,5 @@ const styles = {
 		padding: '10px 0px',
 		border: '1px solid #777',
 		borderRadius: '30pt',
-		boxShadow: '4px 3px 5px #aaa'
 	}
 }
