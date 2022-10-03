@@ -10,13 +10,13 @@
   }
   
   .buttonfield {
-    width: 180px;
-    height: 36px;
+    width: 170px;
+    height: 33px;
+    font-size: 18px;
     background-color: #008272;
     color: white; 
     border-radius: 5px;
     border: none;
-    margin: auto;
     margin-top: 5px;
     display: block;
   }
