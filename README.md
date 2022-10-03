@@ -1,5 +1,5 @@
 # 국군 야전 상황보고체계, ROK Situation Reporting System
-![Logo](https://logosbynick.com/wp-content/uploads/2018/03/final-logo-example.png)
+![Logo](https://i.ibb.co/VQqT63J/450-300px-300-100px-900-300px.png)
 
 # Table of Contents
 1. [프로잭트 소개](#💡프로잭트-소개	)
