@@ -16,7 +16,7 @@ const Register = () => {
             <form  className={styles.form} action="/send-data-here" method="post" style={{ width: '380px', margin: 'auto' }}>
                 <input className={styles.inputfield} type="text" placeholder='이름' name="Name" required />
                 <br></br>
-                <input className={styles.inputfield} type="text" placeholder='군번' name="milnum" required />
+                <input className={styles.inputfield} type="text" placeholder='군번' name="DoDID" required />
                 <span className={styles.inputdesc}>22-xxxxxxxx 양식으로 입력</span>
                 <br></br>
                 <input className={styles.inputfield} type="text" placeholder='초대 코드' name="invcode" required />
@@ -25,7 +25,7 @@ const Register = () => {
                 <input className={styles.inputfield} type="password" placeholder='비밀번호' name="password" required />
                 <span className={styles.inputdesc}>8자리 이상 비밀번호 사용</span>
                 <br></br>
-                <input className={styles.inputfield} type="password" placeholder='비밀번호 확인' name="password" required />
+                <input className={styles.inputfield} type="password" placeholder='비밀번호 확인' name="confpassword" required />
                 <br></br>
             <button className={styles.buttonfield} type="submit">가입하기</button>
             </form>

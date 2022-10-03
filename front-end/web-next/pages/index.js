@@ -12,7 +12,7 @@ export default function Home() {
       <NotLoggedinLayout>
         <h1 style={{ textAlign: 'center', marginBottom: '20px', marginTop: '20px' }}>로그인</h1>
         <form action="/send-data-here" method="post" style={{ width: '400px', margin: 'auto' }}>
-          <input className={styles.inputfield} type="text" placeholder='군번' name="ID" style={{ margin: 'auto', display: 'block' }} required />
+          <input className={styles.inputfield} type="text" placeholder='군번' name="DoDID" style={{ margin: 'auto', display: 'block' }} required />
           <br></br>
           <input className={styles.inputfield} type="password" placeholder='비밀번호' name="password" required />
           <br></br>
