@@ -18,7 +18,7 @@ export const ChatListItem = ({ name, lastMessage, createAt }) => {
       <View style={styles.container}>
         <View style={styles.lefContainer}>
           <Image
-            source={{ uri: 'https://placeimg.com/140/140/people' }}
+            source={require('../../assets/images/avatar.png')}
             style={styles.avatar}
           />
           <View style={styles.midContainer}>

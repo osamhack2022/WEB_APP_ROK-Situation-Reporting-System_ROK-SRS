@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native'
-
+import { Colors } from 'react-native-paper'
 export const styles = StyleSheet.create({
   cardListItem: {
     width: '95%',
-    elevation: 0,
     borderBottomWidth: 1,
+    borderBottomColor: Colors.grey400,
+    marginTop: 3,
+    paddingBottom: 3,
   },
   title: {
     fontSize: 18,
@@ -21,11 +23,11 @@ export const styles = StyleSheet.create({
   flexRowEnd: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: 5,
+    marginTop: 3,
   },
   text: {
     fontSize: 15,
-    marginLeft: 5,
+    marginLeft: 3,
     color: 'red',
     fontFamily: 'NunitoSans_600SemiBold',
   },

@@ -17,7 +17,7 @@ export function CardListItem() {
 
   return (
     <TouchableOpacity onPress={goReportScreen}>
-      <Card style={styles.cardListItem}>
+      <View style={styles.cardListItem}>
         <Card.Content style={{ paddingBottom: 5 }}>
           <View style={styles.flexRow}>
             <Title style={styles.title}>3초소 거수자 발견</Title>
@@ -47,7 +47,7 @@ export function CardListItem() {
             </Text>
           </View>
         </Card.Content>
-      </Card>
+      </View>
     </TouchableOpacity>
   )
 }

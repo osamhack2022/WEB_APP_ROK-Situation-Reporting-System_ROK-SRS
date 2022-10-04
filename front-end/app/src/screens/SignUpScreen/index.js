@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { TextInput } from 'react-native-paper'
-import { View, SafeAreaView } from 'react-native'
+import { View, SafeAreaView, TouchableOpacity, Text } from 'react-native'
 import { styles } from './style'
 import { GuideText } from '../../components/GuideText'
 
@@ -74,6 +74,11 @@ export function SignUpScreen() {
         <View style={styles.guideTextView}>
           <GuideText guideText={`2x-xxxxxxxx`} />
         </View>
+      </View>
+      <View style={styles.signUpButtonView}>
+        <TouchableOpacity>
+          <Text style={styles.signUpText}>사 용 신 청</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   )

@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     borderBottomColor: Colors.grey400,
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: 'NunitoSans_600SemiBold',
   },
   titleView: {
@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontSize: 15,
+    fontSize: 18,
     marginLeft: 5,
     color: 'red',
     fontFamily: 'NunitoSans_600SemiBold',

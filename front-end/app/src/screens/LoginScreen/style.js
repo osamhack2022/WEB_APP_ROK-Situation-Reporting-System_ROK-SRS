@@ -39,9 +39,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: (30 / 812) * window.height,
-    elevation: 15,
+    elevation: 10,
     shadowOpacity: 0.5,
-    shadowRadius: 5,
+    shadowRadius: 1,
   },
   LoginText: {
     fontSize: 18,
