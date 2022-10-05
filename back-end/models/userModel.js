@@ -4,13 +4,18 @@ const bcrypt = require("bcryptjs");
 const userSchema = mongoose.Schema(
   {
     name: { type: "String", required: true },
-    email: { type: "String", unique: true, required: true },
+    dodid: { type: "String", unique: true, required: true },
     password: { type: "String", required: true },
+    rank: { type: "String", required: true },
+    invcode: { type: "String", required: true },
+    email: { type: "String", unique: true, required: false },
+    milnumber: { type: "String", required: false },
+    number: { type: "String", unique: true, required: false },
     pic: {
       type: "String",
-      required: true,
+      required: false,
       default:
-        "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+        "https://cdn-icons-png.flaticon.com/512/6142/6142226.png",
     },
     isAdmin: {
       type: Boolean,
@@ -18,7 +23,7 @@ const userSchema = mongoose.Schema(
       default: false,
     },
   },
-  { timestaps: true }
+  { timestamps: true }
 );
 
 userSchema.methods.matchPassword = async function (enteredPassword) {

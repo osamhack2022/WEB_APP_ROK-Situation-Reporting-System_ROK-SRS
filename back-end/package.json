@@ -1,5 +1,5 @@
 {
-  "name": "chat-app",
+  "name": "ROKSRS",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -11,7 +11,7 @@
     "roksrs",
     "osam"
   ],
-  "author": "rok-srs",
+  "author": "rok-srs_yhcho0405",
   "license": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
