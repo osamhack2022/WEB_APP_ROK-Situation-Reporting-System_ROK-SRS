@@ -6,12 +6,12 @@ import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
 import { styles } from './style'
 
-export function CardListItem() {
+export function ReportListItem() {
   let [fontsLoaded] = useNunitoFonts()
 
   const navigation = useNavigation()
 
-  const goReportScreen = () => {
+  const goReportScreen = ({ title, finished, content, importance }) => {
     navigation.navigate('ReportScreen')
   }
 

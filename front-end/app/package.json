@@ -24,6 +24,7 @@
     "moment": "^2.29.4",
     "react": "18.0.0",
     "react-native": "0.69.5",
+    "react-native-dropdown-picker": "^5.4.2",
     "react-native-dynamic-search-bar": "github:WrathChaos/react-native-dynamic-search-bar#expo",
     "react-native-dynamic-vector-icons": "github:WrathChaos/react-native-dynamic-vector-icons#expo",
     "react-native-gesture-handler": "~2.5.0",

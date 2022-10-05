@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native'
 import { Avatar, Paragraph, Button } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
+import { Profile } from '../Profile'
 import { styles } from './style'
 
 const text =
@@ -11,16 +12,12 @@ export function ReportCard() {
 
   return (
     <View style={styles.contentView}>
-      <View style={styles.avatarView}>
-        <Avatar.Image
-          source={require('../../assets/images/avatar.png')}
-          size={50}
-        />
-        <View style={styles.nameView}>
-          <Text style={styles.name}>병장 김형민</Text>
-          <Text style={styles.position}>본부중대 통신</Text>
-        </View>
-      </View>
+      <Profile
+        name="병장 김형민"
+        position="본부중대 통신"
+        size={40}
+        src={require('../../assets/images/avatar.png')}
+      />
       <Paragraph style={styles.paragraph}>{text}</Paragraph>
       <View style={styles.contView}>
         <View style={styles.seqView}>

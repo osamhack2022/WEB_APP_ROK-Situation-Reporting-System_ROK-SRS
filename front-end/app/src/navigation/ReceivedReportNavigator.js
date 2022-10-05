@@ -2,6 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { ReceivedReportScreen } from '../screens/bottom-tab-screens'
 import { ReportScreen } from '../screens/bottom-tab-screens'
+import { CreateReportScreen } from '../screens/bottom-tab-screens'
 
 const Stack = createStackNavigator()
 
@@ -13,6 +14,7 @@ export function ReceivedReportNavigator() {
         component={ReceivedReportScreen}
       />
       <Stack.Screen name="ReportScreen" component={ReportScreen} />
+      <Stack.Screen name="CreateReportScreen" component={CreateReportScreen} />
     </Stack.Navigator>
   )
 }
