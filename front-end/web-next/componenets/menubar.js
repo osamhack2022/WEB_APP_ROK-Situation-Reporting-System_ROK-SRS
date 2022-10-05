@@ -4,6 +4,7 @@ import { HomeFilled } from '@ant-design/icons';
 import { RiOrganizationChart, RiLogoutBoxLine } from 'react-icons/ri';
 import { GrNotes } from 'react-icons/gr';
 import { AiOutlineMessage, AiOutlineBell, AiOutlineSetting } from 'react-icons/ai';
+import { useRouter } from "next/router"
 
 
 const links = [
@@ -13,33 +14,35 @@ const links = [
         label: "Home"
     },
     {
-        href: "/userhome",
+        href: "/orgchart",
         icon: RiOrganizationChart,
         label: "조직도"
     },
     {
-        href: "/userhome",
+        href: "/memonote",
         icon: GrNotes,
         label: "메모보고"
     },
     {
-        href: "/userhome",
+        href: "/messages",
         icon: AiOutlineMessage,
         label: "메세지"
     },
     {
-        href: "/userhome",
+        href: "/notifications",
         icon: AiOutlineBell,
         label: "알림"
     },
     {
-        href: "/userhome",
+        href: "/settings",
         icon: AiOutlineSetting,
         label: "세팅"
-    }, 
+    },
 ]
 
 const MenuBar = ({ children }) => {
+    const { pathname } = useRouter()
+
     return (
         <>
             <div className={styles.menubar}>
@@ -48,17 +51,17 @@ const MenuBar = ({ children }) => {
                     icon: Icon,
                     label
                 }, i) =>
-                    <Link href={href} >
+                    <Link href={href} key={href}>
                         <a className={styles.menuitem} style={{
+                            ...(pathname === href ? { backgroundColor: "#015c4d" } : {}),
                             marginTop: i === 0 || i === 1 ? '40px' : '12px'
-
                         }}>
                             <Icon className={styles.icons} />
                             <span>{label}</span>
                         </a>
                     </Link>
                 )}
-                <Link href = "/userhome">
+                <Link href="/logout">
                     <a className={styles.logoutitem}>
                         <RiLogoutBoxLine></RiLogoutBoxLine>
                         <span>로그아웃</span>
