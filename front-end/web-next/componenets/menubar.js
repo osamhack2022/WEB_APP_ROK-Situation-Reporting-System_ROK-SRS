@@ -1,6 +1,6 @@
 import styles from '../styles/menubar.module.css'
 import Link from "next/link"
-import { HomeFilled, TeamOutlined } from '@ant-design/icons';
+import { HomeFilled } from '@ant-design/icons';
 import { RiOrganizationChart, RiLogoutBoxLine } from 'react-icons/ri';
 import { GrNotes } from 'react-icons/gr';
 import { AiOutlineMessage, AiOutlineBell, AiOutlineSetting } from 'react-icons/ai';
@@ -8,7 +8,7 @@ import { AiOutlineMessage, AiOutlineBell, AiOutlineSetting } from 'react-icons/a
 
 const links = [
     {
-        href: "/userhome",
+        href: "/home",
         icon: HomeFilled,
         label: "Home"
     },
