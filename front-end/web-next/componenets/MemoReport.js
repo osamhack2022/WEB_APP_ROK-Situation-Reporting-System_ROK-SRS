@@ -1,6 +1,6 @@
 import { Avatar, Button, Comment } from 'antd';
 
-function ReportCard(props, { children }) {
+function ReportCard(props) {
   function ButtonGroup() {
     return (
       <>
@@ -25,7 +25,7 @@ function ReportCard(props, { children }) {
       datetime={props.datetime}
       actions={<ButtonGroup />}
     >
-      {children}
+      {props.children}
     </Comment>
   )
 }
