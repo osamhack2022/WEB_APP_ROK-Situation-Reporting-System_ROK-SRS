@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import ReportCard from '../componenets/MemoReport'
+import ReportCard, {ReportLayout} from '../componenets/MemoReport'
 
 function listCard(data) {
   if(!data)
@@ -54,7 +54,8 @@ export default function Memo() {
       <Head>
         <title>메모 보고</title>
       </Head>
-      {listCard(sampleData)}
+      {/* {listCard(sampleData)} */}
+      <ReportLayout />
     </>
   )
 }
