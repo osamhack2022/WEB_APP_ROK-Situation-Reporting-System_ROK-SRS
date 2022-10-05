@@ -20,7 +20,6 @@ export function ChatListScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <Searchbar
-        placeholder="Search.."
         onChangeText={onChangeSearch}
         value={searchQuery}
         style={styles.searchBar}
@@ -42,10 +41,11 @@ const styles = StyleSheet.create({
     borderColor: Colors.grey300,
   },
   searchBar: {
+    width: '90%',
     borderWidth: 1,
     backgroundColor: Colors.grey200,
-    borderColor: Colors.grey300,
-    elevation: 3,
+    borderColor: Colors.grey400,
     height: 40,
+    elevation: 0,
   },
 })
