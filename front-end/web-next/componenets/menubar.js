@@ -41,7 +41,9 @@ const links = [
 ]
 
 const MenuBar = ({ children }) => {
-    const { pathname } = useRouter()
+    let { pathname } = useRouter()
+    pathname = "/" + pathname.split('/')[1]
+    console.log(pathname)
 
     return (
         <>
