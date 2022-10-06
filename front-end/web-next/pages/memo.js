@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { Layout, Row, Col } from 'antd';
-import ReportCard, { ReportList } from '../componenets/MemoReport'
+import ReportLayout from '../componenets/MemoReport'
 
 export default function Memo() {
   const sampleData = [
@@ -15,7 +15,7 @@ export default function Memo() {
       'name': 'Kim',
       'memo': '위병소 앞 화재 발생',
       'datetime': '23분 전',
-      'children': [
+      'comment': [
         {
           'key': '3',
           'name': 'Kim',
@@ -40,6 +40,7 @@ export default function Memo() {
         </p>
         <div style={styles.headerType}>
           <Row
+            justify='end'
             gutter={12}
           >
             <Col>종류: 긴급사항</Col>
@@ -64,19 +65,24 @@ export default function Memo() {
       <Head>
         <title>메모 보고</title>
       </Head>
-      {/* {listCard(sampleData)} */}
-      <Layout>
-        <Layout.Sider style={styles.siderLayout}>
+      <Layout style={styles.mainLayout}>
+        <Layout.Sider
+          style={styles.siderLayout}
+          width={400}
+        >
           <div style={styles.siderMenu}>
             <p>받은 메모 보고</p>
           </div>
         </Layout.Sider>
         <Layout.Content style={styles.contentLayout}>
           <div style={styles.contentMenu}>
-            <ReportList
+            <ReportLayout
               header={<Header />}
               footer={<Footer />}
-              data={sampleData}
+              name={sampleData[1].name}
+              memo={sampleData[1].memo}
+              datetime={sampleData[1].datetime}
+              comment={sampleData[1].comment}
             />
           </div>
         </Layout.Content>
@@ -87,6 +93,9 @@ export default function Memo() {
 
 
 const styles = {
+  mainLayout: {
+    backgroundColor: '#777',
+  },
   siderLayout: {
     backgroundColor: 'transparent',
     padding: '10px 20px'
@@ -98,11 +107,12 @@ const styles = {
     boxShadow: '3px 4px 5px #777'
   },
   contentLayout: {
+    width: '100%',
     backgroundColor: 'transparent',
     padding: '10px 20px'
   },
   contentMenu: {
-    padding: '10px 20px',
+    padding: '20px 40px',
     backgroundColor: '#fff',
     borderRadius: '20px',
     boxShadow: '3px 4px 5px #777'
