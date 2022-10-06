@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Layout, Divider, List } from 'antd';
+import { Layout, Row, Col } from 'antd';
 import ReportCard, { ReportList } from '../componenets/MemoReport'
 
 export default function Memo() {
@@ -32,6 +32,33 @@ export default function Memo() {
     }
   ]
 
+  function Header() {
+    return (
+      <div>
+        <p style={styles.headerTitle}>
+          3초소 거수자 발견[미종결]
+        </p>
+        <div style={styles.headerType}>
+          <Row
+            gutter={12}
+          >
+            <Col>종류: 긴급사항</Col>
+            <Col>중요도: 5</Col>
+            <Col>2022-08-03 03:34</Col>
+          </Row>
+        </div>
+      </div>
+    )
+  }
+
+  function Footer() {
+    return (
+      <p style={styles.footer}>
+        보고 체계: 중대
+      </p>
+    )
+  }
+
   return (
     <>
       <Head>
@@ -47,15 +74,8 @@ export default function Memo() {
         <Layout.Content style={styles.contentLayout}>
           <div style={styles.contentMenu}>
             <ReportList
-              header={
-                <>
-                  <p>3초소 거수자 발견[미종결]</p>
-                  <p>종류: 긴급사항</p>
-                  <p>중요도: 5</p>
-                  <p>2022-08-03 03:34</p>
-                </>
-              }
-              footer={<p>보고 체계: 중대</p>}
+              header={<Header />}
+              footer={<Footer />}
               data={sampleData}
             />
           </div>
@@ -86,5 +106,16 @@ const styles = {
     backgroundColor: '#fff',
     borderRadius: '20px',
     boxShadow: '3px 4px 5px #777'
+  },
+  headerTitle: {
+    fontSize: '14pt',
+    textAlign: 'center',
+    fontWeight: 'bold'
+  },
+  headerType: {
+    textAlign: 'right'
+  },
+  footer: {
+    
   }
 }
