@@ -5,21 +5,29 @@ import RegisterHeader from '../../componenets/registerheader';
 import { Dropdown, Menu, Space } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import { useRouter } from "next/router"
+import styles from '../../styles/unitsettings.module.css'
 
 
 
 
 
-const Settings = () => {
+
+const UnitSettings = () => {
   
     return <>
         <MenuBar>
-          <RegisterHeader></RegisterHeader>
-            Hello!
+            <div className = {styles.background}>
+                <RegisterHeader></RegisterHeader>
+                <div className = {styles.line} style = {{marginTop: '10px'}}></div>
+                <form className = {styles.formarea}>
+
+                </form>
+
+            </div>
         
         
         </MenuBar>
     </>
 }
 
-export default Settings; 
+export default UnitSettings; 

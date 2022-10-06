@@ -40,7 +40,7 @@ const RegisterHeader = () => {
   const { pathname } = useRouter()
   console.log(pathname) 
     return <>
-    <div style = {{display: "flex", height: "44px", marginTop: '20px'}}>
+    <div style = {{display: "flex", height: "44px", paddingTop: '10px'}}>
         <AiOutlineSetting className={styles.icons}/>
         <h1 style = {{fontWeight: 'bold', marginLeft: '10px'}}>세팅</h1>
         <Dropdown overlay={menu}>
