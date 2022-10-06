@@ -1,61 +1,52 @@
+import { useState } from 'react';
 import Head from 'next/head'
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, List, Button, Input } from 'antd';
 import ReportLayout from '../componenets/MemoReport'
 
 export default function Memo() {
+  const [selectedItem, setSelection] = useState(undefined);
   const sampleData = [
     {
-      'key': '1',
+      'key': 0,
       'name': 'Choe',
-      'memo': '거수자 1명 식별',
-      'datetime': '1분 전'
+      'position': '통신지원반',
+      'memo': 'test',
+      'datetime': '5분 전'
     },
     {
-      'key': '2',
-      'name': 'Kim',
-      'memo': '위병소 앞 화재 발생',
-      'datetime': '23분 전',
-      'comment': [
-        {
-          'key': '3',
-          'name': 'Kim',
-          'memo': '화재 상황 종료',
-          'datetime': '16분 전'
-        }
-      ]
+      'key': 1,
+      'name': 'Joe',
+      'position': '통신지원반',
+      'memo': '이상 무',
+      'datetime': '10분 전'
     },
-    {
-      'key': '4',
-      'name': 'Jo',
-      'memo': '미상의 비행체 관측',
-      'datetime': '1시간 전'
-    }
-  ]
+    
+  ];
 
-  function Header() {
+  function Header(props) {
     return (
       <div>
         <p style={styles.headerTitle}>
-          3초소 거수자 발견[미종결]
+          {props.title}
         </p>
         <div style={styles.headerType}>
           <Row
             justify='end'
             gutter={12}
           >
-            <Col>종류: 긴급사항</Col>
-            <Col>중요도: 5</Col>
-            <Col>2022-08-03 03:34</Col>
+            <Col>종류: {props.type}</Col>
+            <Col>중요도: {props.level}</Col>
+            <Col>{props.datetime}</Col>
           </Row>
         </div>
       </div>
     )
   }
 
-  function Footer() {
+  function Footer(props) {
     return (
       <p style={styles.footer}>
-        보고 체계: 중대
+        보고 체계: {props.unit}
       </p>
     )
   }
@@ -72,19 +63,36 @@ export default function Memo() {
         >
           <div style={styles.siderMenu}>
             <p>받은 메모 보고</p>
+            <Input.Search />
+            <List
+              itemLayout="horizontal"
+              dataSource={sampleData}
+              renderItem={(item) => (
+                <Button
+                  style={{ width: '100%', color: '#000' }}
+                  type="link"
+                  onClick={() => setSelection(item.key)}
+                >
+                  {item.memo}
+                </Button>
+              )}
+            />
           </div>
         </Layout.Sider>
         <Layout.Content style={styles.contentLayout}>
-          <div style={styles.contentMenu}>
-            <ReportLayout
-              header={<Header />}
-              footer={<Footer />}
-              name={sampleData[1].name}
-              memo={sampleData[1].memo}
-              datetime={sampleData[1].datetime}
-              comment={sampleData[1].comment}
-            />
-          </div>
+          {
+            (selectedItem !== undefined) &&
+            <div style={styles.contentMenu}>
+              <ReportLayout
+                header={<Header />}
+                footer={<Footer />}
+                name={sampleData[selectedItem].name}
+                memo={sampleData[selectedItem].memo}
+                datetime={sampleData[selectedItem].datetime}
+                comment={sampleData[selectedItem].comment}
+              />
+            </div>
+          }
         </Layout.Content>
       </Layout>
     </>
@@ -126,6 +134,6 @@ const styles = {
     textAlign: 'right'
   },
   footer: {
-    
+
   }
 }
