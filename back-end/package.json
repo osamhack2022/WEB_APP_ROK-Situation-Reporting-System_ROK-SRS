@@ -1,34 +1,27 @@
 {
-  "name": "node-js-jwt-auth-mongodb",
+  "name": "ROKSRS",
   "version": "1.0.0",
-  "description": "Node.js + MongoDB: JWT Authentication & Authorization",
+  "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "client": "cd ../front-end/web-next && npm run dev",
-    "concurrent": "concurrently \"npx nodemon server.js\" \"npm run client\""
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "keywords": [
-    "node.js",
-    "express",
-    "jwt",
-    "login",
-    "registration",
-    "authentication",
-    "authorization",
-    "mongodb",
-    "mongoose"
+    "roksrs",
+    "osam"
   ],
-  "author": "roksrs",
-  "license": "ISC",
+  "author": "rok-srs_yhcho0405",
+  "license": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "concurrently": "^7.4.0",
-    "cookie-session": "^1.4.0",
-    "cors": "^2.8.5",
+    "colors": "^1.4.0",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.13",
-    "nodemon": "^2.0.20"
+    "mongoose": "^5.12.9",
+    "nodemon": "^2.0.7",
+    "socket.io": "^4.1.2"
   }
 }

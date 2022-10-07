@@ -1,10 +1,10 @@
 import Head from 'next/head'
 import Link from "next/link"
 import MenuBar from '../componenets/menubar'
-const UserHome = () => {
+const Messages = () => {
     return <>
-        <MenuBar><p>Hello World!</p></MenuBar>
+        <MenuBar><p>OrgChart</p></MenuBar>
     </>
 }
 
-export default UserHome; 
+export default Messages; 
