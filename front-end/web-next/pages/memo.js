@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head'
-import { Layout, Row, Col, List, Button, Input } from 'antd';
+import { Layout, Row, Col, List, Button, Input, Divider } from 'antd';
 import ReportLayout from '../componenets/MemoReport'
 
 export default function Memo() {
@@ -10,17 +10,26 @@ export default function Memo() {
       'key': 0,
       'name': 'Choe',
       'position': '통신지원반',
-      'memo': 'test',
-      'datetime': '5분 전'
+      'memo': 'XX시 XX분 부 위병소 앞 거수자 1명 식별. 긴급출동조는 지금 즉시 출동 바람.',
+      'datetime': '5분 전',
+      'title': '위병소 거수자 1명 식별',
+      'type': '긴급사항',
+      'level': 5,
+      'unit': '대대',
+      'isDone': false
     },
     {
       'key': 1,
       'name': 'Joe',
       'position': '통신지원반',
       'memo': '이상 무',
-      'datetime': '10분 전'
-    },
-    
+      'datetime': '10분 전',
+      'title': '저녁 점호간 특이사항 보고',
+      'type': '보고사항',
+      'level': 0,
+      'unit': '중대',
+      'isDone': true
+    }
   ];
 
   function Header(props) {
@@ -28,6 +37,7 @@ export default function Memo() {
       <div>
         <p style={styles.headerTitle}>
           {props.title}
+          {props.isDone ? ' [종결]': ' [미종결]'}
         </p>
         <div style={styles.headerType}>
           <Row
@@ -69,11 +79,25 @@ export default function Memo() {
               dataSource={sampleData}
               renderItem={(item) => (
                 <Button
-                  style={{ width: '100%', color: '#000' }}
+                  style={styles.siderMenuButton}
                   type="link"
                   onClick={() => setSelection(item.key)}
                 >
-                  {item.memo}
+                  <p style={styles.siderMenuTitle}>
+                    {item.title}
+                    {item.isDone ? ' [종결]': ' [미종결]'}
+                  </p>
+                  <p style={styles.siderMenuContent}>
+                    {item.memo}
+                  </p>
+                  <Row
+                    style={styles.siderMenuFooter}
+                    gutter={10}
+                    justify="end"
+                  >
+                    <Col>중요도: {item.level}</Col>
+                    <Col>{item.datetime}</Col>
+                  </Row>
                 </Button>
               )}
             />
@@ -84,8 +108,18 @@ export default function Memo() {
             (selectedItem !== undefined) &&
             <div style={styles.contentMenu}>
               <ReportLayout
-                header={<Header />}
-                footer={<Footer />}
+                header={
+                  <Header
+                    title={sampleData[selectedItem].title}
+                    type={sampleData[selectedItem].type}
+                    level={sampleData[selectedItem].level}
+                    datetime={sampleData[selectedItem].datetime}
+                    isDone={sampleData[selectedItem].isDone}
+                  />
+                }
+                footer={
+                  <Footer unit={sampleData[selectedItem].unit} />
+                }
                 name={sampleData[selectedItem].name}
                 memo={sampleData[selectedItem].memo}
                 datetime={sampleData[selectedItem].datetime}
@@ -102,13 +136,17 @@ export default function Memo() {
 
 const styles = {
   mainLayout: {
-    backgroundColor: '#777',
+    height: '100%',
+    padding: '20px 30px',
+    backgroundColor: '#777'
   },
   siderLayout: {
+    height: '100%',
     backgroundColor: 'transparent',
     padding: '10px 20px'
   },
   siderMenu: {
+    height: '100%',
     padding: '10px 20px',
     backgroundColor: '#fff',
     borderRadius: '20px',
@@ -116,10 +154,12 @@ const styles = {
   },
   contentLayout: {
     width: '100%',
+    height: '100%',
     backgroundColor: 'transparent',
     padding: '10px 20px'
   },
   contentMenu: {
+    height: '100%',
     padding: '20px 40px',
     backgroundColor: '#fff',
     borderRadius: '20px',
@@ -135,5 +175,25 @@ const styles = {
   },
   footer: {
 
+  },
+  siderMenuButton: {
+    width: '100%',
+    height: 'auto',
+    color: '#000',
+    textAlign: 'left'
+  },
+  siderMenuTitle: {
+    fontSize: '11pt'
+  },
+  siderMenuContent: {
+    fontSize: '10pt',
+    paddingLeft: '10pt',
+    maxWidth: '288pt',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap'
+  },
+  siderMenuFooter: {
+    fontSize: '10pt'
   }
 }
