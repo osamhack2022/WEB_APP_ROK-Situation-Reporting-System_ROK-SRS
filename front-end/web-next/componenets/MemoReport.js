@@ -72,7 +72,7 @@ function ReportLayout(props) {
           {props.header}
         </Col>
       </Row>
-      <Divider />
+      <Divider style={{ margin: '15px 0' }} />
       <Row>
         <Col style={styles.contentLayout(props.height)}>
           <ReportCard
@@ -89,7 +89,7 @@ function ReportLayout(props) {
           }
         </Col>
       </Row>
-      <Divider />
+      <Divider style={{ margin: '10px 0' }} />
       <Row justify='space-between'>
         <Col>
           {props.footer}
@@ -125,7 +125,7 @@ const styles = {
   },
   contentLayout: (height) => ({
     width: '100%',
-    maxHeight: height && '660px',
+    height: height ? height : '700px',
     overflow: 'auto'
   })
 }

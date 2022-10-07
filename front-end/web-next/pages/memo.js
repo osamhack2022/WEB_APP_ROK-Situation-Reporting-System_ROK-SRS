@@ -80,34 +80,37 @@ export default function Memo() {
           width={400}
         >
           <div style={styles.siderMenu}>
-            <p>받은 메모 보고</p>
+            <p style={styles.siderTitle}>받은 메모 보고</p>
             <Input.Search style={styles.menuSearcher} />
             <div style={styles.scrollableDiv}>
               <List
                 itemLayout="horizontal"
                 dataSource={sampleData}
                 renderItem={(item) => (
-                  <Button
-                    style={styles.siderMenuButton}
-                    type="link"
-                    onClick={() => setSelection(item.key)}
-                  >
-                    <p style={styles.siderMenuTitle}>
-                      {item.title}
-                      {item.isDone ? ' [종결]' : ' [미종결]'}
-                    </p>
-                    <p style={styles.siderMenuContent}>
-                      {item.memo}
-                    </p>
-                    <Row
-                      style={styles.siderMenuFooter}
-                      gutter={10}
-                      justify="end"
+                  <div>
+                    <Button
+                      style={styles.siderMenuButton}
+                      type="link"
+                      onClick={() => setSelection(item.key)}
                     >
-                      <Col>중요도: {item.level}</Col>
-                      <Col>{item.datetime}</Col>
-                    </Row>
-                  </Button>
+                      <p style={styles.siderMenuTitle}>
+                        {item.title}
+                        {item.isDone ? ' [종결]' : ' [미종결]'}
+                      </p>
+                      <p style={styles.siderMenuContent}>
+                        {item.memo}
+                      </p>
+                      <Row
+                        style={styles.siderMenuFooter}
+                        gutter={10}
+                        justify="end"
+                      >
+                        <Col>중요도: {item.level}</Col>
+                        <Col>{item.datetime}</Col>
+                      </Row>
+                    </Button>
+                    <Divider style={{ margin: 0 }} />
+                  </div>
                 )}
               />
             </div>
@@ -130,7 +133,7 @@ export default function Memo() {
                 footer={
                   <Footer unit={sampleData[selectedItem].unit} />
                 }
-                height="660px"
+                height="710px"
                 name={sampleData[selectedItem].name}
                 position={sampleData[selectedItem].position}
                 memo={sampleData[selectedItem].memo}
@@ -159,10 +162,14 @@ const styles = {
   },
   siderMenu: {
     height: '100%',
-    padding: '10px 20px',
+    padding: '20px 30px',
     backgroundColor: '#fff',
     borderRadius: '20px',
     boxShadow: '3px 4px 5px #777'
+  },
+  siderTitle: {
+    fontSize: '15pt',
+    fontWeight: 'bold'
   },
   contentLayout: {
     width: '100%',
@@ -199,10 +206,12 @@ const styles = {
     width: '100%',
     height: 'auto',
     color: '#000',
-    textAlign: 'left'
+    textAlign: 'left',
+    padding: '5px'
   },
   siderMenuTitle: {
-    fontSize: '11pt'
+    fontSize: '11pt',
+    fontWeight: 'bold'
   },
   siderMenuContent: {
     fontSize: '10pt',
