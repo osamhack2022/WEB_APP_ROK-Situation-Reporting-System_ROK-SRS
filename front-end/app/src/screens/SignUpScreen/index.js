@@ -72,7 +72,7 @@ export function SignUpScreen() {
           style={styles.signUpTextInput}
         ></TextInput>
         <View style={styles.guideTextView}>
-          <GuideText guideText={`2x-xxxxxxxx`} />
+          <GuideText guideText={`부대에서 받은 초대코드 입력`} />
         </View>
       </View>
       <View style={styles.signUpButtonView}>

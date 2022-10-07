@@ -1,7 +1,7 @@
 import { ReportListItem } from '../../components/ReportListItem'
 // prettier-ignore
 import { SafeAreaView, View, StyleSheet, ScrollView, FlatList } from 'react-native'
-import { FAB } from 'react-native-paper'
+import { Colors, FAB } from 'react-native-paper'
 import { Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 
@@ -38,7 +38,7 @@ export function ReceivedReportScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: Colors.grey100,
   },
   scrollView: {
     width: '100%',

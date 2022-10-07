@@ -14,7 +14,7 @@ export function ChatNavigator() {
       <Stack.Screen
         name="ChatRoomScreen"
         component={ChatRoomScreen}
-        options={{ title: '김형민', headerShown: true }}
+        options={{ title: '병장 김형민', headerShown: true }}
       />
     </Stack.Navigator>
   )

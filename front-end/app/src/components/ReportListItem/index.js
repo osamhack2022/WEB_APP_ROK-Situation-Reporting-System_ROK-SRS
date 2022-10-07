@@ -25,7 +25,7 @@ export function ReportListItem() {
           </View>
           <Paragraph
             style={styles.paragraph}
-            numberOfLines={2}
+            numberOfLines={3}
             ellipsizeMode="tail"
           >
             충성! 당직사령님. 3초소에 사복을 입은 거수자가 나타났습니다. 무기를

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet, View, Text } from 'react-native'
+import { SafeAreaView, StyleSheet, View, Text, ScrollView } from 'react-native'
 import { Portal, Modal, Avatar, Provider, Colors } from 'react-native-paper'
 import { OrgListItem } from '../../components/OrgListItem'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
@@ -15,55 +15,68 @@ export const LeftImage = () => (
 export function OrgChartScreen() {
   let [fontsLoaded] = useNunitoFonts()
 
-  const [visible, setVisible] = useState(false)
+  const [modalData, setModalData] = useState({})
 
-  const showModal = () => setVisible(true)
-  const hideModal = () => setVisible(false)
+  const showModal = ({ name, role, team, tel }) =>
+    setModalData({
+      name,
+      role,
+      team,
+      tel,
+      visible: true,
+    })
+  const hideModal = () =>
+    setModalData({
+      ...modalData,
+      visible: false,
+    })
 
   return (
     <Provider>
       <SafeAreaView style={styles.container}>
-        <OrgListItem showModal={showModal} />
-        <Portal>
-          <Modal
-            visible={visible}
-            onDismiss={hideModal}
-            contentContainerStyle={{
-              backgroundColor: 'white',
-              alignItems: 'center',
-              margin: 50,
-              padding: 25,
-              borderRadius: 15,
-            }}
-          >
-            <Avatar.Image
-              source={require('../../assets/images/soldier.png')}
-              size={70}
-              style={{ backgroundColor: Colors.grey400, marginBottom: 5 }}
-            />
-            <Text style={styles.nameText}>중위 이원빈</Text>
-            <View style={{ marginRight: 80 }}>
-              <View style={styles.flexRow}>
-                <View style={styles.box}>
-                  <Text style={styles.boxText}>ROLE</Text>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <OrgListItem showModal={showModal} title="본부중대" />
+          <Portal>
+            <Modal
+              visible={modalData.visible}
+              onDismiss={hideModal}
+              contentContainerStyle={{
+                backgroundColor: 'white',
+                alignItems: 'center',
+                margin: 50,
+                padding: 25,
+                borderRadius: 15,
+              }}
+            >
+              <Avatar.Image
+                source={require('../../assets/images/soldier.png')}
+                size={70}
+                style={{ backgroundColor: Colors.grey400, marginBottom: 5 }}
+              />
+              <Text style={styles.nameText}>{modalData.name}</Text>
+              <View style={{ marginRight: 80 }}>
+                <View style={styles.flexRow}>
+                  <View style={styles.box}>
+                    <Text style={styles.boxText}>ROLE</Text>
+                  </View>
+                  <Text style={styles.text}>{modalData.role}</Text>
                 </View>
-                <Text style={styles.text}>관리자</Text>
-              </View>
-              <View style={styles.flexRow}>
-                <View style={styles.box}>
-                  <Text style={styles.boxText}>TEAM</Text>
+                <View style={styles.flexRow}>
+                  <View style={styles.box}>
+                    <Text style={styles.boxText}>TEAM</Text>
+                  </View>
+                  <Text style={styles.text}>{modalData.team}</Text>
                 </View>
-                <Text style={styles.text}>통신소대</Text>
-              </View>
-              <View style={styles.flexRow}>
-                <View style={styles.box}>
-                  <Text style={styles.boxText}>TEL</Text>
+                <View style={styles.flexRow}>
+                  <View style={styles.box}>
+                    <Text style={styles.boxText}>TEL</Text>
+                  </View>
+                  <Text style={styles.text}>{modalData.tel}</Text>
                 </View>
-                <Text style={styles.text}>010-1234-5678</Text>
               </View>
-            </View>
-          </Modal>
-        </Portal>
+            </Modal>
+          </Portal>
+        </ScrollView>
       </SafeAreaView>
     </Provider>
   )
@@ -73,7 +86,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
+  },
+  scrollView: {
+    width: '100%',
+    alignItems: 'flex-start',
   },
   flexRow: {
     flexDirection: 'row',

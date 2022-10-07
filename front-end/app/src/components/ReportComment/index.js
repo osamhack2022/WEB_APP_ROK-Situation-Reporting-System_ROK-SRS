@@ -13,7 +13,7 @@ export function ReportComment({ name, position, text }) {
   return (
     <View style={styles.contentView}>
       <Profile
-        name="상병 조영효"
+        name="상병 허태호"
         position="본부중대 저격"
         size={40}
         src={require('../../assets/images/avatar.png')}

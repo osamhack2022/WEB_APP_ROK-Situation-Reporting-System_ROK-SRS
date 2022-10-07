@@ -25,11 +25,11 @@ const tempData = [
 export function OrgListItem(props) {
   let [fontsLoaded] = useNunitoFonts()
   return (
-    <View style={{ width: '100%' }}>
+    <View style={styles.container}>
       <List.Section style={styles.section}>
         <List.Accordion
-          title="통신소대"
-          left={(props) => <List.Icon icon="access-point-network" />}
+          title={props.title}
+          left={() => <List.Icon icon="access-point-network" />}
         >
           {tempData.map((item, idx) => (
             <List.Item
@@ -39,7 +39,14 @@ export function OrgListItem(props) {
               titleStyle={styles.titleStyle}
               descriptionStyle={styles.descriptionStyle}
               key={idx}
-              onPress={props.showModal}
+              onPress={() =>
+                props.showModal({
+                  name: item.title,
+                  role: item.description,
+                  team: '통신소대',
+                  tel: '010-1234-5678',
+                })
+              }
             />
           ))}
           <List.Accordion

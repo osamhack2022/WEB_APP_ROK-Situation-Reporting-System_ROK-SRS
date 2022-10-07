@@ -3,19 +3,23 @@ import { Colors } from 'react-native-paper'
 
 export const styles = StyleSheet.create({
   cardListItem: {
-    width: '95%',
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.grey400,
-    marginTop: 3,
-    paddingBottom: 3,
+    width: '96%',
+    borderColor: Colors.grey400,
+    backgroundColor: 'white',
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 8,
+    borderRadius: 15,
+    paddingVertical: 3,
   },
   title: {
-    fontSize: 18,
+    fontSize: 17,
     fontFamily: 'NunitoSans_600SemiBold',
   },
   paragraph: {
     fontSize: 14,
     fontFamily: 'NunitoSans_400Regular',
+    color: Colors.grey700,
   },
   flexRow: {
     flexDirection: 'row',
@@ -24,7 +28,7 @@ export const styles = StyleSheet.create({
   flexRowEnd: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: 3,
+    marginTop: 5,
   },
   text: {
     fontSize: 15,

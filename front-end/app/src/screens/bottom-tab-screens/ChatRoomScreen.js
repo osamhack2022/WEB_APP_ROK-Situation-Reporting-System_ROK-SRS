@@ -7,7 +7,12 @@ function renderBubble(props) {
       {...props}
       wrapperStyle={{
         left: {
-          backgroundColor: '#d3d3d3',
+          backgroundColor: 'white',
+        },
+      }}
+      textStyle={{
+        left: {
+          color: 'black',
         },
       }}
     />
@@ -25,7 +30,8 @@ export function ChatRoomScreen() {
         user: {
           _id: 1,
           name: '김형민',
-          avatar: 'https://placeimg.com/140/140/any',
+          avatar:
+            'https://d2v80xjmx68n4w.cloudfront.net/gigs/rate/ApRqY1571825139.PNG',
         },
       },
       {
@@ -35,7 +41,8 @@ export function ChatRoomScreen() {
         user: {
           _id: 1,
           name: '김형민',
-          avatar: 'https://placeimg.com/140/140/any',
+          avatar:
+            'https://d2v80xjmx68n4w.cloudfront.net/gigs/rate/ApRqY1571825139.PNG',
         },
       },
     ])
