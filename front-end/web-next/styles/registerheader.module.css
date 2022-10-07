@@ -1,0 +1,14 @@
+.icons>svg {
+    width: 33px;
+    height: 33px;
+}
+.icons {
+    width: 37px; 
+    height: 37px;
+    margin-left: 50px;
+}
+.line {
+    width: 100%; 
+    border-bottom: 1px solid grey; 
+    height: 1px;
+}
