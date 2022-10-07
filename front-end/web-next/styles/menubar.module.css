@@ -61,4 +61,7 @@
 
 #child {
     height: 100vh;
+    width: calc(100vw - 280px);
+    float: right; 
+
 }

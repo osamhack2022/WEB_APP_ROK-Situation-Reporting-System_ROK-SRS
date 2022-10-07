@@ -52,6 +52,7 @@ const RegisterHeader = () => {
             </a>
         </Dropdown>
     </div>
+    <div className = {styles.line} style = {{marginTop: '10px'}}></div>
        
         
         

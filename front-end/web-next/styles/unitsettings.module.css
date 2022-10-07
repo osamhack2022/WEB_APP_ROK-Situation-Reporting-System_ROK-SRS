@@ -2,18 +2,20 @@
     height: 100%; 
     display: block; 
 }
-.line {
-    width: 100%; 
-    border-bottom: 1px solid grey; 
-    height: 1px;
-    
-    
-}
 
 .formarea {
-    width: 700px;
-    height: 100%; 
-    margin: auto; 
-    background-color: grey; 
-    
+    width: 70%;
+    height: calc(100vh - 90px);
+    margin-left: 50px; 
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #E0E0E0;   
+    border-radius: 10px;  
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }
