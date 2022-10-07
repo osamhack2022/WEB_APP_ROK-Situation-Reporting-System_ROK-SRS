@@ -10,6 +10,7 @@ const allUsers = asyncHandler(async (req, res) => {
     ? {
         $or: [
           { name: { $regex: req.query.search, $options: "i" } },
+          { dodId: { $regex: req.query.search, $options: "i" } },
           { email: { $regex: req.query.search, $options: "i" } },
         ],
       }
@@ -23,18 +24,23 @@ const allUsers = asyncHandler(async (req, res) => {
 //@route           POST /api/user/
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { rank, name, dodId, email, password, pic, invCode } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !dodId) {
     res.status(400);
     throw new Error("Please Enter all the Feilds");
   }
 
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ dodId });
 
   if (userExists) {
     res.status(400);
     throw new Error("User already exists");
+  }
+
+  if (invCode != "1234") { // hard code, Todo: 초대코드를 어떻게 생성/관리할지 논의 후 수정
+    res.status(400);
+    throw new Error("Invalid invite code");
   }
 
   const user = await User.create({
@@ -42,12 +48,16 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     pic,
+    dodId,
+    rank
   });
 
   if (user) {
     res.status(201).json({
       _id: user._id,
       name: user.name,
+      rank: user.rank,
+      dodId: user.dodId,
       email: user.email,
       isAdmin: user.isAdmin,
       pic: user.pic,
@@ -63,14 +73,15 @@ const registerUser = asyncHandler(async (req, res) => {
 //@route           POST /api/users/login
 //@access          Public
 const authUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { dodId, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ dodId });
 
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
       name: user.name,
+      dodId: dodId,
       email: user.email,
       isAdmin: user.isAdmin,
       pic: user.pic,
@@ -78,7 +89,7 @@ const authUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error("Invalid Email or Password");
+    throw new Error("Invalid dodId or Password");
   }
 });
 
