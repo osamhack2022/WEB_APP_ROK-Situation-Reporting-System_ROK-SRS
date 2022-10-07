@@ -2,7 +2,7 @@ import { Avatar, Button, Comment, List, Row, Col, Divider } from 'antd';
 
 function ReportCard(props) {
   return (
-    <div style={{ marginBottom: '10px'}}>
+    <div style={{ marginBottom: '10px' }}>
       <Row
         align="middle"
         justify='space-between'
@@ -10,7 +10,7 @@ function ReportCard(props) {
         <Col>
           <Row gutter={12}>
             <Col>
-              <Avatar src="https://joeschmoe.io/api/v1/random" size={48}/>
+              <Avatar src="https://joeschmoe.io/api/v1/random" size={48} />
             </Col>
             <Col>
               <div style={styles.cardName}>{props.name}</div>
@@ -74,19 +74,19 @@ function ReportLayout(props) {
       </Row>
       <Divider />
       <Row>
-        <Col style={{ width: '100%' }}>
-            <ReportCard
+        <Col style={styles.contentLayout(props.height)}>
+          <ReportCard
             name={props.name}
-            position="통신지원반"
+            position={props.position}
             memo={props.memo}
             datetime={props.datetime}
           />
-            {
-              props.comment &&
-              <div style={{ paddingLeft: '30px' }}>
-                <ReportList data={props.comment} />
-              </div>
-            }
+          {
+            props.comment &&
+            <div style={{ paddingLeft: '30px' }}>
+              <ReportList data={props.comment} />
+            </div>
+          }
         </Col>
       </Row>
       <Divider />
@@ -122,5 +122,10 @@ const styles = {
     marginTop: '10px',
     paddingLeft: '5px',
     fontSize: '11pt'
-  }
+  },
+  contentLayout: (height) => ({
+    width: '100%',
+    maxHeight: height && '660px',
+    overflow: 'auto'
+  })
 }

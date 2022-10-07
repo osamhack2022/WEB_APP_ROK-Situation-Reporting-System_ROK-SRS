@@ -16,7 +16,15 @@ export default function Memo() {
       'type': '긴급사항',
       'level': 5,
       'unit': '대대',
-      'isDone': false
+      'isDone': false,
+      'comment': [
+        {
+          'name': 'Joe',
+          'position': '통신지원반',
+          'memo': '이상 무',
+          'datetime': '10분 전',
+        }
+      ]
     },
     {
       'key': 1,
@@ -37,7 +45,7 @@ export default function Memo() {
       <div>
         <p style={styles.headerTitle}>
           {props.title}
-          {props.isDone ? ' [종결]': ' [미종결]'}
+          {props.isDone ? ' [종결]' : ' [미종결]'}
         </p>
         <div style={styles.headerType}>
           <Row
@@ -73,34 +81,36 @@ export default function Memo() {
         >
           <div style={styles.siderMenu}>
             <p>받은 메모 보고</p>
-            <Input.Search />
-            <List
-              itemLayout="horizontal"
-              dataSource={sampleData}
-              renderItem={(item) => (
-                <Button
-                  style={styles.siderMenuButton}
-                  type="link"
-                  onClick={() => setSelection(item.key)}
-                >
-                  <p style={styles.siderMenuTitle}>
-                    {item.title}
-                    {item.isDone ? ' [종결]': ' [미종결]'}
-                  </p>
-                  <p style={styles.siderMenuContent}>
-                    {item.memo}
-                  </p>
-                  <Row
-                    style={styles.siderMenuFooter}
-                    gutter={10}
-                    justify="end"
+            <Input.Search style={styles.menuSearcher} />
+            <div style={styles.scrollableDiv}>
+              <List
+                itemLayout="horizontal"
+                dataSource={sampleData}
+                renderItem={(item) => (
+                  <Button
+                    style={styles.siderMenuButton}
+                    type="link"
+                    onClick={() => setSelection(item.key)}
                   >
-                    <Col>중요도: {item.level}</Col>
-                    <Col>{item.datetime}</Col>
-                  </Row>
-                </Button>
-              )}
-            />
+                    <p style={styles.siderMenuTitle}>
+                      {item.title}
+                      {item.isDone ? ' [종결]' : ' [미종결]'}
+                    </p>
+                    <p style={styles.siderMenuContent}>
+                      {item.memo}
+                    </p>
+                    <Row
+                      style={styles.siderMenuFooter}
+                      gutter={10}
+                      justify="end"
+                    >
+                      <Col>중요도: {item.level}</Col>
+                      <Col>{item.datetime}</Col>
+                    </Row>
+                  </Button>
+                )}
+              />
+            </div>
           </div>
         </Layout.Sider>
         <Layout.Content style={styles.contentLayout}>
@@ -120,7 +130,9 @@ export default function Memo() {
                 footer={
                   <Footer unit={sampleData[selectedItem].unit} />
                 }
+                height="660px"
                 name={sampleData[selectedItem].name}
+                position={sampleData[selectedItem].position}
                 memo={sampleData[selectedItem].memo}
                 datetime={sampleData[selectedItem].datetime}
                 comment={sampleData[selectedItem].comment}
@@ -175,6 +187,13 @@ const styles = {
   },
   footer: {
 
+  },
+  menuSearcher: {
+    marginBottom: '15px'
+  },
+  scrollableDiv: {
+    maxHeight: 'calc(100% - 100px)',
+    overflow: 'auto'
   },
   siderMenuButton: {
     width: '100%',
