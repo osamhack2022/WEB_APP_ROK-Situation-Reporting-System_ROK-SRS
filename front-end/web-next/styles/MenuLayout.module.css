@@ -17,6 +17,16 @@
 .sidebar {
     background-color: transparent;
     border: 0;
-    font-size: 14pt;
+}
+
+.menuIcon {
+    width: 18pt;
+    height: 18pt;
+    margin-right: 15px;
+}
+
+.menuLabel {
+    font-size: 18pt;
     font-weight: bold;
+    margin: 10px 0;
 }
