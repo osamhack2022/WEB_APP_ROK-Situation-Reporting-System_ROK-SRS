@@ -13,11 +13,19 @@
     margin-bottom: 20px;
     background-color: white;   
     border-radius: 10px;  
+}
+.formarea1 {
+    display: flex; 
+    height: 300px;
+}
+
+.formarea2 {
     display: flex; 
 }
 
 .changeunitinfo {
     width: 600px;
+    height: 300px; 
     margin-top: 25px;
     margin-left: 50px;
 }
@@ -35,6 +43,7 @@
 .changeunitlogo {
     margin-top: 25px;
     width: 370px; 
+    height: 300px; 
     margin-left: 25px;
 }
 
@@ -76,4 +85,36 @@
 .submitbutton:hover {
     cursor: pointer; 
     background-color: #005c51;
+}
+
+.userlist {
+    width: 600px;
+    margin-left: 50px; 
+}
+
+.userlist h1 {
+    text-align: center;
+    font-weight: bold;
+}
+.userlistcontainer {
+    max-height: 400px;
+    height: 400px; 
+    overflow-y: scroll;
+}
+
+.demo-loadmore-list {
+    max-height: 600px;
+    height: 600px; 
+}
+
+
+.adduser {
+    width: 370px; 
+    height: 300px; 
+    margin-left: 25px;
+}
+
+.adduser h1 {
+    text-align: center; 
+    font-weight: bold; 
 }
