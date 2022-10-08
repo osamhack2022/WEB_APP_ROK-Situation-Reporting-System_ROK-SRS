@@ -20,15 +20,15 @@ const allUsers = asyncHandler(async (req, res) => {
   res.send(users);
 });
 
-//@description     Register new user
-//@route           POST /api/user/
+//@description     Add new user
+//@route           POST /api/user/add
 //@access          Public
-const registerUser = asyncHandler(async (req, res) => {
-  const { rank, name, dodId, email, password, pic, invCode } = req.body;
+const addUser = asyncHandler(async (req, res) => {
+  const { rank, name, dodId, isAdmin } = req.body;
 
-  if (!name || !email || !password || !dodId) {
+  if (!rank || !name || !dodId || !isAdmin) {
     res.status(400);
-    throw new Error("Please Enter all the Feilds");
+    throw new Error("Please Enter all the Fields");
   }
 
   const userExists = await User.findOne({ dodId });
@@ -36,6 +36,49 @@ const registerUser = asyncHandler(async (req, res) => {
   if (userExists) {
     res.status(400);
     throw new Error("User already exists");
+  }
+
+  invCode = Math.random().toString(36).substring(2,4);
+
+  const user = await User.create({
+    name,
+    dodId,
+    rank, 
+    isAdmin,
+    invCode
+  });
+
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      rank: user.rank,
+      dodId: user.dodId,
+      isAdmin: user.isAdmin,
+      invCode: user.invCode
+    });
+  } else {
+    res.status(400);
+    throw new Error("User not found");
+  }
+});
+
+//@description     Register new user
+//@route           POST /api/user/register
+//@access          Public
+const registerUser = asyncHandler(async (req, res) => {
+  const { rank, name, dodId, email, password, pic, invCode } = req.body;
+
+  if (!name || !email || !password || !dodId) {
+    res.status(400);
+    throw new Error("Please Enter all the Fields");
+  }
+
+  const userId = await User.findOne({ dodId });
+
+  if (!userId) {
+    res.status(400);
+    throw new Error("Unauthorized user, contact unit manager");
   }
 
   if (invCode != "1234") { // hard code, Todo: 초대코드를 어떻게 생성/관리할지 논의 후 수정
