@@ -8,6 +8,7 @@ import styles from '../styles/MenuLayout.module.css';
 
 function MenuLayout(props) {
   const router = useRouter()
+  const currentPath = router.pathname;
 
   const sideMenu = [
     {
@@ -21,28 +22,28 @@ function MenuLayout(props) {
       label: '조직도'
     },
     {
-      key: 'memo',
+      key: 'memonote',
       icon: <GrNotes />,
       label: '메모 보고'
     },
     {
-      key: 'messege',
+      key: 'messeges',
       icon: <AiOutlineMessage />,
       label: '메세지'
     },
     {
-      key: 'notification',
+      key: 'notifications',
       icon: <AiOutlineBell />,
       label: '알림'
     },
     {
-      key: 'setting',
+      key: 'settings',
       icon: <AiOutlineSetting />,
       label: '설정'
     }
   ];
 
-  if(props.exception && props.exception.includes(router.pathname)) {
+  if (props.exception && props.exception.includes(currentPath)) {
     return props.children;
   }
 
@@ -53,6 +54,8 @@ function MenuLayout(props) {
           className={styles.sidebar}
           mode="vertical"
           items={sideMenu}
+          defaultSelectedKeys={currentPath.substring(1, (currentPath.indexOf('/', 1) === -1 ? currentPath.length : currentPath.indexOf('/')))}
+          onSelect={({ key }) => router.push('/' + key)}
         />
       </Layout.Sider>
       <Layout.Content className={styles.contentLayout}>
