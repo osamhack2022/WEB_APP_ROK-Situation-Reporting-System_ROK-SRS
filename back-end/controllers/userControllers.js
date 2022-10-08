@@ -4,7 +4,7 @@ const generateToken = require("../config/generateToken");
 
 //@description     Get or Search all users
 //@route           GET /api/user?search=
-//@access          Public
+//@access          Protected
 const allUsers = asyncHandler(async (req, res) => {
   const keyword = req.query.search
     ? {
@@ -22,7 +22,7 @@ const allUsers = asyncHandler(async (req, res) => {
 
 //@description     Add new user
 //@route           POST /api/user/add
-//@access          Public
+//@access          Protected
 const addUser = asyncHandler(async (req, res) => {
   const { rank, name, dodId, isAdmin } = req.body;
 
@@ -69,7 +69,7 @@ const addUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
   const { rank, name, dodId, email, password, pic, invCode } = req.body;
 
-  if (!name || !email || !password || !dodId) {
+  if (!rank || !name || !email || !password || !dodId) {
     res.status(400);
     throw new Error("Please Enter all the Fields");
   }
@@ -143,4 +143,4 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { allUsers, registerUser, authUser };
+module.exports = { allUsers, addUser, registerUser, authUser };
