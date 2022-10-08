@@ -74,41 +74,48 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Please Enter all the Fields");
   }
 
-  const userId = await User.findOne({ dodId });
+  const userDb = await User.findOne({ dodId });
 
-  if (!userId) {
+  if (!userDb) {
     res.status(400);
-    throw new Error("Unauthorized user, contact unit manager");
+    throw new Error("Unauthorized User, Contact Unit Manager");
   }
 
-  if (invCode != "1234") { // hard code, Todo: 초대코드를 어떻게 생성/관리할지 논의 후 수정
+  if (invCode != userDb.invCode) {
     res.status(400);
-    throw new Error("Invalid invite code");
+    throw new Error("Invalid Invite Code");
   }
 
-  const user = await User.create({
-    name,
-    email,
-    password,
-    pic,
-    dodId,
-    rank
-  });
+  const updatedUser = await User.findByIdAndUpdate(
+    userDb._id,
+    {
+      email: email,
+    },    
+    {
+      password: password,
+    },
+    {
+      pic: pic,
+    },
+    {
+      new: true,
+    }
+  ) 
 
-  if (user) {
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      rank: user.rank,
-      dodId: user.dodId,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      pic: user.pic,
-      token: generateToken(user._id),
-    });
+  if (!updatedUser) {
+    res.status(400);
+    throw new Error("User Not Found");
   } else {
-    res.status(400);
-    throw new Error("User not found");
+    res.status(201).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      rank: updatedUser.rank,
+      dodId: updatedUser.dodId,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+      pic: updatedUser.pic,
+      token: generateToken(updatedUser._id),
+    });
   }
 });
 
