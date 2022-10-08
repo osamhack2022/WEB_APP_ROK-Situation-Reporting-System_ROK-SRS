@@ -118,3 +118,11 @@
     text-align: center; 
     font-weight: bold; 
 }
+
+.adduser h2 {
+    margin-bottom: 0px;
+}
+
+.input {
+    margin-bottom: 5px;
+}
