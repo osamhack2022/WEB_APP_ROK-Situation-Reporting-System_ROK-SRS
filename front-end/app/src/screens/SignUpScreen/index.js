@@ -18,7 +18,7 @@ const checkPasswordMatch = (password, confirmPassword) => {
     : `비밀번호가 일치하지 않습니다.`
 }
 
-const register = (data) => {
+const registerHandler = (data) => {
   fetch('https://1bd7-14-7-194-69.jp.ngrok.io/api/user/register', {
     method: 'POST',
     headers: {
@@ -26,8 +26,8 @@ const register = (data) => {
     },
     body: JSON.stringify(data),
   })
-    .then((response) => response.json())
-    .then((data) => console.log(data.message))
+    .then((res) => res.json())
+    .then((res) => console.log(res.message))
     .catch((error) => console.error(error))
 }
 
@@ -137,7 +137,7 @@ export function SignUpScreen() {
           name &&
           inviteCode && (
             <TouchableOpacity
-              onPress={() => register(userData)}
+              onPress={() => registerHandler(userData)}
               style={styles.signUpButtonView}
             >
               <Text style={styles.signUpText}>사 용 신 청</Text>

@@ -7,11 +7,31 @@ import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import { GuideText } from '../../components/GuideText'
 import AppLoading from 'expo-app-loading'
+import { Alert } from 'react-native'
+
+const loginHandler = ({ dodId, password }, cb) => {
+  fetch('https://1bd7-14-7-194-69.jp.ngrok.io/api/user/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ dodId, password }),
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res.message)
+      if (res.status === '200') cb()
+      else {
+        Alert.alert(res.message)
+      }
+    })
+    .catch((error) => console.error(error))
+}
 
 export function LoginScreen() {
   let [fontsLoaded] = useNunitoFonts()
 
-  const [id, setId] = useState('')
+  const [dodId, setDodId] = useState('')
   const [password, setPassword] = useState('')
   const [passwordVisible, setPasswordVisible] = useState(true)
 
@@ -43,7 +63,7 @@ export function LoginScreen() {
           dense={true}
           activeUnderlineColor="#008275"
           style={styles.loginTextInput}
-          onChangeText={(id) => setId(id)}
+          onChangeText={(dodId) => setDodId(dodId)}
         />
         <View style={styles.guideTextView}>
           <GuideText guideText={`2x-xxxxxxxx`} />
@@ -65,11 +85,12 @@ export function LoginScreen() {
         <View style={styles.guideTextView}>
           <GuideText guideText={`${password.length}/15`} />
         </View>
-        <View style={styles.loginButtonView}>
-          <TouchableOpacity onPress={goChatNavigator}>
-            <Text style={styles.LoginText}>로 그 인</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          onPress={() => loginHandler({ dodId, password }, goChatNavigator)}
+          style={styles.loginButtonView}
+        >
+          <Text style={styles.LoginText}>로 그 인</Text>
+        </TouchableOpacity>
         <View style={styles.signUpView}>
           <TouchableOpacity>
             <Text style={styles.signUpText}>비밀번호 찾기</Text>
