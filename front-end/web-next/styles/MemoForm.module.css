@@ -1,3 +1,7 @@
+.formLayout {
+    border-radius: '50%';
+}
+
 .formLabel {
     font-size: 16pt;
     font-weight: bold;
@@ -5,25 +9,36 @@
 }
 
 .formElement {
-    margin: 5px 0px;
+    margin: 20px 0px;
 }
 
 .formTitleInput {
     width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    background-color: #d1d1d1;
+    border: 0;
+    border-radius: 10px;
+    font-size: 14px;
 }
 
 .formTypeInput {
     width: 100%;
-}
-
-.formOrgInput {
-    width: 100%;
-}
-
-.formAdditionInput {
-    width: 100%;
+    height: 40px;
+    padding: 0 10px;
+    background-color: #d1d1d1;
+    border: 0;
+    border-radius: 10px;
+    font-size: 14px;
 }
 
 .formContentInput {
     width: 100%;
+    height: 150px;
+    padding: 10px 10px;
+    background-color: #d1d1d1;
+    border: 0;
+    border-radius: 10px;
+    font-size: 14px;
+    resize: none;
 }

@@ -21,7 +21,8 @@
     "react-dom": "18.2.0",
     "react-draggable": "^4.4.5",
     "react-icons": "^4.4.0",
-    "react-organizational-chart": "^2.2.0"
+    "react-organizational-chart": "^2.2.0",
+    "react-search-autocomplete": "^8.0.0"
   },
   "devDependencies": {
     "eslint": "8.24.0",
