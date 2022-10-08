@@ -38,7 +38,7 @@ export function ReceivedReportScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.grey100,
+    backgroundColor: Colors.grey200,
   },
   scrollView: {
     width: '100%',

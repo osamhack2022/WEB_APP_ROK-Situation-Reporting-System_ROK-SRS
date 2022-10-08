@@ -19,33 +19,37 @@ export function ChatListScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Searchbar
-        onChangeText={onChangeSearch}
-        value={searchQuery}
-        style={styles.searchBar}
-      />
       <FlatList
         data={userData}
         renderItem={renderItem}
         ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
-        style={{ backgroundColor: 'white', width: '95%' }}
+        style={{ backgroundColor: Colors.grey200, width: '100%' }}
         showsVerticalScrollIndicator={false}
+        ListHeaderComponent={
+          <Searchbar
+            onChangeText={onChangeSearch}
+            value={searchQuery}
+            style={styles.searchBar}
+          />
+        }
       />
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: 'white', alignItems: 'center' },
+  container: { flex: 1, backgroundColor: Colors.grey200, alignItems: 'center' },
   itemSeparator: {
     borderColor: Colors.grey300,
   },
   searchBar: {
     width: '90%',
     borderWidth: 1,
-    backgroundColor: Colors.grey200,
+    backgroundColor: 'white',
     borderColor: Colors.grey400,
+    marginTop: 5,
     height: 40,
     elevation: 0,
+    alignSelf: 'center',
   },
 })
