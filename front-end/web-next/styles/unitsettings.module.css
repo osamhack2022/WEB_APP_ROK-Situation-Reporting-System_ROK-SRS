@@ -1,21 +1,120 @@
 .background {
     height: 100%; 
     display: block; 
+    min-width: 1100px;
+    overflow-x: scroll; 
 }
 
 .formarea {
-    width: 70%;
+    width: 95%;
+    margin: auto; 
     height: calc(100vh - 90px);
-    margin-left: 50px; 
     margin-top: 20px;
     margin-bottom: 20px;
-    background-color: #E0E0E0;   
+    background-color: white;   
     border-radius: 10px;  
 }
+.formarea1 {
+    display: flex; 
+    height: 300px;
+}
 
-.custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
+.formarea2 {
+    display: flex; 
+}
+
+.changeunitinfo {
+    width: 600px;
+    height: 300px; 
+    margin-top: 25px;
+    margin-left: 50px;
+}
+.changeunitinfo h1 {
+    font-weight: bold; 
+    text-align: center; 
+}
+
+.unitlogo {
+    
+    width: 200px; 
+    display: block; 
+    margin: auto; 
+}
+.changeunitlogo {
+    margin-top: 25px;
+    width: 370px; 
+    height: 300px; 
+    margin-left: 25px;
+}
+
+.changeunitlogo h1 {
+    font-weight: bold;
+    text-align: center;
+}
+
+.ant-image-img  {
+    margin: auto; 
+    display: block;
+}
+.uploadcontainer {
+    width: 160px;
+    height: 100px;
+    margin: auto; 
+    margin-top: 45px;
+    margin-left: 10px; 
+}
+
+
+
+.ant-upload {
+    width: 200px;
+}
+
+.submitbutton {
+    background-color: #008272;
+    border-radius: 20px; 
+    width: 120px; 
+    margin: auto;  
+    border: none; 
+    display: block; 
+    color: white; 
+    height: 30px; 
+    margin-top: 10px;
+}
+
+.submitbutton:hover {
+    cursor: pointer; 
+    background-color: #005c51;
+}
+
+.userlist {
+    width: 600px;
+    margin-left: 50px; 
+}
+
+.userlist h1 {
+    text-align: center;
+    font-weight: bold;
+}
+.userlistcontainer {
+    max-height: 400px;
+    height: 400px; 
+    overflow-y: scroll;
+}
+
+.demo-loadmore-list {
+    max-height: 600px;
+    height: 600px; 
+}
+
+
+.adduser {
+    width: 370px; 
+    height: 300px; 
+    margin-left: 25px;
+}
+
+.adduser h1 {
+    text-align: center; 
+    font-weight: bold; 
 }
