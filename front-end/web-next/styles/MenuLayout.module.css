@@ -1,0 +1,22 @@
+.bodyLayout {
+    height: 100%;
+}
+
+
+.sideLayout {
+    width: 280px;
+    height: 100%;
+    background-color: #008272;
+    padding: 60px 0px;
+}
+
+.contentLayout {
+    height: 100%
+}
+
+.sidebar {
+    background-color: transparent;
+    border: 0;
+    font-size: 14pt;
+    font-weight: bold;
+}

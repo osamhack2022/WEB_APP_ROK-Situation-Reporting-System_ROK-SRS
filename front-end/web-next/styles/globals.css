@@ -37,4 +37,17 @@ a {
   }
 }
 
+.ant-menu > .ant-menu-item:hover,
+.ant-menu > .ant-menu-item-active,
+.ant-menu > .ant-menu-item-open {
+  color: #000
+}
 
+.ant-menu-item-selected {
+  background-color: #004136 !important;
+  border-top: 4px solid rgba(0, 119, 0, 0.5);
+  border-bottom: 4px solid rgba(0, 119, 0, 0.5);
+  color: #000;
+  margin: 0px 0px 4px;
+  box-sizing: content-box;
+}
