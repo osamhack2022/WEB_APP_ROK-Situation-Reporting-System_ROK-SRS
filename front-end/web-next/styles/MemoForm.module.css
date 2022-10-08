@@ -1,0 +1,29 @@
+.formLabel {
+    font-size: 16pt;
+    font-weight: bold;
+    line-height: 0;
+}
+
+.formElement {
+    margin: 5px 0px;
+}
+
+.formTitleInput {
+    width: 100%;
+}
+
+.formTypeInput {
+    width: 100%;
+}
+
+.formOrgInput {
+    width: 100%;
+}
+
+.formAdditionInput {
+    width: 100%;
+}
+
+.formContentInput {
+    width: 100%;
+}
