@@ -49,13 +49,15 @@ function MenuLayout(props) {
   return (
     <Layout className={styles.bodyLayout}>
       <Layout.Sider className={styles.sideLayout}>
-        <Menu
-          className={styles.sidebar}
-          mode="vertical"
-          items={sideMenu}
-          selectedKeys={currentPath.substring(1, (currentPath.indexOf('/', 1) === -1 ? currentPath.length : currentPath.indexOf('/')))}
-          onSelect={({ key }) => router.push('/' + key)}
-        />
+        <div className="sidebarMenu">
+          <Menu
+            className={styles.sidebar}
+            mode="vertical"
+            items={sideMenu}
+            selectedKeys={currentPath.substring(1, (currentPath.indexOf('/', 1) === -1 ? currentPath.length : currentPath.indexOf('/')))}
+            onSelect={({ key }) => router.push('/' + key)}  
+          />
+        </div>
       </Layout.Sider>
       <Layout.Content className={styles.contentLayout}>
         {props.children}
