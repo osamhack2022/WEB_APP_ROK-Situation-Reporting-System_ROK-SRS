@@ -135,6 +135,8 @@ function MemoForm(props) {
   return (
     <Modal
       open={props.isOpen}
+      onOk={props.onSubmitted}
+      onCancel={props.onCancel}
     >
       <div className={styles.formLayout}>
         <div className={styles.formElement}>
