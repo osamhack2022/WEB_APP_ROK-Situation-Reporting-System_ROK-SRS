@@ -1,10 +1,14 @@
 import { useState } from 'react';
 import Head from 'next/head'
 import { Layout, Row, Col, List, Button, Input, Divider } from 'antd';
-import ReportLayout from '../componenets/MemoReport'
+import { FormOutlined } from '@ant-design/icons';
+import ReportLayout from '../componenets/MemoReport';
+import MemoForm from '../componenets/MemoForm';
 
 export default function Memo() {
   const [selectedItem, setSelection] = useState(undefined);
+  const [formOpened, setFormOpened] = useState(false);
+
   const sampleData = [
     {
       'key': 0,
@@ -80,7 +84,22 @@ export default function Memo() {
           width={400}
         >
           <div style={styles.siderMenu}>
-            <p style={styles.siderTitle}>받은 메모 보고</p>
+            <Row
+              style={{ marginBottom: '20px' }}
+              align="middle"
+              justify="space-between"
+            >
+              <Col>
+                <div style={styles.siderTitle}>받은 메모 보고</div>
+              </Col>
+              <Col>
+                <Button
+                  shape="circle"
+                  icon={<FormOutlined />}
+                  onClick={() => setFormOpened(true)}
+                />
+              </Col>
+            </Row>
             <Input.Search style={styles.menuSearcher} />
             <div style={styles.scrollableDiv}>
               <List
@@ -144,6 +163,11 @@ export default function Memo() {
           }
         </Layout.Content>
       </Layout>
+      <MemoForm
+        isOpen={formOpened}
+        onSubmitted={() => setFormOpened(false)}
+        onCancel={() => setFormOpened(false)}
+      />
     </>
   )
 }
