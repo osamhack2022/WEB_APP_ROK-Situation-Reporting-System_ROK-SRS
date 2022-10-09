@@ -48,15 +48,27 @@ function MenuLayout(props) {
 
   return (
     <Layout className={styles.bodyLayout}>
-      <Layout.Sider className={styles.sideLayout}>
+      <Layout.Sider
+        className={styles.sideLayout}
+        width="280px"
+      >
         <div className="sidebarMenu">
           <Menu
             className={styles.sidebar}
+            style={{ width: '280px' }}
             mode="vertical"
             items={sideMenu}
             selectedKeys={currentPath.substring(1, (currentPath.indexOf('/', 1) === -1 ? currentPath.length : currentPath.indexOf('/')))}
-            onSelect={({ key }) => router.push('/' + key)}  
+            onSelect={({ key }) => router.push('/' + key)}
           />
+          <Button
+            className={styles.signoutButton}
+            onClick={() => console.log('logout')}
+          >
+
+            <RiLogoutBoxLine className={styles.menuIcon} />
+            로그아웃
+          </Button>
         </div>
       </Layout.Sider>
       <Layout.Content className={styles.contentLayout}>
