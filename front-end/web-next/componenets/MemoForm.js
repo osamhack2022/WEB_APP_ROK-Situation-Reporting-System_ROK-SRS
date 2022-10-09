@@ -3,26 +3,23 @@ import { Modal, Select, Button, Avatar, Row, Col } from 'antd';
 import { PlusOutlined, ArrowRightOutlined, CloseOutlined } from '@ant-design/icons'
 import styles from '../styles/MemoForm.module.css';
 
-function LinkedPeople(peopleList) {
-  if (peopleList.length === 0)
+function linkedUnit(unitList) {
+  if (unitList.length === 0)
     return;
 
-  const peopleLink = peopleList.reduce((preLink, person, index) => {
+  const unitLink = unitList.reduce((preLink, user, index) => {
     preLink.push(
-      <Col key={person.key}>
-        <Row>
-          <Col>
-            <Avatar src={person.avatar} size={48} />
-          </Col>
-          <Col>
-            <div>{person.rank} {person.name}</div>
-            <div>{person.position}</div>
-          </Col>
-        </Row>
+      <Col key={user.key}>
+        <UserNode
+          avatar={user.avatar}
+          rank={user.rank}
+          name={user.name}
+          position={user.position}
+        />
       </Col>
     );
 
-    if (index === peopleList.length - 1)
+    if (index === unitList.length - 1)
       preLink.push(
         <Col>
           <CloseOutlined key='remover' />
@@ -30,7 +27,7 @@ function LinkedPeople(peopleList) {
       );
     else
       preLink.push(
-        <Col key={'a' + person.key}>
+        <Col key={'a' + user.key}>
           <ArrowRightOutlined />
         </Col>
       )
@@ -43,17 +40,51 @@ function LinkedPeople(peopleList) {
       gutter={5}
       align="middle"
     >
-      {peopleLink}
+      {unitLink}
     </Row>
   )
-    ;
+}
+
+function additionalPerson(props) {
+  return (
+    <Row
+      gutter={5}
+      align="middle"
+    >
+      <Col>
+        <UserNode
+          avatar={props.avatar}
+          rank={props.rank}
+          name={props.name}
+          position={props.position}
+        />
+      </Col>
+      <Col>
+        <CloseOutlined key='remover' />
+      </Col>
+    </Row>
+  )
+}
+
+function UserNode(props) {
+  return (
+    <Row>
+      <Col>
+        <Avatar src={props.avatar} size={48} />
+      </Col>
+      <Col>
+        <div>{props.rank} {props.name}</div>
+        <div>{props.position}</div>
+      </Col>
+    </Row>
+  )
 }
 
 function MemoForm(props) {
   const [reportOrg, setReportOrg] = useState([]);
   const [reportOrgList, setReportOrgList] = useState([]);
-  const [addPerson, setAddPerson] = useState([]);
-  const [addPersonList, setAddPersonList] = useState([]);
+  const [addUser, setAddUser] = useState([]);
+  const [addUserList, setAddUserList] = useState([]);
 
   const orgType = [
     {
@@ -105,18 +136,27 @@ function MemoForm(props) {
     }
   ]
 
-  const additionPerson = [
+  const additionUser = [
     {
-      id: 0,
-      name: '대위 가나다'
+      key: 0,
+      avatar: "https://joeschmoe.io/api/v1/random",
+      name: 'OOO',
+      rank: '소위',
+      position: '3중대 1소대장',
     },
     {
-      id: 1,
-      name: '중위 나다라'
+      key: 1,
+      avatar: "https://joeschmoe.io/api/v1/random",
+      name: 'XXX',
+      rank: '상사',
+      position: '3중대 행정보급관',
     },
     {
-      id: 2,
-      name: '소위 라마바'
+      key: 2,
+      avatar: "https://joeschmoe.io/api/v1/random",
+      name: 'XOX',
+      rank: '대위',
+      position: '3중대장',
     }
   ]
 
@@ -132,7 +172,10 @@ function MemoForm(props) {
     const listElement = findFromName(source, data);
     if (!listElement) return;
 
-    listState(list => [...list, listElement.list]);
+    if (listElement.list)
+      listState(list => [...list, listElement.list]);
+    else
+      listState(list => [...list, listElement]);
     dataState('');
   }, [])
 
@@ -172,7 +215,7 @@ function MemoForm(props) {
           >
             {orgType.map((item) => (
               <Select.Option value={item.name}>
-                {item.name}
+                {item.rank} {item.name}
               </Select.Option>
             ))}
           </Select>
@@ -187,7 +230,7 @@ function MemoForm(props) {
         </div>
         <div className={styles.formElement}>
           <p className={styles.formLabel}>보고 인원</p>
-          {reportOrgList.map(org => LinkedPeople(org))}
+          {reportOrgList.map(org => linkedUnit(org))}
         </div>
         <div className={styles.formElement}>
           <div>
@@ -196,9 +239,9 @@ function MemoForm(props) {
               className={styles.formAdditionInput}
               mode="tags"
               bordered={false}
-              onChange={setAddPerson}
+              onChange={setAddUser}
             >
-              {additionPerson.map((item) => (
+              {additionUser.map((item) => (
                 <Select.Option value={item.name}>
                   {item.name}
                 </Select.Option>
@@ -209,11 +252,12 @@ function MemoForm(props) {
               shape="circle"
               icon={<PlusOutlined />}
               onClick={() => {
-                addPerson.forEach((person) => addList(person, setAddPerson, setAddPersonList, additionPerson));
+                addUser.forEach((user) => addList(user, setAddUser, setAddUserList, additionUser));
+                console.log(addUserList)
               }}
             />
           </div>
-          {addPersonList.map(person => LinkedPeople(person))}
+          {addUserList.map(user => additionalPerson(user))}
         </div>
         <div className={styles.formElement}>
           <p className={styles.formLabel}>내용</p>
