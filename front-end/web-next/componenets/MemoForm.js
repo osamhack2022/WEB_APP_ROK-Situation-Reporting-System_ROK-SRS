@@ -38,13 +38,21 @@ function LinkedPeople(peopleList) {
     return preLink;
   }, []);
 
-  return <Row>{peopleLink}</Row>;
+  return (
+    <Row
+      gutter={5}
+      align="middle"
+    >
+      {peopleLink}
+    </Row>
+  )
+    ;
 }
 
 function MemoForm(props) {
-  const [reportOrg, setReportOrg] = useState('');
+  const [reportOrg, setReportOrg] = useState([]);
   const [reportOrgList, setReportOrgList] = useState([]);
-  const [addPerson, setAddPerson] = useState('');
+  const [addPerson, setAddPerson] = useState([]);
   const [addPersonList, setAddPersonList] = useState([]);
 
   const orgType = [
@@ -121,7 +129,7 @@ function MemoForm(props) {
   }, []);
 
   const addList = useCallback((data, dataState, listState, source) => {
-    const listElement = findFromName(source, data[0]);
+    const listElement = findFromName(source, data);
     if (!listElement) return;
 
     listState(list => [...list, listElement.list]);
@@ -172,7 +180,9 @@ function MemoForm(props) {
             className={styles.plusButton}
             shape="circle"
             icon={<PlusOutlined />}
-            onClick={() => addList(reportOrg, setReportOrg, setReportOrgList, orgType)}
+            onClick={() => {
+              reportOrg.forEach((org) => addList(org, setReportOrg, setReportOrgList, orgType));
+            }}
           />
         </div>
         <div className={styles.formElement}>
@@ -198,7 +208,9 @@ function MemoForm(props) {
               className={styles.plusButton}
               shape="circle"
               icon={<PlusOutlined />}
-              onClick={() => addList(addPerson, setAddPerson, setAddPersonList, additionPerson)}
+              onClick={() => {
+                addPerson.forEach((person) => addList(person, setAddPerson, setAddPersonList, additionPerson));
+              }}
             />
           </div>
           {addPersonList.map(person => LinkedPeople(person))}
