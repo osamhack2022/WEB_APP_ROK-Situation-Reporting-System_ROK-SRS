@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 // prettier-ignore
-import { TextInput, SafeAreaView, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { TextInput, SafeAreaView, View, StyleSheet, ScrollView } from 'react-native'
 import { Colors, Searchbar, Text } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportGroup } from '../../components/ReportGroup'
 import { MyButton } from '../../components/MyButton'
+import { useNavigation } from '@react-navigation/native'
 
 const DATA = {
   onDuty: [
@@ -36,14 +37,18 @@ const DATA = {
 
 export function CreateReportScreen() {
   let [fontsLoaded] = useNunitoFonts()
+
+  const navigation = useNavigation()
+
   const [typeOpen, setTypeOpen] = useState(false)
-  const [groupOpen, setGroupOpen] = useState(false)
   const [type, setType] = useState('')
-  const [groups, setGroups] = useState([])
   const [typeItem, setTypeItem] = useState([
     { label: '긴급상황', value: 'urgent' },
     { label: '비상상황', value: 'emergency' },
   ])
+
+  const [groupOpen, setGroupOpen] = useState(false)
+  const [groups, setGroups] = useState([])
   const [groupItem, setGroupItem] = useState([
     { label: '당직계통', value: 'onDuty' },
     { label: '본부중대', value: 'headquarter' },
@@ -122,7 +127,10 @@ export function CreateReportScreen() {
           ></TextInput>
         </View>
         {type && groups && text && (
-          <MyButton text="보 고 하 기" dest="ReceivedReportScreen" />
+          <MyButton
+            text="보 고 하 기"
+            onPress={() => navigation.navigate('RecdReportScreen')}
+          />
         )}
       </ScrollView>
     </SafeAreaView>

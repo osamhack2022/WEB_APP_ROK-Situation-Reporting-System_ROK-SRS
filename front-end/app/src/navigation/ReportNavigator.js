@@ -1,5 +1,5 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { ReceivedReportNavigator } from './ReceivedReportNavigator'
+import { RecdReportNavigator } from './RecdReportNavigator'
 import { SentReportNavigator } from './SentReportNavigator'
 
 const Tab = createMaterialTopTabNavigator()
@@ -8,8 +8,8 @@ export function ReportNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="ReceivedReportNavigator"
-        component={ReceivedReportNavigator}
+        name="RecdReportNavigator"
+        component={RecdReportNavigator}
         options={{
           title: '받은 메모보고',
           tabBarLabelStyle: { fontSize: 15, fontWeight: '600' },

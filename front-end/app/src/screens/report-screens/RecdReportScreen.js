@@ -4,7 +4,7 @@ import { SafeAreaView, View, StyleSheet, ScrollView } from 'react-native'
 import { Colors, FAB } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 
-export function ReceivedReportScreen() {
+export function RecdReportScreen() {
   const navigation = useNavigation()
 
   return (

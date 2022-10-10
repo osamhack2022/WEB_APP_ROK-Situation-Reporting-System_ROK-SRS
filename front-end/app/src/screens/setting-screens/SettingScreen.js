@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet, ScrollView, Switch } from 'react-native'
 import { List, Colors } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 
 export function SettingScreen() {
   let [fontsLoaded] = useNunitoFonts()
+  const navigation = useNavigation()
 
   const [enabled, toggleEnabled] = useState('unchecked')
 
@@ -18,7 +20,7 @@ export function SettingScreen() {
         />
         <List.Item
           title="개인정보 수정"
-          left={() => <List.Icon icon="account-cog" />}
+          left={() => <List.Icon icon="account-edit" />}
           style={styles.listItem}
         />
         <List.Item
@@ -39,9 +41,16 @@ export function SettingScreen() {
           style={styles.listItem}
         />
         <List.Item
-          title="사용자 추가"
-          left={() => <List.Icon icon="account-plus" />}
+          title="사용자 관리"
+          left={() => <List.Icon icon="account-details" />}
           style={styles.listItem}
+          onPress={() => navigation.navigate('UserMgtScreen')}
+        />
+        <List.Item
+          title="부대 관리"
+          left={() => <List.Icon icon="account-multiple-check" />}
+          style={styles.listItem}
+          onPress={() => navigation.navigate('UnitMgtScreen')}
         />
       </ScrollView>
     </SafeAreaView>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native'
+import { FlatList, SafeAreaView, StyleSheet } from 'react-native'
 import { Colors, Searchbar } from 'react-native-paper'
 import { ChatListItem } from '../../components/ChatListItem'
 import userData from '../../data/userData'

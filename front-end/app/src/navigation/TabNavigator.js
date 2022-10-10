@@ -2,13 +2,9 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Colors } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { ReportNavigator } from '../navigation/ReportNavigator'
-import {
-  ChatListScreen,
-  OrgChartScreen,
-  NotificationScreen,
-  SettingScreen,
-} from '../screens'
+import { ReportNavigator } from './ReportNavigator'
+import { SettingNavigator } from './SettingNavigator'
+import { ChatListScreen, OrgChartScreen, NotificationScreen } from '../screens'
 
 const Tab = createBottomTabNavigator()
 
@@ -17,7 +13,7 @@ const icons = {
   ChatListScreen: ['message-text', 'message-text-outline'],
   OrgChartScreen: ['graph', 'graph-outline'],
   NotificationScreen: ['bell', 'bell-outline'],
-  SettingScreen: ['cog', 'cog-outline'],
+  SettingNavigator: ['cog', 'cog-outline'],
 }
 
 const getActiveRouteName = (route) => {
@@ -72,9 +68,9 @@ export function TabNavigator() {
         component={NotificationScreen}
       />
       <Tab.Screen
-        name="SettingScreen"
-        options={{ title: '설정', headerTitle: '설 정' }}
-        component={SettingScreen}
+        name="SettingNavigator"
+        options={{ title: '설정', headerShown: false }}
+        component={SettingNavigator}
       />
     </Tab.Navigator>
   )
