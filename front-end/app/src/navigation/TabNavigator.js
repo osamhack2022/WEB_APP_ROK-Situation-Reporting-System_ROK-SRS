@@ -50,7 +50,7 @@ export function TabNavigator() {
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
         name="ReportNavigator"
-        options={{ title: '메모보고' }}
+        options={{ title: '메모보고', headerShown: false }}
         component={ReportNavigator}
       />
       <Tab.Screen

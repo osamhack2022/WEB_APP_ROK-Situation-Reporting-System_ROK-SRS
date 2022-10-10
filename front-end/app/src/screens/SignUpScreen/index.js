@@ -10,6 +10,8 @@ import {
 import { styles } from './style'
 import { GuideText } from '../../components/GuideText'
 
+import URL from '../../../url'
+
 const checkPasswordMatch = (password, confirmPassword) => {
   return password.length == 0
     ? `비밀번호를 입력해주세요.`
@@ -19,7 +21,7 @@ const checkPasswordMatch = (password, confirmPassword) => {
 }
 
 const registerHandler = (data) => {
-  fetch('https://1bd7-14-7-194-69.jp.ngrok.io/api/user/register', {
+  fetch(URL + '/api/user/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

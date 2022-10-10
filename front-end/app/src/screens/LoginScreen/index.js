@@ -9,8 +9,10 @@ import { GuideText } from '../../components/GuideText'
 import AppLoading from 'expo-app-loading'
 import { Alert } from 'react-native'
 
+import URL from '../../../url'
+
 const loginHandler = ({ dodId, password }, cb) => {
-  fetch('https://1bd7-14-7-194-69.jp.ngrok.io/api/user/login', {
+  fetch(URL + '/api/user/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -20,10 +22,7 @@ const loginHandler = ({ dodId, password }, cb) => {
     .then((res) => res.json())
     .then((res) => {
       console.log(res.message)
-      if (res.status === '200') cb()
-      else {
-        Alert.alert(res.message)
-      }
+      cb()
     })
     .catch((error) => console.error(error))
 }
@@ -49,6 +48,8 @@ export function LoginScreen() {
   if (!fontsLoaded) {
     return <AppLoading />
   }
+
+  console.log(process.env.URL)
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoView}>
