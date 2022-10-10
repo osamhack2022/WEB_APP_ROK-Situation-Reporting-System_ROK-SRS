@@ -41,10 +41,13 @@ const links = [
 ]
 
 const MenuBar = ({ children }) => {
-    const { pathname } = useRouter()
+    let { pathname } = useRouter()
+    pathname = "/" + pathname.split('/')[1]
 
     return (
         <>
+        <div className = {styles.parentdiv}>
+
             <div className={styles.menubar}>
                 {links.map(({
                     href,
@@ -73,6 +76,7 @@ const MenuBar = ({ children }) => {
             <div id={styles.child}>
                 {children}
             </div>
+        </div>
         </>
     )
 }

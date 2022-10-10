@@ -1,3 +1,8 @@
+.parentdiv {
+    width: 100vw; 
+    height: 100vw; 
+    background-color: #E0E0E0;
+}
 .menubar {
     float: left; 
     width: 280px;
@@ -56,5 +61,12 @@
 .logoutitem:hover {
     color: black; 
     background-color: #015c4d;
+
+}
+
+#child {
+    height: 100vh;
+    width: calc(100vw - 280px);
+    float: right; 
 
 }
