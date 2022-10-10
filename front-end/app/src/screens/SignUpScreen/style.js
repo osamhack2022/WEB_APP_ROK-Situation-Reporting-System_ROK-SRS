@@ -5,16 +5,18 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+  },
+  scrollView: {
+    width: '100%',
     alignItems: 'center',
   },
   guideTextView: {
-    marginBottom: (30 / 812) * window.height,
+    marginBottom: (15 / 812) * window.height,
     width: '100%',
     alignItems: 'flex-end',
   },
   signUpView: {
     width: '85%',
-    alignItems: 'center',
   },
   signUpTextInput: {
     width: '100%',
@@ -27,7 +29,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#008275',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: (30 / 812) * window.height,
+    marginBottom: (150 / 812) * window.height,
     elevation: 10,
     shadowOpacity: 0.5,
     shadowRadius: 1,
