@@ -75,3 +75,11 @@
     padding: 0;
     background-color: transparent;
 }
+
+.removeButton {
+    width: auto;
+    height: auto;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+}

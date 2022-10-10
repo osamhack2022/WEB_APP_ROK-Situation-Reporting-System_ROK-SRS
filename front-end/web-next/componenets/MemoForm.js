@@ -3,7 +3,83 @@ import { Modal, Select, Button, Avatar, Row, Col } from 'antd';
 import { PlusOutlined, ArrowRightOutlined, CloseOutlined } from '@ant-design/icons'
 import styles from '../styles/MemoForm.module.css';
 
-function linkedUnit(unitList) {
+
+const orgType = [
+  {
+    key: 0,
+    name: '당직계통',
+    list: [
+      {
+        key: 0,
+        avatar: "https://joeschmoe.io/api/v1/random",
+        name: 'OOO',
+        rank: '상사',
+        position: '당직사관',
+      },
+      {
+        key: 1,
+        avatar: "https://joeschmoe.io/api/v1/random",
+        name: 'XXX',
+        rank: '대위',
+        position: '당직사령',
+      }
+    ]
+  },
+  {
+    key: 1,
+    name: '3중대',
+    list: [
+      {
+        key: 0,
+        avatar: "https://joeschmoe.io/api/v1/random",
+        name: 'OOO',
+        rank: '소위',
+        position: '3중대 1소대장',
+      },
+      {
+        key: 1,
+        avatar: "https://joeschmoe.io/api/v1/random",
+        name: 'XXX',
+        rank: '상사',
+        position: '3중대 행정보급관',
+      },
+      {
+        key: 2,
+        avatar: "https://joeschmoe.io/api/v1/random",
+        name: 'XOX',
+        rank: '대위',
+        position: '3중대장',
+      }
+    ]
+  }
+]
+
+
+const additionUser = [
+  {
+    key: 0,
+    avatar: "https://joeschmoe.io/api/v1/random",
+    name: 'OOO',
+    rank: '소위',
+    position: '3중대 1소대장',
+  },
+  {
+    key: 1,
+    avatar: "https://joeschmoe.io/api/v1/random",
+    name: 'XXX',
+    rank: '상사',
+    position: '3중대 행정보급관',
+  },
+  {
+    key: 2,
+    avatar: "https://joeschmoe.io/api/v1/random",
+    name: 'XOX',
+    rank: '대위',
+    position: '3중대장',
+  }
+]
+
+function linkedUnit(unitList, key, onRemove = null) {
   if (unitList.length === 0)
     return;
 
@@ -21,8 +97,13 @@ function linkedUnit(unitList) {
 
     if (index === unitList.length - 1)
       preLink.push(
-        <Col>
-          <CloseOutlined key='remover' />
+        <Col key={'del' + key}>
+          <Button
+            className={styles.removeButton}
+            shape="circle"
+            icon={<CloseOutlined />}
+            onClick={onRemove}
+          />
         </Col>
       );
     else
@@ -37,6 +118,7 @@ function linkedUnit(unitList) {
 
   return (
     <Row
+      key={'linkP' + key}
       gutter={5}
       align="middle"
     >
@@ -45,22 +127,28 @@ function linkedUnit(unitList) {
   )
 }
 
-function additionalPerson(props) {
+function additionalPerson(person, key, onRemove = null) {
   return (
     <Row
+      key={'addP' + key}
       gutter={5}
       align="middle"
     >
       <Col>
         <UserNode
-          avatar={props.avatar}
-          rank={props.rank}
-          name={props.name}
-          position={props.position}
+          avatar={person.avatar}
+          rank={person.rank}
+          name={person.name}
+          position={person.position}
         />
       </Col>
       <Col>
-        <CloseOutlined key='remover' />
+        <Button
+          className={styles.removeButton}
+          shape="circle"
+          icon={<CloseOutlined />}
+          onClick={onRemove}
+        />
       </Col>
     </Row>
   )
@@ -81,141 +169,86 @@ function UserNode(props) {
 }
 
 function MemoForm(props) {
+  const [memoTitle, setMemoTitle] = useState('');
+  const [memoType, setMemoType] = useState(null);
   const [reportOrg, setReportOrg] = useState([]);
   const [reportOrgList, setReportOrgList] = useState([]);
   const [addUser, setAddUser] = useState([]);
   const [addUserList, setAddUserList] = useState([]);
+  const [memoContent, setMemoContent] = useState('');
 
-  const orgType = [
-    {
-      id: 0,
-      name: '당직계통',
-      list: [
-        {
-          key: 0,
-          avatar: "https://joeschmoe.io/api/v1/random",
-          name: 'OOO',
-          rank: '상사',
-          position: '당직사관',
-        },
-        {
-          key: 1,
-          avatar: "https://joeschmoe.io/api/v1/random",
-          name: 'XXX',
-          rank: '대위',
-          position: '당직사령',
-        }
-      ]
-    },
-    {
-      id: 1,
-      name: '3중대',
-      list: [
-        {
-          key: 0,
-          avatar: "https://joeschmoe.io/api/v1/random",
-          name: 'OOO',
-          rank: '소위',
-          position: '3중대 1소대장',
-        },
-        {
-          key: 1,
-          avatar: "https://joeschmoe.io/api/v1/random",
-          name: 'XXX',
-          rank: '상사',
-          position: '3중대 행정보급관',
-        },
-        {
-          key: 2,
-          avatar: "https://joeschmoe.io/api/v1/random",
-          name: 'XOX',
-          rank: '대위',
-          position: '3중대장',
-        }
-      ]
-    }
-  ]
-
-  const additionUser = [
-    {
-      key: 0,
-      avatar: "https://joeschmoe.io/api/v1/random",
-      name: 'OOO',
-      rank: '소위',
-      position: '3중대 1소대장',
-    },
-    {
-      key: 1,
-      avatar: "https://joeschmoe.io/api/v1/random",
-      name: 'XXX',
-      rank: '상사',
-      position: '3중대 행정보급관',
-    },
-    {
-      key: 2,
-      avatar: "https://joeschmoe.io/api/v1/random",
-      name: 'XOX',
-      rank: '대위',
-      position: '3중대장',
-    }
-  ]
-
-  const findFromName = useCallback((list, target) => {
+  const findFromKey = useCallback((list, target) => {
     for (let element of list) {
-      if (element.name === target)
+      if (element.key == target)
         return element;
     }
     return null;
   }, []);
 
-  const addList = useCallback((data, dataState, listState, source) => {
-    const listElement = findFromName(source, data);
+  const addList = useCallback((key, dataState, listState, source) => {
+    const listElement = findFromKey(source, key);
     if (!listElement) return;
 
-    if (listElement.list)
-      listState(list => [...list, listElement.list]);
-    else
-      listState(list => [...list, listElement]);
+    listState(list => [...list, listElement]);
     dataState('');
   }, [])
 
-  const deleteList = useCallback((listState, index) => {
-    listState([]);
+  const deleteList = useCallback((listState, key) => {
+    listState(list => list.filter(e => (e.key !== key)));
   }, []);
+
+  const submitMemo = useCallback((memoTitle, memoType, reportOrgList, addUserList, memoContent) => ({
+    title: memoTitle,
+    type: memoType,
+    reportUnit: reportOrgList,
+    additionUnit: addUserList,
+    content: memoContent
+  }), []);
 
   return (
     <Modal
       open={props.isOpen}
-      onOk={props.onSubmitted}
+      onOk={() => {
+        console.log(submitMemo(memoTitle, memoType, reportOrgList, addUserList, memoContent));
+        props.onSubmitted();
+      }}
       onCancel={props.onCancel}
     >
       <div className={styles.formLayout}>
         <div className={styles.formElement}>
           <p className={styles.formLabel}>제목</p>
-          <input className={styles.formTitleInput} />
+          <input
+            className={styles.formTitleInput}
+            value={memoTitle}
+            onChange={(event) => setMemoTitle(event.target.value)}
+          />
         </div>
         <div className={styles.formElement}>
           <p className={styles.formLabel}>보고 종류</p>
           <Select
             className={styles.formTypeInput}
             bordered={false}
+            value={memoType}
+            onChange={setMemoType}
           >
-            <Select.Option>보고사항</Select.Option>
-            <Select.Option>지시사항</Select.Option>
-            <Select.Option>긴급사항</Select.Option>
+            <Select.Option value="보고사항">보고사항</Select.Option>
+            <Select.Option value="지시사항">지시사항</Select.Option>
+            <Select.Option value="긴급사항">긴급사항</Select.Option>
           </Select>
         </div>
         <div className={styles.formElement}>
           <p className={styles.formLabel}>보고 체계</p>
           <Select
+            labelInValue
             className={styles.formOrgInput}
             mode="multiple"
             bordered={false}
+            value={reportOrg.length !== 0 ? reportOrg : undefined}
             onChange={setReportOrg}
           >
             {orgType.map((item) => (
-              <Select.Option value={item.name}>
-                {item.rank} {item.name}
+              <Select.Option key={item.key} value={item.name}>
+                {item.name}
               </Select.Option>
             ))}
           </Select>
@@ -224,26 +257,32 @@ function MemoForm(props) {
             shape="circle"
             icon={<PlusOutlined />}
             onClick={() => {
-              reportOrg.forEach((org) => addList(org, setReportOrg, setReportOrgList, orgType));
+              if (reportOrg.length !== 0)
+                reportOrg.forEach(({ key }) => addList(key, setReportOrg, setReportOrgList, orgType));
             }}
           />
         </div>
-        <div className={styles.formElement}>
-          <p className={styles.formLabel}>보고 인원</p>
-          {reportOrgList.map(org => linkedUnit(org))}
-        </div>
+        {
+          reportOrgList.length !== 0 &&
+          <div className={styles.formElement}>
+            <p className={styles.formLabel}>보고 인원</p>
+            {reportOrgList.map((org) => linkedUnit(org.list, org.key, () => deleteList(setReportOrgList, org.key)))}
+          </div>
+        }
         <div className={styles.formElement}>
           <div>
             <p className={styles.formLabel}>추가 인원</p>
             <Select
+              labelInValue
               className={styles.formAdditionInput}
-              mode="tags"
+              mode="multiple"
               bordered={false}
+              value={addUser.length !== 0 ? addUser : undefined}
               onChange={setAddUser}
             >
               {additionUser.map((item) => (
-                <Select.Option value={item.name}>
-                  {item.name}
+                <Select.Option key={item.key} value={'' + item.rank + ' ' + item.name}>
+                  {item.rank} {item.name}
                 </Select.Option>
               ))}
             </Select>
@@ -252,16 +291,24 @@ function MemoForm(props) {
               shape="circle"
               icon={<PlusOutlined />}
               onClick={() => {
-                addUser.forEach((user) => addList(user, setAddUser, setAddUserList, additionUser));
-                console.log(addUserList)
+                if (addUser.length !== 0)
+                  addUser.forEach(({ key }) => addList(key, setAddUser, setAddUserList, additionUser));
               }}
             />
           </div>
-          {addUserList.map(user => additionalPerson(user))}
+          {
+            addUserList.length !== 0 &&
+            addUserList.map((user, index) => additionalPerson(user, index, () => deleteList(setAddUserList, user.key)))
+          }
         </div>
         <div className={styles.formElement}>
           <p className={styles.formLabel}>내용</p>
-          <textarea className={styles.formContentInput}></textarea>
+          <textarea
+            className={styles.formContentInput}
+            value={memoContent}
+            onChange={(event) => setMemoContent(event.target.value)}
+          >
+          </textarea>
         </div>
       </div>
     </Modal>
