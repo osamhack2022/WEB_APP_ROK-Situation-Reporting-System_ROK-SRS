@@ -1,8 +1,8 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { ReceivedReportScreen } from '../screens/bottom-tab-screens'
-import { ReportScreen } from '../screens/bottom-tab-screens'
-import { CreateReportScreen } from '../screens/bottom-tab-screens'
+import { ReceivedReportScreen } from '../screens'
+import { ReportScreen } from '../screens'
+import { CreateReportScreen } from '../screens'
 
 const Stack = createStackNavigator()
 

@@ -1,3 +1,3 @@
-const URL = 'https://68b3-14-7-194-69.jp.ngrok.io'
+const URL = 'https://ff7c-2a09-bac0-22-00-825-2bb1.jp.ngrok.io'
 
 export default URL

@@ -16,7 +16,7 @@ export const ChatListItem = ({ name, lastMessage, createAt }) => {
   return (
     <TouchableOpacity onPress={goChatRoom} style={{ borderRadius: 15 }}>
       <View style={styles.container}>
-        <View style={styles.lefContainer}>
+        <View style={styles.leftContainer}>
           <Image
             source={require('../../assets/images/avatar.png')}
             style={styles.avatar}

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet, View, Text, ScrollView } from 'react-native'
 import { Portal, Modal, Avatar, Provider, Colors } from 'react-native-paper'
-import { OrgListItem } from '../../components/OrgListItem'
-import { useNunitoFonts } from '../../hooks/useNunitoFonts'
+import { OrgListItem } from '../components/OrgListItem'
+import { useNunitoFonts } from '../hooks/useNunitoFonts'
 
 export const LeftImage = () => (
   <Avatar.Image
-    source={require('../../assets/images/avatar.png')}
+    source={require('../assets/images/avatar.png')}
     size={40}
     style={{ alignSelf: 'center', marginLeft: 15, marginRight: 5 }}
   />
@@ -49,7 +49,7 @@ export function OrgChartScreen() {
               }}
             >
               <Avatar.Image
-                source={require('../../assets/images/soldier.png')}
+                source={require('../assets/images/soldier.png')}
                 size={70}
                 style={{ backgroundColor: Colors.grey400, marginBottom: 5 }}
               />

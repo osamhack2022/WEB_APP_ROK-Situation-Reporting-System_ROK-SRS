@@ -8,7 +8,7 @@ import {
   OrgChartScreen,
   NotificationScreen,
   SettingScreen,
-} from '../screens/bottom-tab-screens'
+} from '../screens'
 
 const Tab = createBottomTabNavigator()
 
@@ -40,7 +40,6 @@ const screenOptions = ({ route }) => {
     },
     tabBarShowLabel: true,
     headerTitleAlign: 'center',
-    headerTitleStyle: { color: '#008272' },
     tabBarStyle: { height: 55, paddingBottom: 5, backgroundColor: '#008272' },
     tabBarLabelStyle: { color: Colors.grey200 },
   }

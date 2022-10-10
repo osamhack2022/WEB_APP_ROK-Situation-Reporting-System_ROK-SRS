@@ -3,13 +3,12 @@ import { Colors } from 'react-native-paper'
 
 export const styles = StyleSheet.create({
   cardListItem: {
-    width: '96%',
+    width: '97%',
     borderColor: Colors.grey400,
     backgroundColor: 'white',
-    marginLeft: 10,
-    marginRight: 10,
+    marginHorizontal: 10,
     marginTop: 8,
-    borderRadius: 15,
+    borderRadius: 5,
     paddingVertical: 3,
   },
   title: {
