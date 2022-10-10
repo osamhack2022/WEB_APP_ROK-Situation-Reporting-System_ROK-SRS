@@ -215,6 +215,7 @@ function MemoForm(props) {
       onCancel={props.onCancel}
     >
       <div className={styles.formLayout}>
+        <div className="memoCustomForm">
         <div className={styles.formElement}>
           <p className={styles.formLabel}>제목</p>
           <input
@@ -309,6 +310,7 @@ function MemoForm(props) {
             onChange={(event) => setMemoContent(event.target.value)}
           >
           </textarea>
+        </div>
         </div>
       </div>
     </Modal>
