@@ -38,13 +38,12 @@ const menu = (
 
 const RegisterHeader = () => {
   const { pathname } = useRouter()
-  console.log(pathname) 
     return <>
-    <div style = {{display: "flex", height: "44px", paddingTop: '10px'}}>
+    <div className = {styles.header}>
         <AiOutlineSetting className={styles.icons}/>
-        <h1 style = {{fontWeight: 'bold', marginLeft: '10px'}}>세팅</h1>
+        <h1 style = {{fontWeight: 'bold', marginLeft: '10px', marginTop: '15px'}}>세팅</h1>
         <Dropdown overlay={menu}>
-            <a onClick={e => e.preventDefault()} style = {{fontSize: '25px', lineHeight: '44px', marginLeft: '40px'}}>
+            <a onClick={e => e.preventDefault()} style = {{fontSize: '25px', lineHeight: '44px', marginLeft: '40px', marginTop: '15px', height: '44px'}}>
                 <Space>
                     {pathname === '/settings' ? <span>개인계정 설정</span> : <span>부대 설정</span>}
                     <DownOutlined />
@@ -52,7 +51,6 @@ const RegisterHeader = () => {
             </a>
         </Dropdown>
     </div>
-    <div className = {styles.line} style = {{marginTop: '10px'}}></div>
        
         
         

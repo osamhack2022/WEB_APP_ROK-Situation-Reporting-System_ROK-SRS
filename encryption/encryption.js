@@ -7,7 +7,7 @@ dotenv.config({
 })
 
 let tenantId = process.env.AZURE_TENANT_ID
-let clientId = process.env.AZURE_CLIENT_ID
+let clientId = process .env.AZURE_CLIENT_ID
 let clientSecret = process.env.AZURE_CLIENT_SECRET // "239482"
 
 async function main() {

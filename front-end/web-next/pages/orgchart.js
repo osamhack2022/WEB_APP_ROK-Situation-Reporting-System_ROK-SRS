@@ -1,10 +1,20 @@
-import Head from 'next/head'
-import Link from "next/link"
-import MenuBar from '../componenets/menubar'
-const OrgChart = () => {
-    return <>
-        <MenuBar><p>OrgChart</p></MenuBar>
-    </>
-}
+import Head from 'next/head';
+import dynamic from 'next/dynamic';
+import Draggable from 'react-draggable';
 
-export default OrgChart; 
+const Organogram = dynamic(() => import('../componenets/Organogram.js'), { ssr: false })
+
+export default function Tree() {
+  return (
+    <>
+      <Head>
+        <title>조직도</title>
+      </Head>
+      <Draggable>
+        <div>
+          <Organogram />
+        </div>
+      </Draggable>
+    </>
+  )
+}
