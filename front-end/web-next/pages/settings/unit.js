@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import Link from "next/link"
 import { InfoCircleOutlined } from '@ant-design/icons';
-
 import MenuBar from '../../componenets/menubar'
 import RegisterHeader from '../../componenets/registerheader';
-import { Avatar, Divider, List, Skeleton, Button, Form, Input, Radio, message, Upload, Image, TreeSelect } from 'antd';
+import { Avatar, Divider, List, Skeleton, Button, Input, Radio, message, Upload, Image, TreeSelect, Form } from 'antd';
 import styles from '../../styles/unitsettings.module.css'
 import unitlogo from '../../img/unitlogo.png'
 import React, { useEffect, useState } from 'react';
@@ -132,13 +131,34 @@ const UnitSettings = () => {
     const [Name, setName] = useState();
     const [Position, setPosition] = useState();
 
-    let submitnewuser = async event => {
-        event.preventDefault() // don't redirect the page
+    let submitnewuser = async (event) => {
+        let endpoint = 'https://web-rok-situation-reporting-system-rok-vqrjv594prw2xp46-5000.githubpreview.dev/api/user/add'
+        console.log("hi")
         console.log(DoDID)
         console.log(Rank)
         console.log(Type)
         console.log(Name)
         console.log(Position)
+        const data = {
+            dodId: DoDID,
+            name: Name,
+            rank: Rank,
+            isAdmin: false,
+        }
+        const JSONdata = JSON.stringify(data)
+        const options = {
+            // The method is POST because we are sending data.
+            method: 'POST',
+            // Tell the server we're sending JSON.
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            // Body of the request is the JSON data we created above.
+            body: JSONdata,
+        }
+        const response = await fetch(endpoint, options)
+        const result = await response.json()
+        console.log(result)
     }
 
 
@@ -228,36 +248,41 @@ const UnitSettings = () => {
                             />
                         </div>
                     </div>
-                    <Form className={styles.adduser} onSubmit={submitnewuser}>
+
+                        
+                    <Form className={styles.adduser} onFinish = {submitnewuser}>
                         <h1>유저 추가</h1>
                         <h2>군번</h2>
-                        <Form.Item name="군번" rules={[{ required: true }]}>
+                        <Form.Item name="DoDID" rules={[{ required: true }]}>
                             <Input placeholder="21-xxxxxxx" onChange={(event) => { setDoDID(event.target.value) }} />
                         </Form.Item>
                         <h2>계급</h2>
-                        <Form.Item name="계급" rules={[{ required: true }, ({ getFieldValue }) => ({
+                        <Form.Item name="rank" rules={[{ required: true }, ({ getFieldValue }) => ({
                             validator(_, value) {
                                 if (value == 'title1' || value == 'title2' || value == 'title3' || value == 'title4') {
                                     return Promise.reject('계급을 선택해 주세요')
+                                } else {
+                                    return Promise.resolve()
                                 }
                             }
                         })]}>
                             <TreeSelect style={{ width: '100%' }} value={Rank} dropdownStyle={{ maxHeight: 400, overflow: 'auto', }} treeData={treeData1} placeholder="계급 선택" onChange={onChange1} />
                         </Form.Item>
                         <h2>이름</h2>
-                        <Form.Item name="이름" rules={[{ required: true }]}>
+                        <Form.Item name="name" rules={[{ required: true }]}>
                             <Input placeholder="이름" onChange={(event) => { setName(event.target.value) }} />
                         </Form.Item>
                         <h2>계정종류</h2>
-                        <Form.Item name="계정종류" rules={[{ required: true }]}>
+                        <Form.Item name="type" rules={[{ required: true }]}>
                             <TreeSelect className={styles.input} style={{ width: '100%' }} value={Type} dropdownStyle={{ maxHeight: 400, overflow: 'auto', }} treeData={treeData2} placeholder="계정 종류" onChange={onChange2} />
                         </Form.Item>
                         <h2>직책</h2>
-                        <Form.Item name="직책" rules={[{ required: true }]}>
+                        <Form.Item name="role" rules={[{ required: true }]}>
                             <Input placeholder="직책" className={styles.input} onChange={(event) => { setPosition(event.target.value) }} />
                         </Form.Item>
-                        <button className={styles.submitbutton} type="submit">군인 추가</button>
-
+                        <Form.Item>
+                            <Button className={styles.submitbutton} type="primary" htmlType="submit">군인 추가</Button >
+                        </Form.Item>
                     </Form>
                 </div>
             </div>
