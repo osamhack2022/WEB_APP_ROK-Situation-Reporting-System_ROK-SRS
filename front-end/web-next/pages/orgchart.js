@@ -2,7 +2,7 @@ import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import Draggable from 'react-draggable';
 
-const Organogram = dynamic(() => import('../componenets/Organogram'), { ssr: false })
+const Organogram = dynamic(() => import('../componenets/Organogram.js'), { ssr: false })
 
 export default function Tree() {
   return (
