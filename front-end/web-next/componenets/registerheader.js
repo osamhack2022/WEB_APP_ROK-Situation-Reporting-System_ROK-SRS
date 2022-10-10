@@ -41,7 +41,7 @@ const RegisterHeader = () => {
     return <>
     <div className = {styles.header}>
         <AiOutlineSetting className={styles.icons}/>
-        <h1 style = {{fontWeight: 'bold', marginLeft: '10px', marginTop: '15px'}}>세팅</h1>
+        <h1 style = {{fontWeight: 'bold', fontSize: '29px', marginLeft: '10px', marginTop: '15px'}}>설정</h1>
         <Dropdown overlay={menu}>
             <a onClick={e => e.preventDefault()} style = {{fontSize: '25px', lineHeight: '44px', marginLeft: '40px', marginTop: '15px', height: '44px'}}>
                 <Space>

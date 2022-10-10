@@ -118,6 +118,7 @@ const UnitSettings = () => {
     const [Rank, setRank] = useState();
     const onChange1 = (newValue) => {
         if (newValue == 'title1' || newValue == 'title2' || newValue == 'title3' || newValue == 'title4') {
+            setRank();
             return
         } else {
             setRank(newValue);
@@ -231,24 +232,21 @@ const UnitSettings = () => {
                         <h1>유저 추가</h1>
                         <h2>군번</h2>
                         <Form.Item name="군번" rules={[{ required: true }]}>
-                            <Input placeholder="21-xxxxxxx" className={styles.input} onChange={(event) => { setDoDID(event.target.value) }} />
+                            <Input placeholder="21-xxxxxxx" onChange={(event) => { setDoDID(event.target.value) }} />
                         </Form.Item>
                         <h2>계급</h2>
                         <Form.Item name="계급" rules={[{ required: true }, ({ getFieldValue }) => ({
                             validator(_, value) {
-                                console.log(value)
                                 if (value == 'title1' || value == 'title2' || value == 'title3' || value == 'title4') {
                                     return Promise.reject('계급을 선택해 주세요')
                                 }
                             }
-                        })]}
-                        >
-
-                            <TreeSelect className={styles.input} style={{ width: '100%' }} value={Rank} dropdownStyle={{ maxHeight: 400, overflow: 'auto', }} treeData={treeData1} placeholder="계급 선택" onChange={onChange1} />
+                        })]}>
+                            <TreeSelect style={{ width: '100%' }} value={Rank} dropdownStyle={{ maxHeight: 400, overflow: 'auto', }} treeData={treeData1} placeholder="계급 선택" onChange={onChange1} />
                         </Form.Item>
                         <h2>이름</h2>
                         <Form.Item name="이름" rules={[{ required: true }]}>
-                            <Input placeholder="이름" className={styles.input} onChange={(event) => { setName(event.target.value) }} />
+                            <Input placeholder="이름" onChange={(event) => { setName(event.target.value) }} />
                         </Form.Item>
                         <h2>계정종류</h2>
                         <Form.Item name="계정종류" rules={[{ required: true }]}>
