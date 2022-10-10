@@ -3,7 +3,7 @@ import { Modal, Select, Button, Avatar, Row, Col } from 'antd';
 import { PlusOutlined, ArrowRightOutlined, CloseOutlined } from '@ant-design/icons'
 import styles from '../styles/MemoForm.module.css';
 
-function linkedUnit(unitList) {
+function linkedUnit(unitList, onRemove=null) {
   if (unitList.length === 0)
     return;
 
@@ -22,7 +22,12 @@ function linkedUnit(unitList) {
     if (index === unitList.length - 1)
       preLink.push(
         <Col>
-          <CloseOutlined key='remover' />
+          <Button
+            className={styles.removeButton}
+            shape="circle"
+            icon={<CloseOutlined />}
+            onClick={onRemove}
+          />
         </Col>
       );
     else
@@ -45,7 +50,7 @@ function linkedUnit(unitList) {
   )
 }
 
-function additionalPerson(props) {
+function additionalPerson(person, onRemove=null) {
   return (
     <Row
       gutter={5}
@@ -53,14 +58,19 @@ function additionalPerson(props) {
     >
       <Col>
         <UserNode
-          avatar={props.avatar}
-          rank={props.rank}
-          name={props.name}
-          position={props.position}
+          avatar={person.avatar}
+          rank={person.rank}
+          name={person.name}
+          position={person.position}
         />
       </Col>
       <Col>
-        <CloseOutlined key='remover' />
+          <Button
+            className={styles.removeButton}
+            shape="circle"
+            icon={<CloseOutlined />}
+            onClick={onRemove}
+          />
       </Col>
     </Row>
   )
@@ -160,16 +170,16 @@ function MemoForm(props) {
     }
   ]
 
-  const findFromName = useCallback((list, target) => {
+  const findFromKey = useCallback((list, target) => {
     for (let element of list) {
-      if (element.name === target)
+      if (element.key == target)
         return element;
     }
     return null;
   }, []);
 
-  const addList = useCallback((data, dataState, listState, source) => {
-    const listElement = findFromName(source, data);
+  const addList = useCallback((key, dataState, listState, source) => {
+    const listElement = findFromKey(source, key);
     if (!listElement) return;
 
     if (listElement.list)
@@ -179,8 +189,15 @@ function MemoForm(props) {
     dataState('');
   }, [])
 
-  const deleteList = useCallback((listState, index) => {
-    listState([]);
+  const deleteList = useCallback((listState, key) => {
+    listState((list) => {
+      for(let i in list) {
+        if(list[i].key == key) {
+          list.splice(i, 1);
+          return list;
+        }
+      }
+    });
   }, []);
 
   return (
@@ -215,7 +232,7 @@ function MemoForm(props) {
           >
             {orgType.map((item) => (
               <Select.Option value={item.name}>
-                {item.rank} {item.name}
+                {item.name}
               </Select.Option>
             ))}
           </Select>
@@ -230,20 +247,21 @@ function MemoForm(props) {
         </div>
         <div className={styles.formElement}>
           <p className={styles.formLabel}>보고 인원</p>
-          {reportOrgList.map(org => linkedUnit(org))}
+          {reportOrgList.length !== 0 && reportOrgList.map(org => linkedUnit(org, () => deleteList(setReportOrgList, org.key)))}
         </div>
         <div className={styles.formElement}>
           <div>
             <p className={styles.formLabel}>추가 인원</p>
             <Select
+              labelInValue
               className={styles.formAdditionInput}
-              mode="tags"
+              mode="multiple"
               bordered={false}
               onChange={setAddUser}
             >
               {additionUser.map((item) => (
-                <Select.Option value={item.name}>
-                  {item.name}
+                <Select.Option key={item.key} value={'' + item.rank + ' ' + item.name}>
+                  {item.rank} {item.name}
                 </Select.Option>
               ))}
             </Select>
@@ -252,12 +270,11 @@ function MemoForm(props) {
               shape="circle"
               icon={<PlusOutlined />}
               onClick={() => {
-                addUser.forEach((user) => addList(user, setAddUser, setAddUserList, additionUser));
-                console.log(addUserList)
+                addUser.forEach(({key}) => addList(key, setAddUser, setAddUserList, additionUser));
               }}
             />
           </div>
-          {addUserList.map(user => additionalPerson(user))}
+          {addUserList.length !== 0 && addUserList.map(user => additionalPerson(user, () => deleteList(setAddUserList, user.key)))}
         </div>
         <div className={styles.formElement}>
           <p className={styles.formLabel}>내용</p>
