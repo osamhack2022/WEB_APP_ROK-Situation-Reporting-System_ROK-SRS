@@ -164,13 +164,11 @@ const UnitSettings = () => {
 
 
     let submitunitinfo = async event => {
-        event.preventDefault() // don't redirect the page
         console.log(uploadedunitname)
         console.log(uploadedunitslogan)
 
     }
     let submitlogo = async event => {
-        event.preventDefault() // don't redirect the page
         console.log(event.target)
         console.log(uploadedunitlogo)
         if (uploadedunitlogo == "none" || uploadedunitlogo.fileList.length == 0) {
@@ -190,18 +188,22 @@ const UnitSettings = () => {
             <RegisterHeader></RegisterHeader>
             <div className={styles.formarea}>
                 <div className={styles.formarea1}>
-
-
-                    <form className={styles.changeunitinfo} onSubmit={submitunitinfo}>
+                    <Form className={styles.changeunitinfo} onFinish={submitunitinfo}>
                         <h1>부대정보 번경</h1>
                         <h2>부대이름</h2>
-                        <Input placeholder="부대이름 변경" allowClear onChange={(event) => { setuploadedunitname(event.target.value) }} name="Unitname" />
+                        <Form.Item name="부대이름" rules={[{ required: true }]}>
+                            <Input placeholder="부대이름 변경" allowClear onChange={(event) => { setuploadedunitname(event.target.value) }} name="Unitname" />
+                        </Form.Item>
                         <h2>부대슬로건</h2>
-                        <TextArea showCount maxLength={50} placeholder="부대슬로건 변경" allowClear onChange={(event) => { setuploadedunitslogan(event.target.value) }} name="Unitslogan" />
-                        <button className={styles.submitbutton} type="submit">부대정보 변경</button>
+                        <Form.Item name="부대슬로건" rules={[{ required: true }]}>
+                            <TextArea showCount maxLength={50} placeholder="부대슬로건 변경" allowClear onChange={(event) => { setuploadedunitslogan(event.target.value) }} name="Unitslogan" />
+                        </Form.Item>
+                        <Form.Item>
+                            <button className={styles.submitbutton} type="primary" htmlType="submit">부대정보 변경</button>
+                        </Form.Item>
 
-                    </form>
-                    <form className={styles.changeunitlogo} onSubmit={submitlogo}>
+                    </Form>
+                    <Form className={styles.changeunitlogo} onFinish={submitlogo}>
                         <h1>부대마크 번경</h1>
                         <div style={{ display: 'flex' }}>
                             <div className={styles.unitlogo}>
@@ -213,11 +215,11 @@ const UnitSettings = () => {
                                     <br></br>
                                     <Button>Upload</Button>
                                 </Upload.Dragger>
-                                <button className={styles.submitbutton} type="submit">부대마크 변경</button>
+                                <button className={styles.submitbutton} style = {{margin: 'auto', marginTop: '10px'}} type="submit">부대마크 변경</button>
                             </div>
 
                         </div>
-                    </form>
+                    </Form>
                 </div>
                 <br></br>
                 <div className={styles.formarea2}>
@@ -252,11 +254,11 @@ const UnitSettings = () => {
                         
                     <Form className={styles.adduser} onFinish = {submitnewuser}>
                         <h1>유저 추가</h1>
-                        <h2>군번</h2>
+                        <h3>군번</h3>
                         <Form.Item name="DoDID" rules={[{ required: true }]}>
                             <Input placeholder="21-xxxxxxx" onChange={(event) => { setDoDID(event.target.value) }} />
                         </Form.Item>
-                        <h2>계급</h2>
+                        <h3>계급</h3>
                         <Form.Item name="rank" rules={[{ required: true }, ({ getFieldValue }) => ({
                             validator(_, value) {
                                 if (value == 'title1' || value == 'title2' || value == 'title3' || value == 'title4') {
@@ -268,20 +270,23 @@ const UnitSettings = () => {
                         })]}>
                             <TreeSelect style={{ width: '100%' }} value={Rank} dropdownStyle={{ maxHeight: 400, overflow: 'auto', }} treeData={treeData1} placeholder="계급 선택" onChange={onChange1} />
                         </Form.Item>
-                        <h2>이름</h2>
+                        <h3>이름</h3>
                         <Form.Item name="name" rules={[{ required: true }]}>
                             <Input placeholder="이름" onChange={(event) => { setName(event.target.value) }} />
                         </Form.Item>
-                        <h2>계정종류</h2>
+                        <h3>계정종류</h3>
                         <Form.Item name="type" rules={[{ required: true }]}>
                             <TreeSelect className={styles.input} style={{ width: '100%' }} value={Type} dropdownStyle={{ maxHeight: 400, overflow: 'auto', }} treeData={treeData2} placeholder="계정 종류" onChange={onChange2} />
                         </Form.Item>
-                        <h2>직책</h2>
+                        <h3>직책</h3>
                         <Form.Item name="role" rules={[{ required: true }]}>
                             <Input placeholder="직책" className={styles.input} onChange={(event) => { setPosition(event.target.value) }} />
                         </Form.Item>
                         <Form.Item>
-                            <Button className={styles.submitbutton} type="primary" htmlType="submit">군인 추가</Button >
+                            <div style = {{display:'flex'}}>
+                                <button className={styles.submitbutton} type="primary" htmlType="submit">군인 추가</button>
+                                <p id = {styles.error3}>Error Message 3</p>
+                            </div>
                         </Form.Item>
                     </Form>
                 </div>
