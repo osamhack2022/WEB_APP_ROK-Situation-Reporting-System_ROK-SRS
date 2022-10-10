@@ -39,8 +39,9 @@ const screenOptions = ({ route }) => {
       return <Icon name={iconName} size={focusedSize} color={focusedColor} />
     },
     tabBarShowLabel: true,
-    tabBarStyle: { height: 55, paddingBottom: 5, backgroundColor: '#008272' },
     headerTitleAlign: 'center',
+    headerTitleStyle: { color: '#008272' },
+    tabBarStyle: { height: 55, paddingBottom: 5, backgroundColor: '#008272' },
     tabBarLabelStyle: { color: Colors.grey200 },
   }
 }
@@ -50,29 +51,30 @@ export function TabNavigator() {
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
         name="ReportNavigator"
-        options={{ title: '메모보고', headerShown: false }}
+        options={{ tabBarLabel: '메모보고', headerShown: false }}
         component={ReportNavigator}
       />
       <Tab.Screen
         name="ChatListScreen"
         options={{
           title: '채팅',
+          headerTitle: '채 팅',
         }}
         component={ChatListScreen}
       />
       <Tab.Screen
         name="OrgChartScreen"
-        options={{ title: '조직도' }}
+        options={{ title: '조직도', headerTitle: '조 직 도' }}
         component={OrgChartScreen}
       />
       <Tab.Screen
         name="NotificationScreen"
-        options={{ title: '알림' }}
+        options={{ title: '알림', headerTitle: '알 림' }}
         component={NotificationScreen}
       />
       <Tab.Screen
         name="SettingScreen"
-        options={{ title: '설정' }}
+        options={{ title: '설정', headerTitle: '설 정' }}
         component={SettingScreen}
       />
     </Tab.Navigator>
