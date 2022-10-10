@@ -4,13 +4,14 @@ html,
 body {
   padding: 0;
   margin: 0;
-  height: 100vh; 
-  overflow: hidden; 
+  height: 100vh;
+  overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
+
 * {
-  margin: 0; 
+  margin: 0;
   padding: 0;
 }
 
@@ -18,11 +19,13 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
 #__next {
-  width: 100%; 
-  height: 100%; 
-  overflow: hidden; 
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
+
 * {
   box-sizing: border-box;
 }
@@ -31,10 +34,45 @@ a {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: black;
   }
 }
 
+.sidebarMenu>.ant-menu-vertical>.ant-menu-item {
+  height: 55px;
+  line-height: 55px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
 
+.sidebarMenu>.ant-menu-vertical>.ant-menu-item:first-child {
+  margin-bottom: 45px;
+}
+
+.sidebarMenu>.ant-menu-vertical>.ant-menu-item:not(:first-child):not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.sidebarMenu>.ant-menu>.ant-menu-item:hover,
+.sidebarMenu>.ant-menu>.ant-menu-item-active,
+.sidebarMenu>.ant-menu>.ant-menu-item-open {
+  color: #fff;
+}
+
+.sidebarMenu>.ant-menu>.ant-menu-item-selected {
+  background-color: #004136 !important;
+  border-top: 4px solid rgba(0, 119, 0, 0.5);
+  border-bottom: 4px solid rgba(0, 119, 0, 0.5);
+  color: #ddd;
+  margin: 0px 0px 4px;
+  box-sizing: content-box;
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector,
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  background-color: transparent;
+  border: 0;
+}

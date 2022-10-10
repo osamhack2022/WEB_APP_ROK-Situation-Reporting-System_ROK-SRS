@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useCallback } from 'react'
 //prettier-ignore
 import { Image, SafeAreaView, View, Text, TouchableOpacity } from 'react-native'
 import { TextInput } from 'react-native-paper'

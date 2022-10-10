@@ -13,12 +13,10 @@ import { useRouter } from "next/router"
 const Settings = () => {
   
     return <>
-        <MenuBar>
-          <RegisterHeader></RegisterHeader>
+        <RegisterHeader></RegisterHeader>
 
         
         
-        </MenuBar>
     </>
 }
 

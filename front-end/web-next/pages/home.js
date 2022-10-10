@@ -3,7 +3,7 @@ import Link from "next/link"
 import MenuBar from '../componenets/menubar'
 const Home = () => {
     return <>
-        <MenuBar><p>Hello World!</p></MenuBar>
+        <p>홈페이지</p>
     </>
 }
 

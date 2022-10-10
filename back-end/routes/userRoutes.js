@@ -3,6 +3,7 @@ const {
   registerUser,
   authUser,
   allUsers,
+  addUser
 } = require("../controllers/userControllers");
 const { protect, onlyAdmin } = require("../middleware/authMiddleware");
 
