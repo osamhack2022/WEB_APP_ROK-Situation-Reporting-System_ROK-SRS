@@ -9,7 +9,8 @@ import {
 } from 'react-native'
 import { styles } from './style'
 import { GuideText } from '../../components/GuideText'
-
+import RankItems from '../../data/ranks'
+import DropDownPicker from 'react-native-dropdown-picker'
 import URL from '../../../url'
 
 const checkPasswordMatch = (password, confirmPassword) => {
@@ -34,7 +35,10 @@ const registerHandler = (data) => {
 }
 
 export function SignUpScreen() {
-  const [rank, setRank] = useState('')
+  const [rankOpen, setRankOpen] = useState(false)
+  const [rank, setRank] = useState(null)
+  const [ranks, setRanks] = useState(RankItems)
+
   const [dodId, setDodId] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -57,13 +61,22 @@ export function SignUpScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.signUpView}>
-          <TextInput
-            label="계급"
-            dense={true}
-            activeUnderlineColor="#008275"
-            onChangeText={(rank) => setRank(rank)}
-            style={styles.signUpTextInput}
-          ></TextInput>
+          <DropDownPicker
+            placeholder="계급"
+            open={rankOpen}
+            value={rank}
+            items={ranks}
+            setOpen={setRankOpen}
+            setValue={setRank}
+            setItems={setRanks}
+            style={styles.dropDown}
+            textStyle={{
+              fontSize: 16,
+              color: rank ? Colors.black : Colors.grey600,
+              marginLeft: 2,
+            }}
+            zIndex={5001}
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={``} />
           </View>
