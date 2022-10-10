@@ -71,8 +71,12 @@ a {
   box-sizing: content-box;
 }
 
-.ant-select:not(.ant-select-customize-input) .ant-select-selector,
-.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+.memoCustomForm > .ant-select:not(.ant-select-customize-input) .ant-select-selector,
+.memoCustomForm > .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
   background-color: transparent;
-  border: 0;
+  /* border: 0; */
+}
+
+.ant-form-item {
+  margin-bottom: 8px;
 }

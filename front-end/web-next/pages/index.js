@@ -2,6 +2,8 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Link from "next/link"
 import NotLoggedinLayout from '../componenets/notloggedinlayout'
+import { Avatar, Divider, List, Skeleton, Button, Input, Radio, message, Upload, Image, TreeSelect, Form } from 'antd';
+
 
 export default function Home() {
   return (
@@ -11,13 +13,21 @@ export default function Home() {
       </Head>
       <NotLoggedinLayout>
         <h1 style={{ textAlign: 'center', marginBottom: '20px', marginTop: '20px' }}>로그인</h1>
-        <form action="/send-data-here" method="post" style={{ width: '400px', margin: 'auto' }}>
-          <input className={styles.inputfield} type="text" placeholder='군번' name="DoDID" style={{ margin: 'auto', display: 'block' }} required />
+        <Form action="/send-data-here" method="post" style={{ width: '400px', margin: 'auto' }}>
+          <Form.Item name="군번" rules={[{ required: true, message: '군번을 입력해 주세요' }]}>
+            <Input placeholder = "군번" />
+          </Form.Item>
+          <Form.Item name="군번" rules={[{ required: true, message: '비밀번호를 입력해 주세요' }]}>
+            <Input.Password placeholder = "비밀번호" />
+          </Form.Item>
           <br></br>
-          <input className={styles.inputfield} type="password" placeholder='비밀번호' name="password" required />
-          <br></br>
-          <button className={styles.buttonfield} type="submit">로그인</button>
-        </form>
+          <Form.Item>
+              <div style = {{display: 'flex'}}>
+                  <button className={styles.buttonfield} type="primary" htmlType="submit">로그인</button>
+                  <p id = {styles.error}>Error Message</p>
+              </div>
+          </Form.Item>
+        </Form>
         <div id={styles.loginfooter}>
           <span className={styles.descfield}>계정이 없으세요? </span><Link href="/register" passHref><a className={styles.links}>회원가입하기</a></Link> <br></br>
           <span className={styles.descfield}>비밀번호를 잃어버리셨나요? </span><Link href="/forgotpass" passHref><a className={styles.links}>비밀번호 찾기</a></Link>
