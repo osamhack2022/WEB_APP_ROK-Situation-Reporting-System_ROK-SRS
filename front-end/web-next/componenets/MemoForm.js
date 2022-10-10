@@ -240,13 +240,13 @@ function MemoForm(props) {
             }}
           />
         </div>
-        <div className={styles.formElement}>
-          <p className={styles.formLabel}>보고 인원</p>
-          {
-            reportOrgList.length !== 0 &&
-            reportOrgList.map((org) => linkedUnit(org.list, org.key, () => deleteList(setReportOrgList, org.key)))
-          }
-        </div>
+        {
+          reportOrgList.length !== 0 &&
+          <div className={styles.formElement}>
+            <p className={styles.formLabel}>보고 인원</p>
+            {reportOrgList.map((org) => linkedUnit(org.list, org.key, () => deleteList(setReportOrgList, org.key)))}
+          </div>
+        }
         <div className={styles.formElement}>
           <div>
             <p className={styles.formLabel}>추가 인원</p>
