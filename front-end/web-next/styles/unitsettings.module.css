@@ -143,3 +143,17 @@
     margin-left: 15px;
     margin-top: 3px;
 }
+
+#error1 {
+    color: red; 
+    font-size: 14px; 
+    line-height: 30px;
+    margin-left: 15px;
+    margin-top: 3px;
+}
+#error2 {
+    color: red; 
+    font-size: 14px; 
+    text-align: center;
+    margin-top: 5px; 
+}

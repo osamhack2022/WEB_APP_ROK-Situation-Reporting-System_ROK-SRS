@@ -9,8 +9,7 @@ import unitlogo from '../../img/unitlogo.png'
 import React, { useEffect, useState } from 'react';
 
 const { TextArea } = Input;
-
-
+const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
 
 const treeData1 = [
     {
@@ -132,7 +131,7 @@ const UnitSettings = () => {
     const [Position, setPosition] = useState();
 
     let submitnewuser = async (event) => {
-        let endpoint = 'https://web-rok-situation-reporting-system-rok-vqrjv594prw2xp46-5000.githubpreview.dev/api/user/add'
+        let endpoint = backendroot + '/api/user/add'
         console.log("hi")
         console.log(DoDID)
         console.log(Rank)
@@ -199,7 +198,10 @@ const UnitSettings = () => {
                             <TextArea showCount maxLength={50} placeholder="부대슬로건 변경" allowClear onChange={(event) => { setuploadedunitslogan(event.target.value) }} name="Unitslogan" />
                         </Form.Item>
                         <Form.Item>
-                            <button className={styles.submitbutton} type="primary" htmlType="submit">부대정보 변경</button>
+                            <div style = {{display: 'flex'}}>
+                                <button className={styles.submitbutton} type="primary" htmlType="submit">부대정보 변경</button>
+                                <p id = {styles.error1}>Error Message 1</p>
+                            </div>
                         </Form.Item>
 
                     </Form>
@@ -215,7 +217,10 @@ const UnitSettings = () => {
                                     <br></br>
                                     <Button>Upload</Button>
                                 </Upload.Dragger>
-                                <button className={styles.submitbutton} style = {{margin: 'auto', marginTop: '10px'}} type="submit">부대마크 변경</button>
+                                <Form.Item>
+                                    <button className={styles.submitbutton} style = {{margin: 'auto', marginTop: '10px'}} type="primary" htmlType="submit">부대마크 변경</button>
+                                    <p id = {styles.error2}>Error Message 2</p>
+                                </Form.Item>
                             </div>
 
                         </div>
