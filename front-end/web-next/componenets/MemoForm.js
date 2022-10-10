@@ -3,7 +3,7 @@ import { Modal, Select, Button, Avatar, Row, Col } from 'antd';
 import { PlusOutlined, ArrowRightOutlined, CloseOutlined } from '@ant-design/icons'
 import styles from '../styles/MemoForm.module.css';
 
-function linkedUnit(unitList, onRemove=null) {
+function linkedUnit(unitList, key, onRemove = null) {
   if (unitList.length === 0)
     return;
 
@@ -21,7 +21,7 @@ function linkedUnit(unitList, onRemove=null) {
 
     if (index === unitList.length - 1)
       preLink.push(
-        <Col>
+        <Col key={'del' + key}>
           <Button
             className={styles.removeButton}
             shape="circle"
@@ -42,6 +42,7 @@ function linkedUnit(unitList, onRemove=null) {
 
   return (
     <Row
+      key={'linkP' + key}
       gutter={5}
       align="middle"
     >
@@ -50,9 +51,10 @@ function linkedUnit(unitList, onRemove=null) {
   )
 }
 
-function additionalPerson(person, onRemove=null) {
+function additionalPerson(person, key, onRemove = null) {
   return (
     <Row
+      key={'addP' + key}
       gutter={5}
       align="middle"
     >
@@ -65,12 +67,12 @@ function additionalPerson(person, onRemove=null) {
         />
       </Col>
       <Col>
-          <Button
-            className={styles.removeButton}
-            shape="circle"
-            icon={<CloseOutlined />}
-            onClick={onRemove}
-          />
+        <Button
+          className={styles.removeButton}
+          shape="circle"
+          icon={<CloseOutlined />}
+          onClick={onRemove}
+        />
       </Col>
     </Row>
   )
@@ -98,7 +100,7 @@ function MemoForm(props) {
 
   const orgType = [
     {
-      id: 0,
+      key: 0,
       name: '당직계통',
       list: [
         {
@@ -118,7 +120,7 @@ function MemoForm(props) {
       ]
     },
     {
-      id: 1,
+      key: 1,
       name: '3중대',
       list: [
         {
@@ -182,22 +184,12 @@ function MemoForm(props) {
     const listElement = findFromKey(source, key);
     if (!listElement) return;
 
-    if (listElement.list)
-      listState(list => [...list, listElement.list]);
-    else
-      listState(list => [...list, listElement]);
+    listState(list => [...list, listElement]);
     dataState('');
   }, [])
 
   const deleteList = useCallback((listState, key) => {
-    listState((list) => {
-      for(let i in list) {
-        if(list[i].key == key) {
-          list.splice(i, 1);
-          return list;
-        }
-      }
-    });
+    listState(list => list.filter(e => (e.key !== key)));
   }, []);
 
   return (
@@ -225,13 +217,15 @@ function MemoForm(props) {
         <div className={styles.formElement}>
           <p className={styles.formLabel}>보고 체계</p>
           <Select
+            labelInValue
             className={styles.formOrgInput}
             mode="multiple"
             bordered={false}
+            value={reportOrg.length !== 0 ? reportOrg : undefined}
             onChange={setReportOrg}
           >
             {orgType.map((item) => (
-              <Select.Option value={item.name}>
+              <Select.Option key={item.key} value={item.name}>
                 {item.name}
               </Select.Option>
             ))}
@@ -241,13 +235,17 @@ function MemoForm(props) {
             shape="circle"
             icon={<PlusOutlined />}
             onClick={() => {
-              reportOrg.forEach((org) => addList(org, setReportOrg, setReportOrgList, orgType));
+              if (reportOrg.length !== 0)
+                reportOrg.forEach(({ key }) => addList(key, setReportOrg, setReportOrgList, orgType));
             }}
           />
         </div>
         <div className={styles.formElement}>
           <p className={styles.formLabel}>보고 인원</p>
-          {reportOrgList.length !== 0 && reportOrgList.map(org => linkedUnit(org, () => deleteList(setReportOrgList, org.key)))}
+          {
+            reportOrgList.length !== 0 &&
+            reportOrgList.map((org) => linkedUnit(org.list, org.key, () => deleteList(setReportOrgList, org.key)))
+          }
         </div>
         <div className={styles.formElement}>
           <div>
@@ -257,6 +255,7 @@ function MemoForm(props) {
               className={styles.formAdditionInput}
               mode="multiple"
               bordered={false}
+              value={addUser.length !== 0 ? addUser : undefined}
               onChange={setAddUser}
             >
               {additionUser.map((item) => (
@@ -270,11 +269,15 @@ function MemoForm(props) {
               shape="circle"
               icon={<PlusOutlined />}
               onClick={() => {
-                addUser.forEach(({key}) => addList(key, setAddUser, setAddUserList, additionUser));
+                if (addUser.length !== 0)
+                  addUser.forEach(({ key }) => addList(key, setAddUser, setAddUserList, additionUser));
               }}
             />
           </div>
-          {addUserList.length !== 0 && addUserList.map(user => additionalPerson(user, () => deleteList(setAddUserList, user.key)))}
+          {
+            addUserList.length !== 0 &&
+            addUserList.map((user, index) => additionalPerson(user, index, () => deleteList(setAddUserList, user.key)))
+          }
         </div>
         <div className={styles.formElement}>
           <p className={styles.formLabel}>내용</p>
