@@ -4,6 +4,10 @@ import { Colors, Searchbar } from 'react-native-paper'
 import { ChatListItem } from '../../components/ChatListItem'
 import userData from '../../data/userData'
 
+const fetchChatList = () => {
+  
+}
+
 export function ChatListScreen() {
   const [searchQuery, setSearchQuery] = useState('')
 
