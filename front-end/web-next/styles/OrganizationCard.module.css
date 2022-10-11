@@ -1,0 +1,22 @@
+.profileImage {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 100%;
+}
+
+.userName {
+    font-size: 14pt;
+}
+
+.milRank {
+    font-size: 12pt;
+}
+
+.infoLabel {
+    font-size: 14pt;
+}
+
+.infoContent {
+    font-size: 12pt;
+}
