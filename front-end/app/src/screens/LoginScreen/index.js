@@ -7,7 +7,6 @@ import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import { GuideText } from '../../components/GuideText'
 import AppLoading from 'expo-app-loading'
-import { Alert } from 'react-native'
 
 import URL from '../../../url'
 
