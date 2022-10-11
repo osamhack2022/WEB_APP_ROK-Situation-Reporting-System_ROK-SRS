@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
+const bcrypt = require("bcryptjs");
 
 //@description     Get or Search all users
 //@route           GET /api/user?search=
@@ -38,7 +39,7 @@ const addUser = asyncHandler(async (req, res) => {
     throw new Error("User already exists");
   }
 
-  Invcode = Math.random().toString(36).substring(2,4);
+  Invcode = Math.random().toString(36).substring(2,10);
 
   const user = await User.create({
     Name,
@@ -51,11 +52,11 @@ const addUser = asyncHandler(async (req, res) => {
   if (user) {
     res.status(201).json({
       _id: user._id,
-      Name: user.name,
-      Rank: user.rank,
-      DoDID: user.dodId,
-      Type: user.isAdmin,
-      Invcode: user.invCode
+      Name: user.Name,
+      Rank: user.Rank,
+      DoDID: user.DoDID,
+      Type: user.Type,
+      Invcode: user.Invcode
     });
   } else {
     res.status(400);
@@ -81,6 +82,11 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error("Unauthorized User, Contact Unit Manager");
   }
 
+  if (userDb.is_registered) {
+    res.status(400);
+    throw new Error("Already Registered User");
+  }
+
   if (Invcode != userDb.Invcode) {
     res.status(400);
     throw new Error("Invalid Invite Code");
@@ -90,12 +96,9 @@ const registerUser = asyncHandler(async (req, res) => {
     userDb._id,
     {
       email: email,
-    },
-    {
-      password: password,
-    },
-    {
+      password: await bcrypt.hash(password, await bcrypt.genSalt(10)),
       pic: pic,
+      is_registered: true
     },
     {
       new: true,
@@ -126,6 +129,11 @@ const authUser = asyncHandler(async (req, res) => {
   const { DoDID, password } = req.body;
 
   const user = await User.findOne({ DoDID });
+
+  if (user && !user.is_registered) {
+    res.status(400);
+    throw new Error("Not Registered, But Added");
+  }
 
   if (user && (await user.matchPassword(password))) {
     res.json({

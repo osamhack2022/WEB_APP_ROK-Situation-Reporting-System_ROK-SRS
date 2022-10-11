@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema(
   {
     Name: { type: String, required: true },
     DoDID: { type: String, unique: true, required: true },
-    password: { type: String, required: false },
+    password: { type: String, required: false, default: " " },
     Rank: { type: String, required: true },
     Type: { type: String, required: true },
     Invcode: { type: String, required: true },
@@ -15,16 +15,17 @@ const userSchema = mongoose.Schema(
     milNumber: { type: String, required: false },
     number: { type: String , unique: true, required: false },
     pic: {
-      type: "String",
+      type: String,
       required: false,
       default:
-        "https://cdn-icons-png.flaticon.com/512/6142/6142226.png",
+        "https://cdn-icons-png.flaticon.com/512/6142/6142226.png"
     },
     Unit: { type: mongoose.Schema.Types.ObjectId, ref: "Unit" },
+    is_registered: {type : Boolean, default: false}
   },
   { timestamps: true }
 );
-
+// git commit -m "Fix: bug & register handle with exception"
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
