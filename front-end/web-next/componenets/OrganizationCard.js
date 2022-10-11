@@ -17,33 +17,35 @@ function OrgCard(props) {
       onCancel={props.onClose}
       footer={null}
     >
-      <Row>
+      <Row
+        className={Styles.elementRow}
+        align="middle"
+      >
         <Col>
           <Image
             className={Styles.profileImage}
-            preview={false}
-            src="https://joeschmoe.io/api/v1/random"
+            src="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           />
         </Col>
-        <Col>
+        <Col className={Styles.userProfile}>
           <div>
-            <span className={Styles.milRank}>{props.rank}</span>
             <span className={Styles.userName}>{props.name}</span>
+            <span className={Styles.milRank}>{props.rank}</span>
           </div>
-          <InfoElement label="군번" content={props.DoDID} />
+          <div className={Styles.userDodid}>{props.DoDID}</div>
         </Col>
       </Row>
-      <Row>
-        <Col><InfoElement label="부서" content={props.department} /></Col>
-        <Col><InfoElement label="직책" content={props.position} /></Col>
+      <Row className={Styles.elementRow}>
+        <Col span={12}><InfoElement label="부서" content={props.department} /></Col>
+        <Col span={12}><InfoElement label="직책" content={props.position} /></Col>
       </Row>
-      <Row>
-        <Col><InfoElement label="권한" content={props.roles} /></Col>
-        <Col><InfoElement label="이메일" content={props.email} /></Col>
+      <Row className={Styles.elementRow}>
+        <Col span={12}><InfoElement label="권한" content={props.roles} /></Col>
+        <Col span={12}><InfoElement label="이메일" content={props.email} /></Col>
       </Row>
-      <Row>
-        <Col><InfoElement label="전화번호" content={props.tel} /></Col>
-        <Col><InfoElement label="군연락망" content={props.mTel} /></Col>
+      <Row className={Styles.elementRow}>
+        <Col span={12}><InfoElement label="전화번호" content={props.tel} /></Col>
+        <Col span={12}><InfoElement label="군연락망" content={props.mTel} /></Col>
       </Row>
     </Modal>
   )

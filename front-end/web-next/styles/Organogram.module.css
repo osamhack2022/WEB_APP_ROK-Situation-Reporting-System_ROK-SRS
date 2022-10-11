@@ -13,3 +13,24 @@
     border: 1px solid #ddd;
     border-radius: 100%
 }
+
+.cardContent {
+    padding: 10px;
+    border: 1px solid #777;
+    border-radius: 30pt;
+}
+
+.userName {
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+.userRank {
+    font-size: 15pt;
+    font-weight: bold;
+    margin-left: 5pt;
+}
+
+.userPosition {
+    font-size: 13pt;
+}

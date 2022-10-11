@@ -84,8 +84,12 @@ function TreeNodeElement(props) {
       className={Styles.cardButton}
       onClick={props.onClick}
     >
-      <div>
-        <Row>
+      <div className={Styles.cardContent}>
+        <Row
+          gutter={10}
+          align="middle"
+          justify="start"
+        >
           <Col>
             <Image
               className={Styles.profileImage}
@@ -95,9 +99,10 @@ function TreeNodeElement(props) {
           </Col>
           <Col>
             <div>
-              <span>{props.rank}</span> <span>{props.name}</span>
+              <span className={Styles.userName}>{props.name}</span>
+              <span className={Styles.userRank}>{props.rank}</span>
             </div>
-            <div>
+            <div className={Styles.userPosition}>
               {props.position}
             </div>
           </Col>
