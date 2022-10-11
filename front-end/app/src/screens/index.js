@@ -1,6 +1,7 @@
 export * from './setting-screens/SettingScreen'
 export * from './setting-screens/UserMgtScreen'
 export * from './setting-screens/UnitMgtScreen'
+export * from './setting-screens/UserAddScreen'
 export * from './report-screens/CreateReportScreen'
 export * from './report-screens/RecdReportScreen'
 export * from './report-screens/ReportScreen'

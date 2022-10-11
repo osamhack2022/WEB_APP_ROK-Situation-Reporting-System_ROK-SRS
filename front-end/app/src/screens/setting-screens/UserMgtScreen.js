@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Colors, TextInput } from 'react-native-paper'
+import { Colors, TextInput, FAB } from 'react-native-paper'
 import { View, SafeAreaView, StyleSheet } from 'react-native'
 import { GuideText } from '../../components/GuideText'
 import { window } from '../../constants/layout'
@@ -31,78 +31,11 @@ export function UserMgtScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.view}>
-        <TextInput
-          label="군 번"
-          dense={true}
-          activeUnderlineColor="#008275"
-          onChangeText={(dodId) => setDodId(dodId)}
-          style={styles.textInput}
-        ></TextInput>
-        <View style={styles.guideTextView}>
-          <GuideText guideText={`2x-xxxxxxxx`} />
-        </View>
-        <DropDownPicker
-          placeholder="계급"
-          open={rankOpen}
-          value={rank}
-          items={ranks}
-          setOpen={setRankOpen}
-          setValue={setRank}
-          setItems={setRanks}
-          style={styles.dropDown}
-          textStyle={{
-            fontSize: 16,
-            color: rank ? Colors.black : Colors.grey600,
-            marginLeft: 2,
-          }}
-          zIndex={5001}
-        />
-        <View style={styles.guideTextView}>
-          <GuideText guideText={``} />
-        </View>
-        <TextInput
-          label="이름"
-          dense={true}
-          activeUnderlineColor="#008275"
-          onChangeText={(name) => setName(name)}
-          style={styles.textInput}
-        ></TextInput>
-        <View style={styles.guideTextView}>
-          <GuideText guideText={``} />
-        </View>
-        <DropDownPicker
-          placeholder="계정 유형"
-          open={typeOpen}
-          value={accountType}
-          items={accountTypes}
-          setOpen={setTypeOpen}
-          setValue={setAccountType}
-          setItems={setAccountTypes}
-          style={styles.dropDown}
-          textStyle={{
-            fontSize: 16,
-            color: rank ? Colors.black : Colors.grey600,
-            marginLeft: 2,
-          }}
-        />
-        <View style={styles.guideTextView}>
-          <GuideText guideText={``} />
-        </View>
-        <TextInput
-          label="직책"
-          dense={true}
-          activeUnderlineColor="#008275"
-          onChangeText={(role) => setRole(role)}
-          style={styles.textInput}
-        ></TextInput>
-        <View style={styles.guideTextView}>
-          <GuideText guideText={``} />
-        </View>
-      </View>
-      {dodId && rank && name && accountType && role && (
-        <MyButton text="사용자 추가" onPress={() => navigation.goBack()} />
-      )}
+      <FAB
+        icon="account-plus"
+        style={styles.fab}
+        onPress={() => navigation.navigate('UserAddScreen')}
+      />
     </SafeAreaView>
   )
 }
@@ -113,23 +46,12 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
   },
-  guideTextView: {
-    marginBottom: (15 / 812) * window.height,
-    width: '100%',
-    alignItems: 'flex-end',
-  },
-  view: {
-    width: '85%',
-  },
-  textInput: {
-    width: '100%',
-    backgroundColor: 'white',
-  },
-  dropDown: {
-    width: '100%',
-    backgroundColor: 'white',
-    borderWidth: 0,
-    borderBottomWidth: 1,
-    borderColor: Colors.grey400,
+  fab: {
+    borderRadius: 60,
+    height: 56,
+    width: 56,
+    position: 'absolute',
+    bottom: 25,
+    right: 20,
   },
 })

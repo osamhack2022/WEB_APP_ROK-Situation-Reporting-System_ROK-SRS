@@ -4,10 +4,10 @@
     "slug": "roksrs",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./src/assets/images/splash.png",
+    "icon": "./src/assets/images/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./src/assets/images/splash.png",
+      "image": "./src/assets/images/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFFFFF"
     },
@@ -20,14 +20,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/images/splash.png",
+        "foregroundImage": "./src/assets/images/logo.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.gudmin0526.roksrs",
       "versionCode": 1
     },
     "web": {
-      "favicon": "./src/assets/images/splash.png"
+      "favicon": "./src/assets/images/logo.png"
     },
     "extra": {
       "eas": {

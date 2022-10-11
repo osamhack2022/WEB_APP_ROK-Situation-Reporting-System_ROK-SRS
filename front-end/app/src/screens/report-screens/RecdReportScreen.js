@@ -23,17 +23,11 @@ export function RecdReportScreen() {
         <ReportListItem />
         <ReportListItem />
       </ScrollView>
-      <View style={{ position: 'absolute', bottom: 20, right: 20 }}>
-        <FAB
-          icon="pencil-plus-outline"
-          onPress={() => navigation.navigate('CreateReportScreen')}
-          style={{
-            borderRadius: 60,
-            height: 56,
-            width: 56,
-          }}
-        ></FAB>
-      </View>
+      <FAB
+        icon="pencil-plus-outline"
+        onPress={() => navigation.navigate('CreateReportScreen')}
+        style={styles.fab}
+      />
     </SafeAreaView>
   )
 }
@@ -51,5 +45,13 @@ const styles = StyleSheet.create({
   flexRow: {
     flex: 1,
     flexDirection: 'row',
+  },
+  fab: {
+    borderRadius: 60,
+    height: 56,
+    width: 56,
+    position: 'absolute',
+    bottom: 15,
+    right: 20,
   },
 })
