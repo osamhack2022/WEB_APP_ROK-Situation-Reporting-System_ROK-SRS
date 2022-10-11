@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema(
     Rank: { type: String, required: true },
     Type: { type: String, required: true },
     Invcode: { type: String, required: true },
-    is_activated: { type: boolean },
+    is_activated: { type: Boolean },
     Position: { type: String, unique: true, required: false },
     email: { type: String, unique: true, required: false },
     milNumber: { type: String, required: false },
