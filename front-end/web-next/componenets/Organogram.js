@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
 import { Button, Image, Row, Col } from 'antd';
 import OrgCard from './OrganizationCard';
@@ -112,9 +112,13 @@ function TreeNodeElement(props) {
   )
 }
 
-function Organogram() {
+function Organogram(props) {
   const [isCardOpened, setCardOpened] = useState(false)
   const [orgInfo, setOrgInfo] = useState({});
+
+  useEffect(() => {
+    props.onPreventDraggable(isCardOpened);
+  }, [isCardOpened]);
 
   const chooseOrgInfo = useCallback((node) => {
     setOrgInfo(node);
