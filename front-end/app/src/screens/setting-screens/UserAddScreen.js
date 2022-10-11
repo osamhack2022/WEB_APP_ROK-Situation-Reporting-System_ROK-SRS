@@ -13,6 +13,19 @@ const AccountTypeItems = [
   { label: '병사', value: 'Soldier' },
 ]
 
+const addUserHandler = ({ rank, name, dodId, isAdmin }, cb) => {
+  fetch(URL + '/api/user/add', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ rank, name, dodId, isAdmin }),
+  })
+    .then((res) => res.json())
+    .then((res) => console.log(res.invCode))
+    .catch((error) => console.error(error))
+}
+
 export function UserAddScreen() {
   const [dodId, setDodId] = useState('')
   const [name, setName] = useState('')
@@ -98,7 +111,12 @@ export function UserAddScreen() {
         </View>
       </View>
       {dodId && rank && name && accountType && role && (
-        <MyButton text="사용자 추가" onPress={() => console.log('User Add.')} />
+        <MyButton
+          text="사용자 추가"
+          onPress={() =>
+            addUserHandler({ rank, name, dodId, isAdmin: AccountType })
+          }
+        />
       )}
     </SafeAreaView>
   )
