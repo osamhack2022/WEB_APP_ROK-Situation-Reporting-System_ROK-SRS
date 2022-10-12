@@ -16,6 +16,7 @@
     "bootstrap-icons": "^1.9.1",
     "colors": "^1.4.0",
     "concurrently": "^7.4.0",
+    "cookies-next": "^2.1.1",
     "formik-antd": "^2.0.4",
     "next": "12.3.1",
     "react": "18.2.0",
