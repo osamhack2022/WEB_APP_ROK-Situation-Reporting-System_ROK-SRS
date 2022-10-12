@@ -114,7 +114,7 @@ export function UserAddScreen() {
         <MyButton
           text="사용자 추가"
           onPress={() =>
-            addUserHandler({ rank, name, dodId, isAdmin: AccountType })
+            addUserHandler({ rank, name, dodId, Type: AccountType })
           }
         />
       )}

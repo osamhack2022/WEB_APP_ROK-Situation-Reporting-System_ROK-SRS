@@ -1,17 +1,12 @@
 import React, { useState } from 'react'
 import { TextInput } from 'react-native-paper'
-import {
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-  Text,
-} from 'react-native'
+// prettier-ignore
+import { View ,SafeAreaView, TouchableOpacity, ScrollView, Text, Alert } from 'react-native'
 import { styles } from './style'
 import { GuideText } from '../../components/GuideText'
 import RankItems from '../../data/ranks'
 import DropDownPicker from 'react-native-dropdown-picker'
-import URL from '../../../url'
+import registerApi from '../../apis/registerApi'
 
 const checkPasswordMatch = (password, confirmPassword) => {
   return password.length == 0
@@ -21,17 +16,9 @@ const checkPasswordMatch = (password, confirmPassword) => {
     : `비밀번호가 일치하지 않습니다.`
 }
 
-const registerHandler = (data) => {
-  fetch(URL + '/api/user/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then((res) => res.json())
-    .then((res) => console.log(res.message))
-    .catch((error) => console.error(error))
+const registerHandler = async (userData) => {
+  const res = await registerApi(userData)
+  Alert.alert(res.message)
 }
 
 export function SignUpScreen() {
@@ -39,6 +26,7 @@ export function SignUpScreen() {
   const [rank, setRank] = useState(null)
   const [ranks, setRanks] = useState(RankItems)
 
+  const [pic, setPic] = useState('')
   const [dodId, setDodId] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -47,11 +35,13 @@ export function SignUpScreen() {
   const [inviteCode, setInviteCode] = useState('')
 
   const userData = {
-    rank,
-    dodId,
+    Rank: rank,
+    DoDID: dodId,
     password,
-    name,
+    Name: name,
     email,
+    pic,
+    InvCode: inviteCode,
   }
 
   return (

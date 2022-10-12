@@ -5,6 +5,12 @@ import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 
+const chatHandler = () => {
+  return fetch('')
+    .then((res) => res.json())
+    .catch((error) => console.log(error))
+}
+
 export const ChatListItem = ({ name, lastMessage, createAt }) => {
   let [fontsLoaded] = useNunitoFonts()
 

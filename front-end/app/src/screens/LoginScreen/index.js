@@ -1,41 +1,43 @@
 import React, { useState, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
-import { LoginState } from '../../states/LoginState'
+import { userState } from '../../states/userState'
 //prettier-ignore
-import { Image, SafeAreaView, View, Text, TouchableOpacity } from 'react-native'
+import { Image, SafeAreaView, View, Text, TouchableOpacity, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import { GuideText } from '../../components/GuideText'
 import AppLoading from 'expo-app-loading'
-import URL from '../../../url'
+import loginApi from '../../apis/loginApi'
 
-const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState)
+const [userMe, setUserMe] = useRecoilState(userState)
 
-const loginHandler = ({ dodId, password }, cb) => {
-  fetch(URL + '/api/user/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ dodId, password }),
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res.message)
-      const token = res.token
-      if (token) localStorage.setItem('rok-srs-token', token)
-      if (localStorage.getItem('rok-srs-token')) setIsLoggedIn(true)
-      cb()
+const loginHandler = async ({ DoDID, password }, cb) => {
+  const res = await loginApi({ DoDID, password })
+  const token = res.token
+  if (token) localStorage.setItem('roksrs-token', token)
+  if (localStorage.getItem('roksrs-token')) {
+    setUserMe({
+      Name: res.Name,
+      DoDID: res.DoDID,
+      Rank: res.Rank,
+      Type: res.Type,
+      Position: res.Position,
+      email: res.email,
+      pic: res.pic,
+      is_activated: true,
     })
-    .catch((error) => console.error(error))
+    cb()
+  } else {
+    Alert.alert(res.message)
+  }
 }
 
 export function LoginScreen() {
   let [fontsLoaded] = useNunitoFonts()
 
-  const [dodId, setDodId] = useState('')
+  const [DoDID, setDoDID] = useState('')
   const [password, setPassword] = useState('')
   const [passwordVisible, setPasswordVisible] = useState(true)
 
@@ -54,7 +56,6 @@ export function LoginScreen() {
     return <AppLoading />
   }
 
-  console.log(process.env.URL)
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoView}>
@@ -69,7 +70,7 @@ export function LoginScreen() {
           dense={true}
           activeUnderlineColor="#008275"
           style={styles.loginTextInput}
-          onChangeText={(dodId) => setDodId(dodId)}
+          onChangeText={(DoDID) => setDoDID(DoDID)}
         />
         <View style={styles.guideTextView}>
           <GuideText guideText={`2x-xxxxxxxx`} />
@@ -92,7 +93,7 @@ export function LoginScreen() {
           <GuideText guideText={`${password.length}/15`} />
         </View>
         <TouchableOpacity
-          onPress={() => loginHandler({ dodId, password }, goChatNavigator)}
+          onPress={() => loginHandler({ DoDID, password }, goChatNavigator)}
           style={styles.loginButtonView}
         >
           <Text style={styles.LoginText}>로 그 인</Text>

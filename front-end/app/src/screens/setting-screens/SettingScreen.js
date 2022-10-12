@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import { useRecoilState } from 'recoil'
-import { LoginState } from '../../states/LoginState'
+import { userState } from '../../states/userState'
 import { SafeAreaView, StyleSheet, ScrollView, Switch } from 'react-native'
 import { List, Colors } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
+import logoutApi from '../../apis/logoutApi'
 
-const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState)
+const [userMe, setUserMe] = useRecoilState(userState)
 
 const logoutHandler = (cb) => {
-  localStorage.removeItem('rok-srs-token')
-  setIsLoggedIn(false)
+  logoutApi()
+  setUserMe({})
   cb()
 }
 
