@@ -60,7 +60,7 @@ export default function Home() {
           <br></br>
           <Form.Item>
               <div style = {{display: 'flex'}}>
-                  <button className={styles.buttonfield} type="primary" htmlType="submit">로그인</button>
+                  <button className={styles.buttonfield} type="primary">로그인</button>
                   <p id = {styles.error}>{error}</p>
               </div>
           </Form.Item>
