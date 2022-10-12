@@ -17,7 +17,6 @@
   color: white; 
   border-radius: 5px;
   border: none;
-  margin: auto;
   margin-top: 5px;
   display: block;
 }
@@ -73,4 +72,12 @@
   color:rgb(0, 0, 158);
   text-decoration: underline;
 
+}
+
+#error {
+  color: red; 
+  font-size: 14px; 
+  margin-left: 15px;
+  line-height: 33px; 
+  margin-top: 3px;
 }
