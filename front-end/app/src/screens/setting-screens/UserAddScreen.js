@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { SafeAreaView, View, StyleSheet } from 'react-native'
+import { SafeAreaView, View, StyleSheet, Alert } from 'react-native'
 import { Colors, TextInput } from 'react-native-paper'
 import RankItems from '../../data/ranks'
 import { GuideText } from '../../components/GuideText'
 import { window } from '../../constants/layout'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { MyButton } from '../../components/MyButton'
+import addUserApi from '../../apis/addUserApi'
 
 const AccountTypeItems = [
   { label: '지휘관', value: 'Commander' },
@@ -13,17 +14,12 @@ const AccountTypeItems = [
   { label: '병사', value: 'Soldier' },
 ]
 
-const addUserHandler = ({ rank, name, dodId, isAdmin }, cb) => {
-  fetch(URL + '/api/user/add', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ rank, name, dodId, isAdmin }),
-  })
-    .then((res) => res.json())
-    .then((res) => console.log(res.invCode))
-    .catch((error) => console.error(error))
+const addUserHandler = async ({ rank, name, dodId, Type }, cb) => {
+  const res = await addUserApi({ Rank: rank, Name: name, DoDID: dodId, Type })
+  if (res.Invcode)
+    Alert.alert(`사용자 등록에 성공했습니다, 초대 코드는 ${res.Invcode}입니다.`)
+  else Alert.alert(res.message)
+  cb()
 }
 
 export function UserAddScreen() {
