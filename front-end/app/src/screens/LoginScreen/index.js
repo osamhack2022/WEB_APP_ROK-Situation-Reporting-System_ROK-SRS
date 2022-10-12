@@ -1,4 +1,6 @@
 import React, { useState, useCallback } from 'react'
+import { useRecoilState } from 'recoil'
+import { LoginState } from '../../states/LoginState'
 //prettier-ignore
 import { Image, SafeAreaView, View, Text, TouchableOpacity } from 'react-native'
 import { TextInput } from 'react-native-paper'
@@ -7,8 +9,9 @@ import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import { GuideText } from '../../components/GuideText'
 import AppLoading from 'expo-app-loading'
-
 import URL from '../../../url'
+
+const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState)
 
 const loginHandler = ({ dodId, password }, cb) => {
   fetch(URL + '/api/user/login', {
@@ -21,6 +24,9 @@ const loginHandler = ({ dodId, password }, cb) => {
     .then((res) => res.json())
     .then((res) => {
       console.log(res.message)
+      const token = res.token
+      if (token) localStorage.setItem('rok-srs-token', token)
+      if (localStorage.getItem('rok-srs-token')) setIsLoggedIn(true)
       cb()
     })
     .catch((error) => console.error(error))

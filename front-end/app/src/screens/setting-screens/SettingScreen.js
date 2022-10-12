@@ -1,8 +1,18 @@
 import React, { useState } from 'react'
+import { useRecoilState } from 'recoil'
+import { LoginState } from '../../states/LoginState'
 import { SafeAreaView, StyleSheet, ScrollView, Switch } from 'react-native'
 import { List, Colors } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
+
+const [isLoggedIn, setIsLoggedIn] = useRecoilState(LoginState)
+
+const logoutHandler = (cb) => {
+  localStorage.removeItem('rok-srs-token')
+  setIsLoggedIn(false)
+  cb()
+}
 
 export function SettingScreen() {
   let [fontsLoaded] = useNunitoFonts()
@@ -17,6 +27,9 @@ export function SettingScreen() {
           title="로그아웃"
           left={() => <List.Icon icon="logout" />}
           style={styles.listItem}
+          onPress={() =>
+            logoutHandler(() => navigation.navigate('LoginScreen'))
+          }
         />
         <List.Item
           title="개인정보 수정"
