@@ -1,8 +1,9 @@
-import { Avatar, Button, Comment, List, Row, Col, Divider } from 'antd';
+import { Avatar, Button, List, Row, Col, Divider } from 'antd';
+import Styles from '../styles/MemoReport.module.css';
 
 function ReportCard(props) {
   return (
-    <div style={{ marginBottom: '10px' }}>
+    <div className={Styles.cardLayout}>
       <Row
         align="middle"
         justify='space-between'
@@ -13,16 +14,16 @@ function ReportCard(props) {
               <Avatar src="https://joeschmoe.io/api/v1/random" size={48} />
             </Col>
             <Col>
-              <div style={styles.cardName}>{props.name}</div>
-              <div style={styles.cardPosition}>{props.position}</div>
+              <div className={Styles.cardName}>{props.name}</div>
+              <div className={Styles.cardPosition}>{props.position}</div>
             </Col>
           </Row>
         </Col>
-        <Col style={styles.cardDatetime}>
+        <Col className={Styles.cardDatetime}>
           {props.datetime}
         </Col>
       </Row>
-      <div style={styles.cardMemo}>
+      <div className={Styles.cardMemo}>
         {props.memo}
       </div>
     </div>
@@ -68,13 +69,16 @@ function ReportLayout(props) {
   return (
     <>
       <Row>
-        <Col style={{ width: '100%' }}>
+        <Col className={Styles.memoHeader}>
           {props.header}
         </Col>
       </Row>
-      <Divider style={{ margin: '15px 0' }} />
+      <Divider className={Styles.memoDivider} />
       <Row>
-        <Col style={styles.contentLayout(props.height)}>
+        <Col
+          className={Styles.contentLayout}
+          style={(height) => { height: height ? height : '700px' }}
+        >
           <ReportCard
             name={props.name}
             position={props.position}
@@ -83,13 +87,14 @@ function ReportLayout(props) {
           />
           {
             props.comment &&
-            <div style={{ paddingLeft: '30px' }}>
+            <div className={Styles.memoComment}>
               <ReportList data={props.comment} />
             </div>
           }
         </Col>
       </Row>
-      <Divider style={{ margin: '10px 0' }} />
+      <input></input>
+      <Divider className={Styles.memoDivider} />
       <Row justify='space-between'>
         <Col>
           {props.footer}
@@ -104,28 +109,3 @@ function ReportLayout(props) {
 
 export default ReportLayout;
 export { ReportCard, ReportList }
-
-const styles = {
-  cardName: {
-    fontSize: '12pt',
-    fontWeight: 'bold',
-  },
-  cardPosition: {
-    fontSize: '10pt',
-    color: '#4d4d4d'
-  },
-  cardDatetime: {
-    fontSize: '12pt',
-    fontWeight: 'bold'
-  },
-  cardMemo: {
-    marginTop: '10px',
-    paddingLeft: '5px',
-    fontSize: '11pt'
-  },
-  contentLayout: (height) => ({
-    width: '100%',
-    height: height ? height : '700px',
-    overflow: 'auto'
-  })
-}
