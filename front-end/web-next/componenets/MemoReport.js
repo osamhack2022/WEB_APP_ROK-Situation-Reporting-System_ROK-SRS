@@ -1,4 +1,5 @@
-import { Avatar, Button, List, Row, Col, Divider } from 'antd';
+import { useState } from 'react';
+import { Avatar, Button, List, Row, Col, Divider, Input } from 'antd';
 import Styles from '../styles/MemoReport.module.css';
 
 function ReportCard(props) {
@@ -50,6 +51,8 @@ function ReportList(props) {
 }
 
 function ReportLayout(props) {
+  const [commentContent, setCommentContent] = useState('');
+
   function ButtonGroup() {
     return (
       <>
@@ -90,8 +93,18 @@ function ReportLayout(props) {
           }
         </Col>
       </Row>
-      <input></input>
       <div className={Styles.memoFooter}>
+        <Input.Group compact>
+          <Input
+            style={{ width: 'calc(100% - 60px)' }}
+            value={commentContent}
+            onChange={(event) => setCommentContent(event.target.value)}
+          />
+          <Button
+            onClick={() => console.log(commentContent)}>
+            전송
+          </Button>
+        </Input.Group>
         <Divider className={Styles.memoDivider} />
         <Row justify='space-between'>
           <Col>
