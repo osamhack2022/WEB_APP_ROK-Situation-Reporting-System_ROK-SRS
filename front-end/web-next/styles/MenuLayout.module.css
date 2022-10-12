@@ -9,6 +9,7 @@
     background-color: #008272;
     border-right: 1px solid #004139;
     padding: 60px 0px;
+    z-index: 100;
 }
 
 .contentLayout {

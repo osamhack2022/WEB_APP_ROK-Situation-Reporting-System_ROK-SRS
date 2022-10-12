@@ -1,6 +1,7 @@
 const express = require("express");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
+const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
@@ -12,6 +13,7 @@ connectDB();
 const app = express();
 
 app.use(express.json()); // to accept json data
+app.use(cors()); // for cors
 
 // app.get("/", (req, res) => {
 //   res.send("API Running!");
@@ -32,9 +34,9 @@ if (process.env.NODE_ENV === "production") {
   );
 } else {
   */
-  app.get("/", (req, res) => {
-    res.send("API is running..");
-  });
+app.get("/", (req, res) => {
+  res.send("API is running..");
+});
 //}
 
 

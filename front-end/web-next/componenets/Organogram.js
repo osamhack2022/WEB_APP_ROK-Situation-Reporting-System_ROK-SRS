@@ -1,146 +1,150 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
-import { Card, Button, Image } from 'antd';
+import { Button, Image, Row, Col } from 'antd';
+import OrgCard from './OrganizationCard';
+import Styles from '../styles/Organogram.module.css';
 
-function renderNode(node) {
-    if(node === null)
-        return;
+const myData = {
+  'key': 1,
+  'username': 'Kim',
+  'department': 'rok_srs',
+  'position': '보안팀장',
+  'roles': 'editable',
+  'rank': '대위',
+  'DoDID': '00-12345678',
+  'phoneNumber': '010-0000-1111',
+  'voipNumber': 'voip',
+  'email': '@@@',
+  'children': [
+    {
+      'key': 2,
+      'username': 'Jo',
+      'department': 'rok_srs',
+      'position': '백엔드',
+      'roles': 'viewable',
+      'rank': '상병',
+      'DoDID': '99-00112233',
+      'phoneNumber': '010-2222-3333',
+      'voipNumber': 'voip',
+      'email': '@@@',
+      'children': [{
+        'key': 4,
+        'username': 'Choe',
+        'department': 'rok_srs',
+        'position': '프론트엔드(WEB)',
+        'roles': 'none',
+        'rank': '일병',
+        'DoDID': '88-44556677',
+        'phoneNumber': '010-4444-5555',
+        'voipNumber': 'voip',
+        'email': '@@@',
+        'children': null
+      }]
+    },
+    {
+      'key': 3,
+      'username': 'Kim',
+      'department': 'rok_srs',
+      'position': '프론트엔드(APP)',
+      'roles': 'viewable',
+      'rank': '병장',
+      'DoDID': '98-76543210',
+      'phoneNumber': '010-6666-7777',
+      'voipNumber': 'voip',
+      'email': '@@@',
+      'children': null
+    },
+  ]
+};
 
-    return (
-        <TreeNode
-            key={node.key}
-            label={
-                <TreeNodeElement
-                    name={node.username}
-                    rank={node.militaryRank}
-                    department={node.department}
-                    position={node.position}
-                    roles={node.roles}
-                    snumber={node.serviceNumber}
-                    tel={node.phoneNumber}
-                    voip={node.voipNumber}
-                    email={node.email}
-                />
-            }
-        >
-            {node.children && node.children.map((childNode) => (renderNode(childNode)))}
-        </TreeNode>
-    );
+function renderNode(node, chooseNode) {
+  if (node === null)
+    return;
+
+  return (
+    <TreeNode
+      key={node.key}
+      label={
+        <TreeNodeElement
+          name={node.username}
+          rank={node.rank}
+          position={node.position}
+          onClick={() => chooseNode(node)}
+        />
+      }
+    >
+      {node.children && node.children.map((childNode) => (renderNode(childNode, chooseNode)))}
+    </TreeNode>
+  );
 }
 
 function TreeNodeElement(props) {
-    return (
-        <Button
-            style={styles.cardButton}
-            onClick={() => console.log(props.name + props.rank)}
+  return (
+    <Button
+      className={Styles.cardButton}
+      onClick={props.onClick}
+    >
+      <div className={Styles.cardContent}>
+        <Row
+          gutter={10}
+          align="middle"
+          justify="start"
         >
-            <Card
-                cover={
-                    <Image
-                        style={styles.profileImage}
-                        preview={false}
-                        src="https://joeschmoe.io/api/v1/random"
-                    />
-                }
-                style={styles.cardContent}
-                hoverable
-            >
-                <p><b>{props.name}</b></p>
-                <p>계급: {props.rank}</p>
-                <p>부서: {props.department}</p>
-                <p>직책: {props.position}</p>
-                <p>권한: {props.roles}</p>
-                <p>군번: {props.snumber}</p>
-                <p>전화번호: {props.tel}</p>
-                <p>군연락망: {props.voip}</p>
-                <p>이메일: {props.email}</p>
-            </Card>
-        </Button>
-    )
+          <Col>
+            <Image
+              className={Styles.profileImage}
+              preview={false}
+              src="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            />
+          </Col>
+          <Col>
+            <div>
+              <span className={Styles.userName}>{props.name}</span>
+              <span className={Styles.userRank}>{props.rank}</span>
+            </div>
+            <div className={Styles.userPosition}>
+              {props.position}
+            </div>
+          </Col>
+        </Row>
+      </div>
+    </Button>
+  )
 }
 
-function Organogram() {
-    const myData = {
-        'key': 1,
-        'username': 'Kim',
-        'department': 'rok_srs',
-        'position': '보안팀장',
-        'roles': 'editable',
-        'militaryRank': '대위',
-        'serviceNumber': '00-12345678',
-        'phoneNumber': '010-0000-1111',
-        'voipNumber': 'voip',
-        'email': '@@@',
-        'children': [
-            {
-                'key': 2,
-                'username': 'Jo',
-                'department': 'rok_srs',
-                'position': '백엔드',
-                'roles': 'viewable',
-                'militaryRank': '상병',
-                'serviceNumber': '99-00112233',
-                'phoneNumber': '010-2222-3333',
-                'voipNumber': 'voip',
-                'email': '@@@',
-                'children': [{
-                    'key': 4,
-                    'username': 'Choe',
-                    'department': 'rok_srs',
-                    'position': '프론트엔드(WEB)',
-                    'roles': 'none',
-                    'militaryRank': '일병',
-                    'serviceNumber': '88-44556677',
-                    'phoneNumber': '010-4444-5555',
-                    'voipNumber': 'voip',
-                    'email': '@@@',
-                    'children': null
-                }]
-            },
-            {
-                'key': 3,
-                'username': 'Kim',
-                'department': 'rok_srs',
-                'position': '프론트엔드(APP)',
-                'roles': 'viewable',
-                'militaryRank': '병장',
-                'serviceNumber': '98-76543210',
-                'phoneNumber': '010-6666-7777',
-                'voipNumber': 'voip',
-                'email': '@@@',
-                'children': null
-            },
-        ]
-    };
+function Organogram(props) {
+  const [isCardOpened, setCardOpened] = useState(false)
+  const [orgInfo, setOrgInfo] = useState({});
 
-    return (
-        <Tree label="❤❤대대">
-            {renderNode(myData)}
-        </Tree>
-    )
+  useEffect(() => {
+    props.onPreventDraggable(isCardOpened);
+  }, [isCardOpened]);
+
+  const chooseOrgInfo = useCallback((node) => {
+    setOrgInfo(node);
+    setCardOpened(true);
+  }, [setOrgInfo, setCardOpened]);
+
+  return (
+    <>
+      <Tree label="❤❤대대">
+        {renderNode(myData, chooseOrgInfo)}
+      </Tree>
+      <OrgCard
+        isOpen={isCardOpened}
+        onClose={() => setCardOpened(false)}
+        rank={orgInfo.rank}
+        name={orgInfo.username}
+        DoDID={orgInfo.DoDID}
+        department={orgInfo.department}
+        position={orgInfo.position}
+        roles={orgInfo.roles}
+        email={orgInfo.email}
+        tel={orgInfo.phoneNumber}
+        mTel={orgInfo.voipNumber}
+      />
+    </>
+  )
 }
 
 export default Organogram;
-
-const styles = {
-	cardButton: {
-        width: 'auto',
-        height: 'auto',
-		padding: 0,
-		border: 'transparent',
-		borderRadius: '30pt',
-		backgroundColor: 'transparent'
-	},
-	profileImage: {
-		width: '100px',
-		height: '100px',
-		border: '1px solid #ddd',
-		borderRadius: '100%'
-	},
-	cardContent: {
-		width: '220px',
-		padding: '10px 0px',
-		border: '1px solid #777',
-		borderRadius: '30pt',
-	}
-}
