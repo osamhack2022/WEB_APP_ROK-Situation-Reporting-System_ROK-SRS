@@ -67,7 +67,7 @@ function ReportLayout(props) {
   }
 
   return (
-    <>
+    <div className={Styles.reportLayout}>
       <Row>
         <Col className={Styles.memoHeader}>
           {props.header}
@@ -75,10 +75,7 @@ function ReportLayout(props) {
       </Row>
       <Divider className={Styles.memoDivider} />
       <Row>
-        <Col
-          className={Styles.contentLayout}
-          style={(height) => { height: height ? height : '700px' }}
-        >
+        <Col className={Styles.contentLayout}>
           <ReportCard
             name={props.name}
             position={props.position}
@@ -94,16 +91,18 @@ function ReportLayout(props) {
         </Col>
       </Row>
       <input></input>
-      <Divider className={Styles.memoDivider} />
-      <Row justify='space-between'>
-        <Col>
-          {props.footer}
-        </Col>
-        <Col>
-          <ButtonGroup />
-        </Col>
-      </Row>
-    </>
+      <div className={Styles.memoFooter}>
+        <Divider className={Styles.memoDivider} />
+        <Row justify='space-between'>
+          <Col>
+            {props.footer}
+          </Col>
+          <Col>
+            <ButtonGroup />
+          </Col>
+        </Row>
+      </div>
+    </div>
   )
 }
 

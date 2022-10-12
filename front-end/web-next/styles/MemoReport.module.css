@@ -1,3 +1,8 @@
+.reportLayout {
+    height: 100%;
+    position: relative;
+}
+
 .cardLayout {
     margin-bottom: 10px;
 }
@@ -30,6 +35,12 @@
 .contentLayout {
     width: 100%;
     overflow: auto
+}
+
+.memoFooter {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 .memoDivider {
