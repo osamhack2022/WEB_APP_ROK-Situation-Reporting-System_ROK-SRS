@@ -185,7 +185,13 @@ function Organogram(props) {
 
   return (
     <>
-      {orgDataTree.map((dataNode) => renderNode(dataNode, chooseOrgInfo))}
+      <Row gutter={50}>
+        {orgDataTree.map((dataNode) => (
+          <Col>
+            {renderNode(dataNode, chooseOrgInfo)}
+          </Col>
+        ))}
+      </Row>
       <OrgCard
         isOpen={isCardOpened}
         onClose={() => setCardOpened(false)}
