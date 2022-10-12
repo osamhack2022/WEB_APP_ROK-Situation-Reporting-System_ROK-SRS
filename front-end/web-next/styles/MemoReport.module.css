@@ -34,7 +34,13 @@
 
 .contentLayout {
     width: 100%;
-    overflow: auto
+    height: calc(100% - 220px);
+    overflow: auto;
+}
+
+.cardListLayout {
+    width: 100%;
+    padding: 0 10px;
 }
 
 .memoFooter {

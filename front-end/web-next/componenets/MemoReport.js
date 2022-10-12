@@ -77,8 +77,8 @@ function ReportLayout(props) {
         </Col>
       </Row>
       <Divider className={Styles.memoDivider} />
-      <Row>
-        <Col className={Styles.contentLayout}>
+      <Row className={Styles.contentLayout}>
+        <Col className={Styles.cardListLayout}>
           <ReportCard
             name={props.name}
             position={props.position}
