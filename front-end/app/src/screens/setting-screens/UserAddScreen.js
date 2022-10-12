@@ -14,8 +14,8 @@ const AccountTypeItems = [
   { label: '병사', value: 'Soldier' },
 ]
 
-const addUserHandler = async ({ rank, name, dodId, Type }, cb) => {
-  const res = await addUserApi({ Rank: rank, Name: name, DoDID: dodId, Type })
+const addUserHandler = async ({ Rank, Name, DoDID, Type }, cb) => {
+  const res = await addUserApi({ Rank, Name, DoDID, Type })
   if (res.Invcode)
     Alert.alert(`사용자 등록에 성공했습니다, 초대 코드는 ${res.Invcode}입니다.`)
   else Alert.alert(res.message)
@@ -23,13 +23,13 @@ const addUserHandler = async ({ rank, name, dodId, Type }, cb) => {
 }
 
 export function UserAddScreen() {
-  const [dodId, setDodId] = useState('')
-  const [name, setName] = useState('')
+  const [DoDID, setDoDID] = useState('')
+  const [Name, setName] = useState('')
   const [role, setRole] = useState('')
 
   const [rankOpen, setRankOpen] = useState(false)
-  const [rank, setRank] = useState(null)
-  const [ranks, setRanks] = useState(RankItems)
+  const [Rank, setRank] = useState(null)
+  const [Ranks, setRanks] = useState(RankItems)
 
   const [typeOpen, setTypeOpen] = useState(false)
   const [accountType, setAccountType] = useState(null)
@@ -42,7 +42,7 @@ export function UserAddScreen() {
           label="군 번"
           dense={true}
           activeUnderlineColor="#008275"
-          onChangeText={(dodId) => setDodId(dodId)}
+          onChangeText={(DoDID) => setDoDID(DoDID)}
           style={styles.textInput}
         ></TextInput>
         <View style={styles.guideTextView}>
@@ -50,16 +50,16 @@ export function UserAddScreen() {
         </View>
         <DropDownPicker
           placeholder="계급"
-          open={rankOpen}
-          value={rank}
-          items={ranks}
+          open={RankOpen}
+          value={Rank}
+          items={Ranks}
           setOpen={setRankOpen}
           setValue={setRank}
           setItems={setRanks}
           style={styles.dropDown}
           textStyle={{
             fontSize: 16,
-            color: rank ? Colors.black : Colors.grey600,
+            color: Rank ? Colors.black : Colors.grey600,
             marginLeft: 2,
           }}
           zIndex={5001}
@@ -71,7 +71,7 @@ export function UserAddScreen() {
           label="이름"
           dense={true}
           activeUnderlineColor="#008275"
-          onChangeText={(name) => setName(name)}
+          onChangeText={(Name) => setName(Name)}
           style={styles.textInput}
         ></TextInput>
         <View style={styles.guideTextView}>
@@ -88,7 +88,7 @@ export function UserAddScreen() {
           style={styles.dropDown}
           textStyle={{
             fontSize: 16,
-            color: rank ? Colors.black : Colors.grey600,
+            color: Rank ? Colors.black : Colors.grey600,
             marginLeft: 2,
           }}
         />
@@ -106,11 +106,11 @@ export function UserAddScreen() {
           <GuideText guideText={``} />
         </View>
       </View>
-      {dodId && rank && name && accountType && role && (
+      {DoDID && Rank && Name && accountType && role && (
         <MyButton
           text="사용자 추가"
           onPress={() =>
-            addUserHandler({ rank, name, dodId, Type: AccountType })
+            addUserHandler({ Rank, Name, DoDID, Type: AccountType })
           }
         />
       )}

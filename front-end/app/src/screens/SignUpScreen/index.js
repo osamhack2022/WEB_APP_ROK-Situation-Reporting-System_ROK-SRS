@@ -18,30 +18,31 @@ const checkPasswordMatch = (password, confirmPassword) => {
 
 const registerHandler = async (userData) => {
   const res = await registerApi(userData)
-  Alert.alert(res.message)
+  if (res.token) Alert.alert("회원가입 성공")
+  else Alert.alert(res.message)
 }
 
 export function SignUpScreen() {
-  const [rankOpen, setRankOpen] = useState(false)
-  const [rank, setRank] = useState(null)
-  const [ranks, setRanks] = useState(RankItems)
+  const [RankOpen, setRankOpen] = useState(false)
+  const [Rank, setRank] = useState(null)
+  const [Ranks, setRanks] = useState(RankItems)
 
   const [pic, setPic] = useState('')
-  const [dodId, setDodId] = useState('')
+  const [DoDID, setDoDID] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [name, setName] = useState('')
-  const [inviteCode, setInviteCode] = useState('')
+  const [Name, setName] = useState('')
+  const [Invcode, setInvcode] = useState('')
 
   const userData = {
-    Rank: rank,
-    DoDID: dodId,
+    Rank,
+    DoDID,
     password,
-    Name: name,
+    Name,
     email,
     pic,
-    InvCode: inviteCode,
+    Invcode,
   }
 
   return (
@@ -53,16 +54,16 @@ export function SignUpScreen() {
         <View style={styles.signUpView}>
           <DropDownPicker
             placeholder="계급"
-            open={rankOpen}
-            value={rank}
-            items={ranks}
+            open={RankOpen}
+            value={Rank}
+            items={Ranks}
             setOpen={setRankOpen}
             setValue={setRank}
             setItems={setRanks}
             style={styles.dropDown}
             textStyle={{
               fontSize: 16,
-              color: rank ? Colors.black : Colors.grey600,
+              color: Rank ? Colors.black : Colors.grey600,
               marginLeft: 2,
             }}
             zIndex={5001}
@@ -74,7 +75,7 @@ export function SignUpScreen() {
             label="이름"
             dense={true}
             activeUnderlineColor="#008275"
-            onChangeText={(name) => setName(name)}
+            onChangeText={(Name) => setName(Name)}
             style={styles.signUpTextInput}
           ></TextInput>
           <View style={styles.guideTextView}>
@@ -84,7 +85,7 @@ export function SignUpScreen() {
             label="군 번"
             dense={true}
             activeUnderlineColor="#008275"
-            onChangeText={(dodId) => setDodId(dodId)}
+            onChangeText={(DoDID) => setDoDID(DoDID)}
             style={styles.signUpTextInput}
           ></TextInput>
           <View style={styles.guideTextView}>
@@ -128,19 +129,19 @@ export function SignUpScreen() {
             label="초대 코드"
             dense={true}
             activeUnderlineColor="#008275"
-            onChangeText={(inviteCode) => setInviteCode(inviteCode)}
+            onChangeText={(Invcode) => setInvcode(Invcode)}
             style={styles.signUpTextInput}
           ></TextInput>
           <View style={styles.guideTextView}>
             <GuideText guideText={`부대에서 받은 초대코드 입력`} />
           </View>
         </View>
-        {rank &&
+        {Rank &&
           id &&
           password &&
           password === confirmPassword &&
-          name &&
-          inviteCode && (
+          Name &&
+          Invcode && (
             <TouchableOpacity
               onPress={() => registerHandler(userData)}
               style={styles.signUpButtonView}
