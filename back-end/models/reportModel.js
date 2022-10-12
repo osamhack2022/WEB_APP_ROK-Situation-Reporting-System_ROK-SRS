@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
 
 const reportModel = mongoose.Schema(
-  {    
-    author: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    reportName: { type: String, required: true, trim: true },
-    content: { type: String },
-    users: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    type: { type: String },
-    state: { type: String, default: "open"}, // open || close
+  {
+    User: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    Type: { type: String },
+    Status: { type: String },
+    Invited: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    ReportingSystem: { type: String },
+    ReportName: { type: String, required: true, trim: true },
+    Content: { type: String },
+    Comment: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   },
   { timestamps: true }
 );
