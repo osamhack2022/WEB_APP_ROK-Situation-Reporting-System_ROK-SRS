@@ -29,24 +29,26 @@ const addUser = asyncHandler(async (req, res) => {
 
   if (!Rank || !Name || !DoDID || !Type) {
     res.status(400);
-    throw new Error("Please Enter all the Fields");
+    throw new Error("모든 정보를 입력하세요.");
   }
 
   const userExists = await User.findOne({ DoDID });
 
   if (userExists) {
     res.status(400);
-    throw new Error("User already exists");
+    throw new Error("이미 등록된 사용자입니다.");
   }
 
   Invcode = Math.random().toString(36).substring(2,10);
+  Unit = req.user.Unit;
 
   const user = await User.create({
     Name,
     DoDID,
     Rank,
     Type,
-    Invcode
+    Invcode,
+    Unit
   });
 
   if (user) {
@@ -56,11 +58,12 @@ const addUser = asyncHandler(async (req, res) => {
       Rank: user.Rank,
       DoDID: user.DoDID,
       Type: user.Type,
-      Invcode: user.Invcode
+      Invcode: user.Invcode,
+      Unit: user.Unit
     });
   } else {
     res.status(400);
-    throw new Error("User not found");
+    throw new Error("사용자를 찾을 수 없습니다.");
   }
 });
 
@@ -72,24 +75,24 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (!Rank || !Name || !email || !password || !DoDID) {
     res.status(400);
-    throw new Error("Please Enter all the Fields");
+    throw new Error("모든 정보를 입력하세요.");
   }
 
   const userDb = await User.findOne({ DoDID });
 
   if (!userDb) {
     res.status(400);
-    throw new Error("Unauthorized User, Contact Unit Manager");
+    throw new Error("등록되지 않은 사용자입니다. 부대 당담자에게 문의하세요.");
   }
 
   if (userDb.is_registered) {
     res.status(400);
-    throw new Error("Already Registered User");
+    throw new Error("이미 등록된 사용자입니다.");
   }
 
   if (Invcode != userDb.Invcode) {
     res.status(400);
-    throw new Error("Invalid Invite Code");
+    throw new Error("초대코드가 틀립니다.");
   }
 
   const updatedUser = await User.findByIdAndUpdate(
@@ -107,7 +110,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (!updatedUser) {
     res.status(400);
-    throw new Error("User Not Found");
+    throw new Error("사용자를 찾을 수 없습니다.");
   } else {
     res.status(201).json({
       _id: updatedUser._id,
@@ -132,7 +135,7 @@ const authUser = asyncHandler(async (req, res) => {
 
   if (user && !user.is_registered) {
     res.status(400);
-    throw new Error("Not Registered, But Added");
+    throw new Error("승인된 사용자이나 아직 등록되지 않았습니다. 계정 등록 후 이용해주세요.");
   }
 
   if (user && (await user.matchPassword(password))) {
@@ -147,7 +150,7 @@ const authUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error("Invalid DoDID or Password");
+    throw new Error("군번이나 비밀번호가 틀렸습니다.");
   }
 });
 

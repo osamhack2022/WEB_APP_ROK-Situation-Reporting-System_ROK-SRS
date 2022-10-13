@@ -20,8 +20,8 @@ const addUnit = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Unit already exists");
   }
-  Members = [req.user._id];
-  unitAdmins = [req.user._id];
+  Members = [req.user._id, ];
+  unitAdmins = [req.user._id, ];
   const unit = await Unit.create({
     Unitname,
     Unitslogan,
@@ -30,18 +30,18 @@ const addUnit = asyncHandler(async (req, res) => {
     unitAdmins
   });
 
-  if (user) {
+  if (unit) {
     res.status(201).json({
-      _id: user._id,
-      Name: user.Name,
-      Rank: user.Rank,
-      DoDID: user.DoDID,
-      Type: user.Type,
-      Invcode: user.Invcode
+      _id: unit._id,
+      Unitname: unit.Unitname,
+      Unitslogan: unit.Unitslogan,
+      Logo: unit.Logo,
+      Members: unit.Members,
+      unitAdmins: unit.unitAdmins
     });
   } else {
     res.status(400);
-    throw new Error("User not found");
+    throw new Error("Unit not found");
   }
 });
 
