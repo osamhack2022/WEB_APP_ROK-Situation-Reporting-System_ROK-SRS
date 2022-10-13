@@ -1,8 +1,10 @@
-import { Avatar, Button, Comment, List, Row, Col, Divider } from 'antd';
+import { useState } from 'react';
+import { Avatar, Button, List, Row, Col, Divider, Input } from 'antd';
+import Styles from '../styles/MemoReport.module.css';
 
 function ReportCard(props) {
   return (
-    <div style={{ marginBottom: '10px' }}>
+    <div className={Styles.cardLayout}>
       <Row
         align="middle"
         justify='space-between'
@@ -13,16 +15,16 @@ function ReportCard(props) {
               <Avatar src="https://joeschmoe.io/api/v1/random" size={48} />
             </Col>
             <Col>
-              <div style={styles.cardName}>{props.name}</div>
-              <div style={styles.cardPosition}>{props.position}</div>
+              <div className={Styles.cardName}>{props.name}</div>
+              <div className={Styles.cardPosition}>{props.position}</div>
             </Col>
           </Row>
         </Col>
-        <Col style={styles.cardDatetime}>
+        <Col className={Styles.cardDatetime}>
           {props.datetime}
         </Col>
       </Row>
-      <div style={styles.cardMemo}>
+      <div className={Styles.cardMemo}>
         {props.memo}
       </div>
     </div>
@@ -49,6 +51,8 @@ function ReportList(props) {
 }
 
 function ReportLayout(props) {
+  const [commentContent, setCommentContent] = useState('');
+
   function ButtonGroup() {
     return (
       <>
@@ -66,15 +70,15 @@ function ReportLayout(props) {
   }
 
   return (
-    <>
+    <div className={Styles.reportLayout}>
       <Row>
-        <Col style={{ width: '100%' }}>
+        <Col className={Styles.memoHeader}>
           {props.header}
         </Col>
       </Row>
-      <Divider style={{ margin: '15px 0' }} />
-      <Row>
-        <Col style={styles.contentLayout(props.height)}>
+      <Divider className={Styles.memoDivider} />
+      <Row className={Styles.contentLayout}>
+        <Col className={Styles.cardListLayout}>
           <ReportCard
             name={props.name}
             position={props.position}
@@ -83,49 +87,37 @@ function ReportLayout(props) {
           />
           {
             props.comment &&
-            <div style={{ paddingLeft: '30px' }}>
+            <div className={Styles.memoComment}>
               <ReportList data={props.comment} />
             </div>
           }
         </Col>
       </Row>
-      <Divider style={{ margin: '10px 0' }} />
-      <Row justify='space-between'>
-        <Col>
-          {props.footer}
-        </Col>
-        <Col>
-          <ButtonGroup />
-        </Col>
-      </Row>
-    </>
+      <div className={Styles.memoFooter}>
+        <Input.Group compact>
+          <Input
+            style={{ width: 'calc(100% - 60px)' }}
+            value={commentContent}
+            onChange={(event) => setCommentContent(event.target.value)}
+          />
+          <Button
+            onClick={() => console.log(commentContent)}>
+            전송
+          </Button>
+        </Input.Group>
+        <Divider className={Styles.memoDivider} />
+        <Row justify='space-between'>
+          <Col>
+            {props.footer}
+          </Col>
+          <Col>
+            <ButtonGroup />
+          </Col>
+        </Row>
+      </div>
+    </div>
   )
 }
 
 export default ReportLayout;
 export { ReportCard, ReportList }
-
-const styles = {
-  cardName: {
-    fontSize: '12pt',
-    fontWeight: 'bold',
-  },
-  cardPosition: {
-    fontSize: '10pt',
-    color: '#4d4d4d'
-  },
-  cardDatetime: {
-    fontSize: '12pt',
-    fontWeight: 'bold'
-  },
-  cardMemo: {
-    marginTop: '10px',
-    paddingLeft: '5px',
-    fontSize: '11pt'
-  },
-  contentLayout: (height) => ({
-    width: '100%',
-    height: height ? height : '700px',
-    overflow: 'auto'
-  })
-}
