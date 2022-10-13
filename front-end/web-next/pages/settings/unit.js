@@ -202,7 +202,7 @@ const UnitSettings = () => {
                         </Form.Item>
                         <Form.Item>
                             <div style = {{display: 'flex'}}>
-                                <button className={styles.submitbutton} type="primary" htmlType="submit">부대정보 변경</button>
+                                <button className={styles.submitbutton} type="primary">부대정보 변경</button>
                                 <p id = {styles.error1}>Error Message 1</p>
                             </div>
                         </Form.Item>
@@ -221,7 +221,7 @@ const UnitSettings = () => {
                                     <Button>Upload</Button>
                                 </Upload.Dragger>
                                 <Form.Item>
-                                    <button className={styles.submitbutton} style = {{margin: 'auto', marginTop: '10px'}} type="primary" htmlType="submit">부대마크 변경</button>
+                                    <button className={styles.submitbutton} style = {{margin: 'auto', marginTop: '10px'}} type="primary">부대마크 변경</button>
                                     <p id = {styles.error2}>Error Message 2</p>
                                 </Form.Item>
                             </div>
@@ -292,7 +292,7 @@ const UnitSettings = () => {
                         </Form.Item>
                         <Form.Item>
                             <div style = {{display:'flex'}}>
-                                <button className={styles.submitbutton} type="primary" htmlType="submit">군인 추가</button>
+                                <button className={styles.submitbutton} type="primary">군인 추가</button>
                                 <p id = {styles.error3}>Error Message 3</p>
                             </div>
                         </Form.Item>
