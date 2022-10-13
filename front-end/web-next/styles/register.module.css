@@ -7,7 +7,6 @@
   border-top: none; 
   border-left: none; 
   border-right: none; 
-  margin-top: 20px;
 }
 
 .buttonfield {
@@ -20,7 +19,6 @@
   border: none;
   margin-top: 5px;
   display: block;
-  margin: auto;
 }
 
 .buttonfield:hover {
@@ -28,14 +26,15 @@
   background-color: #016459;
 }
 
-.inputfield:focus{
-  outline: none;
-  border-bottom: 2px solid black; 
+.ant-form-item {
+  margin-bottom: 0px;
 }
 
 .inputdesc {
   color: darkgrey; 
   font-size: 13px;
+  line-height: 13px;
+  margin-top: 0px;
 }
 
 #loginfooter {
@@ -52,4 +51,13 @@
   color:rgb(0, 0, 158);
   text-decoration: underline;
 
+}
+
+#error {
+  color: red; 
+  font-size: 14px; 
+  margin-left: 15px;
+  line-height: 33px; 
+  margin-top: 4px;
+  margin-bottom: 0px;
 }
