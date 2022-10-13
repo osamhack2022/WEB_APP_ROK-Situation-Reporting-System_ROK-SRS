@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { TextInput } from 'react-native-paper'
 // prettier-ignore
 import { View ,SafeAreaView, TouchableOpacity, ScrollView, Text, Alert } from 'react-native'
@@ -16,13 +16,13 @@ const checkPasswordMatch = (password, confirmPassword) => {
     : `비밀번호가 일치하지 않습니다.`
 }
 
-const registerHandler = async (userData) => {
-  const res = await registerApi(userData)
-  if (res.token) Alert.alert('회원가입에 성공하였습니다.')
-  else Alert.alert(res.message)
-}
-
 export function SignUpScreen() {
+  const registerHandler = useCallback(async (userData) => {
+    const res = await registerApi(userData)
+    if (res.token) Alert.alert('회원가입에 성공하였습니다.')
+    else Alert.alert(res.message)
+  })
+
   const [RankOpen, setRankOpen] = useState(false)
   const [Rank, setRank] = useState(null)
   const [Ranks, setRanks] = useState(RankItems)
@@ -34,16 +34,6 @@ export function SignUpScreen() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [Name, setName] = useState('')
   const [Invcode, setInvcode] = useState('')
-
-  const userData = {
-    Rank,
-    DoDID,
-    password,
-    Name,
-    email,
-    pic,
-    Invcode,
-  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -143,7 +133,17 @@ export function SignUpScreen() {
           Name &&
           Invcode && (
             <TouchableOpacity
-              onPress={() => registerHandler(userData)}
+              onPress={() =>
+                registerHandler({
+                  Rank,
+                  DoDID,
+                  password,
+                  Name,
+                  email,
+                  pic,
+                  Invcode,
+                })
+              }
               style={styles.signUpButtonView}
             >
               <Text style={styles.signUpText}>사 용 신 청</Text>

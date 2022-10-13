@@ -1,23 +1,34 @@
 import URL from '../../url'
 
-const registerApi = ({ Rank, DoDID, password, Name, email, pic, Invcode }) => {
-  fetch(URL + '/api/user/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      Rank,
-      DoDID,
-      password,
-      Name,
-      email,
-      pic,
-      Invcode,
-    }),
-  })
-    .then((res) => res.json())
-    .catch((error) => console.error(error))
+const registerApi = async ({
+  Rank,
+  DoDID,
+  password,
+  Name,
+  email,
+  pic,
+  Invcode,
+}) => {
+  try {
+    const res = await fetch(URL + '/api/user/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        Rank,
+        DoDID,
+        password,
+        Name,
+        email,
+        pic,
+        Invcode,
+      }),
+    })
+    return res.json()
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 export default registerApi

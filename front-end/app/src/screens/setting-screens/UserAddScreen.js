@@ -39,7 +39,7 @@ export function UserAddScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
+      <ScrollView style={styles.scrollView}>
         <View style={styles.view}>
           <TextInput
             label="군 번"
@@ -126,6 +126,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    alignItems: 'center',
+  },
+  scrollView: {
+    width: '100%',
     alignItems: 'center',
   },
   guideTextView: {

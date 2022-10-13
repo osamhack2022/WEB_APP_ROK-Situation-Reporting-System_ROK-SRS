@@ -16,7 +16,7 @@ export function LoginScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
   let [fontsLoaded] = useNunitoFonts()
 
-  const loginHandler = async ({ DoDID, password }, cb) => {
+  const loginHandler = useCallback(async ({ DoDID, password }, cb) => {
     if (!DoDID || !password) Alert.alert('아이디 또는 비밀번호를 입력해주세요.')
     else {
       const res = await loginApi({ DoDID, password })
@@ -35,7 +35,7 @@ export function LoginScreen() {
         Alert.alert(res.message)
       }
     }
-  }
+  })
 
   const [DoDID, setDoDID] = useState('')
   const [password, setPassword] = useState('')
