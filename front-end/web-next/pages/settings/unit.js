@@ -7,6 +7,8 @@ import { Avatar, Divider, List, Skeleton, Button, Input, Radio, message, Upload,
 import styles from '../../styles/unitsettings.module.css'
 import unitlogo from '../../img/unitlogo.png'
 import React, { useEffect, useState } from 'react';
+import { getCookie } from 'cookies-next';
+
 
 const { TextArea } = Input;
 const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
@@ -131,7 +133,7 @@ const UnitSettings = () => {
     const [Position, setPosition] = useState();
 
     let submitnewuser = async (event) => {
-        let endpoint = backendroot + '/api/user/add'
+        let endpoint = backendroot + 'api/user/add'
         console.log("hi")
         console.log(DoDID)
         console.log(Rank)
@@ -139,10 +141,10 @@ const UnitSettings = () => {
         console.log(Name)
         console.log(Position)
         const data = {
-            dodId: DoDID,
-            name: Name,
-            rank: Rank,
-            isAdmin: false,
+            DoDID: DoDID,
+            Name: Name,
+            Rank: Rank,
+            Type: Type,
         }
         const JSONdata = JSON.stringify(data)
         const options = {
@@ -151,6 +153,7 @@ const UnitSettings = () => {
             // Tell the server we're sending JSON.
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getCookie('usercookie')
             },
             // Body of the request is the JSON data we created above.
             body: JSONdata,
