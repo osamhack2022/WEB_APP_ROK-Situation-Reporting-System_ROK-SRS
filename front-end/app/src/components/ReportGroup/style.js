@@ -5,6 +5,20 @@ export const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
   },
+  view: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: Colors.grey800,
+    alignItems: 'center',
+  },
+  image: {
+    marginBottom: 5,
+  },
+  itemText: {
+    fontFamily: 'NunitoSans_400Regular',
+    fontSize: 12,
+    marginBottom: 5,
+  },
   text: {
     fontFamily: 'NunitoSans_300Light',
     color: Colors.grey800,

@@ -76,6 +76,12 @@ export function SettingScreen() {
           style={styles.listItem}
           onPress={() => navigation.navigate('UnitMgtScreen')}
         />
+        <List.Item
+          title="보고체계 관리"
+          left={() => <List.Icon icon="arrow-decision" />}
+          style={styles.listItem}
+          onPress={() => navigation.navigate('ProcMgtScreen')}
+        />
       </ScrollView>
     </SafeAreaView>
   )

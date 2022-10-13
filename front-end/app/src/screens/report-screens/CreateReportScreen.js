@@ -7,33 +7,7 @@ import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportGroup } from '../../components/ReportGroup'
 import { MyButton } from '../../components/MyButton'
 import { useNavigation } from '@react-navigation/native'
-
-const DATA = {
-  onDuty: [
-    {
-      name: '중사 김택수',
-      position: '당직사관',
-    },
-    {
-      name: '대위 정종찬',
-      position: '당직사령',
-    },
-  ],
-  headquarter: [
-    {
-      name: '중사 김택수',
-      position: '통신부소대장',
-    },
-    {
-      name: '중위 정혁수',
-      position: '통신소대장',
-    },
-    {
-      name: '대위 정종찬',
-      position: '본부중대장',
-    },
-  ],
-}
+import DATA from '../../data/procData'
 
 export function CreateReportScreen() {
   let [fontsLoaded] = useNunitoFonts()

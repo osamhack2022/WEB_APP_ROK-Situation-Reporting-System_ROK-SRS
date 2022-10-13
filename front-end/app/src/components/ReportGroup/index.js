@@ -1,7 +1,6 @@
 import React from 'react'
-import { View, FlatList, Text } from 'react-native'
+import { FlatList, Text } from 'react-native'
 import { Avatar } from 'react-native-paper'
-import { Profile } from '../Profile'
 import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 
@@ -15,19 +14,23 @@ const ItemSeparator = () => {
   )
 }
 
-export function ReportGroup({ group, name }) {
+export function ReportGroup({ group, name, pic }) {
   let [fontsLoaded] = useNunitoFonts()
 
   const renderItem = ({ item }) => (
-    <Profile
-      name={item.name}
-      position={item.position}
-      src={require('../../assets/images/avatar2.png')}
-    />
+    <View>
+      <Avatar.Image
+        source={require('../../assets/images/avatar.png')}
+        size={40}
+        style={styles.image}
+      />
+      <Text style={styles.itemText}>{item.name}</Text>
+      <Text style={styles.itemText}>{item.position}</Text>
+    </View>
   )
 
   return (
-    <View>
+    <>
       <FlatList
         data={group}
         renderItem={renderItem}
@@ -39,6 +42,6 @@ export function ReportGroup({ group, name }) {
       <Text style={styles.text}>
         {name === 'onDuty' ? '당직계통 보고체계' : '본부중대 보고체계'}
       </Text>
-    </View>
+    </>
   )
 }
