@@ -1,9 +1,52 @@
 const asyncHandler = require("express-async-handler");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
+const Unit = require("../models/unitModel");
 
-//@description     Create or fetch One to One Chat
-//@route           POST /api/chat/
+//@description     Add new unit
+//@route           POST /api/unit/add
+//@access          Protected
+const addUnit = asyncHandler(async (req, res) => {
+  const { Unitname, Unitslogan, Logo } = req.body;
+
+  if (!Unitname || !Unitslogan || !Logo ) {
+    res.status(400);
+    throw new Error("Please Enter all the Fields");
+  }
+
+  const unitExists = await User.findOne({ Unitname });
+
+  if (unitExists) {
+    res.status(400);
+    throw new Error("Unit already exists");
+  }
+  Members = [req.user._id];
+  unitAdmins = [req.user._id];
+  const unit = await Unit.create({
+    Unitname,
+    Unitslogan,
+    Logo,
+    Members,
+    unitAdmins
+  });
+
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      Name: user.Name,
+      Rank: user.Rank,
+      DoDID: user.DoDID,
+      Type: user.Type,
+      Invcode: user.Invcode
+    });
+  } else {
+    res.status(400);
+    throw new Error("User not found");
+  }
+});
+
+//@description     Create Unit
+//@route           POST /api/unit/add
 //@access          Protected
 const accessChat = asyncHandler(async (req, res) => {
   const { userId } = req.body;
