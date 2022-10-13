@@ -26,7 +26,7 @@ const getActiveRouteName = (route) => {
 
 const screenOptions = ({ route }) => {
   return {
-    tabBarIcon: ({ focused, color, size }) => {
+    tabBarIcon: ({ focused, size }) => {
       const { name } = route
       const focusedSize = focused ? size + 6 : size
       const focusedColor = focused ? Colors.white : Colors.grey400

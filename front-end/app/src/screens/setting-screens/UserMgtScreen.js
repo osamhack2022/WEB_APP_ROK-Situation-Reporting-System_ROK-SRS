@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { FAB, List } from 'react-native-paper'
+import React from 'react'
+import { FAB, List, Avatar } from 'react-native-paper'
 import { SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 

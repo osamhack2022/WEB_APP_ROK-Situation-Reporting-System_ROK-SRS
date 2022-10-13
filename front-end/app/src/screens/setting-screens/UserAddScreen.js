@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SafeAreaView, View, StyleSheet, Alert } from 'react-native'
+import { SafeAreaView, View, StyleSheet, Alert, ScrollView } from 'react-native'
 import { Colors, TextInput } from 'react-native-paper'
 import RankItems from '../../data/ranks'
 import { GuideText } from '../../components/GuideText'
@@ -14,106 +14,110 @@ const AccountTypeItems = [
   { label: '병사', value: 'Soldier' },
 ]
 
-const addUserHandler = async ({ Rank, Name, DoDID, Type }, cb) => {
-  const res = await addUserApi({ Rank, Name, DoDID, Type })
-  if (res.Invcode)
-    Alert.alert(`사용자 등록에 성공했습니다, 초대 코드는 ${res.Invcode}입니다.`)
-  else Alert.alert(res.message)
-  cb()
-}
-
 export function UserAddScreen() {
+  const addUserHandler = async ({ Rank, Name, DoDID, Type }, cb) => {
+    const res = await addUserApi({ Rank, Name, DoDID, Type })
+    if (res.Invcode)
+      Alert.alert(
+        `사용자 등록에 성공했습니다, 초대 코드는 ${res.Invcode}입니다.`
+      )
+    else Alert.alert(res.message)
+    cb()
+  }
+
   const [DoDID, setDoDID] = useState('')
   const [Name, setName] = useState('')
   const [role, setRole] = useState('')
 
-  const [rankOpen, setRankOpen] = useState(false)
+  const [RankOpen, setRankOpen] = useState(false)
   const [Rank, setRank] = useState(null)
   const [Ranks, setRanks] = useState(RankItems)
 
   const [typeOpen, setTypeOpen] = useState(false)
-  const [accountType, setAccountType] = useState(null)
-  const [accountTypes, setAccountTypes] = useState(AccountTypeItems)
+  const [AccountType, setAccountType] = useState(null)
+  const [AccountTypes, setAccountTypes] = useState(AccountTypeItems)
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.view}>
-        <TextInput
-          label="군 번"
-          dense={true}
-          activeUnderlineColor="#008275"
-          onChangeText={(DoDID) => setDoDID(DoDID)}
-          style={styles.textInput}
-        ></TextInput>
-        <View style={styles.guideTextView}>
-          <GuideText guideText={`2x-xxxxxxxx`} />
+      <ScrollView>
+        <View style={styles.view}>
+          <TextInput
+            label="군 번"
+            dense={true}
+            activeUnderlineColor="#008275"
+            onChangeText={(DoDID) => setDoDID(DoDID)}
+            style={styles.textInput}
+          ></TextInput>
+          <View style={styles.guideTextView}>
+            <GuideText guideText={`2x-xxxxxxxx`} />
+          </View>
+          <DropDownPicker
+            placeholder="계급"
+            open={RankOpen}
+            value={Rank}
+            items={Ranks}
+            setOpen={setRankOpen}
+            setValue={setRank}
+            setItems={setRanks}
+            style={styles.dropDown}
+            textStyle={{
+              fontSize: 16,
+              color: Rank ? Colors.black : Colors.grey600,
+              marginLeft: 2,
+            }}
+            zIndex={5001}
+          />
+          <View style={styles.guideTextView}>
+            <GuideText guideText={``} />
+          </View>
+          <TextInput
+            label="이름"
+            dense={true}
+            activeUnderlineColor="#008275"
+            onChangeText={(Name) => setName(Name)}
+            style={styles.textInput}
+          ></TextInput>
+          <View style={styles.guideTextView}>
+            <GuideText guideText={``} />
+          </View>
+          <DropDownPicker
+            placeholder="계정 유형"
+            open={typeOpen}
+            value={AccountType}
+            items={AccountTypes}
+            setOpen={setTypeOpen}
+            setValue={setAccountType}
+            setItems={setAccountTypes}
+            style={styles.dropDown}
+            textStyle={{
+              fontSize: 16,
+              color: Rank ? Colors.black : Colors.grey600,
+              marginLeft: 2,
+            }}
+          />
+          <View style={styles.guideTextView}>
+            <GuideText guideText={``} />
+          </View>
+          <TextInput
+            label="직책"
+            dense={true}
+            activeUnderlineColor="#008275"
+            onChangeText={(role) => setRole(role)}
+            style={styles.textInput}
+          ></TextInput>
+          <View style={styles.guideTextView}>
+            <GuideText guideText={``} />
+          </View>
         </View>
-        <DropDownPicker
-          placeholder="계급"
-          open={RankOpen}
-          value={Rank}
-          items={Ranks}
-          setOpen={setRankOpen}
-          setValue={setRank}
-          setItems={setRanks}
-          style={styles.dropDown}
-          textStyle={{
-            fontSize: 16,
-            color: Rank ? Colors.black : Colors.grey600,
-            marginLeft: 2,
-          }}
-          zIndex={5001}
-        />
-        <View style={styles.guideTextView}>
-          <GuideText guideText={``} />
-        </View>
-        <TextInput
-          label="이름"
-          dense={true}
-          activeUnderlineColor="#008275"
-          onChangeText={(Name) => setName(Name)}
-          style={styles.textInput}
-        ></TextInput>
-        <View style={styles.guideTextView}>
-          <GuideText guideText={``} />
-        </View>
-        <DropDownPicker
-          placeholder="계정 유형"
-          open={typeOpen}
-          value={accountType}
-          items={accountTypes}
-          setOpen={setTypeOpen}
-          setValue={setAccountType}
-          setItems={setAccountTypes}
-          style={styles.dropDown}
-          textStyle={{
-            fontSize: 16,
-            color: Rank ? Colors.black : Colors.grey600,
-            marginLeft: 2,
-          }}
-        />
-        <View style={styles.guideTextView}>
-          <GuideText guideText={``} />
-        </View>
-        <TextInput
-          label="직책"
-          dense={true}
-          activeUnderlineColor="#008275"
-          onChangeText={(role) => setRole(role)}
-          style={styles.textInput}
-        ></TextInput>
-        <View style={styles.guideTextView}>
-          <GuideText guideText={``} />
-        </View>
-      </View>
-      {DoDID && Rank && Name && accountType && role && (
-        <MyButton
-          text="사용자 추가"
-          onPress={() =>
-            addUserHandler({ Rank, Name, DoDID, Type: AccountType })
-          }
-        />
-      )}
+        {DoDID && Rank && Name && AccountType && role && (
+          <MyButton
+            text="사용자 추가"
+            onPress={() =>
+              addUserHandler({ Rank, Name, DoDID, Type: AccountType })
+            }
+          />
+        )}
+      </ScrollView>
     </SafeAreaView>
   )
 }

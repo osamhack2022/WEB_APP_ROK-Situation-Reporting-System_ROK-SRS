@@ -5,7 +5,6 @@ import {
   UnitMgtScreen,
   UserMgtScreen,
   UserAddScreen,
-  LoginScreen,
 } from '../screens'
 
 const Stack = createStackNavigator()
@@ -32,11 +31,6 @@ export function SettingNavigator() {
         name="UnitMgtScreen"
         component={UnitMgtScreen}
         options={{ title: '부대 관리' }}
-      />
-      <Stack.Screen
-        name="LoginScreen"
-        component={LoginScreen}
-        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   )

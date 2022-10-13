@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
 //prettier-ignore
 import { Image, SafeAreaView, View, Text, TouchableOpacity, Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { TextInput } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { styles } from './style'
@@ -11,31 +12,30 @@ import { GuideText } from '../../components/GuideText'
 import AppLoading from 'expo-app-loading'
 import loginApi from '../../apis/loginApi'
 
-const [userMe, setUserMe] = useRecoilState(userState)
-
-const loginHandler = async ({ DoDID, password }, cb) => {
-  const res = await loginApi({ DoDID, password })
-  const token = res.token
-  if (token) localStorage.setItem('roksrs-token', token)
-  if (localStorage.getItem('roksrs-token')) {
-    setUserMe({
-      Name: res.Name,
-      DoDID: res.DoDID,
-      Rank: res.Rank,
-      Type: res.Type,
-      Position: res.Position,
-      email: res.email,
-      pic: res.pic,
-      is_activated: true,
-    })
-    cb()
-  } else {
-    Alert.alert(res.message)
-  }
-}
-
 export function LoginScreen() {
+  const [userMe, setUserMe] = useRecoilState(userState)
   let [fontsLoaded] = useNunitoFonts()
+
+  const loginHandler = async ({ DoDID, password }, cb) => {
+    if (!DoDID || !password) Alert.alert('아이디 또는 비밀번호를 입력해주세요.')
+    else {
+      const res = await loginApi({ DoDID, password })
+      console.log(typeof res.token)
+      const token = res.token
+      if (token) await AsyncStorage.setItem('roksrs-token', token)
+      if (token && (await AsyncStorage.getItem('roksrs-token'))) {
+        setUserMe({
+          ...res,
+          token: null,
+        })
+        cb()
+        console.log(res)
+        console.log(userMe)
+      } else {
+        Alert.alert(res.message)
+      }
+    }
+  }
 
   const [DoDID, setDoDID] = useState('')
   const [password, setPassword] = useState('')

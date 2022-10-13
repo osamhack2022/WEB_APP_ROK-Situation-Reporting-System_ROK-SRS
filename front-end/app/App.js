@@ -8,11 +8,11 @@ import { RecoilRoot } from 'recoil'
 
 export default function App() {
   return (
-    <RecoilRoot>
-      <NavigationContainer>
+    <NavigationContainer>
+      <RecoilRoot>
         <StatusBar style="light-content" backgroundColor={Colors.grey500} />
         <MainNavigator />
-      </NavigationContainer>
-    </RecoilRoot>
+      </RecoilRoot>
+    </NavigationContainer>
   )
 }

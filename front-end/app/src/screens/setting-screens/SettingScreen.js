@@ -7,15 +7,14 @@ import { useNavigation } from '@react-navigation/native'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import logoutApi from '../../apis/logoutApi'
 
-const [userMe, setUserMe] = useRecoilState(userState)
-
-const logoutHandler = (cb) => {
-  logoutApi()
-  setUserMe({})
-  cb()
-}
-
 export function SettingScreen() {
+  const [userMe, setUserMe] = useRecoilState(userState)
+
+  const logoutHandler = (cb) => {
+    logoutApi()
+    cb()
+  }
+
   let [fontsLoaded] = useNunitoFonts()
   const navigation = useNavigation()
 

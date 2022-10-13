@@ -1,12 +1,13 @@
 import URL from '../../url'
+import asyncStorage from '@react-native-async-storage/async-storage'
 
-const addUserApi = ({ Rank, Name, DoDID, Type }) => {
+const addUserApi = async ({ Rank, Name, DoDID, Type }) => {
   fetch(URL + '/api/user/add', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': `Bearer ${localStorage.getItem('roksrs-token')}`,
+      Accept: 'application/json',
+      Authorization: `Bearer ${await asyncStorage.getItem('roksrs-token')}`,
     },
     body: JSON.stringify({ Rank, Name, DoDID, Type }),
   })

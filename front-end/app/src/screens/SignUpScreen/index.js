@@ -18,7 +18,7 @@ const checkPasswordMatch = (password, confirmPassword) => {
 
 const registerHandler = async (userData) => {
   const res = await registerApi(userData)
-  if (res.token) Alert.alert("회원가입 성공")
+  if (res.token) Alert.alert('회원가입에 성공하였습니다.')
   else Alert.alert(res.message)
 }
 
