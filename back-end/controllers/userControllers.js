@@ -127,9 +127,7 @@ const registerUser = asyncHandler(async (req, res) => {
 //@access          Public
 const authUser = asyncHandler(async (req, res) => {
   const { DoDID, password } = req.body;
-
   const user = await User.findOne({ DoDID });
-
   if (user && !user.is_registered) {
     res.status(400);
     throw new Error("Not Registered, But Added");
