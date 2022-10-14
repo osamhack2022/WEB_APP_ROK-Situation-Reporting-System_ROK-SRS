@@ -154,4 +154,61 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { allUsers, addUser, registerUser, authUser };
+//@description     Register new user
+//@route           POST /api/user/register
+//@access          Public
+const updateUser = asyncHandler(async (req, res) => {
+  const { Rank, Name, email, milNumber, number } = req.body;
+
+  if (!Rank && !Name && !email && !milNumber && !number) {
+    res.status(400);
+    throw new Error("수정할 정보를 입력하세요.");
+  }
+
+  const DoDID = req.user.DoDID;
+  const userDb = await User.findOne({ DoDID });
+
+  if (!userDb) {
+    res.status(400);
+    throw new Error("등록되지 않은 사용자입니다. 부대 당담자에게 문의하세요.");
+  }
+
+  if (!userDb.is_registered) {
+    res.status(400);
+    throw new Error("가입 후 시도하세요.");
+  }
+
+  const noData = "";
+  const updatedUser = await User.findByIdAndUpdate(
+    userDb._id,
+    {
+      Rank: Rank != noData ? Rank : userDb.Rank,
+      Name: Name != noData ? Name : userDb.Name,
+      email: email != noData ? email : userDb.email,
+      milNumber: milNumber != noData ? milNumber : userDb.milNumber,
+      number: number != noData ? number : userDb.number
+    },
+    {
+      new: true,
+    }
+  )
+
+  if (!updatedUser) {
+    res.status(400);
+    throw new Error("사용자를 찾을 수 없습니다.");
+  } else {
+    res.status(201).json({
+      _id: updatedUser._id,
+      Name: updatedUser.Name,
+      Rank: updatedUser.Rank,
+      DoDID: updatedUser.DoDID,
+      email: updatedUser.email,
+      milNumber: updatedUser.milNumber,
+      number: updatedUser.number,
+      Type: updatedUser.Type,
+      pic: updatedUser.pic,
+    });
+  }
+});
+
+module.exports = { allUsers, addUser, registerUser, authUser, updateUser };

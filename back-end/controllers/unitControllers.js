@@ -11,14 +11,14 @@ const addUnit = asyncHandler(async (req, res) => {
 
   if (!Unitname || !Unitslogan || !Logo ) {
     res.status(400);
-    throw new Error("Please Enter all the Fields");
+    throw new Error("모든 정보를 입력하세요.");
   }
 
   const unitExists = await User.findOne({ Unitname });
 
   if (unitExists) {
     res.status(400);
-    throw new Error("Unit already exists");
+    throw new Error("이미 등록된 부대입니다.");
   }
   Members = [req.user._id, ];
   unitAdmins = [req.user._id, ];
@@ -41,9 +41,49 @@ const addUnit = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error("Unit not found");
+    throw new Error("부대 정보를 찾을 수 없습니다.");
   }
 });
+
+//@description     Update unit info
+//@route           POST /api/unit/update
+//@access          Protected(only admin)
+const updateUnit = asyncHandler(async (req, res) => {
+  const { Unitname, Unitslogan} = req.body;
+
+  if (!Unitname || !Unitslogan ) {
+    res.status(400);
+    throw new Error("모든 정보를 입력하세요.");
+  }
+
+  const unitId = req.user.Unit;
+
+  const updatedUnit = await User.findByIdAndUpdate(
+    unitId,
+    {
+      Unitname: Unitname,
+      Unitslogan: Unitslogan
+    },
+    {
+      new: true,
+    }
+  )
+
+  if (updatedUnit) {
+    res.status(201).json({
+      _id: updatedUnit._id,
+      Unitname: updatedUnit.Unitname,
+      Unitslogan: updatedUnit.Unitslogan,
+      Logo: updatedUnit.Logo,
+      Members: updatedUnit.Members,
+      unitAdmins: updatedUnit.unitAdmins
+    });
+  } else {
+    res.status(400);
+    throw new Error("부대 정보를 찾을 수 없습니다.");
+  }
+});
+
 
 //@description     Create Unit
 //@route           POST /api/unit/add
@@ -237,6 +277,7 @@ const addToGroup = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  updateUnit,
   accessChat,
   fetchChats,
   createGroupChat,
