@@ -9,7 +9,7 @@ const accessChat = asyncHandler(async (req, res) => {
   const { userId } = req.body;
 
   if (!userId) {
-    console.log("UserId param not sent with request");
+    console.log("잘못된 요청입니다.(UserId param not sent with request)");
     return res.sendStatus(400);
   }
 
@@ -79,7 +79,7 @@ const fetchChats = asyncHandler(async (req, res) => {
 //@access          Protected
 const createGroupChat = asyncHandler(async (req, res) => {
   if (!req.body.users || !req.body.name) {
-    return res.status(400).send({ message: "Please Fill all the feilds" });
+    return res.status(400).send({ message: "모든 정보를 입력하세요" });
   }
 
   var users = JSON.parse(req.body.users);
@@ -87,7 +87,7 @@ const createGroupChat = asyncHandler(async (req, res) => {
   if (users.length < 2) {
     return res
       .status(400)
-      .send("More than 2 users are required to form a group chat");
+      .send("두명 이상의 사용자가 필요합니다.");
   }
 
   users.push(req.user);
@@ -131,7 +131,7 @@ const renameGroup = asyncHandler(async (req, res) => {
 
   if (!updatedChat) {
     res.status(404);
-    throw new Error("Chat Not Found");
+    throw new Error("Chat을 찾을 수 없습니다.");
   } else {
     res.json(updatedChat);
   }
@@ -159,7 +159,7 @@ const removeFromGroup = asyncHandler(async (req, res) => {
 
   if (!removed) {
     res.status(404);
-    throw new Error("Chat Not Found");
+    throw new Error("Chat을 찾을 수 없습니다.");
   } else {
     res.json(removed);
   }
@@ -187,7 +187,7 @@ const addToGroup = asyncHandler(async (req, res) => {
 
   if (!added) {
     res.status(404);
-    throw new Error("Chat Not Found");
+    throw new Error("Chat을 찾을 수 없습니다.");
   } else {
     res.json(added);
   }

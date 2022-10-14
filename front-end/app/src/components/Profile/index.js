@@ -3,7 +3,13 @@ import { Avatar } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import { styles } from './style'
 
-export function Profile({ name, position, size = 45, src, date }) {
+export function Profile({
+  name = '병장 김형민',
+  position = '본부중대 통신',
+  size = 45,
+  src = require('../../assets/images/avatar.png'),
+  date,
+}) {
   let [fontsLoaded] = useNunitoFonts()
 
   return (

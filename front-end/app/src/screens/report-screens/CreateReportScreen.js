@@ -1,49 +1,28 @@
 import React, { useState } from 'react'
 // prettier-ignore
-import { TextInput, SafeAreaView, View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { TextInput, SafeAreaView, View, StyleSheet, ScrollView } from 'react-native'
 import { Colors, Searchbar, Text } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportGroup } from '../../components/ReportGroup'
 import { MyButton } from '../../components/MyButton'
-
-const DATA = {
-  onDuty: [
-    {
-      name: '중사 김택수',
-      position: '당직사관',
-    },
-    {
-      name: '대위 정종찬',
-      position: '당직사령',
-    },
-  ],
-  headquarter: [
-    {
-      name: '중사 김택수',
-      position: '통신부소대장',
-    },
-    {
-      name: '중위 정혁수',
-      position: '통신소대장',
-    },
-    {
-      name: '대위 정종찬',
-      position: '본부중대장',
-    },
-  ],
-}
+import { useNavigation } from '@react-navigation/native'
+import DATA from '../../data/procData'
 
 export function CreateReportScreen() {
   let [fontsLoaded] = useNunitoFonts()
+
+  const navigation = useNavigation()
+
   const [typeOpen, setTypeOpen] = useState(false)
-  const [groupOpen, setGroupOpen] = useState(false)
   const [type, setType] = useState('')
-  const [groups, setGroups] = useState([])
   const [typeItem, setTypeItem] = useState([
     { label: '긴급상황', value: 'urgent' },
     { label: '비상상황', value: 'emergency' },
   ])
+
+  const [groupOpen, setGroupOpen] = useState(false)
+  const [groups, setGroups] = useState([])
   const [groupItem, setGroupItem] = useState([
     { label: '당직계통', value: 'onDuty' },
     { label: '본부중대', value: 'headquarter' },
@@ -122,7 +101,10 @@ export function CreateReportScreen() {
           ></TextInput>
         </View>
         {type && groups && text && (
-          <MyButton text="보 고 하 기" dest="ReceivedReportScreen" />
+          <MyButton
+            text="보 고 하 기"
+            onPress={() => navigation.navigate('RecdReportScreen')}
+          />
         )}
       </ScrollView>
     </SafeAreaView>

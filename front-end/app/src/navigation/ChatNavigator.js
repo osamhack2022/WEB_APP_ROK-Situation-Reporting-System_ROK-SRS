@@ -1,6 +1,6 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { ChatRoomScreen } from '../screens/bottom-tab-screens'
+import { ChatRoomScreen } from '../screens'
 import { TabNavigator } from './TabNavigator'
 
 const Stack = createStackNavigator()
