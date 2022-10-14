@@ -3,6 +3,8 @@ import { HomeFilled, FileTextOutlined } from '@ant-design/icons';
 import { RiOrganizationChart, RiLogoutBoxLine } from 'react-icons/ri';
 import { AiOutlineMessage, AiOutlineBell, AiOutlineSetting } from 'react-icons/ai';
 import { useRouter } from "next/router"
+import { removeCookies } from 'cookies-next';
+
 import styles from '../styles/MenuLayout.module.css';
 
 function MenuLayout(props) {
@@ -63,7 +65,10 @@ function MenuLayout(props) {
           />
           <Button
             className={styles.signoutButton}
-            onClick={() => console.log('logout')}
+            onClick={() => {
+              removeCookies('usercookie')
+              router.replace("/")
+            }}
           >
 
             <RiLogoutBoxLine className={styles.menuIcon} />

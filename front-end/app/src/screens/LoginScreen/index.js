@@ -1,37 +1,43 @@
 import React, { useState, useCallback } from 'react'
+import { useRecoilState } from 'recoil'
+import { userState } from '../../states/userState'
 //prettier-ignore
-import { Image, SafeAreaView, View, Text, TouchableOpacity } from 'react-native'
+import { Image, SafeAreaView, View, Text, TouchableOpacity, Alert } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { TextInput } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import { GuideText } from '../../components/GuideText'
 import AppLoading from 'expo-app-loading'
-import { Alert } from 'react-native'
-
-const loginHandler = ({ dodId, password }, cb) => {
-  fetch('https://1bd7-14-7-194-69.jp.ngrok.io/api/user/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ dodId, password }),
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res.message)
-      if (res.status === '200') cb()
-      else {
-        Alert.alert(res.message)
-      }
-    })
-    .catch((error) => console.error(error))
-}
+import loginApi from '../../apis/loginApi'
 
 export function LoginScreen() {
+  const [userMe, setUserMe] = useRecoilState(userState)
   let [fontsLoaded] = useNunitoFonts()
 
-  const [dodId, setDodId] = useState('')
+  const loginHandler = useCallback(async ({ DoDID, password }, cb) => {
+    if (!DoDID || !password) Alert.alert('아이디 또는 비밀번호를 입력해주세요.')
+    else {
+      const res = await loginApi({ DoDID, password })
+      console.log(typeof res.token)
+      const token = res.token
+      if (token) await AsyncStorage.setItem('roksrs-token', token)
+      if (token && (await AsyncStorage.getItem('roksrs-token'))) {
+        setUserMe({
+          ...res,
+          token: null,
+        })
+        cb()
+        console.log(res)
+        console.log(userMe)
+      } else {
+        Alert.alert(res.message)
+      }
+    }
+  })
+
+  const [DoDID, setDoDID] = useState('')
   const [password, setPassword] = useState('')
   const [passwordVisible, setPasswordVisible] = useState(true)
 
@@ -49,6 +55,7 @@ export function LoginScreen() {
   if (!fontsLoaded) {
     return <AppLoading />
   }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoView}>
@@ -63,7 +70,7 @@ export function LoginScreen() {
           dense={true}
           activeUnderlineColor="#008275"
           style={styles.loginTextInput}
-          onChangeText={(dodId) => setDodId(dodId)}
+          onChangeText={(DoDID) => setDoDID(DoDID)}
         />
         <View style={styles.guideTextView}>
           <GuideText guideText={`2x-xxxxxxxx`} />
@@ -86,7 +93,7 @@ export function LoginScreen() {
           <GuideText guideText={`${password.length}/15`} />
         </View>
         <TouchableOpacity
-          onPress={() => loginHandler({ dodId, password }, goChatNavigator)}
+          onPress={() => loginHandler({ DoDID, password }, goChatNavigator)}
           style={styles.loginButtonView}
         >
           <Text style={styles.LoginText}>로 그 인</Text>

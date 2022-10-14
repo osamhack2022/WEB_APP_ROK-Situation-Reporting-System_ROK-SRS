@@ -22,6 +22,9 @@ app.use(cors()); // for cors
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
+app.use("/api/unit", unitRoutes);
+app.use("/api/report", reportRoutes);
+app.use("/api/comment", commentRoutes);
 
 
 /*const __dirname1 = path.resolve();

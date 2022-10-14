@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { window } from '../../constants/layout'
+import { Colors } from 'react-native-paper'
 
 export const styles = StyleSheet.create({
   container: {
@@ -39,5 +40,12 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     fontFamily: 'NunitoSans_600SemiBold',
+  },
+  dropDown: {
+    width: '100%',
+    backgroundColor: 'white',
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderColor: Colors.grey400,
   },
 })
