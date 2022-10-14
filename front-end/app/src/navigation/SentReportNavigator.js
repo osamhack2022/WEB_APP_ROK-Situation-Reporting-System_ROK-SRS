@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { SentReportScreen } from '../screens/bottom-tab-screens'
-import { ReportScreen } from '../screens/bottom-tab-screens'
+import { SentReportScreen } from '../screens'
+import { ReportScreen } from '../screens'
 
 const Stack = createStackNavigator()
 

@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 //@route           GET /api/user?search=
 //@access          Protected
 const allUsers = asyncHandler(async (req, res) => {
+
   const keyword = req.query.search
     ? {
         $or: [
@@ -16,8 +17,11 @@ const allUsers = asyncHandler(async (req, res) => {
         ],
       }
     : {};
-
-  const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+  if (req.query.search == "") {
+    users = await User.find({}, {password:0});
+  } else {
+    users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+  }
   res.send(users);
 });
 
@@ -140,6 +144,7 @@ const authUser = asyncHandler(async (req, res) => {
     res.json({
       _id: user._id,
       Name: user.Name,
+      Rank: user.Rank,
       DoDID: user.DoDID,
       email: user.email,
       Type: user.Type,

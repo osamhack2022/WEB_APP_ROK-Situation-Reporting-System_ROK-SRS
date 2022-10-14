@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet, View, Text, ScrollView } from 'react-native'
 import { Portal, Modal, Avatar, Provider, Colors } from 'react-native-paper'
-import { OrgListItem } from '../../components/OrgListItem'
-import { useNunitoFonts } from '../../hooks/useNunitoFonts'
+import { OrgListItem } from '../components/OrgListItem'
+import { useNunitoFonts } from '../hooks/useNunitoFonts'
 
 export const LeftImage = () => (
   <Avatar.Image
-    source={require('../../assets/images/avatar.png')}
+    source={require('../assets/images/avatar.png')}
     size={40}
     style={{ alignSelf: 'center', marginLeft: 15, marginRight: 5 }}
   />
@@ -18,18 +18,9 @@ export function OrgChartScreen() {
   const [modalData, setModalData] = useState({})
 
   const showModal = ({ name, role, team, tel }) =>
-    setModalData({
-      name,
-      role,
-      team,
-      tel,
-      visible: true,
-    })
-  const hideModal = () =>
-    setModalData({
-      ...modalData,
-      visible: false,
-    })
+    setModalData({ name, role, team, tel, visible: true })
+
+  const hideModal = () => setModalData({ ...modalData, visible: false })
 
   return (
     <Provider>
@@ -40,18 +31,12 @@ export function OrgChartScreen() {
             <Modal
               visible={modalData.visible}
               onDismiss={hideModal}
-              contentContainerStyle={{
-                backgroundColor: 'white',
-                alignItems: 'center',
-                margin: 50,
-                padding: 25,
-                borderRadius: 15,
-              }}
+              contentContainerStyle={styles.modal}
             >
               <Avatar.Image
-                source={require('../../assets/images/soldier.png')}
+                source={require('../assets/images/soldier.png')}
                 size={70}
-                style={{ backgroundColor: Colors.grey400, marginBottom: 5 }}
+                style={styles.img}
               />
               <Text style={styles.nameText}>{modalData.name}</Text>
               <View style={{ marginRight: 80 }}>
@@ -116,5 +101,16 @@ const styles = StyleSheet.create({
     fontSize: 13,
     marginLeft: 5,
     color: Colors.grey600,
+  },
+  modal: {
+    backgroundColor: 'white',
+    alignItems: 'center',
+    margin: 50,
+    padding: 25,
+    borderRadius: 15,
+  },
+  img: {
+    backgroundColor: Colors.grey400,
+    marginBottom: 5,
   },
 })

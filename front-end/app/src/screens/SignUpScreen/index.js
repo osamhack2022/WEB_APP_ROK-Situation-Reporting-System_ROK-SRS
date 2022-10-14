@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { TextInput } from 'react-native-paper'
-import {
-  View,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-  Text,
-} from 'react-native'
+// prettier-ignore
+import { View ,SafeAreaView, TouchableOpacity, ScrollView, Text, Alert } from 'react-native'
 import { styles } from './style'
 import { GuideText } from '../../components/GuideText'
+import RankItems from '../../data/ranks'
+import DropDownPicker from 'react-native-dropdown-picker'
+import registerApi from '../../apis/registerApi'
+import { Colors } from 'react-native-paper'
 
 const checkPasswordMatch = (password, confirmPassword) => {
   return password.length == 0
@@ -18,35 +17,24 @@ const checkPasswordMatch = (password, confirmPassword) => {
     : `비밀번호가 일치하지 않습니다.`
 }
 
-const registerHandler = (data) => {
-  fetch('https://1bd7-14-7-194-69.jp.ngrok.io/api/user/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-    .then((res) => res.json())
-    .then((res) => console.log(res.message))
-    .catch((error) => console.error(error))
-}
-
 export function SignUpScreen() {
-  const [rank, setRank] = useState('')
-  const [dodId, setDodId] = useState('')
+  const registerHandler = useCallback(async (userData) => {
+    const res = await registerApi(userData)
+    if (res.token) Alert.alert('회원가입에 성공하였습니다.')
+    else Alert.alert(res.message)
+  })
+
+  const [RankOpen, setRankOpen] = useState(false)
+  const [Rank, setRank] = useState(null)
+  const [Ranks, setRanks] = useState(RankItems)
+
+  const [pic, setPic] = useState('')
+  const [DoDID, setDoDID] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [name, setName] = useState('')
-  const [inviteCode, setInviteCode] = useState('')
-
-  const userData = {
-    rank,
-    dodId,
-    password,
-    name,
-    email,
-  }
+  const [Name, setName] = useState('')
+  const [Invcode, setInvcode] = useState('')
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,13 +43,22 @@ export function SignUpScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.signUpView}>
-          <TextInput
-            label="계급"
-            dense={true}
-            activeUnderlineColor="#008275"
-            onChangeText={(rank) => setRank(rank)}
-            style={styles.signUpTextInput}
-          ></TextInput>
+          <DropDownPicker
+            placeholder="계급"
+            open={RankOpen}
+            value={Rank}
+            items={Ranks}
+            setOpen={setRankOpen}
+            setValue={setRank}
+            setItems={setRanks}
+            style={styles.dropDown}
+            textStyle={{
+              fontSize: 16,
+              color: Rank ? Colors.black : Colors.grey600,
+              marginLeft: 2,
+            }}
+            zIndex={5001}
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={``} />
           </View>
@@ -69,7 +66,7 @@ export function SignUpScreen() {
             label="이름"
             dense={true}
             activeUnderlineColor="#008275"
-            onChangeText={(name) => setName(name)}
+            onChangeText={(Name) => setName(Name)}
             style={styles.signUpTextInput}
           ></TextInput>
           <View style={styles.guideTextView}>
@@ -79,7 +76,7 @@ export function SignUpScreen() {
             label="군 번"
             dense={true}
             activeUnderlineColor="#008275"
-            onChangeText={(dodId) => setDodId(dodId)}
+            onChangeText={(DoDID) => setDoDID(DoDID)}
             style={styles.signUpTextInput}
           ></TextInput>
           <View style={styles.guideTextView}>
@@ -123,21 +120,31 @@ export function SignUpScreen() {
             label="초대 코드"
             dense={true}
             activeUnderlineColor="#008275"
-            onChangeText={(inviteCode) => setInviteCode(inviteCode)}
+            onChangeText={(Invcode) => setInvcode(Invcode)}
             style={styles.signUpTextInput}
           ></TextInput>
           <View style={styles.guideTextView}>
             <GuideText guideText={`부대에서 받은 초대코드 입력`} />
           </View>
         </View>
-        {rank &&
+        {Rank &&
           id &&
           password &&
           password === confirmPassword &&
-          name &&
-          inviteCode && (
+          Name &&
+          Invcode && (
             <TouchableOpacity
-              onPress={() => registerHandler(userData)}
+              onPress={() =>
+                registerHandler({
+                  Rank,
+                  DoDID,
+                  password,
+                  Name,
+                  email,
+                  pic,
+                  Invcode,
+                })
+              }
               style={styles.signUpButtonView}
             >
               <Text style={styles.signUpText}>사 용 신 청</Text>
