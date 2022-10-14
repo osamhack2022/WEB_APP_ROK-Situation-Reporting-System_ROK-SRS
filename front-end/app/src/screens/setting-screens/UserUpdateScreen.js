@@ -6,6 +6,7 @@ import { GuideText } from '../../components/GuideText'
 import { window } from '../../constants/layout'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { MyButton } from '../../components/MyButton'
+import updateUserApi from '../../apis/updateUserApi'
 import { userState } from '../../states/userState'
 import { useRecoilState } from 'recoil'
 

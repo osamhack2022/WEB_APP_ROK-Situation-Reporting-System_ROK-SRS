@@ -14,3 +14,5 @@ const updateUserApi = async ({ Rank, Name, email, milNumber, Number }) => {
     console.log(error)
   }
 }
+
+export default updateUserApi

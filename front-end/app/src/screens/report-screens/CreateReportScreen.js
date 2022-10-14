@@ -14,6 +14,8 @@ export function CreateReportScreen() {
 
   const navigation = useNavigation()
 
+  const [query, setQuery] = useState('')
+
   const [typeOpen, setTypeOpen] = useState(false)
   const [type, setType] = useState('')
   const [typeItem, setTypeItem] = useState([
@@ -89,7 +91,11 @@ export function CreateReportScreen() {
           style={[styles.width90, groups.length === 0 && { marginTop: 15 }]}
         >
           <Text style={styles.text}>추가된 인원</Text>
-          <Searchbar style={styles.searchBar} inputStyle={{ fontSize: 15 }} />
+          <Searchbar
+            style={styles.searchBar}
+            inputStyle={{ fontSize: 15 }}
+            onChangeText={(query) => setQuery(query)}
+          />
         </View>
         <View style={[styles.width90, { marginTop: 15 }]}>
           <Text style={styles.text}>내용</Text>
