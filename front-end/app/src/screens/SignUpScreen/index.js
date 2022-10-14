@@ -3,6 +3,7 @@ import { TextInput } from 'react-native-paper'
 // prettier-ignore
 import { View ,SafeAreaView, TouchableOpacity, ScrollView, Text, Alert } from 'react-native'
 import { styles } from './style'
+import { useNavigation } from '@react-navigation/native'
 import { GuideText } from '../../components/GuideText'
 import RankItems from '../../data/ranks'
 import DropDownPicker from 'react-native-dropdown-picker'
@@ -18,10 +19,14 @@ const checkPasswordMatch = (password, confirmPassword) => {
 }
 
 export function SignUpScreen() {
+  const navigation = useNavigation()
+
   const registerHandler = useCallback(async (userData) => {
     const res = await registerApi(userData)
-    if (res.token) Alert.alert('회원가입에 성공하였습니다.')
-    else Alert.alert(res.message)
+    if (res.token) {
+      Alert.alert('회원가입에 성공하였습니다.')
+      navigation.navigate('LoginScreen')
+    } else Alert.alert(res.message)
   })
 
   const [RankOpen, setRankOpen] = useState(false)
@@ -128,7 +133,7 @@ export function SignUpScreen() {
           </View>
         </View>
         {Rank &&
-          id &&
+          DoDID &&
           password &&
           password === confirmPassword &&
           Name &&

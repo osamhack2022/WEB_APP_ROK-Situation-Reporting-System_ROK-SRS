@@ -2,6 +2,8 @@ import React from 'react'
 import { FAB, List, Avatar } from 'react-native-paper'
 import { SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import { ReportGroup } from '../../components/ReportGroup'
+import DATA from '../../data/procData'
 
 const LeftImage = () => (
   <Avatar.Image
@@ -25,31 +27,9 @@ export function UserMgtScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        {tempData.map((user, idx) => (
-          <List.Item
-            title={user.Name}
-            description={user.position}
-            left={LeftImage}
-            right={() => (
-              <List.Icon
-                icon="minus-circle-outline"
-                onPress={() => deleteUserHandler()}
-              />
-            )}
-            titleStyle={styles.titleStyle}
-            descriptionStyle={styles.descriptionStyle}
-            key={idx}
-            onPress={() =>
-              props.showModal({
-                name: user.title,
-                role: user.description,
-                team: '통신소대',
-                tel: '010-1234-5678',
-              })
-            }
-          />
-        ))}
+      <ScrollView style={styles.view}>
+        <ReportGroup group={DATA.onDuty} name="당직계통" />
+        <ReportGroup group={DATA.headquarter} name="본부중대" />
       </ScrollView>
       <FAB
         icon="account-plus"
@@ -64,6 +44,10 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    alignItems: 'center',
+  },
+  view: {
+    width: '90%',
     alignItems: 'center',
   },
   fab: {

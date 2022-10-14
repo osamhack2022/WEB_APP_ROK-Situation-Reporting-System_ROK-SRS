@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { SafeAreaView, View, StyleSheet, Alert, ScrollView } from 'react-native'
 import { Colors, TextInput } from 'react-native-paper'
 import RankItems from '../../data/ranks'
@@ -6,50 +6,41 @@ import { GuideText } from '../../components/GuideText'
 import { window } from '../../constants/layout'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { MyButton } from '../../components/MyButton'
-import addUserApi from '../../apis/addUserApi'
+import { userState } from '../../states/userState'
+import { useRecoilState } from 'recoil'
 
-const AccountTypeItems = [
-  { label: '지휘관', value: 'Commander' },
-  { label: '지휘자', value: 'Leader' },
-  { label: '병사', value: 'Soldier' },
-]
+export function UserUpdateScreen() {
+  const [userMe, setUserMe] = useRecoilState(userState)
 
-export function UserAddScreen() {
-  const addUserHandler = async ({ Rank, Name, DoDID, Type }, cb) => {
-    const res = await addUserApi({ Rank, Name, DoDID, Type })
-    if (res.Invcode)
-      Alert.alert(
-        `사용자 등록에 성공했습니다.\n초대 코드는 ${res.Invcode}입니다.`
-      )
-    else Alert.alert(res.message)
-    console.log(res.message)
-  }
+  const updateUserHandler = useCallback(
+    async ({ Rank, Name, email, milNumber, Number }) => {
+      const res = await updateUserApi({
+        Rank,
+        Name,
+        email,
+        milNumber,
+        Number,
+      })
+      if (res.message) Alert.alert(res.message)
+      else {
+        setUserMe({ ...userMe, Rank, Name, email, milNumber, Number })
+        Alert.alert('사용자 정보가 변경되었습니다.')
+      }
+    }
+  )
 
-  const [DoDID, setDoDID] = useState('')
-  const [Name, setName] = useState('')
-  const [Position, setPosition] = useState('')
+  const [Name, setName] = useState(userMe.Name)
+  const [email, setEmail] = useState(userMe.email)
+  const [Number, setNumber] = useState(userMe.Number)
+  const [milNumber, setMilNumber] = useState(userMe.milNumber)
 
   const [RankOpen, setRankOpen] = useState(false)
-  const [Rank, setRank] = useState(null)
+  const [Rank, setRank] = useState(userMe.Rank)
   const [Ranks, setRanks] = useState(RankItems)
-
-  const [typeOpen, setTypeOpen] = useState(false)
-  const [AccountType, setAccountType] = useState(null)
-  const [AccountTypes, setAccountTypes] = useState(AccountTypeItems)
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.view} showsVerticalScrollIndicator={false}>
-        <TextInput
-          label="군 번"
-          dense={true}
-          activeUnderlineColor="#008275"
-          onChangeText={(DoDID) => setDoDID(DoDID)}
-          style={styles.textInput}
-        ></TextInput>
-        <View style={styles.guideTextView}>
-          <GuideText guideText={`2x-xxxxxxxx`} />
-        </View>
         <DropDownPicker
           placeholder="계급"
           open={RankOpen}
@@ -79,29 +70,34 @@ export function UserAddScreen() {
         <View style={styles.guideTextView}>
           <GuideText guideText={``} />
         </View>
-        <DropDownPicker
-          placeholder="계정 유형"
-          open={typeOpen}
-          value={AccountType}
-          items={AccountTypes}
-          setOpen={setTypeOpen}
-          setValue={setAccountType}
-          setItems={setAccountTypes}
-          style={styles.dropDown}
-          textStyle={{
-            fontSize: 16,
-            color: Rank ? Colors.black : Colors.grey600,
-            marginLeft: 2,
-          }}
-        />
+        <TextInput
+          label="이메일"
+          dense={true}
+          activeUnderlineColor="#008275"
+          onChangeText={(email) => setEmail(email)}
+          style={styles.textInput}
+        ></TextInput>
+        <View style={styles.guideTextView}>
+          <GuideText guideText={``} />
+        </View>
         <View style={styles.guideTextView}>
           <GuideText guideText={``} />
         </View>
         <TextInput
-          label="직책"
+          label="전화번호"
           dense={true}
           activeUnderlineColor="#008275"
-          onChangeText={(Position) => setPosition(Position)}
+          onChangeText={(Number) => setNumber(Number)}
+          style={styles.textInput}
+        ></TextInput>
+        <View style={styles.guideTextView}>
+          <GuideText guideText={`010-xxxx-xxxx`} />
+        </View>
+        <TextInput
+          label="군 전화번호 (보유시)"
+          dense={true}
+          activeUnderlineColor="#008275"
+          onChangeText={(milNumber) => setMilNumber(milNumber)}
           style={styles.textInput}
         ></TextInput>
         <View style={styles.guideTextView}>
@@ -110,14 +106,14 @@ export function UserAddScreen() {
       </ScrollView>
       {DoDID && Rank && Name && AccountType && Position && (
         <MyButton
-          text="사용자 추가"
+          text="내 정보 수정"
           onPress={() =>
-            addUserHandler({
+            updateUserHandler({
               Rank,
               Name,
-              DoDID,
-              Type: AccountType,
-              Position,
+              email,
+              Number,
+              milNumber,
             })
           }
         />

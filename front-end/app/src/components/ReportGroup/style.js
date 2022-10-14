@@ -7,10 +7,12 @@ export const styles = StyleSheet.create({
   },
   view: {
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: 2,
     borderColor: Colors.grey800,
     alignItems: 'center',
-    padding: 4,
+    paddingVertical: 4,
+    width: 70,
+    marginVertical: 5,
   },
   image: {
     marginBottom: 5,
@@ -22,8 +24,8 @@ export const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'NunitoSans_300Light',
-    color: Colors.grey800,
-    fontSize: 12,
-    marginBottom: 10,
+    color: Colors.grey600,
+    fontSize: 13,
+    marginBottom: 14,
   },
 })
