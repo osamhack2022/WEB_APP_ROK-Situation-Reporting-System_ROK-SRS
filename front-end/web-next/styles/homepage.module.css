@@ -1,0 +1,9 @@
+.unit {
+    display: flex; 
+    width: 700px; 
+    height: 300px; 
+    border-radius: 20px; 
+    background-color: white;
+    margin-left: 30px; 
+    margin-top: 40px;
+}
