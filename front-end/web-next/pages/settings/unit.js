@@ -132,14 +132,16 @@ const UnitSettings = () => {
     const [Name, setName] = useState();
     const [Position, setPosition] = useState();
 
+    const [error1, seterror1] = useState(); 
+    const [success1, setsuccess1] = useState(); 
+    const [error2, seterror2] = useState(); 
+    const [success2, setsuccess2] = useState(); 
+    const [error3, seterror3] = useState();
+    const [success3, setsuccess3] = useState(); 
+ 
+
     let submitnewuser = async (event) => {
         let endpoint = backendroot + 'api/user/add'
-        console.log("hi")
-        console.log(DoDID)
-        console.log(Rank)
-        console.log(Type)
-        console.log(Name)
-        console.log(Position)
         const data = {
             DoDID: DoDID,
             Name: Name,
@@ -160,6 +162,14 @@ const UnitSettings = () => {
         }
         const response = await fetch(endpoint, options)
         const result = await response.json()
+        console.log(result)
+        if (result['Invcode']) {
+            seterror3("")
+            setsuccess3("성공. 초대코드: " + result['Invcode'])
+        } else {
+            setsuccess3("")
+            seterror3(result['message'])
+        }
         console.log(result)
     }
 
@@ -293,7 +303,9 @@ const UnitSettings = () => {
                         <Form.Item>
                             <div style = {{display:'flex'}}>
                                 <button className={styles.submitbutton} type="primary">군인 추가</button>
-                                <p id = {styles.error3}>Error Message 3</p>
+                                <p id = {styles.error3}>{error3}</p>
+                                <p id = {styles.success3}>{success3}</p>
+
                             </div>
                         </Form.Item>
                     </Form>
