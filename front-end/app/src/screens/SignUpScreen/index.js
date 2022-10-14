@@ -7,6 +7,7 @@ import { GuideText } from '../../components/GuideText'
 import RankItems from '../../data/ranks'
 import DropDownPicker from 'react-native-dropdown-picker'
 import registerApi from '../../apis/registerApi'
+import { Colors } from 'react-native-paper'
 
 const checkPasswordMatch = (password, confirmPassword) => {
   return password.length == 0

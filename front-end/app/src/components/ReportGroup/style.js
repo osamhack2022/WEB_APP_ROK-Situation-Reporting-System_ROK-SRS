@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: Colors.grey800,
     alignItems: 'center',
+    padding: 4,
   },
   image: {
     marginBottom: 5,
