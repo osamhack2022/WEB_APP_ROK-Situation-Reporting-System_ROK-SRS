@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
+
 const userSchema = mongoose.Schema(
   {
     Name: { type: String, required: true },
@@ -10,10 +11,10 @@ const userSchema = mongoose.Schema(
     Type: { type: String, required: true },
     Invcode: { type: String, required: true },
     is_activated: { type: Boolean },
-    Position: { type: String, unique: true, required: false },
-    email: { type: String, unique: true, required: false },
+    Position: { type: String, required: false },
+    email: { type: String, required: false },
     milNumber: { type: String, required: false },
-    number: { type: String , unique: true, required: false },
+    number: { type: String , required: false },
     pic: {
       type: String,
       required: false,
@@ -25,7 +26,7 @@ const userSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-// git commit -m "Fix: bug & register handle with exception"
+
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
