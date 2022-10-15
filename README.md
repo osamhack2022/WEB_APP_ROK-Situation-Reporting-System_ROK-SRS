@@ -2,15 +2,15 @@
 ![Logo](https://i.ibb.co/VQqT63J/450-300px-300-100px-900-300px.png)
 
 # Table of Contents
-1. [프로잭트 소개](#💡프로잭트-소개	)
-2. [기능 설명](#📖기능-설명)
+1. [프로잭트 소개](#introduction)
+2. [기능 설명](#features)
 3. [컴퓨터 구성 / 필수 조건 안내 (Prerequisites)](#requirements)
 4. [기술 스택 (Technique Used) ](#techniques)
 5. [설치 안내 (Installation Process) ](#installation)
 6. [팀 정보 (Team Information) ](#team)
 7. [저작권 및 사용권 정보 (Copyleft / End User License) ](#copyright)
 
-
+<a id = "introduction"></a>
 ## 📢프로젝트 소개
 
 **🚩문제점 제시**
@@ -50,7 +50,7 @@
 3. 사령부 내부 부서/처.
 4. 국정원, 경호원, 무기체계 개발팀 등 기밀 사항 연구 보직.
 
-
+<a id = "features"></a>
 ## 📖기능 설명
  - 설명 기입
 
