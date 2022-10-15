@@ -61,17 +61,38 @@
 
 <a id = "techniques"></a>
 ## 기술 스택 (Technique Used) 
+### Web Frontend
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![Ant-Design](https://img.shields.io/badge/-AntDesign-%230170FE?style=for-the-badge&logo=ant-design&logoColor=white)
+### Mobile Frontend
+![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37) 
+### Backend
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+### Database
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white)
+### Encryption Scheme
+<table>
+<tr>
+	  <td align='center'>Logo</td>
+	  <td align='center'>Name/Encryption Scheme</td>
+	  <td align='center'>Purpose</td>
+ </tr>
+ <tr>
+	  <td align='center'><img src = "https://upload.wikimedia.org/wikipedia/commons/2/2a/RSA_Security_logo2.svg" width = "55px" height = "30px"></td>
+	  <td align='center'>RSA</td>
+	  <td align='center'>비대칭 암호와 (암호와된 키 값 전송)</td>
+ </tr>
+  <tr>
+	  <td align='center'><img src = "https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F1252457264-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fspaces%252F-LVOh1OI8lhWfR_994H2%252Favatar.png%3Fgeneration%3D1546620224707409%26alt%3Dmedia" width = "40px" height = "40px"></td>
+	  	  <td align='center'>Crypto.js</td>
+	  <td align='center'>대칭 암호와 기능 (AES, HMAC)</td>
+ </tr>
+   <tr>
+	  <td align='center'><img src = "https://miro.medium.com/max/251/1*YUlYnXhu4NG61i-HRG50AQ.jpeg" width = "40px" height = "40px"></td>
+	  	  <td align='center'>Azure Keystore</td>
+	  <td align='center'>비밀 키값 (Secret Key) 저장</td>
+ </tr>
 
-### Server(backend)
- - Language: Node.js
- - DB: MongoDB
- - library/framework: express, mongoose, bcrypt, jsonwebtoken, cors, socket.io, dotenv, nodemon 등
- - GitHub Codespace, VSCode, git(GitHub), Sourcetree, Postman, Insomnia 등
- 
-### Frontend
- -  react, vue.js 등 사용한 frontend 프레임워크 
- -  UI framework
- - 기타 사용한 라이브러리
+</table> 
 
 <a id = "installation"></a>
 ## 설치 안내 (Installation Process)
