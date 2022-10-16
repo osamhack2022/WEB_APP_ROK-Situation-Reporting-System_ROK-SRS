@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import * as ExpoImagePicker from 'expo-image-picker'
-import { Pressable, Image, Text } from 'react-native'
+import { Pressable, Image, Text, View } from 'react-native'
 import { styles } from './style'
 
-export function ImagePicker() {
-  const [imageUrl, setImageUrl] = useState('')
+export function ImagePicker({ imageUrl, setImageUrl }) {
   const [status, requestPermission] =
     ExpoImagePicker.useMediaLibraryPermissions()
 
@@ -32,7 +31,11 @@ export function ImagePicker() {
   return (
     <Pressable onPress={uploadImage} style={styles.pressable}>
       <Image source={{ uri: imageUrl }} style={styles.image} />
-      <Text>부대마크 변경하기</Text>
+      {!imageUrl && (
+        <View style={styles.absolute}>
+          <Text style={styles.text}>{`부대 마크 변경하려면 클릭`}</Text>
+        </View>
+      )}
     </Pressable>
   )
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet, View, Text, FlatList } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { ReportHeader } from '../../components/ReportHeader'
-import { ReportCard } from '../../components/ReportCard'
+import { ReportContent } from '../../components/ReportContent'
 import { ReportComment } from '../../components/ReportComment'
 import { Colors } from 'react-native-paper'
 
@@ -17,7 +17,7 @@ export function ReportScreen() {
   const ListHeaderComponent = () => (
     <View style={{ width: '100%', alignItems: 'center' }}>
       <ReportHeader />
-      <ReportCard />
+      <ReportContent />
     </View>
   )
 

@@ -13,6 +13,8 @@ import { useRecoilState } from 'recoil'
 export function UserUpdateScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
 
+  console.log(userMe.Name)
+
   const updateUserHandler = useCallback(
     async ({ Rank, Name, email, milNumber, Number }) => {
       const res = await updateUserApi({
@@ -67,6 +69,7 @@ export function UserUpdateScreen() {
           activeUnderlineColor="#008275"
           onChangeText={(Name) => setName(Name)}
           style={styles.textInput}
+          placeholder={Name}
         ></TextInput>
         <View style={styles.guideTextView}>
           <GuideText guideText={``} />
@@ -77,10 +80,8 @@ export function UserUpdateScreen() {
           activeUnderlineColor="#008275"
           onChangeText={(email) => setEmail(email)}
           style={styles.textInput}
+          placeholder={userMe.email}
         ></TextInput>
-        <View style={styles.guideTextView}>
-          <GuideText guideText={``} />
-        </View>
         <View style={styles.guideTextView}>
           <GuideText guideText={``} />
         </View>
@@ -90,9 +91,10 @@ export function UserUpdateScreen() {
           activeUnderlineColor="#008275"
           onChangeText={(Number) => setNumber(Number)}
           style={styles.textInput}
+          placeholder={userMe.Number}
         ></TextInput>
         <View style={styles.guideTextView}>
-          <GuideText guideText={`010-xxxx-xxxx`} />
+          <GuideText guideText={`ex. 010-1234-5678`} />
         </View>
         <TextInput
           label="군 전화번호 (보유시)"
@@ -100,25 +102,26 @@ export function UserUpdateScreen() {
           activeUnderlineColor="#008275"
           onChangeText={(milNumber) => setMilNumber(milNumber)}
           style={styles.textInput}
+          placeholder={userMe.milNumber}
         ></TextInput>
         <View style={styles.guideTextView}>
           <GuideText guideText={``} />
         </View>
+        {Rank && Name && Number && email && milNumber && (
+          <MyButton
+            text="내 정보 수정"
+            onPress={() =>
+              updateUserHandler({
+                Rank,
+                Name,
+                email,
+                Number,
+                milNumber,
+              })
+            }
+          />
+        )}
       </ScrollView>
-      {DoDID && Rank && Name && AccountType && Position && (
-        <MyButton
-          text="내 정보 수정"
-          onPress={() =>
-            updateUserHandler({
-              Rank,
-              Name,
-              email,
-              Number,
-              milNumber,
-            })
-          }
-        />
-      )}
     </SafeAreaView>
   )
 }

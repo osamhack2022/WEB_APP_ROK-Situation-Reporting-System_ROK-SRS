@@ -6,6 +6,7 @@ import {
   UserMgtScreen,
   UserAddScreen,
   ProcMgtScreen,
+  UserUpdateScreen,
 } from '../screens'
 
 const Stack = createStackNavigator()
@@ -17,6 +18,11 @@ export function SettingNavigator() {
         name="SettingScreen"
         component={SettingScreen}
         options={{ title: '설 정' }}
+      />
+      <Stack.Screen
+        name="UserUpdateScreen"
+        component={UserUpdateScreen}
+        options={{ title: '내 정보 수정' }}
       />
       <Stack.Screen
         name="UserMgtScreen"

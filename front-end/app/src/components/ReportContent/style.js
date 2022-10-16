@@ -30,7 +30,6 @@ export const styles = StyleSheet.create({
   contView: {
     width: '100%',
     flexDirection: 'row',
-    marginTop: 5,
   },
   seqView: {
     flex: 1,
@@ -38,26 +37,27 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   seqText: {
-    marginTop: 3,
-    fontFamily: 'NunitoSans_400Regular',
+    marginTop: 5,
+    fontFamily: 'NunitoSans_SemiBold',
     fontSize: 11,
-    color: Colors.grey600,
+    color: Colors.grey800,
   },
   buttonView: {
     marginTop: 10,
+    marginRight: 3,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
   },
   endButton: {
-    backgroundColor: Colors.green800,
-    borderRadius: 30,
+    backgroundColor: Colors.green600,
+    borderRadius: 8,
     marginRight: 5,
     fontSize: 13,
   },
   upButton: {
-    backgroundColor: Colors.red800,
-    borderRadius: 30,
+    backgroundColor: Colors.red600,
+    borderRadius: 8,
   },
 })

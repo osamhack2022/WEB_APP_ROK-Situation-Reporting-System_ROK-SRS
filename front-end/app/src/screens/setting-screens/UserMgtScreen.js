@@ -13,7 +13,7 @@ const Item = ({ Name, Rank, pic, Position }) => (
     <Text style={styles.text}>{Name}</Text>
     <Text style={styles.text}>{Position}</Text>
     <TouchableOpacity style={{ flex: 1, alignItems: 'flex-end' }}>
-      <Text style={styles.btnText}>delete</Text>
+      <Text style={styles.btnText}>DELETE</Text>
     </TouchableOpacity>
   </View>
 )

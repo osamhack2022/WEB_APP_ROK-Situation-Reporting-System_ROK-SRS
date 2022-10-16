@@ -43,9 +43,10 @@ export function SettingScreen() {
           }
         />
         <List.Item
-          title="개인정보 수정"
+          title="내 정보 수정"
           left={() => <List.Icon icon="account-edit" />}
           style={styles.listItem}
+          onPress={() => navigation.navigate('UserUpdateScreen')}
         />
         <List.Item
           title="앱 알림 설정"
