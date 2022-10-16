@@ -4,17 +4,15 @@ import { Colors } from 'react-native-paper'
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    width: '95%',
+    width: '100%',
     justifyContent: 'space-between',
     alignSelf: 'center',
     padding: 10,
     backgroundColor: 'white',
-    borderColor: 'white',
-    marginTop: 5,
-    borderWidth: 1,
-    borderRadius: 10,
+    borderColor: Colors.grey200,
+    borderBottomWidth: 1,
   },
-  lefContainer: {
+  leftContainer: {
     flexDirection: 'row',
   },
   midContainer: {
@@ -24,21 +22,22 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 15,
-    marginRight: 15,
+    marginRight: 13,
   },
   username: {
-    fontSize: 15,
+    fontSize: 14,
     fontFamily: 'NunitoSans_600SemiBold',
   },
   lastMessage: {
     fontFamily: 'NunitoSans_400Regular',
-    fontSize: 13,
-    color: 'grey',
+    fontSize: 12,
+    color: Colors.grey500,
   },
   time: {
     fontFamily: 'NunitoSans_400Regular',
     fontSize: 11,
-    color: 'grey',
+    marginRight: 5,
+    color: Colors.grey500,
   },
 })
 

@@ -30,6 +30,7 @@ export function OrgListItem(props) {
         <List.Accordion
           title={props.title}
           left={() => <List.Icon icon="access-point-network" />}
+          style={styles.padding_0}
         >
           {tempData.map((item, idx) => (
             <List.Item

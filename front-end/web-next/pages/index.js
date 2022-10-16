@@ -38,7 +38,6 @@ export default function Home() {
     if (result.token) {
       setCookie('usercookie', result.token)
       router.push('/home')
-      console.log("submit login")
     } else {
       setError(result.message)
     }
@@ -54,7 +53,7 @@ export default function Home() {
           <Form.Item name="군번" rules={[{ required: true, message: '군번을 입력해 주세요' }]}>
             <Input placeholder = "군번" onChange={(event) => { setDoDID(event.target.value) }} />
           </Form.Item>
-          <Form.Item name="password" rules={[{ required: true, message: '비밀번호를 입력해 주세요' }]}>
+          <Form.Item name="password" style = {{marginTop: '15px'}}rules={[{ required: true, message: '비밀번호를 입력해 주세요' }]}>
             <Input.Password placeholder = "비밀번호" onChange={(event) => { setPassword(event.target.value) }} />
           </Form.Item>
           <br></br>

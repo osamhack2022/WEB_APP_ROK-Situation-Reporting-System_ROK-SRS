@@ -2,13 +2,9 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Colors } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { ReportNavigator } from '../navigation/ReportNavigator'
-import {
-  ChatListScreen,
-  OrgChartScreen,
-  NotificationScreen,
-  SettingScreen,
-} from '../screens/bottom-tab-screens'
+import { ReportNavigator } from './ReportNavigator'
+import { SettingNavigator } from './SettingNavigator'
+import { ChatListScreen, OrgChartScreen, NotificationScreen } from '../screens'
 
 const Tab = createBottomTabNavigator()
 
@@ -17,7 +13,7 @@ const icons = {
   ChatListScreen: ['message-text', 'message-text-outline'],
   OrgChartScreen: ['graph', 'graph-outline'],
   NotificationScreen: ['bell', 'bell-outline'],
-  SettingScreen: ['cog', 'cog-outline'],
+  SettingNavigator: ['cog', 'cog-outline'],
 }
 
 const getActiveRouteName = (route) => {
@@ -30,7 +26,7 @@ const getActiveRouteName = (route) => {
 
 const screenOptions = ({ route }) => {
   return {
-    tabBarIcon: ({ focused, color, size }) => {
+    tabBarIcon: ({ focused, size }) => {
       const { name } = route
       const focusedSize = focused ? size + 6 : size
       const focusedColor = focused ? Colors.white : Colors.grey400
@@ -39,8 +35,8 @@ const screenOptions = ({ route }) => {
       return <Icon name={iconName} size={focusedSize} color={focusedColor} />
     },
     tabBarShowLabel: true,
-    tabBarStyle: { height: 55, paddingBottom: 5, backgroundColor: '#008272' },
     headerTitleAlign: 'center',
+    tabBarStyle: { height: 55, paddingBottom: 5, backgroundColor: '#008272' },
     tabBarLabelStyle: { color: Colors.grey200 },
   }
 }
@@ -50,30 +46,31 @@ export function TabNavigator() {
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
         name="ReportNavigator"
-        options={{ title: '메모보고' }}
+        options={{ tabBarLabel: '메모보고', headerShown: false }}
         component={ReportNavigator}
       />
       <Tab.Screen
         name="ChatListScreen"
         options={{
           title: '채팅',
+          headerTitle: '채 팅',
         }}
         component={ChatListScreen}
       />
       <Tab.Screen
         name="OrgChartScreen"
-        options={{ title: '조직도' }}
+        options={{ title: '조직도', headerTitle: '조 직 도' }}
         component={OrgChartScreen}
       />
       <Tab.Screen
         name="NotificationScreen"
-        options={{ title: '알림' }}
+        options={{ title: '알림', headerTitle: '알 림' }}
         component={NotificationScreen}
       />
       <Tab.Screen
-        name="SettingScreen"
-        options={{ title: '설정' }}
-        component={SettingScreen}
+        name="SettingNavigator"
+        options={{ title: '설정', headerShown: false }}
+        component={SettingNavigator}
       />
     </Tab.Navigator>
   )

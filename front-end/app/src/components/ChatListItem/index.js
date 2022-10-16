@@ -5,6 +5,12 @@ import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 
+const chatHandler = () => {
+  return fetch('')
+    .then((res) => res.json())
+    .catch((error) => console.log(error))
+}
+
 export const ChatListItem = ({ name, lastMessage, createAt }) => {
   let [fontsLoaded] = useNunitoFonts()
 
@@ -16,7 +22,7 @@ export const ChatListItem = ({ name, lastMessage, createAt }) => {
   return (
     <TouchableOpacity onPress={goChatRoom} style={{ borderRadius: 15 }}>
       <View style={styles.container}>
-        <View style={styles.lefContainer}>
+        <View style={styles.leftContainer}>
           <Image
             source={require('../../assets/images/avatar.png')}
             style={styles.avatar}

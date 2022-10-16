@@ -29,6 +29,15 @@ const menu = (
               </a>
             </Link>
           ),
+        }, {
+          key: '3',
+          label: (
+            <Link target="_blank" rel="noopener noreferrer" href="/settings/reportsystem">
+              <a style = {{fontSize: '20px'}}>
+                보고체계 설정
+              </a>
+            </Link>
+          ),
         }
       ]}
     />

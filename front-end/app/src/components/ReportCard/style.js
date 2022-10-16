@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
   seqText: {
     marginTop: 3,
     fontFamily: 'NunitoSans_400Regular',
-    fontSize: 12,
+    fontSize: 11,
     color: Colors.grey600,
   },
   buttonView: {

@@ -1,0 +1,58 @@
+.reportLayout {
+    height: 100%;
+    position: relative;
+}
+
+.cardLayout {
+    margin-bottom: 10px;
+}
+
+.cardName {
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.cardPosition {
+    font-size: 10pt;
+    color: #4d4d4d
+}
+
+.cardDatetime {
+    font-size: 12pt;
+    font-weight: bold
+}
+
+.cardMemo {
+    margin-top: 10px;
+    padding-left: 5px;
+    font-size: 11pt
+}
+
+.memoHeader {
+    width: 100%;
+}
+
+.contentLayout {
+    width: 100%;
+    height: calc(100% - 220px);
+    overflow: auto;
+}
+
+.cardListLayout {
+    width: 100%;
+    padding: 0 10px;
+}
+
+.memoFooter {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+.memoDivider {
+    margin: 15px 0;
+}
+
+.memoComment {
+    padding-left: 30px;
+}
