@@ -1,9 +1,97 @@
-.unit {
-    display: flex; 
-    width: 700px; 
-    height: 300px; 
-    border-radius: 20px; 
+.site-page-header {
     background-color: white;
-    margin-left: 30px; 
+}
+
+
+.user {
+    width: 220px;
+    height: 220px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.unit {
+    width: 220px;
+    height: 350px;
+    border-radius: 10px;
+    background-color: white;
+    margin-top: 20px;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+.leftbar {
+    margin-left: 30px;
     margin-top: 40px;
+    display: block;
+    box-sizing: border-box;
+}
+
+.orgunit {
+    position: relative;
+    font-size: 25px;
+    text-align: center;
+    padding-top: 5px;
+    margin-bottom: 5px;
+}
+
+.rank {
+    font-size: 23px;
+    color: darkcyan;
+}
+
+.name {
+    font-size: 23px;
+    color: darkcyan;
+}
+
+.role {
+    font-size: 18px;
+    color: darkcyan;
+}
+
+.unitmotto {
+    text-align: center;
+}
+
+.mainarea {
+    display: flex;
+    width: 700px;
+    height: 310px;
+    background-color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-left: 25px;
+    margin-top: 40px;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+.infocontainer {
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.selectionarea {
+    width: 700px;
+    height: 320px;
+    background-color: white;
+    border-radius: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-left: 25px;
+    margin-top: 20px;
+    overflow-y: auto;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+}
+
+.tabscontainer {
+    width: 640px;
+    margin: auto;
 }
