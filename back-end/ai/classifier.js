@@ -1,6 +1,10 @@
-import TheClassifier from 'classificator'
-import translate from 'translate-google'
-import pos from 'pos';
+
+const TheClassifier = require("classificator");
+const translate = require("translate-google");
+const pos = require("pos");
+
+var classifier = new TheClassifier()
+
 let positive = [
     'Questions',
     'Suggestions',
@@ -45,20 +49,46 @@ var negative = [
   `I'd rather die than eat those nasty enchiladas.`,
   'special has happened in the dormitory'
 ]
+// classifier.addDocuments(positive, 'positive')
+// classifier.addDocuments(negative, 'negative')
+ 
+// classifier.train()
 
-async function pos_tokenizer(text) {
-    const engtext = await translate(text, {to: 'en'});
+for (let i = 0; i < positive.length; i++) {
+    classifier.learn(positive[i], 'positive')
+}
+for (let i = 0; i < negative.length; i++) {
+    classifier.learn(negative[i], 'negative')
+}
+
+module.exports = async function (text) {
+    const engtext = translate(text, {to: 'en'});
     var words = new pos.Lexer().lex(engtext);
     var tagger = new pos.Tagger();
     var taggedWords = tagger.tag(words);
-    let builtword = ''
+    let parsedtext = ''
     for (let i in taggedWords) {
         var taggedWord = taggedWords[i];
         var word = taggedWord[0];
         var tag = taggedWord[1];
         if (tag.includes('N') || tag.includes('V') || tag.includes('A'))
-        builtword = builtword + word + " "
+        parsedtext = builtword + word + " "
     }
-    console.log(builtword)
-    return builtword
-} 
+    let classifieddata = classifier.categorize(parsedtext)
+    let score = classifieddata['likelihoods'][0]['proba']
+    if (score >= 0.95) {
+        return 5
+    } else if (score >= 0.85) {
+        return 4
+    } else if (score >= 0.65) {
+        return 3
+    } else if (score >= 0.4) {
+        return 2
+    } else {
+        return 1
+    }
+}
+//let { val } = await getScore('위병소 앞 총기를 든 거수자들이 나타났습니다. 자살하고싶어')
+
+
+
