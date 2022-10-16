@@ -158,6 +158,26 @@ function Organogram(props) {
     setOrgInfo(node);
     setCardOpened(true);
   }, [setOrgInfo, setCardOpened]);
+  
+  const createNode = useCallback((node) => {
+		// node key generate
+		const randomKey = Math.random().toString(36).substring(2,10);
+		node['key'] = randomKey;
+		
+		setOrgDataTree(treeNode => Object.assign(treeNode, {[randomKey]: node}));
+	}, [setOrgDataTree]);
+	
+	const updateNode = useCallback((node) => {
+		setOrgDataTree(treeNode => Object.assign(treeNode, node));
+	}, [setOrgDataTree]);
+	
+	const deleteNode = useCallback((node) => {
+		setOrgDataTree(treeNode => {
+			const nodeCopy = Object.assign({}, treeNode);
+			delete nodeCopy[node.key]
+			return nodeCopy;
+		});
+	}, [setOrgDataTree]);
 
   const makeTree = useCallback((data) => {
     const dataSet = data.reduce((prevSet, currData) => {
@@ -195,15 +215,7 @@ function Organogram(props) {
       <OrgCard
         isOpen={isCardOpened}
         onClose={() => setCardOpened(false)}
-        rank={orgInfo.rank}
-        name={orgInfo.username}
-        DoDID={orgInfo.DoDID}
-        department={orgInfo.department}
-        position={orgInfo.position}
-        roles={orgInfo.roles}
-        email={orgInfo.email}
-        tel={orgInfo.phoneNumber}
-        mTel={orgInfo.voipNumber}
+        data={orgInfo}
       />
     </>
   )
