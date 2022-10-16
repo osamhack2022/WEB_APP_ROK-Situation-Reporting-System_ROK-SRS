@@ -28,7 +28,6 @@ const allUsers = asyncHandler(async (req, res) => {
   });
   const index = req.query.index;
   if (index) {
-    console.log("users");
     res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
   } else if (keyword) {
     res.send(await User.find(keyword));//.find({ _id: { $ne: req.user._id } }));
@@ -90,8 +89,8 @@ const addUser = asyncHandler(async (req, res) => {
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
   const { Rank, Name, DoDID, email, password, pic, Invcode } = req.body;
-
-  if (!Rank || !Name || !email || !password || !DoDID) {
+  //049opo6a
+  if (!Rank || !Name || !email || !password || !DoDID || !Invcode) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
   }
@@ -234,7 +233,7 @@ const updateUser = asyncHandler(async (req, res) => {
 const updatePic = asyncHandler(async (req, res) => {
   const { pic } = req.body;
 
-  if (!Rank) {
+  if (!pic) {
     res.status(400);
     throw new Error("수정할 사진 정보를 입력하세요.");
   }
