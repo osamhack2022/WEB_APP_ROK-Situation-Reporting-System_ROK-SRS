@@ -1,25 +1,50 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Modal, Image, Row, Col, Select } from 'antd';
-import Styles from '../styles/OrganizationCard.module.css';
+import Styles from '../styles/OrganizationForm.module.css';
 
 function InputElement(props) {
   return (
     <div>
-      <div className={Styles.infoLabel}>{props.label}</div>
-      <input value={props.value} onChange={props.onChange} />
+      <div className={Styles.inputLabels}>{props.label}</div>
+      <input className={Styles.formInput} value={props.value} onChange={props.onChange} />
+    </div>
+  )
+}
+
+function SelectElement(props) {
+  return (
+    <div>
+      <div className={Styles.inputLabels}>{props.label}</div>
+      <Select
+        className={Styles.formSelect}
+        labelInValue
+        defaultValue={props.value}
+        onChange={props.onChange}
+      >
+        {
+          props.selectOptions.map((option) => (
+            <Select.Option key={option.key} value={option.value}>
+              {option.value}
+            </Select.Option>
+          ))
+        }
+      </Select>
     </div>
   )
 }
 
 function OrganizationForm(props) {
+  const ranks = ['하사', '중사', '상사', '준위', '소위', '중위', '대위', '소령', '중령', '대령']
+  const rankOptions = ranks.map((rank, index) => ({ 'key': index, 'value': rank }))
+
   const [formData, setFormData] = useState({});
   const serializedEdit = useCallback((key, value) => {
-    setFormData(preData => Object.assign(preData, { [key]: value }))
+    setFormData(preData => ({ ...preData, [key]: value }))
   }, [setFormData]);
 
   useEffect(() => {
-    if(props.data)
-      setFormData(props.data);
+    if (props.data)
+      setFormData({ ...props.data });
   }, [props.data])
 
   return (
@@ -43,10 +68,22 @@ function OrganizationForm(props) {
         </Col>
         <Col className={Styles.userProfile}>
           <div>
-            <input className={Styles.userName} value={formData.name} onChange={(event) => serializedEdit('name', event.target.value)} />
-            <input className={Styles.milRank} value={formData.rank} onChange={(event) => serializedEdit('rank', event.target.value)} />
+            <input className={Styles.formInput} value={formData.name} onChange={(event) => serializedEdit('name', event.target.value)} />
+            <Select
+              className={Styles.formSelect}
+              defaultValue={formData.rank}
+              onChange={(value) => serializedEdit('rank', value)}
+            >
+              {
+                rankOptions.map((option) => (
+                  <Select.Option key={option.key} value={option.value}>
+                    {option.value}
+                  </Select.Option>
+                ))
+              }
+            </Select>
           </div>
-          <input className={Styles.userDodid} value={formData.DoDID} onChange={(event) => serializedEdit('DoDID', event.target.value)} />
+          <input className={Styles.formInput} value={formData.DoDID} onChange={(event) => serializedEdit('DoDID', event.target.value)} />
         </Col>
       </Row>
       <Row className={Styles.elementRow}>
@@ -74,12 +111,9 @@ function OrganizationForm(props) {
         </Col>
       </Row>
       <Row>
-        <div className={Styles.infoLabel}>{formData.parent}</div>
-        <Select>
-          {formData.keys}
-        </Select>
+        <SelectElement label="직속상관" value={undefined} onChange={() => { }} selectOptions={[]} />
       </Row>
-    </Modal>
+    </Modal >
   )
 }
 

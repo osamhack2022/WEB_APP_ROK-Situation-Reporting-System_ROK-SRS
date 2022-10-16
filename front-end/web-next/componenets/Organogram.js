@@ -14,7 +14,7 @@ function renderNode(node, chooseNode) {
         key={node.key}
         label={
           <TreeNodeElement
-            name={node.username}
+            name={node.name}
             rank={node.rank}
             position={node.position}
             onClick={() => chooseNode(node)}
@@ -30,7 +30,7 @@ function renderNode(node, chooseNode) {
       key={node.key}
       label={
         <TreeNodeElement
-          name={node.username}
+          name={node.name}
           rank={node.rank}
           position={node.position}
           onClick={() => chooseNode(node)}
