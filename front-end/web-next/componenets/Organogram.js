@@ -78,11 +78,12 @@ function TreeNodeElement(props) {
 
 function Organogram(props) {
   const [isCardOpened, setCardOpened] = useState(false)
-  const [orgInfo, setOrgInfo] = useState({});
+  const [selectedOrgInfo, setSelectedOrgInfo] = useState({});
+  const [orgData, setOrgData] = useState({});
   const [orgDataTree, setOrgDataTree] = useState([]);
 
   useEffect(() => {
-    setOrgDataTree(props.renderData);
+    setOrgData(props.renderData);
     makeTree(props.renderData);
   }, [props.renderData]);
 
@@ -91,31 +92,36 @@ function Organogram(props) {
   }, [isCardOpened]);
 
   const chooseOrgInfo = useCallback((node) => {
-    setOrgInfo(node);
+    setSelectedOrgInfo(node);
     setCardOpened(true);
-  }, [setOrgInfo, setCardOpened]);
+  }, [setSelectedOrgInfo, setCardOpened]);
 
   const createNode = useCallback((node) => {
     // node key generate
     const randomKey = Math.random().toString(36).substring(2, 10);
     node['key'] = randomKey;
 
-    setOrgDataTree(treeNode => Object.assign(treeNode, { [randomKey]: node }));
-  }, [setOrgDataTree]);
+    setOrgData(treeNode => Object.assign(treeNode, { [randomKey]: node }));
+  }, [setOrgData]);
 
   const updateNode = useCallback((node) => {
-    setOrgDataTree(treeNode => Object.assign(treeNode, node));
-  }, [setOrgDataTree]);
+    setOrgData(treeNode => Object.assign(treeNode, node));
+  }, [setOrgData]);
 
   const deleteNode = useCallback((node) => {
-    setOrgDataTree(treeNode => {
+    setOrgData(treeNode => {
       const nodeCopy = Object.assign({}, treeNode);
       delete nodeCopy[node.key]
       return nodeCopy;
     });
-  }, [setOrgDataTree]);
+  }, [setOrgData]);
 
-  const makeTree = useCallback((dataSet) => {
+  const makeTree = useCallback((data) => {
+    // Deep Copy for object
+    const dataSet = {};
+    for(let key in data)
+      dataSet[key] = Object.assign({}, data[key]);
+
     const dataTree = [];
     for (let key in dataSet) {
       if (!dataSet[key].parent) {
@@ -146,7 +152,7 @@ function Organogram(props) {
       <OrgCard
         isOpen={isCardOpened}
         onClose={() => setCardOpened(false)}
-        data={orgInfo}
+        data={selectedOrgInfo}
         isEditable
         onCreate={createNode}
         onUpdate={updateNode}

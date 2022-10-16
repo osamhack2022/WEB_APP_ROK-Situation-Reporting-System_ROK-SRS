@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
 import Draggable from 'react-draggable';
@@ -75,6 +75,15 @@ const myData = {
 
 export default function Tree() {
   const [draggableDisabled, setDraggableDisabled] = useState(false);
+  const [renderData, setRenderData] = useState({});
+
+  useEffect(() => {
+    // fetch data from server
+    // ...
+
+    // sample data
+    setRenderData(myData);
+  }, []);
 
   return (
     <>
@@ -82,9 +91,9 @@ export default function Tree() {
         <title>조직도</title>
       </Head>
       <Draggable disabled={draggableDisabled}>
-        <div style={{ width: '200vw', height: '200vh' }}>
+        <div style={{ width: '350vw', height: '350vh' }}>
           <Organogram
-            renderData={myData}
+            renderData={renderData}
             onPreventDraggable={setDraggableDisabled}
           />
         </div>
