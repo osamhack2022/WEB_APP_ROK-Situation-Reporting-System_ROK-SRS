@@ -13,6 +13,9 @@ function InfoElement(props) {
 }
 
 function OrganizationCard(props) {
+  const [openCreateForm, setOpenCreateForm] = useState(false);
+  const [openUpdateForm, setOpenUpdateForm] = useState(false);
+
   return (
     <>
       <Modal
@@ -20,20 +23,20 @@ function OrganizationCard(props) {
         onCancel={props.onClose}
         footer={
           !props.isEditable
-          ? null
-          : (
-            <div>
-              <Button onClick={() => setOpenCreateForm(true)}>
-                추가하기
-              </Button>
-              <Button onClick={() => setOpenUpdateForm(true)}>
-                수정하기
-              </Button>
-              <Button>
-                삭제하기
-              </Button>
-            </div>
-          )
+            ? null
+            : (
+              <div>
+                <Button onClick={() => setOpenCreateForm(true)}>
+                  추가하기
+                </Button>
+                <Button onClick={() => setOpenUpdateForm(true)}>
+                  수정하기
+                </Button>
+                <Button>
+                  삭제하기
+                </Button>
+              </div>
+            )
         }
       >
         <Row
@@ -68,17 +71,17 @@ function OrganizationCard(props) {
         </Row>
       </Modal>
       <OrganizationForm
-        open={openCreateForm}
+        isOpen={openCreateForm}
         onClose={() => setOpenCreateForm(false)}
         onSubmit={props.onCreate}
       />
       <OrganizationForm
-        open={openUpdateForm}
+        isOpen={openUpdateForm}
         onClose={() => setOpenUpdateForm(false)}
         onSubmit={props.onUpdate}
         data={props.data}
       />
-	  </>
+    </>
   )
 }
 
