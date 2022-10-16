@@ -7,7 +7,7 @@ import { styles } from './style'
 const text =
   '충성! 당직사령님, 사복을 입은 거수자가 나타났습니다.\n무기를 소지한 것 같지는 않고, 위병소 앞에서 두리번 거리고 있습니다.\n현재 경계 중이며, 특이사항 발생 시 보고드리겠습니다.'
 
-export function ReportContent() {
+export function ReportContent({Content, Type}) {
   let [fontsLoaded] = useNunitoFonts()
 
   return (

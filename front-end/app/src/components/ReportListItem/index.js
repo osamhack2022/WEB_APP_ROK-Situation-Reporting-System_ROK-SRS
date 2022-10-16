@@ -6,13 +6,21 @@ import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
 import { styles } from './style'
 
-export function ReportListItem() {
+// prettier-ignore
+export function ReportListItem({ Title, isEnd, Content, severity, date, Type }) {
   let [fontsLoaded] = useNunitoFonts()
 
   const navigation = useNavigation()
 
-  const goReportScreen = ({ title, finished, content, importance }) => {
-    navigation.navigate('ReportScreen')
+  const goReportScreen = () => {
+    navigation.navigate('ReportScreen', {
+      Title,
+      isEnd,
+      Content,
+      severity,
+      date,
+      Type,
+    })
   }
 
   return (

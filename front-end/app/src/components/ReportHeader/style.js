@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     color: 'red',
     fontFamily: 'NunitoSans_600SemiBold',
   },
-  rank: { color: 'red', fontFamily: 'NunitoSans_600SemiBold' },
+  severity: { color: 'red', fontFamily: 'NunitoSans_600SemiBold' },
   subView: {
     width: '100%',
     flexDirection: 'row',

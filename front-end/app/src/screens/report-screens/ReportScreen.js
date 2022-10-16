@@ -5,19 +5,31 @@ import { ReportHeader } from '../../components/ReportHeader'
 import { ReportContent } from '../../components/ReportContent'
 import { ReportComment } from '../../components/ReportComment'
 import { Colors } from 'react-native-paper'
+import { useRecoilState } from 'recoil'
+import { userState } from '../../states/userState'
+import addCommentApi from '../../apis/addCommentApi'
 
-const name = '상병 조영효'
-const position = '본부중대 저격'
+const addCommentHandler = async ({ Type, Content, Title }) => {
+  const res = await addCommentApi({ Type, Content, Title })
+}
 
-const DATA = []
+export function ReportScreen({ route }) {
+  const { Title, isEnd, Content, severity, date, Type } = route.params
 
-export function ReportScreen() {
+  const [userMe, setUserMe] = useRecoilState(userState)
+
   const [comment, setComment] = useState('')
+  const [comments, setComments] = useState([])
 
   const ListHeaderComponent = () => (
     <View style={{ width: '100%', alignItems: 'center' }}>
-      <ReportHeader />
-      <ReportContent />
+      <ReportHeader
+        Title={Title}
+        isEnd={isEnd}
+        severity={severity}
+        date={date}
+      />
+      <ReportContent Content={Content} Type={Type} />
     </View>
   )
 
@@ -35,7 +47,7 @@ export function ReportScreen() {
     <SafeAreaView style={styles.container}>
       <FlatList
         ListHeaderComponent={ListHeaderComponent}
-        data={DATA}
+        data={comments}
         renderItem={renderItem}
       />
       <View style={styles.commentInputView}>
@@ -52,12 +64,15 @@ export function ReportScreen() {
               size={30}
               color={Colors.blue400}
               onPress={() => {
-                DATA.push({
-                  name: name,
-                  position: position,
-                  text: comment,
-                })
-                setComment('')
+                setComments([
+                  ...comments,
+                  {
+                    name: userMe.Name,
+                    position: userMe.Position,
+                    text: comment,
+                  },
+                ])
+                addCommentHandler({ Title, Type, Content: comment })
               }}
             />
           }

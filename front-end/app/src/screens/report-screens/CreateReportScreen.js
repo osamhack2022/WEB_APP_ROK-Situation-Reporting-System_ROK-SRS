@@ -38,8 +38,9 @@ export function CreateReportScreen() {
   const [typeOpen, setTypeOpen] = useState(false)
   const [type, setType] = useState('')
   const [typeItem, setTypeItem] = useState([
-    { label: '긴급상황', value: 'urgent' },
-    { label: '비상상황', value: 'emergency' },
+    { label: '긴급사항', value: 'emergency' },
+    { label: '보고사항', value: 'report' },
+    { label: '지시사항', value: 'order' },
   ])
 
   const [groupOpen, setGroupOpen] = useState(false)
