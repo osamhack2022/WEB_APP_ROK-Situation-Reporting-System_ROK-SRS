@@ -1,41 +1,50 @@
-
 .user {
-    width: 220px; 
+    width: 220px;
     height: 220px;
     border-radius: 10px;
     background-color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .unit {
-    width: 220px; 
-    height: 350px; 
-    border-radius: 10px; 
+    width: 220px;
+    height: 350px;
+    border-radius: 10px;
     background-color: white;
     margin-top: 20px;
 }
 
 .leftbar {
-    float: left;
-    margin-left: 30px; 
+    margin-left: 30px;
     margin-top: 40px;
+    display: block;
+    box-sizing: border-box;
 }
 
 .orgunit {
-    position: relative; 
+    position: relative;
     font-size: 25px;
     text-align: center;
     padding-top: 5px;
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
 }
 
 .rank {
     font-size: 23px;
+    color: darkcyan;
 }
+
 .name {
     font-size: 23px;
+    color: darkcyan;
 }
+
 .role {
     font-size: 18px;
+    color: darkcyan;
 }
 
 .unitmotto {
@@ -43,8 +52,17 @@
 }
 
 .mainarea {
+    display: flex;
     width: 700px;
-    height: 300px; 
+    height: 330px;
     background-color: white;
     border-radius: 10px;
+    box-sizing: border-box;
+    margin-left: 25px;
+    margin-top: 40px;
+}
+
+.infocontainer {
+    margin-left: 15px;
+    margin-top: 10px;
 }
