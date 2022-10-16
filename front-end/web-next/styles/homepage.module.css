@@ -1,9 +1,31 @@
-.unit {
-    display: flex; 
-    width: 700px; 
-    height: 300px; 
-    border-radius: 20px; 
+
+.user {
+    width: 250px; 
+    height: 250px;
+    border-radius: 10px;
     background-color: white;
+}
+
+.unit {
+    width: 250px; 
+    height: 350px; 
+    border-radius: 10px; 
+    background-color: white;
+    margin-top: 15px;
+}
+
+.leftbar {
+    float: left;
     margin-left: 30px; 
     margin-top: 40px;
+}
+
+.rank {
+    font-size: 23px;
+}
+.name {
+    font-size: 23px;
+}
+.role {
+    font-size: 18px;
 }
