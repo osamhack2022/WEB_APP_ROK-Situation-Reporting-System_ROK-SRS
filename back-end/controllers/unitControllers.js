@@ -4,7 +4,7 @@ const User = require("../models/userModel");
 const Unit = require("../models/unitModel");
 
 //@description     Add new unit
-//@route           POST /api/unit/add
+//@route           POST /api/unit
 //@access          Protected
 const addUnit = asyncHandler(async (req, res) => {
   const { Unitname, Unitslogan, Logo } = req.body;
@@ -46,7 +46,7 @@ const addUnit = asyncHandler(async (req, res) => {
 });
 
 //@description     Update unit info
-//@route           POST /api/unit/update
+//@route           POST /api/unit/
 //@access          Protected(only admin)
 const updateUnit = asyncHandler(async (req, res) => {
   const { Unitname, Unitslogan} = req.body;
@@ -84,7 +84,43 @@ const updateUnit = asyncHandler(async (req, res) => {
   }
 });
 
+//@description     Update unit logo
+//@route           put /api/unit/logo
+//@access          Protected(only admin)
+const updateLogo = asyncHandler(async (req, res) => {
+  const { Logo } = req.body;
 
+  if (!Logo) {
+    res.status(400);
+    throw new Error("수정할 Logo 정보를 입력하세요.");
+  }
+
+  const unitId = req.user.Unit;
+
+  const updatedUnit = await User.findByIdAndUpdate(
+    unitId,
+    {
+      Logo: Logo
+    },
+    {
+      new: true,
+    }
+  )
+
+  if (updatedUnit) {
+    res.status(201).json({
+      _id: updatedUnit._id,
+      Unitname: updatedUnit.Unitname,
+      Unitslogan: updatedUnit.Unitslogan,
+      Logo: updatedUnit.Logo,
+      Members: updatedUnit.Members,
+      unitAdmins: updatedUnit.unitAdmins
+    });
+  } else {
+    res.status(400);
+    throw new Error("부대 정보를 찾을 수 없습니다.");
+  }
+});
 
 module.exports = {
   updateUnit,

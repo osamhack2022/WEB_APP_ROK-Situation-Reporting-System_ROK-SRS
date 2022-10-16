@@ -20,13 +20,13 @@ const protect = asyncHandler(async (req, res, next) => {
       next();
     } catch (error) {
       res.status(401);
-      throw new Error("Not authorized, token failed");
+      throw new Error("잘못된 토큰입니다.");
     }
   }
 
   if (!token) {
     res.status(401);
-    throw new Error("Not authorized, no token");
+    throw new Error("토큰이 없습니다. 인증되지 않았습니다.");
   }
 });
 
@@ -46,13 +46,18 @@ const onlyAdmin = asyncHandler(async (req, res, next) => { // Todo: access handl
       next();
     } catch (error) {
       res.status(401);
-      throw new Error("Not authorized, token failed");
+      throw new Error("잘못된 토큰입니다.");
     }
   }
 
   if (!token) {
     res.status(401);
-    throw new Error("Not authorized, no token");
+    throw new Error("토큰이 없습니다. 인증되지 않았습니다.");
+  }
+
+  if (req.user.Type != "commender") {
+    res.status(401);
+    throw new Error("권한이 없습니다.");
   }
 });
 
