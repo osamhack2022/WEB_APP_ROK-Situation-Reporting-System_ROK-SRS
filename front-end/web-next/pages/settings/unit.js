@@ -7,6 +7,8 @@ import { Avatar, Divider, List, Skeleton, Button, Input, Radio, message, Upload,
 import styles from '../../styles/unitsettings.module.css'
 import unitlogo from '../../img/unitlogo.png'
 import React, { useEffect, useState } from 'react';
+import { getCookie } from 'cookies-next';
+
 
 const { TextArea } = Input;
 const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
@@ -130,19 +132,21 @@ const UnitSettings = () => {
     const [Name, setName] = useState();
     const [Position, setPosition] = useState();
 
+    const [error1, seterror1] = useState(); 
+    const [success1, setsuccess1] = useState(); 
+    const [error2, seterror2] = useState(); 
+    const [success2, setsuccess2] = useState(); 
+    const [error3, seterror3] = useState();
+    const [success3, setsuccess3] = useState(); 
+ 
+
     let submitnewuser = async (event) => {
-        let endpoint = backendroot + '/api/user/add'
-        console.log("hi")
-        console.log(DoDID)
-        console.log(Rank)
-        console.log(Type)
-        console.log(Name)
-        console.log(Position)
+        let endpoint = backendroot + 'api/user/add'
         const data = {
-            dodId: DoDID,
-            name: Name,
-            rank: Rank,
-            isAdmin: false,
+            DoDID: DoDID,
+            Name: Name,
+            Rank: Rank,
+            Type: Type,
         }
         const JSONdata = JSON.stringify(data)
         const options = {
@@ -151,12 +155,21 @@ const UnitSettings = () => {
             // Tell the server we're sending JSON.
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getCookie('usercookie')
             },
             // Body of the request is the JSON data we created above.
             body: JSONdata,
         }
         const response = await fetch(endpoint, options)
         const result = await response.json()
+        console.log(result)
+        if (result['Invcode']) {
+            seterror3("")
+            setsuccess3("성공. 초대코드: " + result['Invcode'])
+        } else {
+            setsuccess3("")
+            seterror3(result['message'])
+        }
         console.log(result)
     }
 
@@ -199,7 +212,7 @@ const UnitSettings = () => {
                         </Form.Item>
                         <Form.Item>
                             <div style = {{display: 'flex'}}>
-                                <button className={styles.submitbutton} type="primary" htmlType="submit">부대정보 변경</button>
+                                <button className={styles.submitbutton} type="primary">부대정보 변경</button>
                                 <p id = {styles.error1}>Error Message 1</p>
                             </div>
                         </Form.Item>
@@ -218,7 +231,7 @@ const UnitSettings = () => {
                                     <Button>Upload</Button>
                                 </Upload.Dragger>
                                 <Form.Item>
-                                    <button className={styles.submitbutton} style = {{margin: 'auto', marginTop: '10px'}} type="primary" htmlType="submit">부대마크 변경</button>
+                                    <button className={styles.submitbutton} style = {{margin: 'auto', marginTop: '10px'}} type="primary">부대마크 변경</button>
                                     <p id = {styles.error2}>Error Message 2</p>
                                 </Form.Item>
                             </div>
@@ -289,8 +302,10 @@ const UnitSettings = () => {
                         </Form.Item>
                         <Form.Item>
                             <div style = {{display:'flex'}}>
-                                <button className={styles.submitbutton} type="primary" htmlType="submit">군인 추가</button>
-                                <p id = {styles.error3}>Error Message 3</p>
+                                <button className={styles.submitbutton} type="primary">군인 추가</button>
+                                <p id = {styles.error3}>{error3}</p>
+                                <p id = {styles.success3}>{success3}</p>
+
                             </div>
                         </Form.Item>
                     </Form>

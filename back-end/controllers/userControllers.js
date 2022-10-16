@@ -134,9 +134,7 @@ const registerUser = asyncHandler(async (req, res) => {
 //@access          Public
 const authUser = asyncHandler(async (req, res) => {
   const { DoDID, password } = req.body;
-
   const user = await User.findOne({ DoDID });
-
   if (user && !user.is_registered) {
     res.status(400);
     throw new Error("승인된 사용자이나 아직 등록되지 않았습니다. 계정 등록 후 이용해주세요.");
