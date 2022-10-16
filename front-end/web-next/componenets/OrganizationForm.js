@@ -43,9 +43,9 @@ function OrganizationForm(props) {
   }, [setFormData]);
 
   useEffect(() => {
-    if (props.data)
+    if (props.isOpen && props.data)
       setFormData({ ...props.data });
-  }, [props.data])
+  }, [props.isOpen, props.data])
 
   return (
     <Modal
