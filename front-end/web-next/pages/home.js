@@ -2,11 +2,16 @@ import Head from 'next/head'
 import Link from "next/link"
 import { Middleware } from 'next/dist/lib/load-custom-routes'
 import MenuBar from '../componenets/menubar'
-import {LockOutlined} from '@ant-design/icons';
+import {LockOutlined, AudioOutlined } from '@ant-design/icons';
 import style from '../styles/homepage.module.css'
 import Image from 'next/image'
 import unitlogo from '../img/unitlogo.png'
-import { Descriptions, Tabs, Avatar, List } from 'antd';
+import { Descriptions, Tabs, Avatar, List, PageHeader, Button, Input, Space } from 'antd';
+const { Search } = Input;
+    let onSearch = async (event) => {
+        console.log('hi')
+    }
+
 const data = [
     {
       title: 'Ant Design Title 1',
@@ -28,6 +33,16 @@ const Home = () => {
         <Head>
             <title>홈페이지</title>
         </Head>
+        <PageHeader
+            className="site-page-header"
+            title="홈페이지"
+            style={{backgroundColor: "white",  boxShadow: 'inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3)'}}
+            subTitle={[
+                <Space direction="vertical">
+                    <Search placeholder="군인 이름/군번 검색" onSearch={onSearch} style={{ width: 250, marginLeft: '600px' }} />
+                </Space>
+              ]}
+        />
         <div style = {{display: 'flex'}}>
             <div className={style.leftbar}>
                 <div className={style.user}>

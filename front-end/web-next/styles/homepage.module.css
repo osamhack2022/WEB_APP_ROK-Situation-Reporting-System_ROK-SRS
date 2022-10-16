@@ -1,9 +1,15 @@
+.site-page-header {
+    background-color: white;
+}
+
+
 .user {
     width: 220px;
     height: 220px;
     border-radius: 10px;
     background-color: white;
-
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,6 +21,8 @@
     border-radius: 10px;
     background-color: white;
     margin-top: 20px;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
 
 .leftbar {
@@ -60,6 +68,8 @@
     box-sizing: border-box;
     margin-left: 25px;
     margin-top: 40px;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
 
 .infocontainer {
@@ -77,6 +87,8 @@
     margin-left: 25px;
     margin-top: 20px;
     overflow-y: auto;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
 
 .tabscontainer {
