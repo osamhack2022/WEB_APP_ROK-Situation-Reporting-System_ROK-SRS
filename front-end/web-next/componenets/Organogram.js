@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
 import { Button, Image, Row, Col } from 'antd';
-import OrgCard from './OrganizationCard';
+import OrganizationCard from './OrganizationCard';
 import Styles from '../styles/Organogram.module.css';
 
 function renderNode(node, chooseNode) {
@@ -114,10 +114,10 @@ function Organogram(props) {
   const deleteNode = useCallback((node) => {
     setOrgData(treeNode => {
       const nodeCopy = { ...treeNode };
-      
+
       // Redirection for children of removed node
       const nodeChildren = Object.values(nodeCopy).filter((data) => data.parent == node.key);
-      for(let child of nodeChildren)
+      for (let child of nodeChildren)
         child.parent = node.parent;
 
       delete nodeCopy[node.key]
@@ -128,7 +128,7 @@ function Organogram(props) {
   const makeTree = useCallback((data) => {
     // Deep Copy for object
     const dataSet = {};
-    for(let key in data)
+    for (let key in data)
       dataSet[key] = Object.assign({}, data[key]);
 
     const dataTree = [];
@@ -158,7 +158,7 @@ function Organogram(props) {
           </Col>
         ))}
       </Row>
-      <OrgCard
+      <OrganizationCard
         isOpen={isCardOpened}
         onClose={() => setCardOpened(false)}
         data={selectedOrgInfo}
@@ -166,6 +166,7 @@ function Organogram(props) {
         onCreate={createNode}
         onUpdate={updateNode}
         onRemove={deleteNode}
+        nodeList={props.renderData && Object.values(props.renderData).map((node) => ({ 'key': node.key, 'value': node.rank + ' ' + node.name }))}
       />
     </>
   )

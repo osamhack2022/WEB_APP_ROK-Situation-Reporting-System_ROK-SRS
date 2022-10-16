@@ -91,7 +91,7 @@ export default function Tree() {
         <title>조직도</title>
       </Head>
       <Draggable disabled={draggableDisabled}>
-        <div style={{ width: '350vw', height: '350vh' }}>
+        <div style={{ width: '350vw', height: '350vh', padding: '10vh' }}>
           <Organogram
             renderData={renderData}
             onPreventDraggable={setDraggableDisabled}

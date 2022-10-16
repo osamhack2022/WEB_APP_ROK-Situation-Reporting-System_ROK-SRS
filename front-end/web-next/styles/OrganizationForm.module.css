@@ -4,3 +4,11 @@
     border: 1px solid #ddd;
     border-radius: 100%;
 }
+
+.formSelect {
+    width: 100px;
+}
+
+.parentSelect {
+    width: 300px;
+}
