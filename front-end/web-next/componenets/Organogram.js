@@ -84,8 +84,11 @@ function Organogram(props) {
 
   useEffect(() => {
     setOrgData(props.renderData);
-    makeTree(props.renderData);
   }, [props.renderData]);
+
+  useEffect(() => {
+    makeTree(orgData);
+  }, [orgData])
 
   useEffect(() => {
     props.onPreventDraggable(isCardOpened);
@@ -101,16 +104,16 @@ function Organogram(props) {
     const randomKey = Math.random().toString(36).substring(2, 10);
     node['key'] = randomKey;
 
-    setOrgData(treeNode => Object.assign(treeNode, { [randomKey]: node }));
+    setOrgData(treeNode => ({ ...treeNode, [randomKey]: node }));
   }, [setOrgData]);
 
   const updateNode = useCallback((node) => {
-    setOrgData(treeNode => Object.assign(treeNode, node));
+    setOrgData(treeNode => ({ ...treeNode, [node.key]: node }));
   }, [setOrgData]);
 
   const deleteNode = useCallback((node) => {
     setOrgData(treeNode => {
-      const nodeCopy = Object.assign({}, treeNode);
+      const nodeCopy = { ...treeNode };
       delete nodeCopy[node.key]
       return nodeCopy;
     });

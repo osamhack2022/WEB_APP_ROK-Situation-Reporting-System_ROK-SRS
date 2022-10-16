@@ -26,10 +26,20 @@ function OrganizationCard(props) {
             ? null
             : (
               <div>
-                <Button onClick={() => setOpenCreateForm(true)}>
+                <Button
+                  onClick={() => {
+                    setOpenCreateForm(true);
+                    props.onClose();
+                  }}
+                >
                   추가하기
                 </Button>
-                <Button onClick={() => setOpenUpdateForm(true)}>
+                <Button
+                  onClick={() => {
+                    setOpenUpdateForm(true);
+                    props.onClose();
+                  }}
+                >
                   수정하기
                 </Button>
                 <Button>
