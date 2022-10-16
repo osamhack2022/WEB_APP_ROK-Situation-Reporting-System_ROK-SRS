@@ -4,7 +4,7 @@ const unitModel = mongoose.Schema(
   {
     Unitname: { type: String, trim: true },
     Unitslogan: { type: String, trim: true },
-    Orgchartdata: { type: String, required: true },
+    Orgchartdata: { type: String,},
     Logo: {
       type: "String",
       required: false,

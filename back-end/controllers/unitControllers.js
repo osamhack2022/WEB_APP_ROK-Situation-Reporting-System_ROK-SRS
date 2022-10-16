@@ -124,5 +124,6 @@ const updateLogo = asyncHandler(async (req, res) => {
 
 module.exports = {
   updateUnit,
-  updateLogo
+  updateLogo,
+  addUnit
 };
