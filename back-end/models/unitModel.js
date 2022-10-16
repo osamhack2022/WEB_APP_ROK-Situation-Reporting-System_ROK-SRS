@@ -13,7 +13,8 @@ const unitModel = mongoose.Schema(
     },
     Members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     ReportCard: [{ type: mongoose.Schema.Types.ObjectId, ref: "Report" }],
-    unitAdmins: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
+    unitAdmins: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    reportSys: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
   },
   { timestamps: true }
 );
