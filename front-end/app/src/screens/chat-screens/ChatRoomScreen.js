@@ -18,6 +18,7 @@ function renderBubble(props) {
     />
   )
 }
+
 export function ChatRoomScreen() {
   const [messages, setMessages] = useState([])
 
