@@ -131,7 +131,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 //@description     Auth the user
 //@route           POST /api/users/login
-//@access          Public
+//@access          public
 const authUser = asyncHandler(async (req, res) => {
   const { DoDID, password } = req.body;
   const user = await User.findOne({ DoDID });
@@ -157,9 +157,9 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-//@description     Register new user
-//@route           POST /api/user/register
-//@access          Public
+//@description     update user info
+//@route           PUT /api/user
+//@access          protect
 const updateUser = asyncHandler(async (req, res) => {
   const { Rank, Name, email, milNumber, number } = req.body;
 
@@ -214,4 +214,56 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { allUsers, addUser, registerUser, authUser, updateUser };
+//@description     update user picture
+//@route           PUT /api/user/pic
+//@access          protect
+const updatePic = asyncHandler(async (req, res) => {
+  const { pic } = req.body;
+
+  if (!Rank) {
+    res.status(400);
+    throw new Error("수정할 사진 정보를 입력하세요.");
+  }
+
+  const DoDID = req.user.DoDID;
+  const userDb = await User.findOne({ DoDID });
+
+  if (!userDb) {
+    res.status(400);
+    throw new Error("등록되지 않은 사용자입니다. 부대 당담자에게 문의하세요.");
+  }
+
+  if (!userDb.is_registered) {
+    res.status(400);
+    throw new Error("가입 후 시도하세요.");
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(
+    userDb._id,
+    {
+      pic: pic
+    },
+    {
+      new: true,
+    }
+  )
+
+  if (!updatedUser) {
+    res.status(400);
+    throw new Error("사용자를 찾을 수 없습니다.");
+  } else {
+    res.status(201).json({
+      _id: updatedUser._id,
+      Name: updatedUser.Name,
+      Rank: updatedUser.Rank,
+      DoDID: updatedUser.DoDID,
+      email: updatedUser.email,
+      milNumber: updatedUser.milNumber,
+      number: updatedUser.number,
+      Type: updatedUser.Type,
+      pic: updatedUser.pic,
+    });
+  }
+});
+
+module.exports = { allUsers, addUser, registerUser, authUser, updateUser, updatePic };
