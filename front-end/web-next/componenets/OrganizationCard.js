@@ -42,7 +42,12 @@ function OrganizationCard(props) {
                 >
                   수정하기
                 </Button>
-                <Button>
+                <Button
+                  onClick={() => {
+                    props.onRemove(props.data);
+                    props.onClose();
+                  }}
+                >
                   삭제하기
                 </Button>
               </div>

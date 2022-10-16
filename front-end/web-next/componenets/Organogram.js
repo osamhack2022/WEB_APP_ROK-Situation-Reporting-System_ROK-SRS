@@ -114,6 +114,12 @@ function Organogram(props) {
   const deleteNode = useCallback((node) => {
     setOrgData(treeNode => {
       const nodeCopy = { ...treeNode };
+      
+      // Redirection for children of removed node
+      const nodeChildren = Object.values(nodeCopy).filter((data) => data.parent == node.key);
+      for(let child of nodeChildren)
+        child.parent = node.parent;
+
       delete nodeCopy[node.key]
       return nodeCopy;
     });
@@ -159,6 +165,7 @@ function Organogram(props) {
         isEditable
         onCreate={createNode}
         onUpdate={updateNode}
+        onRemove={deleteNode}
       />
     </>
   )
