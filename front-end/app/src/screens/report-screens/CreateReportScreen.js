@@ -1,20 +1,39 @@
 import React, { useState } from 'react'
 // prettier-ignore
 import { TextInput, SafeAreaView, View, StyleSheet, ScrollView } from 'react-native'
-import { Colors, Searchbar, Text } from 'react-native-paper'
+import { Colors, Searchbar, Text, Avatar } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportGroup } from '../../components/ReportGroup'
 import { MyButton } from '../../components/MyButton'
 import { useNavigation } from '@react-navigation/native'
+import { Profile } from '../../components/Profile'
+import searchUserApi from '../../apis/searchUserApi'
 import DATA from '../../data/procData'
 
+const rightIcon = ({ key, addedUser, setAddedUser }) => (
+  <Avatar.Icon
+    icon="alpha-x"
+    style={{ backgroundColor: 'white' }}
+    key={key}
+    onPress={setAddedUser(
+      addedUser.filter((user, idx) => idx.toString() !== key)
+    )}
+  />
+)
+
 export function CreateReportScreen() {
+  const fetchUserHandler = async (query) => {
+    const res = await searchUserApi(query)
+    return res
+  }
+
   let [fontsLoaded] = useNunitoFonts()
 
   const navigation = useNavigation()
 
   const [query, setQuery] = useState('')
+  const [addedUser, setAddedUser] = useState([])
 
   const [typeOpen, setTypeOpen] = useState(false)
   const [type, setType] = useState('')
@@ -48,35 +67,34 @@ export function CreateReportScreen() {
             value={title}
           ></TextInput>
         </View>
-        <View style={styles.dropDownOuterView}>
-          <View style={styles.dropDownView}>
-            <Text style={styles.text}>보고종류</Text>
-            <DropDownPicker
-              placeholder="보고종류"
-              open={typeOpen}
-              value={type}
-              items={typeItem}
-              setOpen={setTypeOpen}
-              setValue={setType}
-              setItems={setTypeItem}
-              style={styles.dropDown}
-            />
-          </View>
-          <View style={styles.dropDownView}>
-            <Text style={styles.text}>보고체계</Text>
-            <DropDownPicker
-              multiple={true}
-              multipleText={`${groups.length}개 선택됨`}
-              placeholder="보고체계"
-              open={groupOpen}
-              value={groups}
-              items={groupItem}
-              setOpen={setGroupOpen}
-              setValue={setGroups}
-              setItems={setGroupItem}
-              style={styles.dropDown}
-            />
-          </View>
+        <View style={styles.dropDownView}>
+          <Text style={styles.text}>보고종류</Text>
+          <DropDownPicker
+            placeholder="보고종류"
+            open={typeOpen}
+            value={type}
+            items={typeItem}
+            setOpen={setTypeOpen}
+            setValue={setType}
+            setItems={setTypeItem}
+            style={styles.dropDown}
+            zIndex={5001}
+          />
+        </View>
+        <View style={styles.dropDownView}>
+          <Text style={styles.text}>보고체계</Text>
+          <DropDownPicker
+            multiple={true}
+            multipleText={`${groups.length}개 선택됨`}
+            placeholder="보고체계"
+            open={groupOpen}
+            value={groups}
+            items={groupItem}
+            setOpen={setGroupOpen}
+            setValue={setGroups}
+            setItems={setGroupItem}
+            style={styles.dropDown}
+          />
         </View>
         <View style={styles.width90}>
           <Text style={styles.text}>보고된 인원</Text>
@@ -95,7 +113,30 @@ export function CreateReportScreen() {
             style={styles.searchBar}
             inputStyle={{ fontSize: 15 }}
             onChangeText={(query) => setQuery(query)}
+            onSubmitEditing={() =>
+              setAddedUser([...addedUser, fetchUserHandler(query)])
+            }
+            onIconPress={() =>
+              setAddedUser([...addedUser, fetchUserHandler(query)])
+            }
           />
+          <ScrollView horizontal={true}>
+            {addedUser.map((user, idx) => (
+              <Profile
+                Rank={user.Rank}
+                name={user.Name}
+                Position={user.Position}
+                key={idx.toString()}
+                right={
+                  <rightIcon
+                    key={idx.toString()}
+                    addedUser={addedUser}
+                    setAddedUser={setAddedUser}
+                  />
+                }
+              />
+            ))}
+          </ScrollView>
         </View>
         <View style={[styles.width90, { marginTop: 15 }]}>
           <Text style={styles.text}>내용</Text>
@@ -137,13 +178,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: 'NunitoSans_400Regular',
   },
-  dropDownOuterView: {
-    width: '90%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   dropDownView: {
-    width: '48%',
+    width: '90%',
     marginBottom: 10,
   },
   dropDown: {
