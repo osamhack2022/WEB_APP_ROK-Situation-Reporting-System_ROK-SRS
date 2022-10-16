@@ -2,10 +2,26 @@ import Head from 'next/head'
 import Link from "next/link"
 import { Middleware } from 'next/dist/lib/load-custom-routes'
 import MenuBar from '../componenets/menubar'
+import {LockOutlined} from '@ant-design/icons';
 import style from '../styles/homepage.module.css'
 import Image from 'next/image'
 import unitlogo from '../img/unitlogo.png'
-import { Descriptions } from 'antd';
+import { Descriptions, Tabs, Avatar, List } from 'antd';
+const data = [
+    {
+      title: 'Ant Design Title 1',
+    },
+    {
+      title: 'Ant Design Title 2',
+    },
+    {
+      title: 'Ant Design Title 3',
+    },
+    {
+      title: 'Ant Design Title 4',
+    },
+  ];
+
 
 const Home = () => {
     return <>
@@ -41,6 +57,36 @@ const Home = () => {
                             <Descriptions.Item label="휴대폰번호">010-3315-1229</Descriptions.Item>
                         </Descriptions>
                     </div>
+                </div>
+                <div className={style.selectionarea}>
+                <div className={style.tabscontainer}>
+                <Tabs>
+                    <Tabs.TabPane tab="부대 정보" key="item-1">
+                        <Descriptions title="부대 정보" bordered layout = "vertical">
+                            <Descriptions.Item label="부대이름">수도방위사령부 방공여단</Descriptions.Item>
+                            <Descriptions.Item label="슬로건">충성, 명예, 단결 살아방패 죽어충성</Descriptions.Item>
+                        </Descriptions>
+                    </Tabs.TabPane>
+                    <Tabs.TabPane tab="부대 군인들" key="item-2">
+                    <List
+                            itemLayout="horizontal"
+                            dataSource={data}
+                            renderItem={item => (
+                            <List.Item>
+                                <List.Item.Meta
+                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                                title={<a href="https://ant.design">{item.title}</a>}
+                                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                />
+                            </List.Item>
+                            )}
+                        />
+                    </Tabs.TabPane>
+                    <Tabs.TabPane tab="최근 메모보고" key="item-3">
+                        Content 3
+                    </Tabs.TabPane>
+                </Tabs>
+                </div>
                 </div>
             </div>
         </div>

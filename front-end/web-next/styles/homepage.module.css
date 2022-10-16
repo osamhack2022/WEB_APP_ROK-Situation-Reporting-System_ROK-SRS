@@ -54,7 +54,7 @@
 .mainarea {
     display: flex;
     width: 700px;
-    height: 330px;
+    height: 310px;
     background-color: white;
     border-radius: 10px;
     box-sizing: border-box;
@@ -65,4 +65,21 @@
 .infocontainer {
     margin-left: 15px;
     margin-top: 10px;
+}
+
+.selectionarea {
+    width: 700px;
+    height: 320px;
+    background-color: white;
+    border-radius: 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin-left: 25px;
+    margin-top: 20px;
+    overflow-y: auto;
+}
+
+.tabscontainer {
+    width: 640px;
+    margin: auto;
 }
