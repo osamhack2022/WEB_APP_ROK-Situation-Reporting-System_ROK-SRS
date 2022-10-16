@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { Modal, Image, Row, Col, Select } from 'antd';
 import Styles from '../styles/OrganizationCard.module.css';
 
@@ -12,11 +12,16 @@ function InputElement(props) {
 }
 
 function OrganizationForm(props) {
-  const [formData, setFormData] = useState(props.data);
+  const [formData, setFormData] = useState({});
   const serializedEdit = useCallback((key, value) => {
     setFormData(preData => Object.assign(preData, { [key]: value }))
   }, [setFormData]);
-  
+
+  useEffect(() => {
+    if(props.data)
+      setFormData(props.data);
+  }, [props.data])
+
   return (
     <Modal
       open={props.isOpen}
