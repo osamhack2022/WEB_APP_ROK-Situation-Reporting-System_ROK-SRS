@@ -1,9 +1,10 @@
 
 const TheClassifier = require("classificator");
-const translate = require("translate-google");
-const pos = require("pos");
+const Translator = require("nodepapago");
+const posTagger = require("wink-pos-tagger");
 
 var classifier = new TheClassifier()
+var tagger = posTagger();
 
 let positive = [
     'Questions',
@@ -62,17 +63,26 @@ for (let i = 0; i < negative.length; i++) {
 }
 
 module.exports = async function (text) {
-    const engtext = translate(text, {to: 'en'});
-    var words = new pos.Lexer().lex(engtext);
-    var tagger = new pos.Tagger();
-    var taggedWords = tagger.tag(words);
+    let ko_to_en_translated = ""
+    let translator = new Translator.Translator({
+        parameter: {
+            source: 'ko',
+            target: 'en',
+            text: text
+        }
+    })
+    try {
+        ko_to_en_translated = await translator.translate()
+    } catch {
+        return 2
+    }
+    var words = tagger.tagSentence(ko_to_en_translated);
     let parsedtext = ''
-    for (let i in taggedWords) {
-        var taggedWord = taggedWords[i];
-        var word = taggedWord[0];
-        var tag = taggedWord[1];
+    for (let i in words) {
+        var taggedWord = words[i].value;
+        var tag = words[i].pos;
         if (tag.includes('N') || tag.includes('V') || tag.includes('A'))
-        parsedtext = builtword + word + " "
+        parsedtext = parsedtext + taggedWord + " "
     }
     let classifieddata = classifier.categorize(parsedtext)
     let score = classifieddata['likelihoods'][0]['proba']
