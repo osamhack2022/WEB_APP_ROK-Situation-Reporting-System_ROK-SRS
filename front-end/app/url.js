@@ -1,4 +1,4 @@
 const URL =
-  'https://web-rok-situation-reporting-system-rok-wpj474v6gv5c9gvj-5000.githubpreview.dev'
+  'https://web-app-rok-situation-reporting-system-5jp9q9v6rx4h74xr-5000.githubpreview.dev'
 
 export default URL

@@ -1,9 +1,7 @@
 import React from 'react'
-import { FAB, List, Avatar } from 'react-native-paper'
+import { FAB, Avatar } from 'react-native-paper'
 import { SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import { ReportGroup } from '../../components/ReportGroup'
-import DATA from '../../data/procData'
 
 const LeftImage = () => (
   <Avatar.Image
@@ -15,8 +13,12 @@ const LeftImage = () => (
 
 const tempData = [
   {
-    Name: '김형민',
-    position: '본부중대 통신',
+    title: '중위 이원빈',
+    description: '통신소대장',
+  },
+  {
+    title: '중사 구창우',
+    description: '통신부소대장',
   },
 ]
 
@@ -28,8 +30,6 @@ export function UserMgtScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.view}>
-        <ReportGroup group={DATA.onDuty} name="당직계통" />
-        <ReportGroup group={DATA.headquarter} name="본부중대" />
       </ScrollView>
       <FAB
         icon="account-plus"
@@ -48,7 +48,6 @@ export const styles = StyleSheet.create({
   },
   view: {
     width: '90%',
-    alignItems: 'center',
   },
   fab: {
     borderRadius: 60,
