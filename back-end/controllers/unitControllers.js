@@ -124,10 +124,5 @@ const updateLogo = asyncHandler(async (req, res) => {
 
 module.exports = {
   updateUnit,
-  accessChat,
-  fetchChats,
-  createGroupChat,
-  renameGroup,
-  addToGroup,
-  removeFromGroup,
+  updateLogo
 };

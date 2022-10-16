@@ -4,25 +4,39 @@ const generateToken = require("../config/generateToken");
 const bcrypt = require("bcryptjs");
 
 //@description     Get or Search all users
-//@route           GET /api/user?search=
+//@route           GET /api/user?search=?index=
 //@access          Protected
 const allUsers = asyncHandler(async (req, res) => {
-
+  const ranks = ["CV9", "CV8", "CV7",
+  "CV6", "CV5", "CV4", "CV3", "CV2",
+  "CV1", "PVT", "PFC", "CPL", "SGT",
+  "SST", "SFC", "MST", "SGM", "SEC",
+  "LIU", "LIU", "CPT", "MAJ", "LTC",
+  "COL", "BG", "MG", "LG", "GEN"];
   const keyword = req.query.search
     ? {
         $or: [
-          { Name: { $regex: req.query.search, $options: "i" } },
+          //{ Name: { $regex: req.query.search, $options: "i" } },
           { DoDID: { $regex: req.query.search, $options: "i" } },
-          { email: { $regex: req.query.search, $options: "i" } },
+          //{ email: { $regex: req.query.search, $options: "i" } },
         ],
       }
-    : {};
-  if (req.query.search == "") {
-    users = await User.find({}, {password:0});
+    : 0 ;
+  users = await User.find({}, {password:0});
+  users.sort(function(a,b) {
+    return (ranks.indexOf(b.Rank) + b.is_registered ? 0 : 100) - (ranks.indexOf(a.Rank) + a.is_registered ? 0 : 100);
+  });
+  const index = req.query.index;
+  if (index) {
+    console.log("users");
+    res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
+  } else if (keyword) {
+    res.send(await User.find(keyword));//.find({ _id: { $ne: req.user._id } }));
   } else {
-    users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+    res.status(400);
+    throw new Error("잘못된 요청입니다.");
   }
-  res.send(users);
+
 });
 
 //@description     Add new user

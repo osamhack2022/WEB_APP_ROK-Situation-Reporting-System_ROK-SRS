@@ -11,7 +11,7 @@ const { protect, onlyAdmin } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
-router.route("/").get(protect, allUsers);//protect,
+router.route("/").get(allUsers);//protect,
 router.route("/").put(protect, updateUser);
 router.route("/pic").put(protect, updatePic);
 router.route("/add").post(onlyAdmin, addUser);
