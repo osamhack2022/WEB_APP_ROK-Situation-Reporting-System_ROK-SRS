@@ -44,14 +44,19 @@
     padding: 0 10px;
 }
 
-.memoFooter {
+.memoFooterFroup {
     width: 100%;
     position: absolute;
     bottom: 0;
 }
 
+.memoFooter {
+    padding: 0 15px;
+}
+
 .memoDivider {
     margin: 15px 0;
+    border: 1px solid #e8e8e8;
 }
 
 .memoComment {

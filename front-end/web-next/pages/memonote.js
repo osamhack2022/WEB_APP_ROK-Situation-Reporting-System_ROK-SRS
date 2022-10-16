@@ -86,23 +86,23 @@ export default function Memo() {
         >
           <div className={Styles.siderMenu}>
             <div className={Styles.siderHeader}>
-            <Row
-              align="middle"
-              justify="space-between"
-            >
-              <Col>
-                <div className={Styles.siderTitle}>받은 메모 보고</div>
-              </Col>
-              <Col>
-                <Button
-                  className={Styles.formButton}
-                  shape="circle"
-                  icon={<FormOutlined />}
-                  onClick={() => setFormOpened(true)}
-                />
-              </Col>
-            </Row>
-            <Input.Search className={Styles.menuSearcher} />
+              <Row
+                align="middle"
+                justify="space-between"
+              >
+                <Col>
+                  <div className={Styles.siderTitle}>받은 메모 보고</div>
+                </Col>
+                <Col>
+                  <Button
+                    className={Styles.formButton}
+                    shape="circle"
+                    icon={<FormOutlined />}
+                    onClick={() => setFormOpened(true)}
+                  />
+                </Col>
+              </Row>
+              <Input.Search className={Styles.menuSearcher} />
             </div>
             <Divider className={Styles.bottomDivider} />
             <div className={Styles.scrollableDiv}>

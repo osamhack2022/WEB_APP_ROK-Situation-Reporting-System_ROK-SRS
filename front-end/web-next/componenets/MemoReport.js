@@ -96,7 +96,7 @@ function ReportLayout(props) {
           }
         </Col>
       </Row>
-      <div className={Styles.memoFooter}>
+      <div className={Styles.memoFooterGroup}>
         <Input.Group compact>
           <Input
             style={{ width: 'calc(100% - 60px)' }}
@@ -109,7 +109,10 @@ function ReportLayout(props) {
           </Button>
         </Input.Group>
         <Divider className={Styles.memoDivider} />
-        <Row justify='space-between'>
+        <Row
+          className={Styles.memoFooter}
+          justify='space-between'
+        >
           <Col>
             {props.footer}
           </Col>
