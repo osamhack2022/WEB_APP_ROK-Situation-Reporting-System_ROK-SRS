@@ -55,17 +55,20 @@ function ReportLayout(props) {
 
   function ButtonGroup() {
     return (
-      <>
+      <div>
         <Button
-          type="dashed"
+          type="primary"
+          size="large"
           danger
         >
           종결하기
         </Button>
-        <Button>
+        <Button
+          size="large"
+        >
           상급보고
         </Button>
-      </>
+      </div>
     )
   }
 
