@@ -7,12 +7,12 @@ export const styles = StyleSheet.create({
   },
   view: {
     borderWidth: 1,
-    borderRadius: 2,
-    borderColor: Colors.grey800,
+    borderRadius: 6,
+    borderColor: Colors.grey700,
     alignItems: 'center',
-    paddingVertical: 4,
-    width: 70,
-    marginVertical: 5,
+    paddingVertical: 3,
+    width: 75,
+    marginBottom: 2,
   },
   image: {
     marginBottom: 5,
@@ -20,12 +20,12 @@ export const styles = StyleSheet.create({
   itemText: {
     fontFamily: 'NunitoSans_400Regular',
     fontSize: 12,
-    marginBottom: 5,
   },
   text: {
     fontFamily: 'NunitoSans_300Light',
-    color: Colors.grey600,
+    color: Colors.grey700,
     fontSize: 13,
-    marginBottom: 14,
+    paddingTop: 1,
+    marginBottom: 10,
   },
 })

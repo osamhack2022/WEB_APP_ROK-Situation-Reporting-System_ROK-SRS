@@ -3,8 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Colors } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { ReportNavigator } from './ReportNavigator'
-import { SettingNavigator } from './SettingNavigator'
-import { ChatListScreen, OrgChartScreen } from '../screens'
+import { ChatListScreen, OrgChartScreen, SettingScreen } from '../screens'
 
 const Tab = createBottomTabNavigator()
 
@@ -12,15 +11,7 @@ const icons = {
   ReportNavigator: ['note-text', 'note-text-outline'],
   ChatListScreen: ['message-text', 'message-text-outline'],
   OrgChartScreen: ['graph', 'graph-outline'],
-  SettingNavigator: ['cog', 'cog-outline'],
-}
-
-const getActiveRouteName = (route) => {
-  if (route.state) {
-    return getActiveRouteName(route.state.routes[route.state.index])
-  }
-
-  return route.name
+  SettingScreen: ['cog', 'cog-outline'],
 }
 
 const screenOptions = ({ route }) => {
@@ -62,9 +53,9 @@ export function TabNavigator() {
         component={OrgChartScreen}
       />
       <Tab.Screen
-        name="SettingNavigator"
-        options={{ title: '설정', headerShown: false }}
-        component={SettingNavigator}
+        name="SettingScreen"
+        options={{ title: '설정', headerShown: true }}
+        component={SettingScreen}
       />
     </Tab.Navigator>
   )

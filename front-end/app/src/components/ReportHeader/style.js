@@ -19,12 +19,10 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontFamily: 'NunitoSans_300Light',
   },
   isEnd: {
     fontSize: 19,
     marginLeft: 5,
-    fontFamily: 'NunitoSans_600SemiBold',
   },
   severity: {
     fontSize: 13,

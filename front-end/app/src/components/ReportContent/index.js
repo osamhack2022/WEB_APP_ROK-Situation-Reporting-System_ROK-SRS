@@ -12,7 +12,7 @@ export function ReportContent({ Content, Type }) {
       <Profile
         name="병장 김형민"
         position="본부중대 통신"
-        size={45}
+        size={43}
         src={require('../../assets/images/avatar.png')}
       />
       <View style={styles.flexRow}>

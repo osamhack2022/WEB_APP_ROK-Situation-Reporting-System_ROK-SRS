@@ -73,7 +73,7 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(Name) => setName(Name)}
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={``} />
           </View>
@@ -83,7 +83,7 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(DoDID) => setDoDID(DoDID)}
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={`2x-xxxxxxxx`} />
           </View>
@@ -93,7 +93,7 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(password) => setPassword(password)}
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={`${password.length}/15`} />
           </View>
@@ -105,7 +105,7 @@ export function SignUpScreen() {
               setConfirmPassword(confirmPassword)
             }
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText
               guideText={checkPasswordMatch(password, confirmPassword)}
@@ -117,7 +117,7 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(email) => setEmail(email)}
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={``} />
           </View>
@@ -127,7 +127,7 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(Invcode) => setInvcode(Invcode)}
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={`부대에서 받은 초대코드 입력`} />
           </View>

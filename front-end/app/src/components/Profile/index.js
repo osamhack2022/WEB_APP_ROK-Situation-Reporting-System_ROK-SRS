@@ -9,7 +9,7 @@ export function Profile({
   size = 45,
   src = require('../../assets/images/avatar.png'),
   date,
-  right
+  right,
 }) {
   let [fontsLoaded] = useNunitoFonts()
 
@@ -25,7 +25,7 @@ export function Profile({
           <Text style={styles.dateText}>{date}</Text>
         </View>
       )}
-      {right && (right)}
+      {right && right}
     </View>
   )
 }

@@ -56,8 +56,8 @@ export function RecdReportScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.white,
-    paddingBottom: 10,
+    backgroundColor: Colors.grey200,
+    paddingVertical: 5,
   },
   scrollView: {
     width: '100%',
@@ -74,6 +74,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 15,
     right: 20,
-    backgroundColor: Colors.green500,
+    backgroundColor: '#009572',
   },
 })

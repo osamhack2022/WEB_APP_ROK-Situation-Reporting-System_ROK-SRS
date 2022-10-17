@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 // prettier-ignore
-import { TextInput, SafeAreaView, View, StyleSheet, ScrollView } from 'react-native'
-import { Colors, Searchbar, Text, Avatar } from 'react-native-paper'
+import { SafeAreaView, View, StyleSheet, ScrollView } from 'react-native'
+import { Colors, Searchbar, Text, Avatar, TextInput } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportGroup } from '../../components/ReportGroup'
@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Profile } from '../../components/Profile'
 import searchUserApi from '../../apis/searchUserApi'
 import DATA from '../../data/procData'
+import { window } from '../../constants/layout'
 
 const rightIcon = ({ key, addedUser, setAddedUser }) => (
   <Avatar.Icon
@@ -25,6 +26,7 @@ const rightIcon = ({ key, addedUser, setAddedUser }) => (
 export function CreateReportScreen() {
   const fetchUserHandler = async (query) => {
     const res = await searchUserApi(query)
+    console.log(res)
     return res
   }
 
@@ -34,6 +36,8 @@ export function CreateReportScreen() {
 
   const [query, setQuery] = useState('')
   const [addedUser, setAddedUser] = useState([])
+
+  console.log(addedUser)
 
   const [typeOpen, setTypeOpen] = useState(false)
   const [type, setType] = useState('')
@@ -56,20 +60,19 @@ export function CreateReportScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
-        contentContainerStyle={{ width: '100%', alignItems: 'center' }}
+        contentContainerStyle={styles.view}
         nestedScrollEnabled={true}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.titleView}>
-          <Text style={styles.text}>제목</Text>
-          <TextInput
-            style={styles.titleInput}
-            onChangeText={(title) => setTitle(title)}
-            value={title}
-          ></TextInput>
-        </View>
-        <View style={styles.dropDownView}>
-          <Text style={styles.text}>보고종류</Text>
+        <TextInput
+          label="제목"
+          dense={true}
+          style={styles.textInput}
+          onChangeText={(title) => setTitle(title)}
+          value={title}
+          activeUnderlineColor="#008275"
+        ></TextInput>
+        <View style={{ width: '88%', alignItems: 'center' }}>
           <DropDownPicker
             placeholder="보고종류"
             open={typeOpen}
@@ -80,10 +83,12 @@ export function CreateReportScreen() {
             setItems={setTypeItem}
             style={styles.dropDown}
             zIndex={5001}
+            textStyle={{
+              fontSize: 16,
+              color: type ? Colors.black : Colors.grey600,
+              marginLeft: 7,
+            }}
           />
-        </View>
-        <View style={styles.dropDownView}>
-          <Text style={styles.text}>보고체계</Text>
           <DropDownPicker
             multiple={true}
             multipleText={`${groups.length}개 선택됨`}
@@ -94,11 +99,15 @@ export function CreateReportScreen() {
             setOpen={setGroupOpen}
             setValue={setGroups}
             setItems={setGroupItem}
-            style={styles.dropDown}
+            style={[styles.dropDown, { marginBottom: 15 }]}
+            textStyle={{
+              fontSize: 16,
+              color: groups.length ? Colors.black : Colors.grey600,
+              marginLeft: 7,
+            }}
           />
         </View>
-        <View style={styles.width90}>
-          <Text style={styles.text}>보고된 인원</Text>
+        <View style={{ width: '85%' }}>
           {groups.includes('onDuty') && (
             <ReportGroup group={DATA.onDuty} name="onDuty" />
           )}
@@ -106,48 +115,43 @@ export function CreateReportScreen() {
             <ReportGroup group={DATA.headquarter} name="headquarter" />
           )}
         </View>
-        <View
-          style={[styles.width90, groups.length === 0 && { marginTop: 15 }]}
-        >
-          <Text style={styles.text}>추가된 인원</Text>
-          <Searchbar
-            style={styles.searchBar}
-            inputStyle={{ fontSize: 15 }}
-            onChangeText={(query) => setQuery(query)}
-            onSubmitEditing={() =>
-              setAddedUser([...addedUser, fetchUserHandler(query)])
-            }
-            onIconPress={() =>
-              setAddedUser([...addedUser, fetchUserHandler(query)])
-            }
-          />
-          <ScrollView horizontal={true}>
-            {addedUser.map((user, idx) => (
-              <Profile
-                Rank={user.Rank}
-                name={user.Name}
-                Position={user.Position}
-                key={idx.toString()}
-                right={
-                  <rightIcon
-                    key={idx.toString()}
-                    addedUser={addedUser}
-                    setAddedUser={setAddedUser}
-                  />
-                }
-              />
-            ))}
-          </ScrollView>
-        </View>
-        <View style={[styles.width90, { marginTop: 15 }]}>
-          <Text style={styles.text}>내용</Text>
-          <TextInput
-            style={styles.contentInput}
-            multiline={true}
-            onChangeText={(text) => setText(text)}
-            value={text}
-          ></TextInput>
-        </View>
+        <TextInput
+          label="추가 보고"
+          dense={true}
+          style={styles.textInput}
+          onChangeText={(query) => setQuery(query)}
+          onSubmitEditing={() =>
+            setAddedUser([...addedUser, fetchUserHandler(query)])
+          }
+          onIconPress={() =>
+            setAddedUser([...addedUser, fetchUserHandler(query)])
+          }
+          activeUnderlineColor="#008275"
+        />
+        <ScrollView horizontal={true}>
+          {addedUser.map((user, idx) => (
+            <Profile
+              Rank={user.Rank}
+              name={user.Name}
+              Position={user.Position}
+              key={idx.toString()}
+              // right={rightIcon({
+              //   key: idx.toString(),
+              //   addedUser,
+              //   setAddedUser,
+              // })}
+            />
+          ))}
+        </ScrollView>
+        <TextInput
+          label="내용"
+          dense={true}
+          style={styles.textInput}
+          multiline={true}
+          onChangeText={(text) => setText(text)}
+          value={text}
+          activeUnderlineColor="#008275"
+        ></TextInput>
         {type && groups && text && (
           <MyButton
             text="보 고 하 기"
@@ -163,47 +167,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    paddingBottom: 50,
   },
-  titleView: { width: '90%', marginVertical: 10 },
-  text: {
-    fontFamily: 'NunitoSans_600SemiBold',
-    fontSize: 20,
-    marginLeft: 5,
-    marginBottom: 3,
-  },
-  titleInput: {
-    backgroundColor: Colors.grey200,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    fontSize: 15,
-    fontFamily: 'NunitoSans_400Regular',
-  },
-  dropDownView: {
-    width: '90%',
-    marginBottom: 10,
+  view: {
+    width: '100%',
+    alignItems: 'center',
   },
   dropDown: {
-    backgroundColor: Colors.grey200,
+    width: '100%',
+    backgroundColor: 'white',
     borderWidth: 0,
-    borderRadius: 10,
+    borderBottomWidth: 1,
+    borderColor: Colors.grey400,
+    alignSelf: 'center',
+    marginBottom: (30 / 812) * window.height,
   },
-  width90: {
-    width: '90%',
-  },
-  searchBar: {
-    backgroundColor: Colors.grey200,
-    borderRadius: 10,
-    elevation: 0,
-    height: 40,
-  },
-  contentInput: {
-    backgroundColor: Colors.grey200,
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    fontSize: 15,
-    fontFamily: 'NunitoSans_400Regular',
-    marginBottom: 20,
+  textInput: {
+    width: '85%',
+    backgroundColor: 'white',
+    marginBottom: (30 / 812) * window.height,
   },
 })

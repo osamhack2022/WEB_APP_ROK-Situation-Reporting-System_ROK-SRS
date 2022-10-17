@@ -5,8 +5,8 @@ export const styles = StyleSheet.create({
   contentView: {
     width: '98%',
     alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 10,
+    borderWidth: 1.5,
+    borderRadius: 5,
     borderColor: Colors.grey400,
     padding: 10,
     backgroundColor: Colors.white,
@@ -61,6 +61,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.green600,
     borderRadius: 5,
     marginRight: 5,
+    elevation: 3,
   },
   ButtonLabel: {
     fontSize: 13,
@@ -69,6 +70,6 @@ export const styles = StyleSheet.create({
   upButton: {
     backgroundColor: Colors.red600,
     borderRadius: 5,
-    fontFamily: 'NunitoSans_600SemiBold',
+    elevation: 3,
   },
 })

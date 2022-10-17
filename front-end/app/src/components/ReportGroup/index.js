@@ -8,7 +8,7 @@ const ItemSeparator = () => (
   <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }}>
     <Image
       source={require('../../assets/images/arrow.png')}
-      style={{ width: 35, height: 20, marginHorizontal: 3 }}
+      style={{ width: 35, height: 20, marginHorizontal: 5 }}
     />
   </TouchableOpacity>
 )

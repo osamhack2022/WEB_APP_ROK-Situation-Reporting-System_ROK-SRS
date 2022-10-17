@@ -32,9 +32,9 @@ export function ReportScreen({ route }) {
       <ReportContent Content={Content} Type={Type} />
       <View
         style={{
-          width: '95%',
+          width: '97%',
           borderBottomWidth: 1,
-          borderColor: Colors.grey500,
+          borderColor: Colors.grey700,
         }}
       >
         <Text style={{ fontSize: 20, fontWeight: '500', padding: 5 }}>
@@ -60,36 +60,40 @@ export function ReportScreen({ route }) {
         ListHeaderComponent={ListHeaderComponent}
         data={comments}
         renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
       />
-      <TextInput
-        style={styles.commentInput}
-        placeholder="댓글을 입력하세요."
-        activeUnderlineColor={Colors.green500}
-        underlineColor={Colors.grey500}
-        multiline={true}
-        dense={true}
-        onChangeText={(text) => setComment(text)}
-        value={comment}
-        right={
-          <TextInput.Icon
-            icon="send-circle-outline"
-            size={30}
-            color={Colors.green500}
-            onPress={() => {
-              setComments([
-                ...comments,
-                {
-                  Name: userMe.Name,
-                  position: userMe.Position,
-                  Content: comment,
-                },
-              ])
-              addCommentHandler({ Title, Type, Content: comment })
-              setComment('')
-            }}
-          />
-        }
-      ></TextInput>
+
+      <View style={styles.view}>
+        <TextInput
+          style={styles.commentInput}
+          placeholder="댓글을 입력하세요."
+          activeUnderlineColor={Colors.green500}
+          activeOutlineColor={Colors.green500}
+          multiline={true}
+          dense={true}
+          onChangeText={(text) => setComment(text)}
+          value={comment}
+          right={
+            <TextInput.Icon
+              icon="send-circle-outline"
+              size={35}
+              color={Colors.green500}
+              onPress={() => {
+                setComments([
+                  ...comments,
+                  {
+                    Name: userMe.Name,
+                    position: userMe.Position,
+                    Content: comment,
+                  },
+                ])
+                addCommentHandler({ Title, Type, Content: comment })
+                setComment('')
+              }}
+            />
+          }
+        ></TextInput>
+      </View>
     </SafeAreaView>
   )
 }
@@ -99,17 +103,18 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
     alignItems: 'center',
-    paddingBottom: 40,
+    paddingBottom: 50,
   },
-
-  commentInput: {
+  view: {
     bottom: 0,
     position: 'absolute',
-    paddingTop: 5,
     width: '100%',
-    backgroundColor: 'white',
-    borderWidth: 2,
-    borderColor: Colors.grey400,
-    borderBottomWidth: 0,
+    alignItems: 'center',
+  },
+  commentInput: {
+    paddingTop: 5,
+    width: '96%',
+    backgroundColor: Colors.grey100,
+    elevation: 4,
   },
 })

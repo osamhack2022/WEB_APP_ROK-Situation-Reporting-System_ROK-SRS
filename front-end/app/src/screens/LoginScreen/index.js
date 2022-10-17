@@ -29,7 +29,7 @@ export function LoginScreen() {
           token: null,
         })
         Alert.alert(`${userMe.Name}님, 환영합니다.`)
-        cb() 
+        cb()
       } else {
         Alert.alert(res.message)
       }
@@ -42,8 +42,8 @@ export function LoginScreen() {
 
   const navigation = useNavigation()
 
-  const goChatNavigator = useCallback(
-    () => navigation.navigate('ChatNavigator'),
+  const goTabNavigator = useCallback(
+    () => navigation.navigate('TabNavigator'),
     []
   )
   const goSignUpScreen = useCallback(
@@ -92,7 +92,7 @@ export function LoginScreen() {
           <GuideText guideText={`${password.length}/15`} />
         </View>
         <TouchableOpacity
-          onPress={() => loginHandler({ DoDID, password }, goChatNavigator)}
+          onPress={() => loginHandler({ DoDID, password }, goTabNavigator)}
           style={styles.loginButtonView}
         >
           <Text style={styles.LoginText}>로 그 인</Text>
