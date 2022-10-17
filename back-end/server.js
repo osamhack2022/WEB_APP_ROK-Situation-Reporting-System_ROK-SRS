@@ -5,7 +5,14 @@ const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
-const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+const unitRoutes = require("./routes/unitRoutes");
+const reportRoutes = require("./routes/reportRoutes");
+const commentRoutes = require("./routes/commentRoutes");
+const reportsysRoutes = require("./routes/reportsysRoutes");
+const {
+  notFound,
+  errorHandler
+} = require("./middleware/errorMiddleware");
 const path = require("path");
 
 dotenv.config();
@@ -25,6 +32,7 @@ app.use("/api/message", messageRoutes);
 app.use("/api/unit", unitRoutes);
 app.use("/api/report", reportRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/api/reportsys", reportsysRoutes);
 
 
 /*const __dirname1 = path.resolve();
@@ -94,4 +102,3 @@ io.on("connection", (socket) => {
     socket.leave(userData._id);
   });
 });
-
