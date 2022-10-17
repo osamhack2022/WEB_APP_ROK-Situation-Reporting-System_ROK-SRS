@@ -4,7 +4,10 @@ const {
   updateLogo,
   addUnit
 } = require("../controllers/unitControllers");
-const { protect, onlyAdmin } = require("../middleware/authMiddleware");
+const {
+  protect,
+  onlyAdmin
+} = require("../middleware/authMiddleware");
 
 const router = express.Router();
 

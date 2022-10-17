@@ -1,5 +1,4 @@
 const asyncHandler = require("express-async-handler");
-const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
 const Unit = require("../models/unitModel");
 
@@ -7,14 +6,20 @@ const Unit = require("../models/unitModel");
 //@route           POST /api/unit
 //@access          Protected
 const addUnit = asyncHandler(async (req, res) => {
-  const { Unitname, Unitslogan, Logo } = req.body;
+  const {
+    Unitname,
+    Unitslogan,
+    Logo
+  } = req.body;
 
-  if (!Unitname || !Unitslogan || !Logo ) {
+  if (!Unitname || !Unitslogan || !Logo) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  const unitExists = await User.findOne({ Unitname });
+  const unitExists = await User.findOne({
+    Unitname
+  });
 
   if (unitExists) {
     res.status(400);
@@ -49,9 +54,12 @@ const addUnit = asyncHandler(async (req, res) => {
 //@route           POST /api/unit/
 //@access          Protected(only admin)
 const updateUnit = asyncHandler(async (req, res) => {
-  const { Unitname, Unitslogan} = req.body;
+  const {
+    Unitname,
+    Unitslogan
+  } = req.body;
 
-  if (!Unitname || !Unitslogan ) {
+  if (!Unitname || !Unitslogan) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
   }
@@ -59,12 +67,10 @@ const updateUnit = asyncHandler(async (req, res) => {
   const unitId = req.user.Unit;
 
   const updatedUnit = await User.findByIdAndUpdate(
-    unitId,
-    {
+    unitId, {
       Unitname: Unitname,
       Unitslogan: Unitslogan
-    },
-    {
+    }, {
       new: true,
     }
   )
@@ -88,7 +94,9 @@ const updateUnit = asyncHandler(async (req, res) => {
 //@route           put /api/unit/logo
 //@access          Protected(only admin)
 const updateLogo = asyncHandler(async (req, res) => {
-  const { Logo } = req.body;
+  const {
+    Logo
+  } = req.body;
 
   if (!Logo) {
     res.status(400);
@@ -98,11 +106,9 @@ const updateLogo = asyncHandler(async (req, res) => {
   const unitId = req.user.Unit;
 
   const updatedUnit = await User.findByIdAndUpdate(
-    unitId,
-    {
+    unitId, {
       Logo: Logo
-    },
-    {
+    }, {
       new: true,
     }
   )

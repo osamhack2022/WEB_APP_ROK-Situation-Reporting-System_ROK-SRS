@@ -9,7 +9,10 @@ const unitRoutes = require("./routes/unitRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const reportsysRoutes = require("./routes/reportsysRoutes");
-const { notFound, errorHandler } = require("./middleware/errorMiddleware");
+const {
+  notFound,
+  errorHandler
+} = require("./middleware/errorMiddleware");
 const path = require("path");
 
 dotenv.config();
@@ -99,4 +102,3 @@ io.on("connection", (socket) => {
     socket.leave(userData._id);
   });
 });
-

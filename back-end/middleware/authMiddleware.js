@@ -61,4 +61,7 @@ const onlyAdmin = asyncHandler(async (req, res, next) => { // Todo: access handl
   }
 });
 
-module.exports = { protect, onlyAdmin };
+module.exports = {
+  protect,
+  onlyAdmin
+};
