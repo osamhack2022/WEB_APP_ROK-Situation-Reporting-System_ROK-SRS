@@ -1,4 +1,3 @@
-
 const TheClassifier = require("classificator");
 const Translator = require("nodepapago");
 const posTagger = require("wink-pos-tagger");
@@ -21,38 +20,38 @@ let positive = [
     `I am drooling over the awesome bean and cheese quesadillas.`
 ]
 var negative = [
-  `Suicide`,
-  `urgent matter`,
-  'emergency situation',
-  `dead`,
-  'wire',
-  `secret`,
-  `classified`,
-  `attacked`,
-  `firearm`,
-  `unknown man has appeared`,
-  `in front of the guardhouse`,
-  `there are suspicious personnel`,
-  `in possession of a firearm`,
-  `A suspicious person has been found`,
-  `a landmine is in front of you`,
-  `My unit has been severly hurt`,
-  `hail weather snow advisory`,
-  `dangerous situation`,
-  '5 minute waiting group',
-  'North Korean provocation',
-  'Missle Launch',
-  'ammunition distribution',
-  'unusual occurrence',
-  `Gross, worst taco ever.`,
-  `The buritos gave me horrible diarrhea.`,
-  `I'm going to puke if I eat another bad nacho.`,
-  `I'd rather die than eat those nasty enchiladas.`,
-  'special has happened in the dormitory'
+    `Suicide`,
+    `urgent matter`,
+    'emergency situation',
+    `dead`,
+    'wire',
+    `secret`,
+    `classified`,
+    `attacked`,
+    `firearm`,
+    `unknown man has appeared`,
+    `in front of the guardhouse`,
+    `there are suspicious personnel`,
+    `in possession of a firearm`,
+    `A suspicious person has been found`,
+    `a landmine is in front of you`,
+    `My unit has been severly hurt`,
+    `hail weather snow advisory`,
+    `dangerous situation`,
+    '5 minute waiting group',
+    'North Korean provocation',
+    'Missle Launch',
+    'ammunition distribution',
+    'unusual occurrence',
+    `Gross, worst taco ever.`,
+    `The buritos gave me horrible diarrhea.`,
+    `I'm going to puke if I eat another bad nacho.`,
+    `I'd rather die than eat those nasty enchiladas.`,
+    'special has happened in the dormitory'
 ]
 // classifier.addDocuments(positive, 'positive')
 // classifier.addDocuments(negative, 'negative')
- 
+
 // classifier.train()
 
 for (let i = 0; i < positive.length; i++) {
@@ -82,7 +81,7 @@ module.exports = async function (text) {
         var taggedWord = words[i].value;
         var tag = words[i].pos;
         if (tag.includes('N') || tag.includes('V') || tag.includes('A'))
-        parsedtext = parsedtext + taggedWord + " "
+            parsedtext = parsedtext + taggedWord + " "
     }
     let classifieddata = classifier.categorize(parsedtext)
     let score = classifieddata['likelihoods'][0]['proba']
@@ -99,6 +98,3 @@ module.exports = async function (text) {
     }
 }
 //let { val } = await getScore('위병소 앞 총기를 든 거수자들이 나타났습니다. 자살하고싶어')
-
-
-
