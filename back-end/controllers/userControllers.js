@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
 const bcrypt = require("bcryptjs");
+const UnitM = require("../models/unitModel");
 
 //@description     Get or Search all users
 //@route           GET /api/user?search=?index=
@@ -39,7 +40,6 @@ const allUsers = asyncHandler(async (req, res) => {
   users.sort(function (a, b) {
     return (ranks.indexOf(b.Rank) + (b.is_registered ? 0 : 100)) - (ranks.indexOf(a.Rank) + (a.is_registered ? 0 : 100));
   });
-  console.log(users)
   const index = req.query.index;
   if (index) {
     res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
@@ -63,6 +63,7 @@ const addUser = asyncHandler(async (req, res) => {
     Type
   } = req.body;
 
+
   if (!Rank || !Name || !DoDID || !Type) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
@@ -79,7 +80,6 @@ const addUser = asyncHandler(async (req, res) => {
 
   Invcode = Math.random().toString(36).substring(2, 10);
   Unit = req.user.Unit;
-
   const user = await User.create({
     Name,
     DoDID,
@@ -88,6 +88,16 @@ const addUser = asyncHandler(async (req, res) => {
     Invcode,
     Unit
   });
+
+  const added = await UnitM.findByIdAndUpdate(
+    Unit._id, {
+      $push: {
+        Members: user._id
+      },
+    }, {
+      new: true,
+    }
+  )
 
   if (user) {
     res.status(201).json({

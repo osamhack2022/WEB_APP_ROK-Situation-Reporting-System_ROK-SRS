@@ -31,7 +31,7 @@ const unitModel = mongoose.Schema({
   }],
   reportSys: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "Reportsys"
   }]
 }, {
   timestamps: true

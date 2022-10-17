@@ -1,6 +1,5 @@
 const asyncHandler = require("express-async-handler");
 const Reportsys = require("../models/reportsysModel");
-const Unit = require("../models/unitModel");
 
 //@description     Create new reportsys
 //@route           POST /api/reportsys/
@@ -33,10 +32,43 @@ const addReportsys = asyncHandler(async (req, res) => {
 		});
 	} else {
 		res.status(400);
-		throw new Error("사용자를 찾을 수 없습니다.");
+		throw new Error("보고체계를 찾을 수 없습니다.");
 	}
 });
 
+//@description     Delete reportsys
+//@route           DELETE /api/reportsys/
+//@access          Protected(onlyadmin)
+const removeReportsys = asyncHandler(async (req, res) => {
+	const {
+		_id
+	} = req.body;
+
+	if (!_id) {
+		res.status(400);
+		throw new Error("정보를 입력하세요.");
+	}
+
+	Unit = req.user.Unit;
+
+	try {
+		await Reportsys.findByIdAndRemove(_id).exec();
+	} catch (e) {
+		res.status(400);
+		throw new Error("해당 보고체계가 없습니다.");
+	}
+	Unit.reportSys.findByIdAndRemove(_id);
+
+	console.log(Unit.reportSys);
+
+	res.status(201).json({
+		message: "remove success",
+		_id: reportsys._id,
+		Title: reportsys.Title
+	});
+});
+
 module.exports = {
-	addReportsys
+	addReportsys,
+	removeReportsys
 };

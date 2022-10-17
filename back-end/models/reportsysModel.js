@@ -1,19 +1,19 @@
 const mongoose = require("mongoose");
 
 const reportsysModel = mongoose.Schema({
-	Title: {
-		type: String
-	},
-	List: [{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "User"
-	}],
-	Unit: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "Unit"
-	}
+  Title: {
+    type: String
+  },
+  List: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }],
+  Unit: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Unit"
+  }
 }, {
-	timestamps: true
+  timestamps: true
 });
 
 const Reportsys = mongoose.model("Reportsys", reportsysModel);
