@@ -71,12 +71,23 @@ a {
   box-sizing: content-box;
 }
 
-.memoCustomForm > .ant-select:not(.ant-select-customize-input) .ant-select-selector,
-.memoCustomForm > .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+.memoCustomForm>.ant-select:not(.ant-select-customize-input) .ant-select-selector,
+.memoCustomForm>.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
   background-color: transparent;
   /* border: 0; */
 }
 
 .ant-form-item {
   margin-bottom: 0px;
+}
+
+.memonoteSiderTitle>.ant-select:not(.ant-select-customize-input) .ant-select-selector,
+.memonoteSiderTitle>.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  background-color: transparent;
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+.memonoteSiderTitle>.ant-select-arrow {
+  color: #000;
 }

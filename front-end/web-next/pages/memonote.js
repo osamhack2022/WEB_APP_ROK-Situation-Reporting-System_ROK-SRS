@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head'
-import { Layout, Row, Col, List, Button, Input, Divider } from 'antd';
+import { Layout, Row, Col, List, Button, Input, Divider, Select } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
 import ReportLayout from '../componenets/MemoReport';
 import MemoForm from '../componenets/MemoForm';
@@ -8,6 +8,7 @@ import Styles from '../styles/MemoLayout.module.css';
 
 export default function Memo() {
   const [selectedItem, setSelection] = useState(undefined);
+  const [memonoteType, setMemonoteType] = useState('받은 메모 보고');
   const [formOpened, setFormOpened] = useState(false);
 
   const sampleData = [
@@ -91,7 +92,17 @@ export default function Memo() {
                 justify="space-between"
               >
                 <Col>
-                  <div className={Styles.siderTitle}>받은 메모 보고</div>
+                  <div className="memonoteSiderTitle">
+                    <Select
+                      popupClassName={Styles.siderTitle}
+                      bordered={false}
+                      value={memonoteType}
+                      onChange={(v) => {setMemonoteType(v);console.log(v)}}
+                    >
+                      <Select.Option value="receiveMemo">받은 메모 보고</Select.Option>
+                      <Select.Option value="sendMemo">보낸 메모 보고</Select.Option>
+                    </Select>
+                  </div>
                 </Col>
                 <Col>
                   <Button
