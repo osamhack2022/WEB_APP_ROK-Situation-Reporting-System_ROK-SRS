@@ -1,3 +1,11 @@
+.background {
+    height: 100%; 
+    display: block; 
+    min-width: 1100px;
+    overflow-x: scroll; 
+}
+
+
 .lastitem {
     color: grey; 
 }
@@ -5,7 +13,7 @@
 .userdatachange {
     width: 700px;
     min-width: 650px;
-    height: 570px; 
+    height: 563px; 
     background-color: white;
     border-radius: 10px;
     margin-left: 30px;
@@ -34,7 +42,17 @@
     margin-bottom: 10px;
 }
 
-
+.resetpassword {
+    width: 700px; 
+    height: 350px; 
+    background-color: white; 
+    border-radius: 10px; 
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    margin-left: 30px;
+    margin-top: 20px;
+    display: flex; 
+    justify-content: center;
+}
 
 #error1 {
     color: red; 
