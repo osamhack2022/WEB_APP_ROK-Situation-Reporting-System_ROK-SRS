@@ -4,32 +4,39 @@ import { Colors } from 'react-native-paper'
 export const styles = StyleSheet.create({
   header: {
     width: '95%',
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.grey400,
-  },
-  title: {
-    fontSize: 20,
-    fontFamily: 'NunitoSans_600SemiBold',
   },
   titleView: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 10,
   },
-  text: {
-    fontSize: 18,
+  left: {
+    backgroundColor: Colors.white,
+    position: 'absolute',
+    left: -15,
+    padding: 10,
+  },
+  title: {
+    fontSize: 20,
+    fontFamily: 'NunitoSans_300Light',
+  },
+  isEnd: {
+    fontSize: 19,
     marginLeft: 5,
-    color: 'red',
     fontFamily: 'NunitoSans_600SemiBold',
   },
-  severity: { color: 'red', fontFamily: 'NunitoSans_600SemiBold' },
+  severity: {
+    fontSize: 13,
+    color: Colors.red600,
+    fontFamily: 'NunitoSans_600SemiBold',
+  },
   subView: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: 5,
+    marginVertical: 5,
     marginRight: 15,
-    marginBottom: 5,
   },
   severityText: {
     fontSize: 13,
@@ -37,9 +44,8 @@ export const styles = StyleSheet.create({
     marginRight: 3,
   },
   dateText: {
-    fontSize: 13,
+    fontSize: 12,
     fontFamily: 'NunitoSans_300Light',
-    marginLeft: 10,
-    marginRight: 10,
+    marginHorizontal: 10,
   },
 })

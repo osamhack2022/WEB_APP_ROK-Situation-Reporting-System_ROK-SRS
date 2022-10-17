@@ -7,9 +7,9 @@ export const styles = StyleSheet.create({
     width: '95%',
     borderBottomWidth: 1,
     borderColor: Colors.grey400,
-    paddingTop: 5,
-    paddingBottom: 5,
+    paddingVertical: 8,
     marginLeft: window.width * 0.025,
+    paddingLeft: 3,
   },
   avatarView: {
     width: '100%',

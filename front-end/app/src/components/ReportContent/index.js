@@ -4,21 +4,20 @@ import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import { Profile } from '../Profile'
 import { styles } from './style'
 
-const text =
-  '충성! 당직사령님, 사복을 입은 거수자가 나타났습니다.\n무기를 소지한 것 같지는 않고, 위병소 앞에서 두리번 거리고 있습니다.\n현재 경계 중이며, 특이사항 발생 시 보고드리겠습니다.'
-
-export function ReportContent({Content, Type}) {
+export function ReportContent({ Content, Type }) {
   let [fontsLoaded] = useNunitoFonts()
 
   return (
-    <View style={styles.contentView}>
+    <View style={[styles.contentView]}>
       <Profile
         name="병장 김형민"
         position="본부중대 통신"
-        size={40}
+        size={45}
         src={require('../../assets/images/avatar.png')}
       />
-      <Paragraph style={styles.paragraph}>{text}</Paragraph>
+      <View style={styles.flexRow}>
+        <Paragraph style={styles.paragraph}>{Content}</Paragraph>
+      </View>
       <View style={styles.contView}>
         <View style={styles.seqView}>
           <Text
@@ -30,6 +29,7 @@ export function ReportContent({Content, Type}) {
             style={styles.endButton}
             color="white"
             onPress={() => console.log('pressed.')}
+            labelStyle={styles.ButtonLabel}
           >
             종결하기
           </Button>
@@ -37,6 +37,7 @@ export function ReportContent({Content, Type}) {
             style={styles.upButton}
             color="white"
             onPress={() => console.log('pressed.')}
+            labelStyle={styles.ButtonLabel}
           >
             상급보고
           </Button>

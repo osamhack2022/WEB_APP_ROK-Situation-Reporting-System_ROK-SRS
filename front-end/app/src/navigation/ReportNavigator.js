@@ -1,12 +1,15 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { RecdReportNavigator } from './RecdReportNavigator'
 import { SentReportNavigator } from './SentReportNavigator'
+import { Colors } from 'react-native-paper'
 
 const Tab = createMaterialTopTabNavigator()
 
 export function ReportNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBarOptions={{ indicatorStyle: { backgroundColor: Colors.green800 } }}
+    >
       <Tab.Screen
         name="RecdReportNavigator"
         component={RecdReportNavigator}

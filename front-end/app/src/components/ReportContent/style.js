@@ -3,12 +3,14 @@ import { Colors } from 'react-native-paper'
 
 export const styles = StyleSheet.create({
   contentView: {
-    width: '95%',
+    width: '98%',
     alignItems: 'center',
-    borderBottomWidth: 1,
+    borderWidth: 1,
+    borderRadius: 10,
     borderColor: Colors.grey400,
-    paddingTop: 10,
-    paddingBottom: 10,
+    padding: 10,
+    backgroundColor: Colors.white,
+    marginBottom: 10,
   },
   avatarView: {
     width: '100%',
@@ -21,11 +23,16 @@ export const styles = StyleSheet.create({
     fontFamily: 'NunitoSans_300Light',
     color: Colors.grey900,
   },
+  flexRow: {
+    flexDirection: 'row',
+  },
   paragraph: {
     width: '100%',
     marginTop: 5,
     fontFamily: 'NunitoSans_400Regular',
     fontSize: 13,
+    flex: 1,
+    flexWrap: 'wrap',
   },
   contView: {
     width: '100%',
@@ -38,7 +45,7 @@ export const styles = StyleSheet.create({
   },
   seqText: {
     marginTop: 5,
-    fontFamily: 'NunitoSans_SemiBold',
+    fontFamily: 'NunitoSans_600SemiBold',
     fontSize: 11,
     color: Colors.grey800,
   },
@@ -52,12 +59,16 @@ export const styles = StyleSheet.create({
   },
   endButton: {
     backgroundColor: Colors.green600,
-    borderRadius: 8,
+    borderRadius: 5,
     marginRight: 5,
+  },
+  ButtonLabel: {
     fontSize: 13,
+    fontFamily: 'NunitoSans_700Bold',
   },
   upButton: {
     backgroundColor: Colors.red600,
-    borderRadius: 8,
+    borderRadius: 5,
+    fontFamily: 'NunitoSans_600SemiBold',
   },
 })

@@ -28,9 +28,8 @@ export function LoginScreen() {
           ...res,
           token: null,
         })
-        cb()
-        console.log(res)
-        console.log(userMe)
+        Alert.alert(`${userMe.Name}님, 환영합니다.`)
+        cb() 
       } else {
         Alert.alert(res.message)
       }
