@@ -90,11 +90,20 @@ const removeReportsys = asyncHandler(async (req, res) => {
 
 //@description     get reportsys
 //@route           GET /api/reportsys
-//@access          Protected(onlyadmin)
-const removeReportsys = asyncHandler(async (req, res) => {
+//@access          Protected
+const getReportsys = asyncHandler(async (req, res) => {
+	const keyword = req.query.search;
 
+	if (keyword) {
+		ret = await Reportsys.find({ Title: { $eq: keyword }}).find({Unit: {$eq: req.user.Unit}});
+		return res.status(200).send(ret);
+	} else {
+		return res.status(200).send(await Reportsys.find({Unit: {$eq: req.user.Unit}}));
+	}
 });
+
 module.exports = {
 	addReportsys,
-	removeReportsys
+	removeReportsys,
+	getReportsys
 };
