@@ -107,14 +107,16 @@ const Home = () => {
         </div>
     </>
 }
+const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
+let endpoint = backendroot + 'api/user/login'
 
 //export async function getServerSideProps() {
-// Fetch data from external API
-//const res = await fetch(`https://.../data`)
-//const data = await res.json()
+ //Fetch data from external API
+//    const res = await fetch(`https://.../data`)
+//    const data = await res.json()
 
 // Pass data to the page via props
-// return { props:  'data' }
+     //return { props:  'data' }
 //}
 
 export default Home; 
