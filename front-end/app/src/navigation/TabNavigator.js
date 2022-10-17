@@ -2,7 +2,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Colors } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { TopNavigator } from './TopNavigator'
+import TopNavigator from './TopNavigator'
 import { ChatListScreen, OrgChartScreen, SettingScreen } from '../screens'
 
 const Tab = createBottomTabNavigator()

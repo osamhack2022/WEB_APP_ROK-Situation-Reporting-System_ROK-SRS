@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { SafeAreaView, View, StyleSheet, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { ImagePicker } from '../../components/ImagePicker'
@@ -8,23 +8,23 @@ import updateUnitLogoApi from '../../apis/updateUnitLogoApi'
 import { MyButton } from '../../components/MyButton'
 
 export function UnitMgtScreen() {
-  const updateUnitHandler = async ({ Unitname, Unitslogan }) => {
+  const updateUnitHandler = useCallback(async ({ Unitname, Unitslogan }) => {
     const res = await updateUnitApi({ Unitname, Unitslogan })
     if (res.Unitname) {
-      Alert.alert('업데이트에 성공하였습니다.')
+      Alert.alert('부대 정보 업데이트에 성공하였습니다.')
     } else {
       Alert.alert(res.message)
     }
-  }
+  }, [])
 
-  const updateUnitLogoHandler = async ({ Logo }) => {
+  const updateUnitLogoHandler = useCallback(async ({ Logo }) => {
     const res = await updateUnitLogoApi({ Logo })
     if (res.Unitname) {
-      Alert.alert('업데이트에 성공하였습니다.')
+      Alert.alert('부대 로고 업데이트에 성공하였습니다.')
     } else {
       Alert.alert(res.message)
     }
-  }
+  }, [])
 
   const [Unitname, setUnitname] = useState('')
   const [Unitslogan, setUnitslogan] = useState('')
@@ -53,6 +53,10 @@ export function UnitMgtScreen() {
         onPress={() => updateUnitHandler({ Unitname, Unitslogan })}
       />
       <ImagePicker imageUrl={Logo} setImageUrl={setLogo} />
+      <MyButton
+        text="부대 로고 변경"
+        onPress={() => updateUnitLogoHandler({ Logo })}
+      />
     </SafeAreaView>
   )
 }

@@ -7,9 +7,10 @@ import { window } from '../../constants/layout'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { MyButton } from '../../components/MyButton'
 import updateUserApi from '../../apis/updateUserApi'
-import updateUserPicApi from '../../apis/updateUserPic'
+import updateUserPicApi from '../../apis/updateUserPicApi'
 import { userState } from '../../states/userState'
 import { useRecoilState } from 'recoil'
+import { ImagePicker } from '../../components/ImagePicker'
 
 export function UserUpdateScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
@@ -32,7 +33,7 @@ export function UserUpdateScreen() {
   )
 
   const updateUserPicHandler = useCallback(async ({ pic }) => {
-    const res = await updateUserApi({
+    const res = await updateUserPicApi({
       pic,
     })
     if (res.message) Alert.alert(res.message)
@@ -50,6 +51,8 @@ export function UserUpdateScreen() {
   const [RankOpen, setRankOpen] = useState(false)
   const [Rank, setRank] = useState(userMe.Rank)
   const [Ranks, setRanks] = useState(RankItems)
+
+  const [pic, setPic] = useState('')
 
   return (
     <SafeAreaView style={styles.container}>
@@ -117,20 +120,27 @@ export function UserUpdateScreen() {
         <View style={styles.guideTextView}>
           <GuideText guideText={``} />
         </View>
-        {Rank && Name && Number && email && milNumber && (
-          <MyButton
-            text="내 정보 수정"
-            onPress={() =>
-              updateUserHandler({
-                Rank,
-                Name,
-                email,
-                Number,
-                milNumber,
-              })
-            }
-          />
-        )}
+        <MyButton
+          text="내 정보 수정"
+          onPress={() =>
+            updateUserHandler({
+              Rank,
+              Name,
+              email,
+              Number,
+              milNumber,
+            })
+          }
+        />
+        <ImagePicker imageUrl={pic} setImageUrl={setPic} />
+        <MyButton
+          text="내 사진 변경"
+          onPress={() =>
+            updateUserPicHandler({
+              pic,
+            })
+          }
+        />
       </ScrollView>
     </SafeAreaView>
   )

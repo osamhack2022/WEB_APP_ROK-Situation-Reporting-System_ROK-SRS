@@ -8,7 +8,7 @@ import { LoginScreen, SignUpScreen } from '../screens'
 
 const Stack = createStackNavigator()
 
-export default function MainNavigator({ route }) {
+export default function MainNavigator() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}

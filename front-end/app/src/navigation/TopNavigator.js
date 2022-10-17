@@ -4,7 +4,7 @@ import { RecdReportScreen, SentReportScreen } from '../screens'
 
 const Tab = createMaterialTopTabNavigator()
 
-export function TopNavigator() {
+export default function TopNavigator() {
   return (
     <Tab.Navigator
       tabBarOptions={{ indicatorStyle: { backgroundColor: Colors.green800 } }}

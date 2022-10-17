@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { SafeAreaView, View, StyleSheet, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { ImagePicker } from '../../components/ImagePicker'
@@ -7,18 +7,18 @@ import addUnitApi from '../../apis/addUnitApi'
 import { MyButton } from '../../components/MyButton'
 
 export function UnitAddScreen() {
-  const addUnitHandler = async ({ Unitname, Unitslogan }) => {
+  const addUnitHandler = useCallback(async ({ Unitname, Unitslogan }) => {
     const res = await addUnitApi({ Unitname, Unitslogan })
     if (res.Unitname) {
       Alert.alert('업데이트에 성공하였습니다.')
     } else {
       Alert.alert(res.message)
     }
-  }
+  }, [])
 
   const [Unitname, setUnitname] = useState('')
   const [Unitslogan, setUnitslogan] = useState('')
-  const [Logo, setLogo] = useState('')
+  const [Logo, setLogo] = useState('')s
 
   return (
     <SafeAreaView style={styles.container}>
