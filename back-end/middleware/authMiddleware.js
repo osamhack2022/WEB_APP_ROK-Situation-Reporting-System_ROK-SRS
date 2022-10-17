@@ -55,7 +55,7 @@ const onlyAdmin = asyncHandler(async (req, res, next) => { // Todo: access handl
     throw new Error("토큰이 없습니다. 인증되지 않았습니다.");
   }
 
-  if (req.user.Type != "commender") {
+  if (req.user.Type != "commander" && req.user.Type != "commender" && req.user.Type != "Commander") {
     res.status(401);
     throw new Error("권한이 없습니다.");
   }
