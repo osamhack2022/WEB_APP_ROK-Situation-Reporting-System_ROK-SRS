@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 //@route           GET /api/user?search=?index=
 //@access          Protected
 const allUsers = asyncHandler(async (req, res) => {
+  console.log(req.user._id)
   const ranks = ["CV9", "CV8", "CV7",
   "CV6", "CV5", "CV4", "CV3", "CV2",
   "CV1", "PVT", "PFC", "CPL", "SGT",
@@ -16,7 +17,7 @@ const allUsers = asyncHandler(async (req, res) => {
   const keyword = req.query.search
     ? {
         $or: [
-          //{ Name: { $regex: req.query.search, $options: "i" } },
+          { Name: { $regex: req.query.search, $options: "i" } },
           { DoDID: { $regex: req.query.search, $options: "i" } },
           //{ email: { $regex: req.query.search, $options: "i" } },
         ],
@@ -24,8 +25,9 @@ const allUsers = asyncHandler(async (req, res) => {
     : 0 ;
   users = await User.find({}, {password:0});
   users.sort(function(a,b) {
-    return (ranks.indexOf(b.Rank) + b.is_registered ? 0 : 100) - (ranks.indexOf(a.Rank) + a.is_registered ? 0 : 100);
+    return (ranks.indexOf(b.Rank) + (b.is_registered ? 0 : 100)) - (ranks.indexOf(a.Rank) + (a.is_registered ? 0 : 100));
   });
+  console.log(users)
   const index = req.query.index;
   if (index) {
     res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));

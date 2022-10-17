@@ -1,19 +1,14 @@
 const mongoose = require("mongoose");
 
-const reportModel = mongoose.Schema(
+const reportsysModel = mongoose.Schema(
   {
-    User: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-    Type: { type: String },
-    Status: { type: String },
-    Invited: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    ReportingSystem: { type: String },
-    ReportName: { type: String, required: true, trim: true },
-    Content: { type: String },
-    Comment: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
+    Title: { type: String },
+    List: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+	Unit: { type: mongoose.Schema.Types.ObjectId, ref: "Unit" }
   },
   { timestamps: true }
 );
 
-const Report = mongoose.model("Report", reportModel);
+const Reportsys = mongoose.model("Reportsys", reportsysModel);
 
 module.exports = Reportsys;

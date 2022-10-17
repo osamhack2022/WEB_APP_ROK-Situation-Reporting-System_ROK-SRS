@@ -8,7 +8,7 @@ const messageRoutes = require("./routes/messageRoutes");
 const unitRoutes = require("./routes/unitRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const commentRoutes = require("./routes/commentRoutes");
-const commentRoutes = require("./routes/reportsysRoutes");
+const reportsysRoutes = require("./routes/reportsysRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const path = require("path");
 
