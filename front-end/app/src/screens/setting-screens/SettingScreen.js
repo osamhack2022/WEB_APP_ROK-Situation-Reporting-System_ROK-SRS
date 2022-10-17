@@ -78,6 +78,12 @@ export function SettingScreen() {
           onPress={() => navigation.navigate('UnitMgtScreen')}
         />
         <List.Item
+          title="부대 추가"
+          left={() => <List.Icon icon="account-multiple-check" />}
+          style={styles.listItem}
+          onPress={() => navigation.navigate('UnitAddScreen')}
+        />
+        <List.Item
           title="보고체계 관리"
           left={() => <List.Icon icon="arrow-decision" />}
           style={styles.listItem}

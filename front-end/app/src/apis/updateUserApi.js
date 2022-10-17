@@ -3,8 +3,8 @@ import asyncStorage from '@react-native-async-storage/async-storage'
 
 const updateUserApi = async ({ Rank, Name, email, milNumber, Number }) => {
   try {
-    const res = await fetch(URL + '/api/user/update', {
-      method: 'POST',
+    const res = await fetch(URL + '/api/user', {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${await asyncStorage.getItem('roksrs-token')}`,

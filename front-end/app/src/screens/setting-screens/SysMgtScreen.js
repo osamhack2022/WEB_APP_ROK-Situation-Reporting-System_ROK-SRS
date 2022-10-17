@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native'
 import { ReportGroup } from '../../components/ReportGroup'
 import DATA from '../../data/procData'
 
-export function ProcMgtScreen() {
+export function SysMgtScreen() {
   return (
     <SafeAreaView>
       <ReportGroup group={DATA} name="onDuty" />

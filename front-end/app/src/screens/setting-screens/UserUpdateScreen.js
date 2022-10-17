@@ -7,13 +7,12 @@ import { window } from '../../constants/layout'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { MyButton } from '../../components/MyButton'
 import updateUserApi from '../../apis/updateUserApi'
+import updateUserPicApi from '../../apis/updateUserPic'
 import { userState } from '../../states/userState'
 import { useRecoilState } from 'recoil'
 
 export function UserUpdateScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
-
-  console.log(userMe.Name)
 
   const updateUserHandler = useCallback(
     async ({ Rank, Name, email, milNumber, Number }) => {
@@ -31,6 +30,17 @@ export function UserUpdateScreen() {
       }
     }
   )
+
+  const updateUserPicHandler = useCallback(async ({ pic }) => {
+    const res = await updateUserApi({
+      pic,
+    })
+    if (res.message) Alert.alert(res.message)
+    else {
+      setUserMe({ ...userMe, pic })
+      Alert.alert('사용자 이미지 정보가 변경되었습니다.')
+    }
+  })
 
   const [Name, setName] = useState(userMe.Name)
   const [email, setEmail] = useState(userMe.email)
