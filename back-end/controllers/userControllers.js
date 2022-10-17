@@ -8,7 +8,6 @@ const UnitM = require("../models/unitModel");
 //@route           GET /api/user?search=?index=
 //@access          Protected
 const allUsers = asyncHandler(async (req, res) => {
-  console.log(req.user._id)
   const ranks = ["CV9", "CV8", "CV7",
     "CV6", "CV5", "CV4", "CV3", "CV2",
     "CV1", "PVT", "PFC", "CPL", "SGT",
@@ -16,7 +15,7 @@ const allUsers = asyncHandler(async (req, res) => {
     "LIU", "LIU", "CPT", "MAJ", "LTC",
     "COL", "BG", "MG", "LG", "GEN"
   ];
-  const keyword = req.query.search ?
+  const keyword = req.query.search /*?
     {
       $or: [{
           Name: {
@@ -33,7 +32,7 @@ const allUsers = asyncHandler(async (req, res) => {
         //{ email: { $regex: req.query.search, $options: "i" } },
       ],
     } :
-    0;
+    0;*/
   users = await User.find({}, {
     password: 0
   });
@@ -44,7 +43,7 @@ const allUsers = asyncHandler(async (req, res) => {
   if (index) {
     res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
   } else if (keyword) {
-    res.send(await User.find(keyword)); //.find({ _id: { $ne: req.user._id } }));
+    res.send(await User.find({ _id: { $eq: keyword }}, {password: 0})); //.find({ _id: { $ne: req.user._id } }));
   } else {
     res.status(400);
     throw new Error("잘못된 요청입니다.");
