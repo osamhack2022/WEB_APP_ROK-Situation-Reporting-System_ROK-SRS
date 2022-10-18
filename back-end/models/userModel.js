@@ -59,7 +59,11 @@ const userSchema = mongoose.Schema({
   is_registered: {
     type: Boolean,
     default: false
-  }
+  },
+  myReportCards :[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "report"
+  }]
 }, {
   timestamps: true
 });

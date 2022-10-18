@@ -1,8 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const Reportsys = require("../models/reportsysModel");
+const UnitM = require("../models/unitModel");
+var mongoose = require('mongoose');
 
 //@description     Create new reportsys
-//@route           POST /api/reportsys/
+//@route           POST /api/reportsys
 //@access          Protected(onlyadmin)
 const addReportsys = asyncHandler(async (req, res) => {
 	const {
@@ -23,6 +25,17 @@ const addReportsys = asyncHandler(async (req, res) => {
 		Unit
 	});
 
+
+	const added = await UnitM.findByIdAndUpdate(
+		Unit._id, {
+			$push: {
+				reportSys: reportsys._id
+			},
+		}, {
+			new: true,
+		}
+	)
+
 	if (reportsys) {
 		res.status(201).json({
 			_id: reportsys._id,
@@ -37,7 +50,7 @@ const addReportsys = asyncHandler(async (req, res) => {
 });
 
 //@description     Delete reportsys
-//@route           DELETE /api/reportsys/
+//@route           DELETE /api/reportsys
 //@access          Protected(onlyadmin)
 const removeReportsys = asyncHandler(async (req, res) => {
 	const {
@@ -57,18 +70,40 @@ const removeReportsys = asyncHandler(async (req, res) => {
 		res.status(400);
 		throw new Error("해당 보고체계가 없습니다.");
 	}
-	Unit.reportSys.findByIdAndRemove(_id);
-
-	console.log(Unit.reportSys);
+	console.log(Unit._id)
+	const removed = await UnitM.findByIdAndUpdate(
+		Unit._id, {
+			$pull: {
+				reportSys: mongoose.Types.ObjectId(_id)
+			},
+		}, {
+			new: true,
+		}
+	)
 
 	res.status(201).json({
 		message: "remove success",
-		_id: reportsys._id,
-		Title: reportsys.Title
+		_id: mongoose.Types.ObjectId(_id)
 	});
+});
+
+
+//@description     get reportsys
+//@route           GET /api/reportsys
+//@access          Protected
+const getReportsys = asyncHandler(async (req, res) => {
+	const keyword = req.query.search;
+
+	if (keyword) {
+		ret = await Reportsys.find({ Title: { $eq: keyword }}).find({Unit: {$eq: req.user.Unit}});
+		return res.status(200).send(ret);
+	} else {
+		return res.status(200).send(await Reportsys.find({Unit: {$eq: req.user.Unit}}));
+	}
 });
 
 module.exports = {
 	addReportsys,
-	removeReportsys
+	removeReportsys,
+	getReportsys
 };
