@@ -58,27 +58,20 @@ const Register = () => {
             <title>회원가입</title>
         </Head>
         <NotLoggedinLayout>
-            <h1 style = {{textAlign: 'center', marginBottom: '20px', marginTop: '20px'}}>회원가입</h1>
+            <h1 style = {{textAlign: 'center', marginBottom: '20px', marginTop: '20px', fontWeight: 'bold', letterSpacing: '2px'}}>회원가입</h1>
             <Form method="post" style={{ width: '400px', margin: 'auto' }} onFinish = {registeruser}>
                 <Form.Item className = {styles.inputfield} name="이름" rules={[{ required: true, message: '이름을 입력해 주세요' }]}>
                     <Input placeholder = "이름" onChange={(event) => { setName(event.target.value) }} />
                 </Form.Item>
-                <br></br>
                 <Form.Item className = {styles.inputfield} name="군번" rules={[{ required: true, message: '군번을 입력해 주세요' }]}>
-                    <Input placeholder = "군번" onChange={(event) => { setDoDID(event.target.value) }} />
-                    <span className={styles.inputdesc}>22-xxxxxxxx 양식으로 입력</span>
+                    <Input placeholder = "군번 (21-xxxxxxx)" onChange={(event) => { setDoDID(event.target.value) }} />
                 </Form.Item>
-                <br></br>
                 <Form.Item className = {styles.inputfield} name="초대코드" rules={[{ required: true, message: '초대코드를 입력해 주세요' }]}>
-                    <Input placeholder = "초대 코드" onChange={(event) => { setInvcode(event.target.value) }} />
-                    <span className={styles.inputdesc}>부대에서 받은 초대코드 이용</span>
+                    <Input placeholder = "초대 코드  (부대에서 받은 초대코드 입력)" onChange={(event) => { setInvcode(event.target.value) }} />
                 </Form.Item>
-                <br></br>
                 <Form.Item className = {styles.inputfield} name="비밀번호" rules={[{ required: true, message: '비밀번호를 입력해 주세요' }]}>
                     <Input.Password placeholder = "비밀번호" onChange={(event) => { setPassword(event.target.value) }} />
-                    <span className={styles.inputdesc}>8자리 이상 비밀번호 사용</span>
                 </Form.Item>
-                <br></br>
                 <Form.Item className = {styles.inputfield} name="확인비밀번호" rules={[{ required: true, message: '비밀번호 확인 입력해 주세요'}, ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('비밀번호') === value) {
