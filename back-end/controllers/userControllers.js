@@ -119,16 +119,13 @@ const addUser = asyncHandler(async (req, res) => {
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
   const {
-    Rank,
-    Name,
     DoDID,
-    email,
     password,
     pic,
     Invcode
   } = req.body;
   //049opo6a
-  if (!Rank || !Name || !email || !password || !DoDID || !Invcode) {
+  if (!password || !DoDID || !Invcode) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
   }
@@ -154,7 +151,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const updatedUser = await User.findByIdAndUpdate(
     userDb._id, {
-      email: email,
       password: await bcrypt.hash(password, await bcrypt.genSalt(10)),
       pic: pic,
       is_registered: true
@@ -169,10 +165,7 @@ const registerUser = asyncHandler(async (req, res) => {
   } else {
     res.status(201).json({
       _id: updatedUser._id,
-      Name: updatedUser.Name,
-      Rank: updatedUser.Rank,
       DoDID: updatedUser.DoDID,
-      email: updatedUser.email,
       Type: updatedUser.Type,
       pic: updatedUser.pic,
       token: generateToken(updatedUser._id),
