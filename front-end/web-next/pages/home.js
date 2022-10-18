@@ -1,8 +1,4 @@
 import Head from 'next/head'
-import Link from "next/link"
-import { Middleware } from 'next/dist/lib/load-custom-routes'
-import MenuBar from '../componenets/menubar'
-import {LockOutlined, AudioOutlined } from '@ant-design/icons';
 import style from '../styles/homepage.module.css'
 import Image from 'next/image'
 import unitlogo from '../img/unitlogo.png'

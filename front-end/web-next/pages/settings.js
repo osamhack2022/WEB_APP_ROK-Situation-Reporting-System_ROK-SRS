@@ -1,12 +1,7 @@
 import Head from 'next/head'
-import Link from "next/link"
-import MenuBar from '../componenets/menubar'
-import RegisterHeader from '../componenets/registerheader';
-import { Avatar, Divider, List, Skeleton, Button, Input, Radio, message, Upload, Image, TreeSelect, Form, PageHeader, Breadcrumb } from 'antd';
+import { Button, Input, Upload, Image, TreeSelect, Form, PageHeader, Breadcrumb } from 'antd';
 import styles from '../styles/usersettings.module.css'
-import React, { useEffect, useState } from 'react';
-import { DownOutlined } from '@ant-design/icons';
-import { useRouter } from "next/router"
+import React, { useState } from 'react';
 const RankData = [
   {
       title: '병사',
