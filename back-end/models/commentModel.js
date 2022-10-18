@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
 
 const commentModel = mongoose.Schema({
-  user: {
+  User: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
-  report: {
+  Report: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Report"
   },
-  type: {
+  Type: {
     type: String
   },
-  content: {
+  Content: {
     type: String,
     required: true
   }

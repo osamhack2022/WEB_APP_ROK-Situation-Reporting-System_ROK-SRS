@@ -27,7 +27,7 @@ const reportModel = mongoose.Schema({
   Content: {
     type: String
   },
-  Comment: [{
+  Comments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Comment"
   }],
@@ -36,6 +36,10 @@ const reportModel = mongoose.Schema({
     required: true,
     trim: true
   },
+  Unit: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Unit"
+  }
 }, {
   timestamps: true
 });
