@@ -1,7 +1,7 @@
-import URL from '../../url'
+import URL from '../../../url'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
-const fetchReportApi = async ({
+const addReportApi = async ({
   Type,
   Reportsystems,
   Additionalpeople,
@@ -10,7 +10,7 @@ const fetchReportApi = async ({
 }) => {
   try {
     const res = await fetch(URL, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
@@ -29,4 +29,4 @@ const fetchReportApi = async ({
   }
 }
 
-export default fetchReportApi
+export default addReportApi

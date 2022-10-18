@@ -4,6 +4,8 @@ import { Avatar } from 'react-native-paper'
 import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 
+// 배경 회색으로, 각 카드 elevation주기
+
 const ItemSeparator = () => (
   <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center' }}>
     <Image
@@ -24,13 +26,6 @@ const renderItem = ({ item }) => (
       <Text style={styles.itemText}>{item.name}</Text>
       <Text style={styles.itemText}>{item.position}</Text>
     </View>
-    {/* <TouchableOpacity>
-      <Avatar.Icon
-        icon="alpha-x"
-        size={30}
-        style={{ backgroundColor: 'white' }}
-      />
-    </TouchableOpacity> */}
   </>
 )
 

@@ -12,17 +12,6 @@ import searchUserApi from '../../apis/searchUserApi'
 import DATA from '../../data/procData'
 import { window } from '../../constants/layout'
 
-const rightIcon = ({ key, addedUser, setAddedUser }) => (
-  <Avatar.Icon
-    icon="alpha-x"
-    style={{ backgroundColor: 'white' }}
-    key={key}
-    onPress={setAddedUser(
-      addedUser.filter((user, idx) => idx.toString() !== key)
-    )}
-  />
-)
-
 export function CreateReportScreen() {
   const fetchUserHandler = async (query) => {
     const res = await searchUserApi(query)
@@ -135,11 +124,6 @@ export function CreateReportScreen() {
               name={user.Name}
               Position={user.Position}
               key={idx.toString()}
-              // right={rightIcon({
-              //   key: idx.toString(),
-              //   addedUser,
-              //   setAddedUser,
-              // })}
             />
           ))}
         </ScrollView>

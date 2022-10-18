@@ -13,7 +13,7 @@ const Item = ({ Name, Rank, pic, Position }) => (
     <Text style={styles.text}>{Name}</Text>
     <Text style={styles.text}>{Position}</Text>
     <TouchableOpacity style={{ flex: 1, alignItems: 'flex-end' }}>
-      <Text style={styles.btnText}>DELETE</Text>
+      <Text style={styles.btnText}>Delete</Text>
     </TouchableOpacity>
   </View>
 )
@@ -49,6 +49,7 @@ export function UserMgtScreen() {
         icon="account-plus"
         style={styles.fab}
         onPress={() => navigation.navigate('UserAddScreen')}
+        color="white"
       />
     </SafeAreaView>
   )
@@ -72,11 +73,12 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   fab: {
+    backgroundColor: '#009572',
     borderRadius: 60,
-    height: 56,
-    width: 56,
+    height: 55,
+    width: 55,
     position: 'absolute',
-    bottom: 25,
+    bottom: 50,
     right: 20,
   },
   image: {

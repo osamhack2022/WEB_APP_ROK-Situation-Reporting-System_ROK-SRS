@@ -1,15 +1,15 @@
-import URL from '../../url'
+import URL from '../../../url'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
-const updateUnitLogoApi = async ({ Logo }) => {
+const updateUserPicApi = async ({ pic }) => {
   try {
-    const res = await fetch(URL + '/api/unit/logo', {
-      method: 'POST',
+    const res = await fetch(URL + '/api/user/pic', {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${await asyncStorage.getItem('roksrs-token')}`,
       },
-      body: JSON.stringify({ Logo }),
+      body: JSON.stringify({ pic }),
     })
     return res.json()
   } catch (error) {
@@ -17,4 +17,4 @@ const updateUnitLogoApi = async ({ Logo }) => {
   }
 }
 
-export default updateUnitLogoApi
+export default updateUserPicApi
