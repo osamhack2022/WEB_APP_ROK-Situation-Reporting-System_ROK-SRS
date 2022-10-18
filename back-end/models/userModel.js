@@ -33,19 +33,23 @@ const userSchema = mongoose.Schema({
   },
   Position: {
     type: String,
-    required: false
+    required: false,
+    default: "no data"
   },
   email: {
     type: String,
-    required: false
+    required: false,
+    default: "no data"
   },
   milNumber: {
     type: String,
-    required: false
+    required: false,
+    default: "no data"
   },
   number: {
     type: String,
-    required: false
+    required: false,
+    default: "no data"
   },
   pic: {
     type: String,
@@ -58,7 +62,7 @@ const userSchema = mongoose.Schema({
   },
   is_registered: {
     type: Boolean,
-    default: false
+    default: false,
   },
   myReportCards :[{
     type: mongoose.Schema.Types.ObjectId,
