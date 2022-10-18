@@ -4,6 +4,7 @@ import { Layout, Row, Col, List, Button, Input, Divider } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
 import ReportLayout from '../componenets/MemoReport';
 import MemoForm from '../componenets/MemoForm';
+import Styles from '../styles/MemoLayout.module.css';
 
 export default function Memo() {
   const [selectedItem, setSelection] = useState(undefined);
@@ -47,11 +48,11 @@ export default function Memo() {
   function Header(props) {
     return (
       <div>
-        <p style={styles.headerTitle}>
+        <p className={Styles.headerTitle}>
           {props.title}
           {props.isDone ? ' [종결]' : ' [미종결]'}
         </p>
-        <div style={styles.headerType}>
+        <div className={Styles.headerType}>
           <Row
             justify='end'
             gutter={12}
@@ -67,7 +68,7 @@ export default function Memo() {
 
   function Footer(props) {
     return (
-      <p style={styles.footer}>
+      <p className={Styles.footer}>
         보고 체계: {props.unit}
       </p>
     )
@@ -78,49 +79,52 @@ export default function Memo() {
       <Head>
         <title>메모 보고</title>
       </Head>
-      <Layout style={styles.mainLayout}>
+      <Layout className={Styles.mainLayout}>
         <Layout.Sider
-          style={styles.siderLayout}
+          className={Styles.siderLayout}
           width={400}
         >
-          <div style={styles.siderMenu}>
-            <Row
-              style={{ marginBottom: '20px' }}
-              align="middle"
-              justify="space-between"
-            >
-              <Col>
-                <div style={styles.siderTitle}>받은 메모 보고</div>
-              </Col>
-              <Col>
-                <Button
-                  shape="circle"
-                  icon={<FormOutlined />}
-                  onClick={() => setFormOpened(true)}
-                />
-              </Col>
-            </Row>
-            <Input.Search style={styles.menuSearcher} />
-            <div style={styles.scrollableDiv}>
+          <div className={Styles.siderMenu}>
+            <div className={Styles.siderHeader}>
+              <Row
+                align="middle"
+                justify="space-between"
+              >
+                <Col>
+                  <div className={Styles.siderTitle}>받은 메모 보고</div>
+                </Col>
+                <Col>
+                  <Button
+                    className={Styles.formButton}
+                    shape="circle"
+                    icon={<FormOutlined />}
+                    onClick={() => setFormOpened(true)}
+                  />
+                </Col>
+              </Row>
+              <Input.Search className={Styles.menuSearcher} />
+            </div>
+            <Divider className={Styles.bottomDivider} />
+            <div className={Styles.scrollableDiv}>
               <List
                 itemLayout="horizontal"
                 dataSource={sampleData}
                 renderItem={(item) => (
                   <div>
                     <Button
-                      style={styles.siderMenuButton}
+                      className={Styles.siderMenuButton}
                       type="link"
                       onClick={() => setSelection(item.key)}
                     >
-                      <p style={styles.siderMenuTitle}>
+                      <div className={Styles.siderMenuTitle}>
                         {item.title}
                         {item.isDone ? ' [종결]' : ' [미종결]'}
-                      </p>
-                      <p style={styles.siderMenuContent}>
+                      </div>
+                      <div className={Styles.siderMenuContent}>
                         {item.memo}
-                      </p>
+                      </div>
                       <Row
-                        style={styles.siderMenuFooter}
+                        className={Styles.siderMenuFooter}
                         gutter={10}
                         justify="end"
                       >
@@ -128,17 +132,17 @@ export default function Memo() {
                         <Col>{item.datetime}</Col>
                       </Row>
                     </Button>
-                    <Divider style={{ margin: 0 }} />
+                    <Divider className={Styles.bottomDivider} />
                   </div>
                 )}
               />
             </div>
           </div>
         </Layout.Sider>
-        <Layout.Content style={styles.contentLayout}>
+        <Layout.Content className={Styles.contentLayout}>
           {
             (selectedItem !== undefined) &&
-            <div style={styles.contentMenu}>
+            <div className={Styles.contentMenu}>
               <ReportLayout
                 header={
                   <Header
@@ -170,82 +174,4 @@ export default function Memo() {
       />
     </>
   )
-}
-
-
-const styles = {
-  mainLayout: {
-    height: '100%',
-    padding: '20px 30px',
-    backgroundColor: '#777'
-  },
-  siderLayout: {
-    height: '100%',
-    backgroundColor: 'transparent',
-    padding: '10px 20px'
-  },
-  siderMenu: {
-    height: '100%',
-    padding: '20px 30px',
-    backgroundColor: '#fff',
-    borderRadius: '20px',
-    boxShadow: '3px 4px 5px #777'
-  },
-  siderTitle: {
-    fontSize: '15pt',
-    fontWeight: 'bold'
-  },
-  contentLayout: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'transparent',
-    padding: '10px 20px'
-  },
-  contentMenu: {
-    height: '100%',
-    padding: '20px 40px',
-    backgroundColor: '#fff',
-    borderRadius: '20px',
-    boxShadow: '3px 4px 5px #777'
-  },
-  headerTitle: {
-    fontSize: '14pt',
-    textAlign: 'center',
-    fontWeight: 'bold'
-  },
-  headerType: {
-    textAlign: 'right'
-  },
-  footer: {
-
-  },
-  menuSearcher: {
-    marginBottom: '15px'
-  },
-  scrollableDiv: {
-    maxHeight: 'calc(100% - 100px)',
-    overflow: 'auto'
-  },
-  siderMenuButton: {
-    width: '100%',
-    height: 'auto',
-    color: '#000',
-    textAlign: 'left',
-    padding: '5px'
-  },
-  siderMenuTitle: {
-    fontSize: '11pt',
-    fontWeight: 'bold'
-  },
-  siderMenuContent: {
-    fontSize: '10pt',
-    paddingLeft: '10pt',
-    maxWidth: '288pt',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
-  },
-  siderMenuFooter: {
-    fontSize: '10pt'
-  }
 }

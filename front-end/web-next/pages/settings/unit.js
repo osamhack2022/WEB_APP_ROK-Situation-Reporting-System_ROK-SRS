@@ -1,9 +1,5 @@
-import Head from 'next/head'
-import Link from "next/link"
-import { InfoCircleOutlined } from '@ant-design/icons';
-import MenuBar from '../../componenets/menubar'
-import RegisterHeader from '../../componenets/registerheader';
-import { Avatar, Divider, List, Skeleton, Button, Input, Radio, message, Upload, Image, TreeSelect, Form } from 'antd';
+
+import { Avatar, List, Skeleton, Button, Input, Upload, Image, TreeSelect, Form, PageHeader, Breadcrumb } from 'antd';
 import styles from '../../styles/unitsettings.module.css'
 import unitlogo from '../../img/unitlogo.png'
 import React, { useEffect, useState } from 'react';
@@ -132,14 +128,16 @@ const UnitSettings = () => {
     const [Name, setName] = useState();
     const [Position, setPosition] = useState();
 
+    const [error1, seterror1] = useState(); 
+    const [success1, setsuccess1] = useState(); 
+    const [error2, seterror2] = useState(); 
+    const [success2, setsuccess2] = useState(); 
+    const [error3, seterror3] = useState();
+    const [success3, setsuccess3] = useState(); 
+ 
+
     let submitnewuser = async (event) => {
         let endpoint = backendroot + 'api/user/add'
-        console.log("hi")
-        console.log(DoDID)
-        console.log(Rank)
-        console.log(Type)
-        console.log(Name)
-        console.log(Position)
         const data = {
             DoDID: DoDID,
             Name: Name,
@@ -160,6 +158,14 @@ const UnitSettings = () => {
         }
         const response = await fetch(endpoint, options)
         const result = await response.json()
+        console.log(result)
+        if (result['Invcode']) {
+            seterror3("")
+            setsuccess3("성공. 초대코드: " + result['Invcode'])
+        } else {
+            setsuccess3("")
+            seterror3(result['message'])
+        }
         console.log(result)
     }
 
@@ -187,8 +193,20 @@ const UnitSettings = () => {
 
     return <>
         <div className={styles.background}>
-            <RegisterHeader></RegisterHeader>
-            <div className={styles.formarea}>
+        <PageHeader className="site-page-header" title="부대설정"
+            breadcrumb={  
+            <Breadcrumb>
+                <Breadcrumb.Item>
+                    <a href = "/settings">계정설정</a>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item style = {{color: 'black', cursor: 'pointer'}}>부대설정</Breadcrumb.Item>
+                <Breadcrumb.Item className = {styles.lastitem}>
+                  <a href="settings/reportsystem">보고체계 설정</a>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    <a style = {{display: 'none'}}>hi</a>
+                </Breadcrumb.Item>
+              </Breadcrumb> } style={{backgroundColor: "white",  boxShadow: 'inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3)'}}/>            <div className={styles.formarea}>
                 <div className={styles.formarea1}>
                     <Form className={styles.changeunitinfo} onFinish={submitunitinfo}>
                         <h1>부대정보 번경</h1>
@@ -293,7 +311,9 @@ const UnitSettings = () => {
                         <Form.Item>
                             <div style = {{display:'flex'}}>
                                 <button className={styles.submitbutton} type="primary">군인 추가</button>
-                                <p id = {styles.error3}>Error Message 3</p>
+                                <p id = {styles.error3}>{error3}</p>
+                                <p id = {styles.success3}>{success3}</p>
+
                             </div>
                         </Form.Item>
                     </Form>

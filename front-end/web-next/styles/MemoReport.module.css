@@ -4,28 +4,29 @@
 }
 
 .cardLayout {
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 .cardName {
-    font-size: 12pt;
+    font-size: 14pt;
     font-weight: bold;
 }
 
 .cardPosition {
-    font-size: 10pt;
+    font-size: 11pt;
     color: #4d4d4d
 }
 
 .cardDatetime {
-    font-size: 12pt;
+    font-size: 13pt;
     font-weight: bold
 }
 
 .cardMemo {
     margin-top: 10px;
     padding-left: 5px;
-    font-size: 11pt
+    font-size: 13pt
 }
 
 .memoHeader {
@@ -43,14 +44,19 @@
     padding: 0 10px;
 }
 
-.memoFooter {
+.memoFooterGroup {
     width: 100%;
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
+}
+
+.memoFooter {
+    padding: 0 15px;
 }
 
 .memoDivider {
     margin: 15px 0;
+    border: 1px solid #e8e8e8;
 }
 
 .memoComment {
