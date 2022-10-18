@@ -2,8 +2,8 @@ import NotLoggedinLayout from '../componenets/notloggedinlayout'
 import styles from '../styles/register.module.css'
 import Head from 'next/head'
 import Link from "next/link"
-import React, { useEffect, useState } from 'react';
-import { Avatar, Divider, List, Skeleton, Button, Input, Radio, message, Upload, Image, TreeSelect, Form } from 'antd';
+import React, { useState } from 'react';
+import { Input, Form } from 'antd';
 import { useRouter } from 'next/router';
 
 

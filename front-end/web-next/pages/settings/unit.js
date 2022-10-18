@@ -1,6 +1,5 @@
-import Head from 'next/head'
-import Link from "next/link"
-import { Avatar, Divider, List, Skeleton, Button, Input, Radio, message, Upload, Image, TreeSelect, Form, PageHeader, Breadcrumb } from 'antd';
+
+import { Avatar, List, Skeleton, Button, Input, Upload, Image, TreeSelect, Form, PageHeader, Breadcrumb } from 'antd';
 import styles from '../../styles/unitsettings.module.css'
 import unitlogo from '../../img/unitlogo.png'
 import React, { useEffect, useState } from 'react';

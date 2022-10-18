@@ -2,9 +2,8 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Link from "next/link"
 import NotLoggedinLayout from '../componenets/notloggedinlayout'
-import { Avatar, Divider, List, Skeleton, Button, Input, Radio, message, Upload, Image, TreeSelect, Form } from 'antd';
-import React, { useEffect, useState } from 'react';
-import { ConsoleSqlOutlined } from '@ant-design/icons';
+import { Input, Form } from 'antd';
+import React, { useState } from 'react';
 import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
 

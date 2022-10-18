@@ -1,12 +1,12 @@
 import Head from 'next/head'
-import Link from "next/link"
-import { Middleware } from 'next/dist/lib/load-custom-routes'
-import MenuBar from '../componenets/menubar'
-import {LockOutlined, AudioOutlined } from '@ant-design/icons';
 import style from '../styles/homepage.module.css'
 import Image from 'next/image'
 import unitlogo from '../img/unitlogo.png'
 import { Descriptions, Tabs, Avatar, List, PageHeader, Button, Input, Space } from 'antd';
+import {jwtVerify} from 'jose';
+
+
+
 const { Search } = Input;
     let onSearch = async (event) => {
         console.log('hi')
@@ -28,7 +28,9 @@ const data = [
   ];
 
 
-const Home = () => {
+const Home = (props) => {
+    props = props['data'][0]
+    console.log(props)
     return <>
         <Head>
             <title>홈페이지</title>
@@ -59,16 +61,14 @@ const Home = () => {
             <div>
                 <div className={style.mainarea}>
                     <div className = {style.infocontainer}>
-                        <span className={style.rank}>대위</span> <span className={style.name}>OOO</span> <br />
+                        <span className={style.rank}>{props.Rank}</span> <span className={style.name}>{props.Name}</span> <br />
                         <span className={style.role}>정보통신운용장교</span>
                         <Descriptions title="군인 정보" layout="vertical" style ={{marginTop: '20px'}}>
-                            <Descriptions.Item label="군번">21-76074842</Descriptions.Item>
+                            <Descriptions.Item label="군번">{props.DoDID}</Descriptions.Item>
                             <Descriptions.Item label="직책">정보통신운용장교</Descriptions.Item>
-                            <Descriptions.Item label="계정종류">지휘관</Descriptions.Item>
-                            <Descriptions.Item label="군메일">xxxx@army.mil</Descriptions.Item>
-                            <Descriptions.Item label="군전화">
-                            992-6202
-                            </Descriptions.Item>
+                            <Descriptions.Item label="계정종류">{props.Type}</Descriptions.Item>
+                            <Descriptions.Item label="군메일">{props.email}</Descriptions.Item>
+                            <Descriptions.Item label="군전화">992-6202</Descriptions.Item>
                             <Descriptions.Item label="휴대폰번호">010-3315-1229</Descriptions.Item>
                         </Descriptions>
                     </div>
@@ -108,15 +108,29 @@ const Home = () => {
     </>
 }
 const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
-let endpoint = backendroot + 'api/user/login'
+let endpoint = backendroot + 'api/user?search='
+const secret = process.env.JWT_SECRET
 
-//export async function getServerSideProps() {
- //Fetch data from external API
-//    const res = await fetch(`https://.../data`)
-//    const data = await res.json()
-
-// Pass data to the page via props
-     //return { props:  'data' }
-//}
+export async function getServerSideProps(context) {
+    const JWTtoken = context.req.cookies['usercookie']; // => 'value'
+    console.log(JWTtoken)
+    const { payload } = await jwtVerify(JWTtoken, new TextEncoder().encode(secret))
+    let id = payload['id']
+    console.log(id)
+    const options = {
+        // The method is POST because we are sending data.
+        method: 'GET',
+        // Tell the server we're sending JSON.
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + JWTtoken
+        }
+    }
+//Fetch data from external API
+   const res = await fetch(endpoint + id, options)
+   const data = await res.json()
+//Pass data to the page via props
+     return { props:  {data} }
+}
 
 export default Home; 
