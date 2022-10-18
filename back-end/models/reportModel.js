@@ -5,24 +5,25 @@ const reportModel = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   },
+  Title: {
+    type: String,
+    required: true,
+    trim: true
+  },
   Type: {
     type: String
   },
   Status: {
-    type: String
+    type: String,
+    default: "Unresolved"
   },
   Invited: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   }],
-  ReportingSystem: {
+  ReportingSystem: [{
     type: String
-  },
-  ReportName: {
-    type: String,
-    required: true,
-    trim: true
-  },
+  }],
   Content: {
     type: String
   },
@@ -30,6 +31,11 @@ const reportModel = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Comment"
   }],
+  Severity: {
+    type: String,
+    required: true,
+    trim: true
+  },
 }, {
   timestamps: true
 });
