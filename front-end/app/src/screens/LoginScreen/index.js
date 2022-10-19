@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useMemo } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
 //prettier-ignore
@@ -10,7 +10,7 @@ import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import { GuideText } from '../../components/GuideText'
 import AppLoading from 'expo-app-loading'
-import loginApi from '../../apis/loginApi'
+import loginApi from '../../apis/sign/loginApi'
 
 export function LoginScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
@@ -28,7 +28,6 @@ export function LoginScreen() {
           ...res,
           token: null,
         })
-        Alert.alert(`${userMe.Name}님, 환영합니다.`)
         cb()
       } else {
         Alert.alert(res.message)
@@ -55,19 +54,6 @@ export function LoginScreen() {
     return <AppLoading />
   }
 
-  const ref_input = useMemo([], [])
-  ref_input[0] = useRef(null)
-  ref_input[1] = useRef(null)
-
-  const onFocusNext = (index) => {
-    if (ref_input[index + 1] && index < ref_input.length - 1) {
-      ref_input[index + 1].current?.focus()
-    }
-    if (ref_input[index + 1] && index == ref_input.length - 1) {
-      ref_input[index].current?.blur()
-    }
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoView}>
@@ -83,10 +69,6 @@ export function LoginScreen() {
           activeUnderlineColor="#008275"
           style={styles.loginTextInput}
           onChangeText={(DoDID) => setDoDID(DoDID)}
-          ref={ref_input[0]}
-          onSubmitEditing={() => {
-            onFocusNext(0)
-          }}
         />
         <View style={styles.guideTextView}>
           <GuideText guideText={`2x-xxxxxxxx`} />
@@ -104,10 +86,6 @@ export function LoginScreen() {
           }
           style={styles.loginTextInput}
           onChangeText={(password) => setPassword(password)}
-          ref={ref_input[1]}
-          onSubmitEditing={() => {
-            onFocusNext(1)
-          }}
         />
         <View style={styles.guideTextView}>
           <GuideText guideText={`${password.length}/15`} />

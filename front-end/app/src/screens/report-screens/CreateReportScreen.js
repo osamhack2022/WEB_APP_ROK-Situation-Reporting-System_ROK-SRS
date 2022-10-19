@@ -1,24 +1,18 @@
 import React, { useState } from 'react'
 // prettier-ignore
 import { SafeAreaView, View, StyleSheet, ScrollView } from 'react-native'
-import { Colors, Searchbar, Text, Avatar, TextInput } from 'react-native-paper'
+import { Colors, TextInput, IconButton } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportGroup } from '../../components/ReportGroup'
 import { MyButton } from '../../components/MyButton'
 import { useNavigation } from '@react-navigation/native'
 import { Profile } from '../../components/Profile'
-import searchUserApi from '../../apis/searchUserApi'
+import searchUserApi from '../../apis/user/searchUserApi'
 import DATA from '../../data/procData'
 import { window } from '../../constants/layout'
 
 export function CreateReportScreen() {
-  const fetchUserHandler = async (query) => {
-    const res = await searchUserApi(query)
-    console.log(res)
-    return res
-  }
-
   let [fontsLoaded] = useNunitoFonts()
 
   const navigation = useNavigation()
@@ -26,7 +20,15 @@ export function CreateReportScreen() {
   const [query, setQuery] = useState('')
   const [addedUser, setAddedUser] = useState([])
 
-  console.log(addedUser)
+  const onRemove = (_id) => {
+    setAddedUser(addedUser.filter((user) => user._id !== _id))
+  }
+
+  const fetchUserHandler = async (query) => {
+    const res = await searchUserApi(query)
+    console.log(res)
+    setAddedUser([...addedUser, res])
+  }
 
   const [typeOpen, setTypeOpen] = useState(false)
   const [type, setType] = useState('')
@@ -45,6 +47,8 @@ export function CreateReportScreen() {
 
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
+
+  console.log(addedUser)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -107,23 +111,41 @@ export function CreateReportScreen() {
         <TextInput
           label="추가 보고"
           dense={true}
-          style={styles.textInput}
+          style={[styles.textInput, { marginBottom: 15 }]}
           onChangeText={(query) => setQuery(query)}
-          onSubmitEditing={() =>
-            setAddedUser([...addedUser, fetchUserHandler(query)])
+          right={
+            <TextInput.Icon
+              icon="plus"
+              color={Colors.green600}
+              size={25}
+              style={{ marginTop: 15 }}
+              onPress={() => fetchUserHandler(query)}
+            />
           }
-          onIconPress={() =>
-            setAddedUser([...addedUser, fetchUserHandler(query)])
-          }
+          onSubmitEditing={() => fetchUserHandler(query)}
           activeUnderlineColor="#008275"
         />
-        <ScrollView horizontal={true}>
-          {addedUser.map((user, idx) => (
+        <ScrollView
+          horizontal={true}
+          style={styles.scrollView}
+          showsHorizontalScrollIndicator={false}
+        >
+          {addedUser.map((user) => (
             <Profile
               Rank={user.Rank}
               name={user.Name}
               Position={user.Position}
-              key={idx.toString()}
+              style={styles.profile}
+              key={user._id}
+              right={
+                <IconButton
+                  icon="window-close"
+                  size={20}
+                  style={styles.icon}
+                  color={Colors.red700}
+                  onPress={() => onRemove(user._id)}
+                />
+              }
             />
           ))}
         </ScrollView>
@@ -151,11 +173,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    paddingBottom: 50,
+    paddingBottom: 20,
   },
   view: {
     width: '100%',
     alignItems: 'center',
+  },
+  scrollView: {
+    width: '85%',
+    marginBottom: (15 / 812) * window.height,
   },
   dropDown: {
     width: '100%',
@@ -170,5 +196,18 @@ const styles = StyleSheet.create({
     width: '85%',
     backgroundColor: 'white',
     marginBottom: (30 / 812) * window.height,
+  },
+  profile: {
+    marginRight: 10,
+    backgroundColor: Colors.grey200,
+    paddingLeft: 5,
+    borderRadius: 8,
+    elevation: 3,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  icon: {
+    marginLeft: 5,
+    backgroundColor: Colors.grey200,
   },
 })

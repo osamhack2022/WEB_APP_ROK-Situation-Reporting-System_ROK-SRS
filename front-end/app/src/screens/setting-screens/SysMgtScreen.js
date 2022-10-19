@@ -13,6 +13,8 @@ import DATA from '../../data/procData'
 // 1. Modal이 나을듯
 // delete의 경우 button을 통해?
 
+
+
 export function SysMgtScreen() {
   return (
     <SafeAreaView>

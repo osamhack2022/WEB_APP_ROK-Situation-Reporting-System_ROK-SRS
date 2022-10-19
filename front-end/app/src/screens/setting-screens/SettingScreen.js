@@ -6,7 +6,7 @@ import { SafeAreaView, StyleSheet, ScrollView, Switch, Alert } from 'react-nativ
 import { List, Colors } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
-import logoutApi from '../../apis/logoutApi'
+import logoutApi from '../../apis/sign/logoutApi'
 
 export function SettingScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)

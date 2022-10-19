@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import TabNavigator from './TabNavigator'
 import ReportNavigator from './ReportNavigator'
 import ChatNavigator from './ChatNavigator'
+import TopNavigator from './TopNavigator'
 import SettingNavigator from './SettingNavigator'
 import { LoginScreen, SignUpScreen } from '../screens'
 
@@ -19,6 +20,7 @@ export default function MainNavigator() {
         component={SignUpScreen}
         options={{ title: '사용신청', headerShown: true }}
       />
+      <Stack.Screen name="TopNavigator" component={TopNavigator} />
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
       <Stack.Screen name="ReportNavigator" component={ReportNavigator} />
       <Stack.Screen name="ChatNavigator" component={ChatNavigator} />

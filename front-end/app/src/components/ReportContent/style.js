@@ -44,14 +44,14 @@ export const styles = StyleSheet.create({
     marginTop: 10,
   },
   seqText: {
-    marginTop: 5,
-    fontFamily: 'NunitoSans_600SemiBold',
-    fontSize: 11,
+    paddingTop: 2,
+    fontFamily: 'NunitoSans_400Regular',
+    fontSize: 12,
     color: Colors.grey800,
   },
   buttonView: {
     marginTop: 10,
-    marginRight: 3,
+    marginRight: 2,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

@@ -3,7 +3,7 @@ import { FAB, Avatar, Colors } from 'react-native-paper'
 //prettier-ignore
 import { SafeAreaView, StyleSheet, TouchableOpacity, ScrollView, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import searchUserApi from '../../apis/searchUserApi'
+import searchUserApi from '../../apis/user/searchUserApi'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 
 const Item = ({ Name, Rank, pic, Position }) => (

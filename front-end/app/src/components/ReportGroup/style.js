@@ -6,13 +6,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   view: {
-    borderWidth: 1,
     borderRadius: 6,
-    borderColor: Colors.grey700,
     alignItems: 'center',
     paddingVertical: 3,
     width: 75,
     marginBottom: 2,
+    backgroundColor: Colors.grey200,
+    elevation: 3,
   },
   image: {
     marginBottom: 5,

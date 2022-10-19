@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
+//prettier-ignore
 import { SafeAreaView, StyleSheet, View, FlatList, Text } from 'react-native'
 import { TextInput } from 'react-native-paper'
+import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportHeader } from '../../components/ReportHeader'
 import { ReportContent } from '../../components/ReportContent'
 import { ReportComment } from '../../components/ReportComment'
 import { Colors } from 'react-native-paper'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
-import addCommentApi from '../../apis/addCommentApi'
+import addCommentApi from '../../apis/report/addCommentApi'
 
-const addCommentHandler = async ({ Type, Content, Title }) => {
-  const res = await addCommentApi({ Type, Content, Title })
+const addCommentHandler = async ({ Type, Content, Title, _id }) => {
+  const res = await addCommentApi({ Type, Content, Title, _id })
+  console.log(res)
 }
 
 export function ReportScreen({ route }) {
@@ -20,6 +23,14 @@ export function ReportScreen({ route }) {
 
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState([])
+
+  const [open, setOpen] = useState(false)
+  const [commentType, setCommentType] = useState('')
+  const [typeItem, setTypeItem] = useState([
+    { label: '보고', value: 'report' },
+    { label: '지시', value: 'order' },
+    { label: '긴급', value: 'emergency' },
+  ])
 
   const ListHeaderComponent = () => (
     <View style={{ width: '100%', alignItems: 'center' }}>
@@ -50,6 +61,7 @@ export function ReportScreen({ route }) {
         name={item.Name}
         position={item.position}
         Content={item.Content}
+        Type={item.Type}
       />
     )
   }
@@ -63,7 +75,23 @@ export function ReportScreen({ route }) {
         showsVerticalScrollIndicator={false}
       />
 
-      <View style={styles.view}>
+      <View style={styles.commentView}>
+        <DropDownPicker
+          placeholder="유형"
+          open={open}
+          value={commentType}
+          items={typeItem}
+          setOpen={setOpen}
+          setValue={setCommentType}
+          setItems={setTypeItem}
+          style={styles.dropDown}
+          containerStyle={{ width: '15%', marginRight: 0 }}
+          dropDownContainerStyle={styles.dropDown}
+          placeholderStyle={styles.dropDownText}
+          textStyle={styles.dropDownText}
+          showArrowIcon={false}
+          showTickIcon={false}
+        />
         <TextInput
           style={styles.commentInput}
           placeholder="댓글을 입력하세요."
@@ -75,8 +103,11 @@ export function ReportScreen({ route }) {
           value={comment}
           right={
             <TextInput.Icon
-              icon="send-circle-outline"
-              size={35}
+              icon="send-outline"
+              style={{
+                paddingTop: 8,
+              }}
+              size={25}
               color={Colors.green500}
               onPress={() => {
                 setComments([
@@ -85,9 +116,15 @@ export function ReportScreen({ route }) {
                     Name: userMe.Name,
                     position: userMe.Position,
                     Content: comment,
+                    Type: commentType,
                   },
                 ])
-                addCommentHandler({ Title, Type, Content: comment })
+                addCommentHandler({
+                  Title,
+                  Type: commentType,
+                  Content: comment,
+                  _id: userMe._id,
+                })
                 setComment('')
               }}
             />
@@ -103,18 +140,31 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
     alignItems: 'center',
-    paddingBottom: 50,
+    paddingBottom: 60,
   },
-  view: {
+  commentView: {
     bottom: 0,
     position: 'absolute',
-    width: '100%',
-    alignItems: 'center',
+    width: '99%',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   commentInput: {
-    paddingTop: 5,
-    width: '96%',
+    paddingTop: 10,
+    width: '82%',
     backgroundColor: Colors.grey100,
     elevation: 4,
+    marginLeft: 3,
+  },
+  dropDown: {
+    backgroundColor: Colors.red300,
+    borderWidth: 0,
+    borderRadius: 5,
+    elevation: 4,
+  },
+  dropDownText: {
+    color: 'white',
+    fontSize: 14,
+    textAlign: 'center',
   },
 })

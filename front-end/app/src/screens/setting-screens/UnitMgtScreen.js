@@ -3,8 +3,8 @@ import { SafeAreaView, View, StyleSheet, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { ImagePicker } from '../../components/ImagePicker'
 import { window } from '../../constants/layout'
-import updateUnitApi from '../../apis/addUnitApi'
-import updateUnitLogoApi from '../../apis/updateUnitLogoApi'
+import updateUnitApi from '../../apis/unit/addUnitApi'
+import updateUnitLogoApi from '../../apis/unit/updateUnitLogoApi'
 import { MyButton } from '../../components/MyButton'
 
 export function UnitMgtScreen() {

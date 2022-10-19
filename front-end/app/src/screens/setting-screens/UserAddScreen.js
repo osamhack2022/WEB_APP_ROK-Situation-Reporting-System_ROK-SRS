@@ -6,7 +6,7 @@ import { GuideText } from '../../components/GuideText'
 import { window } from '../../constants/layout'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { MyButton } from '../../components/MyButton'
-import addUserApi from '../../apis/addUserApi'
+import addUserApi from '../../apis/user/addUserApi'
 
 const AccountTypeItems = [
   { label: '지휘관', value: 'Commander' },

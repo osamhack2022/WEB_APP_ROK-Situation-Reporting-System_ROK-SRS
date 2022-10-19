@@ -5,7 +5,7 @@ import { SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { Colors, FAB } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
-import fetchReportApi from '../../apis/fetchReportApi'
+import fetchReportApi from '../../apis/report/fetchReportApi'
 
 const { Title, isEnd, Content, severity, date, Type } = {
   Title: '3초소 거수자 발견',
@@ -45,7 +45,11 @@ export function SentReportScreen() {
       </ScrollView>
       <FAB
         icon="pencil-plus-outline"
-        onPress={() => navigation.navigate('CreateReportScreen')}
+        onPress={() =>
+          navigation.navigate('ReportNavigator', {
+            screen: 'CreateReportScreen',
+          })
+        }
         style={styles.fab}
         color="white"
       />

@@ -1,5 +1,6 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { Colors } from 'react-native-paper'
+import ReportNavigator from './ReportNavigator'
 import { RecdReportScreen, SentReportScreen } from '../screens'
 
 const Tab = createMaterialTopTabNavigator()

@@ -3,7 +3,7 @@ import { SafeAreaView, View, StyleSheet, Alert } from 'react-native'
 import { TextInput } from 'react-native-paper'
 import { ImagePicker } from '../../components/ImagePicker'
 import { window } from '../../constants/layout'
-import addUnitApi from '../../apis/addUnitApi'
+import addUnitApi from '../../apis/unit/addUnitApi'
 import { MyButton } from '../../components/MyButton'
 
 export function UnitAddScreen() {
@@ -18,7 +18,7 @@ export function UnitAddScreen() {
 
   const [Unitname, setUnitname] = useState('')
   const [Unitslogan, setUnitslogan] = useState('')
-  const [Logo, setLogo] = useState('')s
+  const [Logo, setLogo] = useState('')
 
   return (
     <SafeAreaView style={styles.container}>
