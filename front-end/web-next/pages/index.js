@@ -6,9 +6,10 @@ import { Input, Form } from 'antd';
 import React, { useState } from 'react';
 import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/router';
+import { encryptuser, decryptuser } from "../encryption/userencryption"
 
 const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
-
+//let val = encryptuser('a', 'b')
 export default function Home() {
   const router = useRouter()
   const [DoDID, setDoDID] = useState();
@@ -37,7 +38,11 @@ export default function Home() {
       setCookie('usercookie', result.token)
       router.push('/home')
     } else {
-      setError(result.message)
+      if (result.message == '승인된 사용자이나 아직 등록되지 않았습니다. 계정 등록 후 이용해주세요.') {
+        setError('계정 등록 후 이용해주세요.')
+      } else {
+        setError(result.message)
+      }
     }
   }
   return (
