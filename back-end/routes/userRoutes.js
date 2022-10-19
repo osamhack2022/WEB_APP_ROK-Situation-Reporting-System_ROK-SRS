@@ -5,6 +5,7 @@ const {
   allUsers,
   addUser,
   updateUser,
+  updateUser2,
   updatePic
 } = require("../controllers/userControllers");
 const {
@@ -16,6 +17,7 @@ const router = express.Router();
 
 router.route("/").get(protect, allUsers); //protect,
 router.route("/").put(protect, updateUser);
+router.route("/updateweb").post(onlyAdmin, updateUser2);
 router.route("/pic").put(protect, updatePic); //protect,
 router.route("/add").post(onlyAdmin, addUser);
 router.route("/register").post(registerUser);
