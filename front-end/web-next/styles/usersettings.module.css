@@ -1,0 +1,99 @@
+.background {
+    height: 100%; 
+    display: block; 
+    min-width: 1100px;
+    overflow-x: scroll; 
+}
+
+
+.lastitem {
+    color: grey; 
+}
+
+.userdatachange {
+    width: 700px;
+    min-width: 650px;
+    height: 563px; 
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 30px;
+    margin-top: 40px;
+    display: flex; 
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.userimagechange {
+    width: 300px; 
+    height: 400px; 
+    background-color: white; 
+    border-radius: 10px;
+    margin-top: 40px;
+    margin-left: 20px;
+    display: flex; 
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.userheader {
+    margin-bottom: 0px;
+}
+
+.input {
+    margin-bottom: 10px;
+}
+
+.resetpassword {
+    width: 700px; 
+    height: 350px; 
+    background-color: white; 
+    border-radius: 10px; 
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    margin-left: 30px;
+    margin-top: 20px;
+    display: flex; 
+    justify-content: center;
+}
+
+#error1 {
+    color: red; 
+    font-size: 14px; 
+    line-height: 30px;
+    margin-left: 15px;
+    margin-top: 3px;
+}
+#success1 {
+    color: green; 
+    font-size: 14px; 
+    line-height: 30px;
+    margin-top: 3px;
+}
+.submitbutton {
+    background-color: #008272;
+    border-radius: 20px; 
+    width: 120px; 
+    border: none; 
+    display: block; 
+    color: white; 
+    height: 30px; 
+    margin-top: 3px;
+}
+
+.submitbutton:hover {
+    cursor: pointer; 
+    background-color: #005c51;
+}
+
+#error2 {
+    color: red; 
+    font-size: 14px; 
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    line-height: 30px;
+}
+#success2 {
+    color: green; 
+    font-size: 14px; 
+    text-align: center;
+    line-height: 30px;
+}

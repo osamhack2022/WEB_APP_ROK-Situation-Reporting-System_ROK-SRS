@@ -1,9 +1,5 @@
-import Head from 'next/head'
-import Link from "next/link"
-import { InfoCircleOutlined } from '@ant-design/icons';
-import MenuBar from '../../componenets/menubar'
-import RegisterHeader from '../../componenets/registerheader';
-import { Avatar, Divider, List, Skeleton, Button, Input, Radio, message, Upload, Image, TreeSelect, Form } from 'antd';
+
+import { Avatar, List, Skeleton, Button, Input, Upload, Image, TreeSelect, Form, PageHeader, Breadcrumb } from 'antd';
 import styles from '../../styles/unitsettings.module.css'
 import unitlogo from '../../img/unitlogo.png'
 import React, { useEffect, useState } from 'react';
@@ -197,8 +193,20 @@ const UnitSettings = () => {
 
     return <>
         <div className={styles.background}>
-            <RegisterHeader></RegisterHeader>
-            <div className={styles.formarea}>
+        <PageHeader className="site-page-header" title="부대설정"
+            breadcrumb={  
+            <Breadcrumb>
+                <Breadcrumb.Item>
+                    <a href = "/settings">계정설정</a>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item style = {{color: 'black', cursor: 'pointer'}}>부대설정</Breadcrumb.Item>
+                <Breadcrumb.Item className = {styles.lastitem}>
+                  <a href="settings/reportsystem">보고체계 설정</a>
+                </Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    <a style = {{display: 'none'}}>hi</a>
+                </Breadcrumb.Item>
+              </Breadcrumb> } style={{backgroundColor: "white",  boxShadow: 'inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3)'}}/>            <div className={styles.formarea}>
                 <div className={styles.formarea1}>
                     <Form className={styles.changeunitinfo} onFinish={submitunitinfo}>
                         <h1>부대정보 번경</h1>

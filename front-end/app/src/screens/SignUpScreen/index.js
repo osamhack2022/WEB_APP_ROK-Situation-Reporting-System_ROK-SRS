@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo, useRef } from 'react'
 import { TextInput } from 'react-native-paper'
 // prettier-ignore
 import { View ,SafeAreaView, TouchableOpacity, ScrollView, Text, Alert } from 'react-native'
@@ -41,6 +41,20 @@ export function SignUpScreen() {
   const [Name, setName] = useState('')
   const [Invcode, setInvcode] = useState('')
 
+  const ref_input = useMemo([], [])
+  for (let i = 0; i < 6; i++) {
+    ref_input[i] = useRef(null)
+  }
+
+  const onFocusNext = (index) => {
+    if (ref_input[index + 1] && index < ref_input.length - 1) {
+      ref_input[index + 1].current?.focus()
+    }
+    if (ref_input[index + 1] && index == ref_input.length - 1) {
+      ref_input[index].current?.blur()
+    }
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView
@@ -73,6 +87,8 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(Name) => setName(Name)}
             style={styles.signUpTextInput}
+            ref={ref_input[0]}
+            onSubmitEditing={() => onFocusNext[0]}
           />
           <View style={styles.guideTextView}>
             <GuideText guideText={``} />
@@ -83,6 +99,8 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(DoDID) => setDoDID(DoDID)}
             style={styles.signUpTextInput}
+            ref={ref_input[1]}
+            onSubmitEditing={() => onFocusNext[1]}
           />
           <View style={styles.guideTextView}>
             <GuideText guideText={`2x-xxxxxxxx`} />
@@ -93,6 +111,8 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(password) => setPassword(password)}
             style={styles.signUpTextInput}
+            ref={ref_input[2]}
+            onSubmitEditing={() => onFocusNext[2]}
           />
           <View style={styles.guideTextView}>
             <GuideText guideText={`${password.length}/15`} />
@@ -105,6 +125,8 @@ export function SignUpScreen() {
               setConfirmPassword(confirmPassword)
             }
             style={styles.signUpTextInput}
+            ref={ref_input[3]}
+            onSubmitEditing={() => onFocusNext[3]}
           />
           <View style={styles.guideTextView}>
             <GuideText
@@ -117,6 +139,8 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(email) => setEmail(email)}
             style={styles.signUpTextInput}
+            ref={ref_input[4]}
+            onSubmitEditing={() => onFocusNext[4]}
           />
           <View style={styles.guideTextView}>
             <GuideText guideText={``} />
@@ -127,6 +151,8 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(Invcode) => setInvcode(Invcode)}
             style={styles.signUpTextInput}
+            ref={ref_input[5]}
+            onSubmitEditing={() => onFocusNext[5]}
           />
           <View style={styles.guideTextView}>
             <GuideText guideText={`부대에서 받은 초대코드 입력`} />

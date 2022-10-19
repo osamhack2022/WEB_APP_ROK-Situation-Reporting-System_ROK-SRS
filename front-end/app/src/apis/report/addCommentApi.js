@@ -1,7 +1,7 @@
 import URL from '../../../url'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
-const addCommentApi = async ({ Type, Content, Title }) => {
+const addCommentApi = async ({ Type, Content }) => {
   try {
     const res = await fetch(URL, {
       method: 'POST',
@@ -12,10 +12,7 @@ const addCommentApi = async ({ Type, Content, Title }) => {
       },
       body: {
         Type,
-        Reportsystems,
-        Additionalpeople,
         Content,
-        Title,
       },
     })
     return res.json()

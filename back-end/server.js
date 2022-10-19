@@ -8,7 +8,7 @@ const messageRoutes = require("./routes/messageRoutes");
 const unitRoutes = require("./routes/unitRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const commentRoutes = require("./routes/commentRoutes");
-
+const reportsysRoutes = require("./routes/reportsysRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const path = require("path");
 
@@ -29,12 +29,11 @@ app.use("/api/message", messageRoutes);
 app.use("/api/unit", unitRoutes);
 app.use("/api/report", reportRoutes);
 app.use("/api/comment", commentRoutes);
+app.use("/api/reportsys", reportsysRoutes);
 
 /*const __dirname1 = path.resolve();
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname1, "/frontend/build")));
-
   app.get("*", (req, res) =>
     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
   );

@@ -1,10 +1,11 @@
 import URL from '../../../url'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
-const searchUserApi = async (query) => {
+const getReportsysApi = async (query) => {
   const searchQuery = query ? query : ''
+  console.log(URL + '/api/reportsys?search=' + searchQuery)
   try {
-    const res = await fetch(URL + '/api/user?search=' + searchQuery, {
+    const res = await fetch(URL + '/api/reportsys?search=' + searchQuery, {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${await asyncStorage.getItem('roksrs-token')}`,
@@ -16,4 +17,4 @@ const searchUserApi = async (query) => {
   }
 }
 
-export default searchUserApi
+export default getReportsysApi
