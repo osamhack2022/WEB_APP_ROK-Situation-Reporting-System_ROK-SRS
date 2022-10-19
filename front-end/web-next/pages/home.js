@@ -109,14 +109,16 @@ const Home = (props) => {
         </div>
     </>
 }
-const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
-let endpoint = backendroot + 'api/user?search='
-const secret = process.env.JWT_SECRET
+
 
 export async function getServerSideProps(context) {
+    const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
+    const endpoint = backendroot + 'api/user?search='
+    const secret = process.env.JWT_SECRET
     const JWTtoken = context.req.cookies['usercookie']; // => 'value'
     const { payload } = await jwtVerify(JWTtoken, new TextEncoder().encode(secret))
     let id = payload['id']
+    console.log(endpoint + id)
     const options = {
         // The method is POST because we are sending data.
         method: 'GET',
@@ -132,8 +134,9 @@ export async function getServerSideProps(context) {
     //Pass data to the page via props
     // console.log('hi')
     // console.log(data[0]['Unit'])
-    if (data[0]['Unit']) {
-        endpoint = backendroot + 'api/unit/get?search='
+
+    if (data[0] && data[0]['Unit']) {
+        let endpoint2 = backendroot + 'api/unit/get?search='
         const options = {
             // The method is POST because we are sending data.
             method: 'GET',
@@ -143,7 +146,7 @@ export async function getServerSideProps(context) {
                 'Authorization': 'Bearer ' + JWTtoken
             }
         }
-        const res2 = await fetch(endpoint + data[0]['Unit'], options)
+        const res2 = await fetch(endpoint2 + data[0]['Unit'], options)
         const data2 = await res2.json()
         return { props: { data, data2 } }
 

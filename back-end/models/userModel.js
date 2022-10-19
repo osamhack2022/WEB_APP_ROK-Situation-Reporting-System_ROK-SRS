@@ -20,6 +20,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  Role: {
+    type: String,
+  },
   Type: {
     type: String,
     required: true
@@ -33,23 +36,19 @@ const userSchema = mongoose.Schema({
   },
   Position: {
     type: String,
-    required: false,
-    default: "no data"
+    required: false
   },
   email: {
     type: String,
-    required: false,
-    default: "no data"
+    required: false
   },
   milNumber: {
     type: String,
-    required: false,
-    default: "no data"
+    required: false
   },
   number: {
     type: String,
-    required: false,
-    default: "no data"
+    required: false
   },
   pic: {
     type: String,
