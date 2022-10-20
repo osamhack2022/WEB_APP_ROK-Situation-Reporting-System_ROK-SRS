@@ -40,7 +40,7 @@ export function UnitAddScreen() {
       </View>
       <ImagePicker imageUrl={Logo} setImageUrl={setLogo} />
       <MyButton
-        text="부대 정보 변경"
+        text="부대 추가"
         onPress={() => addUnitHandler({ Unitname, Unitslogan, Logo })}
       />
     </SafeAreaView>

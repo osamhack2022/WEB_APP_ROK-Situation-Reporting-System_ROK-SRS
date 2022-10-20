@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 // prettier-ignore
 import { SafeAreaView, View, StyleSheet, ScrollView } from 'react-native'
 import { Colors, TextInput, IconButton } from 'react-native-paper'
@@ -21,12 +21,15 @@ export function CreateReportScreen() {
   const [addedUser, setAddedUser] = useState([])
 
   const onRemove = (_id) => {
+    console.log(addedUser)
+
     setAddedUser(addedUser.filter((user) => user._id !== _id))
   }
 
   const fetchUserHandler = async (query) => {
     const res = await searchUserApi(query)
-    console.log(res)
+    // console.log(res)
+    // console.log(addedUser)
     setAddedUser([...addedUser, res])
   }
 
@@ -48,7 +51,7 @@ export function CreateReportScreen() {
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
 
-  console.log(addedUser)
+  const plusRef = useRef(null)
 
   return (
     <SafeAreaView style={styles.container}>
@@ -113,13 +116,18 @@ export function CreateReportScreen() {
           dense={true}
           style={[styles.textInput, { marginBottom: 15 }]}
           onChangeText={(query) => setQuery(query)}
+          ref={plusRef}
           right={
             <TextInput.Icon
               icon="plus"
               color={Colors.green600}
               size={25}
               style={{ marginTop: 15 }}
-              onPress={() => fetchUserHandler(query)}
+              onPress={() => {
+                fetchUserHandler(query)
+                plusRef.current.blur()
+              }}
+              forceTextInputFocus={false}
             />
           }
           onSubmitEditing={() => fetchUserHandler(query)}
@@ -201,13 +209,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
     backgroundColor: Colors.grey200,
     paddingLeft: 5,
+    paddingVertical: 5,
     borderRadius: 8,
     elevation: 3,
     flexDirection: 'row',
     alignItems: 'center',
   },
   icon: {
-    marginLeft: 5,
     backgroundColor: Colors.grey200,
   },
 })

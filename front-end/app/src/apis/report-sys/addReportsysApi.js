@@ -1,7 +1,7 @@
 import URL from '../../../url'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
-const addReportsysApi = async ({ Title, List }) => {
+const addReportsysApi = async ({ Title, List, Unit }) => {
   try {
     const res = await fetch(URL + '/api/reportsys', {
       method: 'POST',
@@ -11,6 +11,7 @@ const addReportsysApi = async ({ Title, List }) => {
         Authorization: `Bearer ${await asyncStorage.getItem('roksrs-token')}`,
       },
       body: JSON.stringify({ Title, List }),
+      user: JSON.stringify({ Unit }),
     })
     return res.json()
   } catch (error) {

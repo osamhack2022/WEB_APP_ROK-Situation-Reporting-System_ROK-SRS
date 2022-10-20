@@ -10,14 +10,8 @@ const addCommentApi = async ({ Type, Content, Title, _id }) => {
         Accept: 'application/json',
         Authorization: `Bearer ${await asyncStorage.getItem('roksrs-token')}`,
       },
-      body: JSON.stringify({
-        Type: Type,
-        Content: Content,
-        Title: Title,
-      }),
-      user: JSON.stringify({
-        _id: _id,
-      }),
+      body: JSON.stringify({ Type, Content, Title }),
+      user: JSON.stringify({ _id }),
     })
     return res.json()
   } catch (error) {

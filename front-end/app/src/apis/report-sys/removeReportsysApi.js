@@ -1,7 +1,7 @@
 import URL from '../../../url'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
-const removeReportsysApi = async ({ _id }) => {
+const removeReportsysApi = async ({ _id, Unit }) => {
   try {
     const res = await fetch(URL + '/api/reportsys', {
       method: 'DELETE',
@@ -11,6 +11,7 @@ const removeReportsysApi = async ({ _id }) => {
         Authorization: `Bearer ${await asyncStorage.getItem('roksrs-token')}`,
       },
       body: JSON.stringify({ _id }),
+      user: JSON.stringify({ Unit }),
     })
     return res.json()
   } catch (error) {

@@ -8,14 +8,39 @@ const UnitM = require("../models/unitModel");
 //@route           GET /api/user?search=?index=
 //@access          Protected
 const allUsers = asyncHandler(async (req, res) => {
-  const ranks = ["CV9", "CV8", "CV7",
-    "CV6", "CV5", "CV4", "CV3", "CV2",
-    "CV1", "PVT", "PFC", "CPL", "SGT",
-    "SST", "SFC", "MST", "SGM", "SEC",
-    "LIU", "LIU", "CPT", "MAJ", "LTC",
-    "COL", "BG", "MG", "LG", "GEN"
+  const ranks = [
+    "CV9",
+    "CV8",
+    "CV7",
+    "CV6",
+    "CV5",
+    "CV4",
+    "CV3",
+    "CV2",
+    "CV1",
+    "PVT",
+    "PFC",
+    "CPL",
+    "SGT",
+    "SST",
+    "SFC",
+    "MST",
+    "SGM",
+    "SEC",
+    "LIU",
+    "LIU",
+    "CPT",
+    "MAJ",
+    "LTC",
+    "COL",
+    "BG",
+    "MG",
+    "LG",
+    "GEN",
   ];
-  const keyword = req.query.search /*?
+
+  console.log(req.query);
+  const keyword = req.query.search; /*?
     {
       $or: [{
           Name: {
@@ -33,35 +58,35 @@ const allUsers = asyncHandler(async (req, res) => {
       ],
     } :
     0;*/
-  users = await User.find({}, {
-    password: 0
-  });
+  users = await User.find(
+    {},
+    {
+      password: 0,
+    }
+  );
   users.sort(function (a, b) {
-    return (ranks.indexOf(b.Rank) + (b.is_registered ? 0 : 100)) - (ranks.indexOf(a.Rank) + (a.is_registered ? 0 : 100));
+    return (
+      ranks.indexOf(b.Rank) +
+      (b.is_registered ? 0 : 100) -
+      (ranks.indexOf(a.Rank) + (a.is_registered ? 0 : 100))
+    );
   });
   const index = req.query.index;
   if (index) {
     res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
   } else if (keyword) {
-    res.send(await User.find({ _id: { $eq: keyword }}, {password: 0})); //.find({ _id: { $ne: req.user._id } }));
+    res.send(await User.find({ _id: { $eq: keyword } }, { password: 0 })); //.find({ _id: { $ne: req.user._id } }));
   } else {
     res.status(400);
     throw new Error("잘못된 요청입니다.");
   }
-
 });
 
 //@description     Add new user
 //@route           POST /api/user/add
 //@access          Protected
 const addUser = asyncHandler(async (req, res) => {
-  const {
-    Rank,
-    Name,
-    DoDID,
-    Type
-  } = req.body;
-
+  const { Rank, Name, DoDID, Type } = req.body;
 
   if (!Rank || !Name || !DoDID || !Type) {
     res.status(400);
@@ -69,7 +94,7 @@ const addUser = asyncHandler(async (req, res) => {
   }
 
   const userExists = await User.findOne({
-    DoDID
+    DoDID,
   });
 
   if (userExists) {
@@ -85,18 +110,20 @@ const addUser = asyncHandler(async (req, res) => {
     Rank,
     Type,
     Invcode,
-    Unit
+    Unit,
   });
 
   const added = await UnitM.findByIdAndUpdate(
-    Unit._id, {
+    Unit._id,
+    {
       $push: {
-        Members: user._id
+        Members: user._id,
       },
-    }, {
+    },
+    {
       new: true,
     }
-  )
+  );
 
   if (user) {
     res.status(201).json({
@@ -106,7 +133,7 @@ const addUser = asyncHandler(async (req, res) => {
       DoDID: user.DoDID,
       Type: user.Type,
       Invcode: user.Invcode,
-      Unit: user.Unit
+      Unit: user.Unit,
     });
   } else {
     res.status(400);
@@ -118,12 +145,7 @@ const addUser = asyncHandler(async (req, res) => {
 //@route           POST /api/user/register
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
-  const {
-    DoDID,
-    password,
-    pic,
-    Invcode
-  } = req.body;
+  const { DoDID, password, pic, Invcode } = req.body;
   //049opo6a
   if (!password || !DoDID || !Invcode) {
     res.status(400);
@@ -131,7 +153,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const userDb = await User.findOne({
-    DoDID
+    DoDID,
   });
 
   if (!userDb) {
@@ -150,14 +172,16 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const updatedUser = await User.findByIdAndUpdate(
-    userDb._id, {
+    userDb._id,
+    {
       password: await bcrypt.hash(password, await bcrypt.genSalt(10)),
       pic: pic,
-      is_registered: true
-    }, {
+      is_registered: true,
+    },
+    {
       new: true,
     }
-  )
+  );
 
   if (!updatedUser) {
     res.status(400);
@@ -177,16 +201,15 @@ const registerUser = asyncHandler(async (req, res) => {
 //@route           POST /api/users/login
 //@access          public
 const authUser = asyncHandler(async (req, res) => {
-  const {
-    DoDID,
-    password
-  } = req.body;
+  const { DoDID, password } = req.body;
   const user = await User.findOne({
-    DoDID
+    DoDID,
   });
   if (user && !user.is_registered) {
     res.status(400);
-    throw new Error("승인된 사용자이나 아직 등록되지 않았습니다. 계정 등록 후 이용해주세요.");
+    throw new Error(
+      "승인된 사용자이나 아직 등록되지 않았습니다. 계정 등록 후 이용해주세요."
+    );
   }
 
   if (user && (await user.matchPassword(password))) {
@@ -210,13 +233,7 @@ const authUser = asyncHandler(async (req, res) => {
 //@route           PUT /api/user
 //@access          protect
 const updateUser = asyncHandler(async (req, res) => {
-  const {
-    Rank,
-    Name,
-    email,
-    milNumber,
-    number
-  } = req.body;
+  const { Rank, Name, email, milNumber, number } = req.body;
 
   if (!Rank && !Name && !email && !milNumber && !number) {
     res.status(400);
@@ -225,7 +242,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
   const DoDID = req.user.DoDID;
   const userDb = await User.findOne({
-    DoDID
+    DoDID,
   });
 
   if (!userDb) {
@@ -240,16 +257,18 @@ const updateUser = asyncHandler(async (req, res) => {
 
   const noData = "";
   const updatedUser = await User.findByIdAndUpdate(
-    userDb._id, {
+    userDb._id,
+    {
       Rank: Rank != noData ? Rank : userDb.Rank,
       Name: Name != noData ? Name : userDb.Name,
       email: email != noData ? email : userDb.email,
       milNumber: milNumber != noData ? milNumber : userDb.milNumber,
-      number: number != noData ? number : userDb.number
-    }, {
+      number: number != noData ? number : userDb.number,
+    },
+    {
       new: true,
     }
-  )
+  );
 
   if (!updatedUser) {
     res.status(400);
@@ -273,9 +292,7 @@ const updateUser = asyncHandler(async (req, res) => {
 //@route           PUT /api/user/pic
 //@access          protect
 const updatePic = asyncHandler(async (req, res) => {
-  const {
-    pic
-  } = req.body;
+  const { pic } = req.body;
 
   if (!pic) {
     res.status(400);
@@ -284,7 +301,7 @@ const updatePic = asyncHandler(async (req, res) => {
 
   const DoDID = req.user.DoDID;
   const userDb = await User.findOne({
-    DoDID
+    DoDID,
   });
 
   if (!userDb) {
@@ -298,12 +315,14 @@ const updatePic = asyncHandler(async (req, res) => {
   }
 
   const updatedUser = await User.findByIdAndUpdate(
-    userDb._id, {
-      pic: pic
-    }, {
+    userDb._id,
+    {
+      pic: pic,
+    },
+    {
       new: true,
     }
-  )
+  );
 
   if (!updatedUser) {
     res.status(400);
@@ -329,5 +348,5 @@ module.exports = {
   registerUser,
   authUser,
   updateUser,
-  updatePic
+  updatePic,
 };

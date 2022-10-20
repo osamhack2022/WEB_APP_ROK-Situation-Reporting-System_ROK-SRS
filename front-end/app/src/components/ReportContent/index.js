@@ -4,7 +4,7 @@ import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import { Profile } from '../Profile'
 import { styles } from './style'
 
-export function ReportContent({ Content, Type }) {
+export function ReportContent(props) {
   let [fontsLoaded] = useNunitoFonts()
 
   return (
@@ -16,7 +16,7 @@ export function ReportContent({ Content, Type }) {
         src={require('../../assets/images/avatar.png')}
       />
       <View style={styles.flexRow}>
-        <Paragraph style={styles.paragraph}>{Content}</Paragraph>
+        <Paragraph style={styles.paragraph}>{props.Content}</Paragraph>
       </View>
       <View style={styles.contView}>
         <View style={styles.seqView}>

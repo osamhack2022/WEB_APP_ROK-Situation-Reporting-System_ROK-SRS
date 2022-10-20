@@ -24,7 +24,7 @@ export function UserMgtScreen() {
   const [data, setData] = useState([])
   useEffect(() => {
     const fetchUserHandler = async () => {
-      setData([...(await searchUserApi())])
+      setData([...(await searchUserApi({ index: 1 }))])
     }
     fetchUserHandler()
   }, [])
@@ -45,12 +45,7 @@ export function UserMgtScreen() {
             />
           ))}
       </ScrollView>
-      <FAB
-        icon="account-plus"
-        style={styles.fab}
-        onPress={() => navigation.navigate('UserAddScreen')}
-        color="white"
-      />
+      <FAB icon="account-plus" style={styles.fab} color="white" />
     </SafeAreaView>
   )
 }

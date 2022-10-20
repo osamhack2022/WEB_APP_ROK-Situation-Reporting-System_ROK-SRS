@@ -39,14 +39,22 @@ export function SettingScreen() {
           left={() => <List.Icon icon="logout" />}
           style={styles.listItem}
           onPress={() =>
-            logoutHandler(() => navigation.navigate('LoginScreen'))
+            logoutHandler(() =>
+              navigation.navigate('SettingNavigator', {
+                screen: 'LoginScreen',
+              })
+            )
           }
         />
         <List.Item
           title="내 정보 수정"
           left={() => <List.Icon icon="account-edit" />}
           style={styles.listItem}
-          onPress={() => navigation.navigate('UserUpdateScreen')}
+          onPress={() =>
+            navigation.navigate('SettingNavigator', {
+              screen: 'UserUpdateScreen',
+            })
+          }
         />
         <List.Item
           title="앱 알림 설정"
@@ -69,25 +77,41 @@ export function SettingScreen() {
           title="사용자 관리"
           left={() => <List.Icon icon="account-details" />}
           style={styles.listItem}
-          onPress={() => navigation.navigate('UserMgtScreen')}
+          onPress={() =>
+            navigation.navigate('SettingNavigator', {
+              screen: 'UserMgtScreen',
+            })
+          }
         />
         <List.Item
           title="부대 관리"
           left={() => <List.Icon icon="account-multiple-check" />}
           style={styles.listItem}
-          onPress={() => navigation.navigate('UnitMgtScreen')}
+          onPress={() =>
+            navigation.navigate('SettingNavigator', {
+              screen: 'UnitMgtScreen',
+            })
+          }
         />
         <List.Item
           title="부대 추가"
           left={() => <List.Icon icon="account-multiple-check" />}
           style={styles.listItem}
-          onPress={() => navigation.navigate('UnitAddScreen')}
+          onPress={() =>
+            navigation.navigate('SettingNavigator', {
+              screen: 'UnitAddScreen',
+            })
+          }
         />
         <List.Item
           title="보고체계 관리"
           left={() => <List.Icon icon="arrow-decision" />}
           style={styles.listItem}
-          onPress={() => navigation.navigate('ProcMgtScreen')}
+          onPress={() =>
+            navigation.navigate('SettingNavigator', {
+              screen: 'ProcMgtScreen',
+            })
+          }
         />
       </ScrollView>
     </SafeAreaView>

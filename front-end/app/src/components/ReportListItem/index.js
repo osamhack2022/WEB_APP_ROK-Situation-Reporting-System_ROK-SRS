@@ -7,7 +7,6 @@ import { styles } from './style'
 
 export function ReportListItem(props) {
   const { Title, isEnd, Content, severity, date, Type } = props
-  console.log(props)
 
   let [fontsLoaded] = useNunitoFonts()
 

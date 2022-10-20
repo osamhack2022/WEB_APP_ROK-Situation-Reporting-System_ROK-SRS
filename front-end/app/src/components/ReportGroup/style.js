@@ -5,27 +5,12 @@ export const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
   },
-  view: {
-    borderRadius: 6,
-    alignItems: 'center',
-    paddingVertical: 3,
-    width: 75,
-    marginBottom: 2,
-    backgroundColor: Colors.grey200,
-    elevation: 3,
-  },
-  image: {
-    marginBottom: 5,
-  },
-  itemText: {
-    fontFamily: 'NunitoSans_400Regular',
-    fontSize: 12,
-  },
+  image: { width: 30, height: 20, marginHorizontal: 7, marginTop: 38 },
   text: {
     fontFamily: 'NunitoSans_300Light',
-    color: Colors.grey700,
-    fontSize: 13,
-    paddingTop: 1,
+    color: Colors.grey800,
+    fontSize: 12,
+    paddingTop: 3,
     marginBottom: 10,
   },
 })

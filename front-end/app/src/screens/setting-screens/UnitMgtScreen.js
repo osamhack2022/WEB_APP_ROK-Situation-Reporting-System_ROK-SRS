@@ -51,6 +51,7 @@ export function UnitMgtScreen() {
       <MyButton
         text="부대 정보 변경"
         onPress={() => updateUnitHandler({ Unitname, Unitslogan })}
+        style={{ marginBottom: 30 }}
       />
       <ImagePicker imageUrl={Logo} setImageUrl={setLogo} />
       <MyButton
