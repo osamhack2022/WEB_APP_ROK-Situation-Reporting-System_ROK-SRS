@@ -3,13 +3,12 @@ import style from '../styles/homepage.module.css'
 import Image from 'next/image'
 import unitlogo from '../img/unitlogo.png'
 import { Descriptions, Tabs, Avatar, List, PageHeader, Button, Input, Space } from 'antd';
+import {decryptuser, encryptuser} from '../encryption/userencryption'
 import { jwtVerify } from 'jose';
-
 
 
 const { Search } = Input;
 let onSearch = async (event) => {
-    console.log('hi')
 }
 
 const data = [
@@ -29,7 +28,6 @@ const data = [
 
 
 const Home = (props) => {
-    console.log(props)
     let props1 = props['data'][0]
     let props2 = props['data2'][0]
 
@@ -112,13 +110,15 @@ const Home = (props) => {
 
 
 export async function getServerSideProps(context) {
+    // let ciphertext = await encryptuser('test133', 'hfipoawefjapoiwfhawpoeifjwf')
+    // let decrypt = await decryptuser('test133', ciphertext)
+    // console.log(decrypt)
     const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
     const endpoint = backendroot + 'api/user?search='
     const secret = process.env.JWT_SECRET
     const JWTtoken = context.req.cookies['usercookie']; // => 'value'
     const { payload } = await jwtVerify(JWTtoken, new TextEncoder().encode(secret))
     let id = payload['id']
-    console.log(endpoint + id)
     const options = {
         // The method is POST because we are sending data.
         method: 'GET',
