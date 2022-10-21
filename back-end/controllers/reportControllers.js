@@ -7,19 +7,13 @@ const getScore = require('../ai/classifier.js')
 var mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 
-//@description     Get report cards
-//@route           GET /api/report?index=
+//@description     Get all report cards
+//@route           GET /api/report
 //@access          Protected
 const getReportCard = asyncHandler(async (req, res) => {
-  const { index } = req.query;
 
-  if (!index) {
-    res.status(400);
-    throw new Error("잘못된 요청입니다.");
-  }
-
-  let reportCards = await new Report({}, { password: 0 });
-  res.send(reportCards.at(index));
+  let reportCards = await Report.find({});
+  res.send(reportCards);
 });
 
 //@description     Create new report card

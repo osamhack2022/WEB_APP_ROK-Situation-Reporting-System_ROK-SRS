@@ -39,10 +39,10 @@ function ReportList(props) {
       renderItem={(item) => (
         <List.Item>
           <ReportCard
-            name={item.name}
-            position={item.position}
-            memo={item.memo}
-            datetime={item.datetime}
+            name={item.User?.Name}
+            position={item.User?.Position}
+            memo={item.Content}
+            datetime={item.createdAt}
           />
         </List.Item>
       )}
