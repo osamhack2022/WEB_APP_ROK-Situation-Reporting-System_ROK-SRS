@@ -64,17 +64,17 @@ export default function Memo() {
     return (
       <div>
         <p className={Styles.headerTitle}>
-          {props.Title}
-          {props.Status === 'Unresolved' ? ' [미종결]' : ' [종결]'}
+          {props.title}
+          {props.status === 'Unresolved' ? ' [미종결]' : ' [종결]'}
         </p>
         <div className={Styles.headerType}>
           <Row
             justify='end'
             gutter={12}
           >
-            <Col>종류: {props.Type}</Col>
-            <Col>중요도: {props.Severity}</Col>
-            <Col>{props.createdAt}</Col>
+            <Col>종류: {props.type}</Col>
+            <Col>중요도: {props.level}</Col>
+            <Col>{props.datetime}</Col>
           </Row>
         </div>
       </div>
@@ -178,7 +178,7 @@ export default function Memo() {
                         type={memoRenderList[selectedItem].Type}
                         level={memoRenderList[selectedItem].Severity}
                         datetime={memoRenderList[selectedItem].createdAt}
-                        isDone={memoRenderList[selectedItem].Status}
+                        status={memoRenderList[selectedItem].Status}
                       />
                     }
                     footer={
