@@ -153,7 +153,7 @@ function MemoForm(props) {
   const [memoContent, setMemoContent] = useState('');
   const [fetchedInvitedList, setFetchedInvitedList] = useState([]);
 
-  const fetchInvited = useCallback(async() => {
+  const fetchInvited = useCallback(async () => {
     await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user?index=0', {
       'method': 'GET',
       'headers': {
@@ -161,9 +161,20 @@ function MemoForm(props) {
         'authorization': `Bearer ${getCookie('usercookie')}`
       }
     })
-    .then(response => response.json())
-    .then(data => setFetchedInvitedList(data))
-    console.log(fetchedInvitedList)
+      .then(response => response.json())
+      .then(data => setFetchedInvitedList(data))
+  }, [setFetchedInvitedList]);
+
+  const fetchInvitedFromKeyword = useCallback(async (keyword) => {
+    await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user?search=' + keyword, {
+      'method': 'GET',
+      'headers': {
+        'content-type': 'application/json',
+        'authorization': `Bearer ${getCookie('usercookie')}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => setFetchedInvitedList(data))
   }, [setFetchedInvitedList]);
 
   const findFromId = useCallback((list, target) => {
@@ -205,76 +216,40 @@ function MemoForm(props) {
     >
       <div className={styles.formLayout}>
         <div className="memoCustomForm">
-        <div className={styles.formElement}>
-          <p className={styles.formLabel}>제목</p>
-          <input
-            className={styles.formTitleInput}
-            value={memoTitle}
-            onChange={(event) => setMemoTitle(event.target.value)}
-          />
-        </div>
-        <div className={styles.formElement}>
-          <p className={styles.formLabel}>보고 종류</p>
-          <Select
-            className={styles.formTypeInput}
-            bordered={false}
-            value={memoType}
-            onChange={setMemoType}
-          >
-            <Select.Option value="보고사항">보고사항</Select.Option>
-            <Select.Option value="지시사항">지시사항</Select.Option>
-            <Select.Option value="긴급사항">긴급사항</Select.Option>
-          </Select>
-        </div>
-        <div className={styles.formElement}>
-          <p className={styles.formLabel}>보고 체계</p>
-          <Select
-            labelInValue
-            className={styles.formOrgInput}
-            mode="multiple"
-            bordered={false}
-            value={reportOrg.length !== 0 ? reportOrg : undefined}
-            onChange={setReportOrg}
-          >
-            {orgType.map((item) => (
-              <Select.Option key={item.key} value={item.name}>
-                {item.name}
-              </Select.Option>
-            ))}
-          </Select>
-          <Button
-            className={styles.plusButton}
-            shape="circle"
-            icon={<PlusOutlined />}
-            onClick={() => {
-              if (reportOrg.length !== 0)
-                reportOrg.forEach(({ key }) => addList(key, setReportOrg, setReportOrgList, orgType));
-            }}
-          />
-        </div>
-        {
-          reportOrgList.length !== 0 &&
           <div className={styles.formElement}>
-            <p className={styles.formLabel}>보고 인원</p>
-            {reportOrgList.map((org) => linkedUnit(org.list, org.key, () => deleteList(setReportOrgList, org.key)))}
+            <p className={styles.formLabel}>제목</p>
+            <input
+              className={styles.formTitleInput}
+              value={memoTitle}
+              onChange={(event) => setMemoTitle(event.target.value)}
+            />
           </div>
-        }
-        <div className={styles.formElement}>
-          <div>
-            <p className={styles.formLabel}>추가 인원</p>
+          <div className={styles.formElement}>
+            <p className={styles.formLabel}>보고 종류</p>
+            <Select
+              className={styles.formTypeInput}
+              bordered={false}
+              value={memoType}
+              onChange={setMemoType}
+            >
+              <Select.Option value="보고사항">보고사항</Select.Option>
+              <Select.Option value="지시사항">지시사항</Select.Option>
+              <Select.Option value="긴급사항">긴급사항</Select.Option>
+            </Select>
+          </div>
+          <div className={styles.formElement}>
+            <p className={styles.formLabel}>보고 체계</p>
             <Select
               labelInValue
-              className={styles.formAdditionInput}
+              className={styles.formOrgInput}
               mode="multiple"
               bordered={false}
-              value={addUser.length !== 0 ? addUser : undefined}
-              onFocus={fetchInvited}
-              onChange={setAddUser}
+              value={reportOrg.length !== 0 ? reportOrg : undefined}
+              onChange={setReportOrg}
             >
-              {fetchedInvitedList.map((item) => (
-                item.DoDID && 
-                <Select.Option key={item.DoDID} value={'' + item.Rank + ' ' + item.Name}>
-                  {'' + item.Rank + ' ' + item.Name}
+              {orgType.map((item) => (
+                <Select.Option key={item.key} value={item.name}>
+                  {item.name}
                 </Select.Option>
               ))}
             </Select>
@@ -283,25 +258,62 @@ function MemoForm(props) {
               shape="circle"
               icon={<PlusOutlined />}
               onClick={() => {
-                if (addUser.length !== 0)
-                  addUser.forEach(({ key }) => addList(key, setAddUser, setAddUserList, fetchedInvitedList));
+                if (reportOrg.length !== 0)
+                  reportOrg.forEach(({ key }) => addList(key, setReportOrg, setReportOrgList, orgType));
               }}
             />
           </div>
           {
-            addUserList.length !== 0 &&
-            addUserList.map((user, index) => additionalPerson(user, index, () => deleteList(setAddUserList, user.key)))
+            reportOrgList.length !== 0 &&
+            <div className={styles.formElement}>
+              <p className={styles.formLabel}>보고 인원</p>
+              {reportOrgList.map((org) => linkedUnit(org.list, org.key, () => deleteList(setReportOrgList, org.key)))}
+            </div>
           }
-        </div>
-        <div className={styles.formElement}>
-          <p className={styles.formLabel}>내용</p>
-          <textarea
-            className={styles.formContentInput}
-            value={memoContent}
-            onChange={(event) => setMemoContent(event.target.value)}
-          >
-          </textarea>
-        </div>
+          <div className={styles.formElement}>
+            <div>
+              <p className={styles.formLabel}>추가 인원</p>
+              <Select
+                labelInValue
+                className={styles.formAdditionInput}
+                mode="multiple"
+                bordered={false}
+                value={addUser.length !== 0 ? addUser : undefined}
+                onFocus={fetchInvited}
+                onChange={setAddUser}
+                onSearch={fetchInvitedFromKeyword}
+              >
+                {fetchedInvitedList.map((item) => (
+                  item.DoDID &&
+                  <Select.Option key={item.DoDID} value={'' + item.Rank + ' ' + item.Name}>
+                    {'' + item.Rank + ' ' + item.Name}
+                  </Select.Option>
+                ))}
+              </Select>
+              <Button
+                className={styles.plusButton}
+                shape="circle"
+                icon={<PlusOutlined />}
+                onClick={() => {
+                  if (addUser.length !== 0)
+                    addUser.forEach(({ key }) => addList(key, setAddUser, setAddUserList, fetchedInvitedList));
+                }}
+              />
+            </div>
+            {
+              addUserList.length !== 0 &&
+              addUserList.map((user, index) => additionalPerson(user, index, () => deleteList(setAddUserList, user.key)))
+            }
+          </div>
+          <div className={styles.formElement}>
+            <p className={styles.formLabel}>내용</p>
+            <textarea
+              className={styles.formContentInput}
+              value={memoContent}
+              onChange={(event) => setMemoContent(event.target.value)}
+            >
+            </textarea>
+          </div>
         </div>
       </div>
     </Modal>
