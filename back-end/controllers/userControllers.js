@@ -40,11 +40,20 @@ const allUsers = asyncHandler(async (req, res) => {
     return (ranks.indexOf(b.Rank) + (b.is_registered ? 0 : 100)) - (ranks.indexOf(a.Rank) + (a.is_registered ? 0 : 100));
   });
   const index = req.query.index;
-  if (index) {
-    res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
-  } else if (keyword) {
-    let user = await User.find({ _id: { $eq: keyword }}, {password: 0})
+  // if (index) {
+  //   res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
+  // } else if (keyword) {
+  //   let user = await User.find({ _id: { $eq: keyword }}, {password: 0})
+  //   res.send(user); //.find({ _id: { $ne: req.user._id } }));
+  // } else {
+  //   res.status(400);
+  //   throw new Error("잘못된 요청입니다.");
+  // }
+  if (keyword) {
+    let user = await User.find({ $or: [{ Name: { $regex: keyword, $options: 'i' } }, { Rank: { $regex: keyword, $options: 'i' } }] }, { password: 0 })
     res.send(user); //.find({ _id: { $ne: req.user._id } }));
+  } else if (index) {
+    res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
   } else {
     res.status(400);
     throw new Error("잘못된 요청입니다.");
