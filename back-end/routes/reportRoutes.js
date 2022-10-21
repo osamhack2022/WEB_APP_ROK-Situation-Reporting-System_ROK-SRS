@@ -1,6 +1,7 @@
 const express = require("express");
 const {
-  addReportCard
+  addReportCard,
+  getReportCard
 } = require("../controllers/reportControllers");
 const {
   protect
@@ -9,5 +10,6 @@ const {
 const router = express.Router();
 
 router.route("/").post(protect, addReportCard);
+router.route("/").get(protect, getReportCard);
 
 module.exports = router;

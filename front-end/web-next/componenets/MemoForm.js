@@ -7,48 +7,48 @@ import styles from '../styles/MemoForm.module.css';
 const orgType = [
   {
     key: 0,
-    name: '당직계통',
+    title: '당직계통',
     list: [
       {
-        key: 0,
-        avatar: "https://joeschmoe.io/api/v1/random",
-        name: 'OOO',
-        rank: '상사',
-        position: '당직사관',
+        DoDID: 0,
+        pic: "https://joeschmoe.io/api/v1/random",
+        Name: 'OOO',
+        Rank: '상사',
+        Position: '당직사관',
       },
       {
-        key: 1,
-        avatar: "https://joeschmoe.io/api/v1/random",
-        name: 'XXX',
-        rank: '대위',
-        position: '당직사령',
+        DoDID: 1,
+        pic: "https://joeschmoe.io/api/v1/random",
+        Name: 'XXX',
+        Rank: '대위',
+        Position: '당직사령',
       }
     ]
   },
   {
     key: 1,
-    name: '3중대',
+    title: '3중대',
     list: [
       {
-        key: 0,
-        avatar: "https://joeschmoe.io/api/v1/random",
-        name: 'OOO',
-        rank: '소위',
-        position: '3중대 1소대장',
+        DoDID: 0,
+        pic: "https://joeschmoe.io/api/v1/random",
+        Name: 'OOO',
+        Rank: '소위',
+        Position: '3중대 1소대장',
       },
       {
-        key: 1,
-        avatar: "https://joeschmoe.io/api/v1/random",
-        name: 'XXX',
-        rank: '상사',
-        position: '3중대 행정보급관',
+        DoDID: 1,
+        pic: "https://joeschmoe.io/api/v1/random",
+        Name: 'XXX',
+        Rank: '상사',
+        Position: '3중대 행정보급관',
       },
       {
-        key: 2,
-        avatar: "https://joeschmoe.io/api/v1/random",
-        name: 'XOX',
-        rank: '대위',
-        position: '3중대장',
+        DoDID: 2,
+        pic: "https://joeschmoe.io/api/v1/random",
+        Name: 'XOX',
+        Rank: '대위',
+        Position: '3중대장',
       }
     ]
   }
@@ -157,7 +157,7 @@ function MemoForm(props) {
     await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user?index=0', {
       'method': 'GET',
       'headers': {
-        'content-type': 'application/json',
+        'Content-Type': 'application/json',
         'authorization': `Bearer ${getCookie('usercookie')}`
       }
     })
@@ -169,24 +169,47 @@ function MemoForm(props) {
     await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user?search=' + keyword, {
       'method': 'GET',
       'headers': {
-        'content-type': 'application/json',
+        'Content-Type': 'application/json',
         'authorization': `Bearer ${getCookie('usercookie')}`
       }
     })
-      .then(response => response.json())
-      .then(data => setFetchedInvitedList(data))
+    .then(response => response.json())
+    .then(data => setFetchedInvitedList(data))
   }, [setFetchedInvitedList]);
+  
+  const submitMemo = useCallback(async(memoTitle, memoType, reportOrgList, addUserList, memoContent) => {
+    const submitData = {
+      Title: memoTitle,
+      Type: memoType,
+      ReportingSystem: reportOrgList.map((org) => (org.title)),
+      Invited: addUserList,
+      Content: memoContent,
+      UserToken: getCookie('usercookie')
+    }
 
-  const findFromId = useCallback((list, target) => {
+    await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/report/', {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+      'body': JSON.stringify(submitData)
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+}, []);
+
+  const findFromId = useCallback((list, target, id) => {
     for (let element of list) {
-      if (element.DoDID == target)
+      if (element[id] == target)
         return element;
     }
     return null;
   }, []);
 
-  const addList = useCallback((key, dataState, listState, source) => {
-    const listElement = findFromId(source, key);
+  const addList = useCallback((key, id, dataState, listState, source) => {
+    const listElement = findFromId(source, key, id);
     if (!listElement) return;
 
     listState(list => [...list, listElement]);
@@ -197,19 +220,12 @@ function MemoForm(props) {
     listState(list => list.filter(e => (e.key !== key)));
   }, []);
 
-  const submitMemo = useCallback((memoTitle, memoType, reportOrgList, addUserList, memoContent) => ({
-    title: memoTitle,
-    type: memoType,
-    reportUnit: reportOrgList,
-    additionUnit: addUserList,
-    content: memoContent
-  }), []);
 
   return (
     <Modal
       open={props.isOpen}
       onOk={() => {
-        console.log(submitMemo(memoTitle, memoType, reportOrgList, addUserList, memoContent));
+        submitMemo(memoTitle, memoType, reportOrgList, addUserList, memoContent);
         props.onSubmitted();
       }}
       onCancel={props.onCancel}
@@ -248,8 +264,8 @@ function MemoForm(props) {
               onChange={setReportOrg}
             >
               {orgType.map((item) => (
-                <Select.Option key={item.key} value={item.name}>
-                  {item.name}
+                <Select.Option key={item.key} value={item.title}>
+                  {item.title}
                 </Select.Option>
               ))}
             </Select>
@@ -259,7 +275,7 @@ function MemoForm(props) {
               icon={<PlusOutlined />}
               onClick={() => {
                 if (reportOrg.length !== 0)
-                  reportOrg.forEach(({ key }) => addList(key, setReportOrg, setReportOrgList, orgType));
+                  reportOrg.forEach(({ key }) => addList(key, 'key', setReportOrg, setReportOrgList, orgType));
               }}
             />
           </div>
@@ -283,7 +299,7 @@ function MemoForm(props) {
                 onChange={setAddUser}
                 onSearch={fetchInvitedFromKeyword}
               >
-                {fetchedInvitedList.map((item) => (
+                {fetchedInvitedList?.map((item) => (
                   item.DoDID &&
                   <Select.Option key={item.DoDID} value={'' + item.Rank + ' ' + item.Name}>
                     {'' + item.Rank + ' ' + item.Name}
@@ -296,7 +312,7 @@ function MemoForm(props) {
                 icon={<PlusOutlined />}
                 onClick={() => {
                   if (addUser.length !== 0)
-                    addUser.forEach(({ key }) => addList(key, setAddUser, setAddUserList, fetchedInvitedList));
+                    addUser.forEach(({ key }) => addList(key, 'DoDID', setAddUser, setAddUserList, fetchedInvitedList));
                 }}
               />
             </div>
