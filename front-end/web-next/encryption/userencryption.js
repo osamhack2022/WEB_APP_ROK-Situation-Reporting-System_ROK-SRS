@@ -1,6 +1,5 @@
 const { SecretClient } = require("@azure/keyvault-secrets");
 const { ClientSecretCredential } = require("@azure/identity");
-const { CryptoJS } = require("crypto-js")
 var SHA256 = require("crypto-js/sha256");
 var enc = require("crypto-js/enc-hex");
 var enc2 = require('crypto-js/enc-utf8')
@@ -30,32 +29,27 @@ function generateKey(IV){
 }
 
 export async function encryptuser(id, plaintext) {
-
+    let secret = null
     try { //secret exists
-        console.log(plaintext)
-        const secret = await client.getSecret(id);
-        console.log('secret exists')
-
-    
-        let ciphertext = AES.encrypt(plaintext, secret.value).toString()
-        //return ciphertext
-        let bytes = AES.decrypt(ciphertext.toString(), secret.value)
-        return hex_to_ascii(bytes.toString(enc2.Utf8))
-       
-        //console.log(originalText)
+        secret = await client.getSecret(id);
 
     } catch { //make new secret
         let key = generateKey(uuidv4())
         let parsedkey = key.toString(enc.Hex)
-        const result = await client.setSecret(id, parsedkey);
-        //console.log(result)
-
+        secret = await client.setSecret(id, parsedkey);
     }
-
-    return 'hi'
-
+    let ciphertext = AES.encrypt(plaintext, secret.value).toString()
+    return ciphertext
 }
 
-export async function decryptuser(ciphertext, id) {
+export async function decryptuser(id, ciphertext) {
+    let secret = null
+    try { //secret exists
+        secret = await client.getSecret(id);
+    } catch { //make new secret
+        return "unable to decrypt, id doesn't exist"
+    }
+    let bytes = AES.decrypt(ciphertext.toString(), secret.value)
+    return hex_to_ascii(bytes.toString(enc2.Utf8))
 
 }

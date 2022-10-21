@@ -3,11 +3,10 @@ import style from '../styles/homepage.module.css'
 import Image from 'next/image'
 import unitlogo from '../img/unitlogo.png'
 import { Descriptions, Tabs, Avatar, List, PageHeader, Button, Input, Space } from 'antd';
-import {encryptuser} from '../encryption/userencryption'
+import {decryptuser, encryptuser} from '../encryption/userencryption'
 import { jwtVerify } from 'jose';
 
 
-encryptuser('test1', 'hfipoawefjapoiwfhawpoeifjwf')
 const { Search } = Input;
 let onSearch = async (event) => {
 }
@@ -111,7 +110,9 @@ const Home = (props) => {
 
 
 export async function getServerSideProps(context) {
-
+    // let ciphertext = await encryptuser('test133', 'hfipoawefjapoiwfhawpoeifjwf')
+    // let decrypt = await decryptuser('test133', ciphertext)
+    // console.log(decrypt)
     const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
     const endpoint = backendroot + 'api/user?search='
     const secret = process.env.JWT_SECRET
