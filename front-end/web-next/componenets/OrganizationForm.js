@@ -2,6 +2,15 @@ import { useState, useCallback, useEffect } from 'react';
 import { Modal, Image, Row, Col, Select } from 'antd';
 import Styles from '../styles/OrganizationForm.module.css';
 
+function InfoElement(props) {
+  return (
+    <div>
+      <div className={Styles.infoLabel}>{props.label}</div>
+      <div className={Styles.infoContent}>{props.content}</div>
+    </div>
+  )
+}
+
 function InputElement(props) {
   return (
     <div>
@@ -89,16 +98,11 @@ function OrganizationForm(props) {
         </Col>
       </Row>
       <Row className={Styles.elementRow}>
-        <Col span={12}>
-          <InputElement label="부대" value={formData.unit} onChange={(event) => serializedEdit('unit', event.target.value)} />
-        </Col>
-        <Col span={12}>
-          <InputElement label="직책" value={formData.position} onChange={(event) => serializedEdit('position', event.target.value)} />
-        </Col>
+        <Col span={12}><InfoElement label="부대" content={formData.unit} /></Col>
       </Row>
       <Row className={Styles.elementRow}>
         <Col span={12}>
-          <InputElement label="권한" value={formData.roles} onChange={(event) => serializedEdit('roles', event.target.value)} />
+          <InputElement label="직책" value={formData.position} onChange={(event) => serializedEdit('position', event.target.value)} />
         </Col>
         <Col span={12}>
           <InputElement label="이메일" value={formData.email} onChange={(event) => serializedEdit('email', event.target.value)} />

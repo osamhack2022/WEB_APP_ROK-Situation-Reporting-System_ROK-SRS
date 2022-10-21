@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
 import { Button, Image, Row, Col } from 'antd';
+import { getCookie } from 'cookies-next';
 import OrganizationCard from './OrganizationCard';
 import Styles from '../styles/Organogram.module.css';
 
@@ -83,8 +84,22 @@ function Organogram(props) {
   const [orgDataTree, setOrgDataTree] = useState([]);
 
   useEffect(() => {
-    setOrgData(props.renderData);
-  }, [props.renderData]);
+    fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart', {
+      'method': 'GET',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        // const objectData = data.reduce((preData, node) => {
+        //   preData[node._id] = node;
+        // }, {})
+        // setOrgData(objectData)
+      });
+  }, []);
 
   useEffect(() => {
     makeTree(orgData);
@@ -99,31 +114,59 @@ function Organogram(props) {
     setCardOpened(true);
   }, [setSelectedOrgInfo, setCardOpened]);
 
-  const createNode = useCallback((node) => {
-    // node key generate
-    const randomKey = Math.random().toString(36).substring(2, 10);
-    node['key'] = randomKey;
-
-    setOrgData(treeNode => ({ ...treeNode, [randomKey]: node }));
+  const createNode = useCallback(async (node) => {
+    await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart/add', {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+      'body': JSON.stringify(node)
+    })
+      .then(response => setOrgData(treeNode => ({ ...treeNode, [response._id]: node })))
   }, [setOrgData]);
 
-  const updateNode = useCallback((node) => {
-    setOrgData(treeNode => ({ ...treeNode, [node.key]: node }));
+  const updateNode = useCallback(async (node) => {
+    await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart/edit', {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+      'body': JSON.stringify(node)
+    }).then(response => setOrgData(treeNode => ({ ...treeNode, [response._id]: node })))
   }, [setOrgData]);
 
-  const deleteNode = useCallback((node) => {
-    setOrgData(treeNode => {
-      const nodeCopy = { ...treeNode };
+  const deleteNode = useCallback(async (node) => {
+    const nodeCopy = { ...orgData };
 
-      // Redirection for children of removed node
-      const nodeChildren = Object.values(nodeCopy).filter((data) => data.parent == node.key);
-      for (let child of nodeChildren)
-        child.parent = node.parent;
+    // Redirection for children of removed node
+    const nodeChildren = Object.values(nodeCopy).filter((data) => data.parent == node._id);
+    for (let child of nodeChildren) {
+      child.parent = node.parent;
+      await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart/edit', {
+        'method': 'POST',
+        'headers': {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getCookie('usercookie')}`
+        },
+        'body': JSON.stringify(child)
+      });
+    }
 
-      delete nodeCopy[node.key]
-      return nodeCopy;
-    });
-  }, [setOrgData]);
+    await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart/delete', {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+      'body': JSON.stringify(node)
+    })
+      .then(() => {
+        delete nodeCopy[node._id];
+        setOrgData(nodeCopy);
+      })
+  }, [orgData, setOrgData]);
 
   const makeTree = useCallback((data) => {
     // Deep Copy for object

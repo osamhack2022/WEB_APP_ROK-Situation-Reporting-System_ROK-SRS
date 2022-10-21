@@ -8,6 +8,7 @@ const messageRoutes = require("./routes/messageRoutes");
 const unitRoutes = require("./routes/unitRoutes");
 const reportRoutes = require("./routes/reportRoutes");
 const commentRoutes = require("./routes/commentRoutes");
+const chartRoutes = require("./routes/chartRoutes");
 const reportsysRoutes = require("./routes/reportsysRoutes");
 const {
   notFound,
@@ -33,6 +34,7 @@ app.use("/api/unit", unitRoutes);
 app.use("/api/report", reportRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/reportsys", reportsysRoutes);
+app.use("/api/chart", chartRoutes);
 
 
 /*const __dirname1 = path.resolve();
