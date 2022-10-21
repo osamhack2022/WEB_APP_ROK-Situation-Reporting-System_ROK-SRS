@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
 import { Modal, Select, Button, Avatar, Row, Col } from 'antd';
 import { PlusOutlined, ArrowRightOutlined, CloseOutlined } from '@ant-design/icons'
+import { getCookie } from 'cookies-next';
 import styles from '../styles/MemoForm.module.css';
-
 
 const orgType = [
   {
@@ -54,43 +54,18 @@ const orgType = [
   }
 ]
 
-
-const additionUser = [
-  {
-    key: 0,
-    avatar: "https://joeschmoe.io/api/v1/random",
-    name: 'OOO',
-    rank: '소위',
-    position: '3중대 1소대장',
-  },
-  {
-    key: 1,
-    avatar: "https://joeschmoe.io/api/v1/random",
-    name: 'XXX',
-    rank: '상사',
-    position: '3중대 행정보급관',
-  },
-  {
-    key: 2,
-    avatar: "https://joeschmoe.io/api/v1/random",
-    name: 'XOX',
-    rank: '대위',
-    position: '3중대장',
-  }
-]
-
 function linkedUnit(unitList, key, onRemove = null) {
   if (unitList.length === 0)
     return;
 
   const unitLink = unitList.reduce((preLink, user, index) => {
     preLink.push(
-      <Col key={user.key}>
+      <Col key={user.DoDID}>
         <UserNode
-          avatar={user.avatar}
-          rank={user.rank}
-          name={user.name}
-          position={user.position}
+          avatar={user.pic}
+          rank={user.Rank}
+          name={user.Name}
+          position={user.Position}
         />
       </Col>
     );
@@ -127,7 +102,7 @@ function linkedUnit(unitList, key, onRemove = null) {
   )
 }
 
-function additionalPerson(person, key, onRemove = null) {
+function additionalPerson(user, key, onRemove = null) {
   return (
     <Row
       key={'addP' + key}
@@ -136,10 +111,10 @@ function additionalPerson(person, key, onRemove = null) {
     >
       <Col>
         <UserNode
-          avatar={person.avatar}
-          rank={person.rank}
-          name={person.name}
-          position={person.position}
+          avatar={user.pic}
+          rank={user.Rank}
+          name={user.Name}
+          position={user.Position}
         />
       </Col>
       <Col>
@@ -176,17 +151,31 @@ function MemoForm(props) {
   const [addUser, setAddUser] = useState([]);
   const [addUserList, setAddUserList] = useState([]);
   const [memoContent, setMemoContent] = useState('');
+  const [fetchedInvitedList, setFetchedInvitedList] = useState([]);
 
-  const findFromKey = useCallback((list, target) => {
+  const fetchInvited = useCallback(async() => {
+    await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user?index=0', {
+      'method': 'GET',
+      'headers': {
+        'content-type': 'application/json',
+        'authorization': `Bearer ${getCookie('usercookie')}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => setFetchedInvitedList(data))
+    console.log(fetchedInvitedList)
+  }, [setFetchedInvitedList]);
+
+  const findFromId = useCallback((list, target) => {
     for (let element of list) {
-      if (element.key == target)
+      if (element.DoDID == target)
         return element;
     }
     return null;
   }, []);
 
   const addList = useCallback((key, dataState, listState, source) => {
-    const listElement = findFromKey(source, key);
+    const listElement = findFromId(source, key);
     if (!listElement) return;
 
     listState(list => [...list, listElement]);
@@ -279,11 +268,13 @@ function MemoForm(props) {
               mode="multiple"
               bordered={false}
               value={addUser.length !== 0 ? addUser : undefined}
+              onFocus={fetchInvited}
               onChange={setAddUser}
             >
-              {additionUser.map((item) => (
-                <Select.Option key={item.key} value={'' + item.rank + ' ' + item.name}>
-                  {item.rank} {item.name}
+              {fetchedInvitedList.map((item) => (
+                item.DoDID && 
+                <Select.Option key={item.DoDID} value={'' + item.Rank + ' ' + item.Name}>
+                  {'' + item.Rank + ' ' + item.Name}
                 </Select.Option>
               ))}
             </Select>
@@ -293,7 +284,7 @@ function MemoForm(props) {
               icon={<PlusOutlined />}
               onClick={() => {
                 if (addUser.length !== 0)
-                  addUser.forEach(({ key }) => addList(key, setAddUser, setAddUserList, additionUser));
+                  addUser.forEach(({ key }) => addList(key, setAddUser, setAddUserList, fetchedInvitedList));
               }}
             />
           </div>
