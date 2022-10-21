@@ -21,7 +21,7 @@ const unitModel = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   }],
-  ReportCard: [{
+  ReportCards: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Report"
   }],

@@ -20,6 +20,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  Role: {
+    type: String,
+  },
   Type: {
     type: String,
     required: true
@@ -58,8 +61,12 @@ const userSchema = mongoose.Schema({
   },
   is_registered: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
+  myReportCards :[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "report"
+  }]
 }, {
   timestamps: true
 });

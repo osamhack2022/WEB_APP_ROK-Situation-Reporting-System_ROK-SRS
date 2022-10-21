@@ -1,6 +1,5 @@
-import Head from 'next/head'
-import Link from "next/link"
-import { Avatar, Divider, List, Skeleton, Button, Input, Radio, message, Upload, Image, TreeSelect, Form, PageHeader, Breadcrumb } from 'antd';
+
+import { Avatar, List, Skeleton, Button, Input, Upload, Image, TreeSelect, Form, PageHeader, Breadcrumb } from 'antd';
 import styles from '../../styles/unitsettings.module.css'
 import unitlogo from '../../img/unitlogo.png'
 import React, { useEffect, useState } from 'react';
@@ -159,7 +158,6 @@ const UnitSettings = () => {
         }
         const response = await fetch(endpoint, options)
         const result = await response.json()
-        console.log(result)
         if (result['Invcode']) {
             seterror3("")
             setsuccess3("성공. 초대코드: " + result['Invcode'])
@@ -167,7 +165,6 @@ const UnitSettings = () => {
             setsuccess3("")
             seterror3(result['message'])
         }
-        console.log(result)
     }
 
 

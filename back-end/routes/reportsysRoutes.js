@@ -1,7 +1,8 @@
 const express = require("express");
 const {
   addReportsys,
-	removeReportsys
+	removeReportsys,
+  getReportsys
 } = require("../controllers/reportsysControllers");
 const {
   protect,
@@ -11,6 +12,7 @@ const {
 const router = express.Router();
 
 router.route("/").post(onlyAdmin, addReportsys);
-router.route("/").delete(onlyAdmin, addReportsys);
+router.route("/").delete(onlyAdmin, removeReportsys);
+router.route("/").get(protect, getReportsys);
 
 module.exports = router;

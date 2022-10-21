@@ -2,7 +2,8 @@ const express = require("express");
 const {
   updateUnit,
   updateLogo,
-  addUnit
+  addUnit,
+  getUnit
 } = require("../controllers/unitControllers");
 const {
   protect,
@@ -14,5 +15,7 @@ const router = express.Router();
 router.route("/").post(onlyAdmin, addUnit);
 router.route("/").put(onlyAdmin, updateUnit);
 router.route("/logo").put(onlyAdmin, updateLogo);
+router.route("/get").get(onlyAdmin, getUnit);
+
 
 module.exports = router;
