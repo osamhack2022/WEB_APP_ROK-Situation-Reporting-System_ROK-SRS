@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Button, Input, Upload, Image, TreeSelect, Form, PageHeader, Breadcrumb } from 'antd';
 import styles from '../styles/usersettings.module.css'
 import React, { useEffect, useState } from 'react';
-import { jwtVerify } from 'jose';
+import { decodeJwt, jwtVerify } from 'jose';
 import { getCookie } from 'cookies-next';
 
 const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
@@ -238,11 +238,9 @@ const Settings = (props) => {
 
 
 export async function getServerSideProps(context) {
-    let endpoint = backendroot + 'api/user?search='
-    const secret = process.env.JWT_SECRET
+    let endpoint = backendroot + 'api/user/id?search='
     const JWTtoken = context.req.cookies['usercookie']; // => 'value'
-    const { payload } = await jwtVerify(JWTtoken, new TextEncoder().encode(secret))
-    let id = payload['id']
+    const { id } = decodeJwt(JWTtoken)
     const options = {
         // The method is POST because we are sending data.
         method: 'GET',

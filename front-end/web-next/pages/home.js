@@ -4,7 +4,8 @@ import Image from 'next/image'
 import unitlogo from '../img/unitlogo.png'
 import { Descriptions, Tabs, Avatar, List, PageHeader, Button, Input, Space } from 'antd';
 import {decryptuser, encryptuser} from '../encryption/userencryption'
-import { jwtVerify } from 'jose';
+import { decodeJwt, jwtVerify } from 'jose';
+import { getCookie } from 'cookies-next';
 
 
 const { Search } = Input;
@@ -114,11 +115,9 @@ export async function getServerSideProps(context) {
     // let decrypt = await decryptuser('test133', ciphertext)
     // console.log(decrypt)
     const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
-    const endpoint = backendroot + 'api/user?search='
-    const secret = process.env.JWT_SECRET
-    const JWTtoken = context.req.cookies['usercookie']; // => 'value'
-    const { payload } = await jwtVerify(JWTtoken, new TextEncoder().encode(secret))
-    let id = payload['id']
+    const endpoint = backendroot + 'api/user/id?search='
+    const JWTtoken = context.req.cookies['usercookie'];
+    const { id } = decodeJwt(JWTtoken)
     const options = {
         // The method is POST because we are sending data.
         method: 'GET',
