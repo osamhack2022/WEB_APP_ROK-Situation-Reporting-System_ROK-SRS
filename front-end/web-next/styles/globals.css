@@ -91,3 +91,7 @@ a {
 .memonoteSiderTitle>.ant-select-arrow {
   color: #000;
 }
+
+.ant-spin-dot-item {
+  background-color: #008080;
+}
