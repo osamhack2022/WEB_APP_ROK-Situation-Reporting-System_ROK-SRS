@@ -13,6 +13,9 @@ function renderNode(node, chooseNode) {
     return (
       <Tree
         key={node._id}
+        lineWidth="4px"
+        lineColor="#008080"
+        lineBorderRadius="10px"
         label={
           <TreeNodeElement
             name={node.Name}
@@ -51,7 +54,7 @@ function TreeNodeElement(props) {
     >
       <div className={Styles.cardContent}>
         <Row
-          gutter={10}
+          gutter={20}
           align="middle"
           justify="start"
         >
