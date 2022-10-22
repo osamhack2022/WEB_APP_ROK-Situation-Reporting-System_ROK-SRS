@@ -2,7 +2,7 @@
 ![Logo](https://i.ibb.co/VQqT63J/450-300px-300-100px-900-300px.png)
 
 # Table of Contents
-1. [프로젝트 소개](#introduction)
+1. [프로잭트 소개](#introduction)
 2. [기능 설명](#features)
 3. [컴퓨터 구성 / 필수 조건 안내 (Prerequisites)](#requirements)
 4. [기술 스택 (Technique Used) ](#techniques)
@@ -84,11 +84,13 @@
 	  <td align='center'><img src = "https://upload.wikimedia.org/wikipedia/commons/2/2a/RSA_Security_logo2.svg" width = "55px" height = "30px"></td>
 	  <td align='center'>RSA</td>
 	  <td align='center'>비대칭 암호화 (암호화된 키 값 전송)</td>
+
  </tr>
   <tr>
 	  <td align='center'><img src = "https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F1252457264-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fspaces%252F-LVOh1OI8lhWfR_994H2%252Favatar.png%3Fgeneration%3D1546620224707409%26alt%3Dmedia" width = "40px" height = "40px"></td>
 	  	  <td align='center'>Crypto.js</td>
 	  <td align='center'>대칭 암호화 기능 (AES, HMAC)</td>
+
  </tr>
    <tr>
 	  <td align='center'><img src = "https://miro.medium.com/max/251/1*YUlYnXhu4NG61i-HRG50AQ.jpeg" width = "40px" height = "40px"></td>
