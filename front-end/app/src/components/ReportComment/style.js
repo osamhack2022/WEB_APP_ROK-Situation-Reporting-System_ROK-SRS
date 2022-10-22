@@ -4,8 +4,6 @@ import { Colors } from 'react-native-paper'
 export const styles = StyleSheet.create({
   contentView: {
     width: '97%',
-    borderBottomWidth: 1,
-    borderColor: Colors.grey400,
     paddingTop: 5,
     paddingBottom: 3,
     paddingLeft: 3,

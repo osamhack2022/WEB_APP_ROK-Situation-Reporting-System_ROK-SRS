@@ -19,7 +19,6 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: 'NunitoSans_400Regular',
     color: Colors.grey800,
-    flex: 1,
     flexWrap: 'wrap',
   },
   flexRow: {

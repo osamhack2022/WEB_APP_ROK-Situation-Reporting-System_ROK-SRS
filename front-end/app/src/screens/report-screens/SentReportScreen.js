@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ReportListItem } from '../../components/ReportListItem'
 // prettier-ignore
 import { SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { Colors, FAB } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import moment from 'moment'
-import fetchReportApi from '../../apis/report/fetchReportApi'
+import getReportApi from '../../apis/report/getReportApi'
 
 const { Title, isEnd, Content, severity, date, Type } = {
   Title: '3초소 거수자 발견',

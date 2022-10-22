@@ -7,8 +7,8 @@ export function UserCard(props) {
   let [fontsLoaded] = useNunitoFonts()
 
   return (
-    <View style={styles.view}>
-      <Avatar.Image source={props.source} size={48} style={styles.image} />
+    <View style={[styles.view, props.style]}>
+      <Avatar.Image source={props.source} size={45} style={styles.image} />
       <Text style={styles.title}>{props.name}</Text>
       <Text style={styles.text}>{props.position}</Text>
     </View>

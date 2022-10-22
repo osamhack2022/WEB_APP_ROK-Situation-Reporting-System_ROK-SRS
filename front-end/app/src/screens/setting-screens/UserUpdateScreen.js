@@ -117,7 +117,7 @@ export function UserUpdateScreen() {
           style={styles.textInput}
           placeholder={userMe.milNumber}
         ></TextInput>
-        <View style={styles.guideTextView}>
+        <View style={[styles.guideTextView]}>
           <GuideText guideText={``} />
         </View>
         <MyButton
@@ -131,8 +131,13 @@ export function UserUpdateScreen() {
               milNumber,
             })
           }
+          style={{ marginBottom: 50 }}
         />
-        <ImagePicker imageUrl={pic} setImageUrl={setPic} />
+        <ImagePicker
+          imageUrl={pic}
+          setImageUrl={setPic}
+          text="내 사진을 변경하려면 클릭."
+        />
         <MyButton
           text="내 사진 변경"
           onPress={() =>

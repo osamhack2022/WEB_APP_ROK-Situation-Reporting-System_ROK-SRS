@@ -11,13 +11,24 @@ import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
 import addCommentApi from '../../apis/report/addCommentApi'
 
-const addCommentHandler = async ({ Type, Content, Title, _id }) => {
-  const res = await addCommentApi({ Type, Content, Title, _id })
-  console.log(res)
-}
-
 export function ReportScreen({ route }) {
-  const { Title, isEnd, Content, severity, date, Type } = route.params
+  const addCommentHandler = async ({ Type, Content, Title, _id }) => {
+    const res = await addCommentApi({ Type, Content, Title, _id })
+    console.log(res)
+  }
+
+  const {
+    Title,
+    Status,
+    Content,
+    Severity,
+    date,
+    Type,
+    ReportingSystem,
+    Invited,
+    Comments,
+    User,
+  } = route.params
 
   const [userMe, setUserMe] = useRecoilState(userState)
 
@@ -39,8 +50,8 @@ export function ReportScreen({ route }) {
     <View style={{ width: '100%', alignItems: 'center' }}>
       <ReportHeader
         Title={Title}
-        isEnd={isEnd}
-        severity={severity}
+        Status={Status}
+        Severity={Severity}
         date={date}
       />
       <ReportContent Content={Content} Type={Type} />
@@ -48,7 +59,7 @@ export function ReportScreen({ route }) {
         style={{
           width: '97%',
           borderBottomWidth: 1,
-          borderColor: Colors.grey700,
+          borderColor: Colors.grey500,
         }}
       >
         <Text style={{ fontSize: 20, fontWeight: '500', padding: 5 }}>
@@ -58,16 +69,25 @@ export function ReportScreen({ route }) {
     </View>
   )
 
-  const renderItem = ({ item }) => {
-    return (
-      <ReportComment
-        name={item.Name}
-        position={item.position}
-        Content={item.Content}
-        Type={item.Type}
-      />
-    )
-  }
+  const ItemSeparator = () => (
+    <View
+      style={{
+        width: '97%',
+        borderBottomWidth: 1,
+        borderBottomColor: Colors.grey300,
+        alignSelf: 'center',
+      }}
+    />
+  )
+
+  const renderItem = ({ item }) => (
+    <ReportComment
+      name={item.Name}
+      position={item.position}
+      Content={item.Content}
+      Type={item.Type}
+    />
+  )
 
   return (
     <SafeAreaView style={styles.container}>
@@ -75,7 +95,9 @@ export function ReportScreen({ route }) {
         ListHeaderComponent={ListHeaderComponent}
         data={comments}
         renderItem={renderItem}
+        ItemSeparatorComponent={ItemSeparator}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 10 }}
       />
       <View style={styles.commentView}>
         <DropDownPicker
@@ -87,7 +109,7 @@ export function ReportScreen({ route }) {
           setValue={setCommentType}
           setItems={setTypeItem}
           style={styles.dropDown}
-          containerStyle={{ width: '15%', marginRight: 0 }}
+          containerStyle={{ width: '15%' }}
           dropDownContainerStyle={styles.dropDown}
           placeholderStyle={styles.dropDownText}
           textStyle={styles.dropDownText}
@@ -108,7 +130,7 @@ export function ReportScreen({ route }) {
           <IconButton
             icon="send-outline"
             size={25}
-            color={focus ? Colors.green500 : Colors.grey500}
+            color={focus ? '#008275' : Colors.grey500}
             onPress={() => {
               setComments([
                 ...comments,
@@ -140,12 +162,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.white,
     alignItems: 'center',
-    paddingBottom: 60,
   },
   commentView: {
-    bottom: 0,
-    position: 'absolute',
     width: '98%',
+    paddingTop: 5,
     justifyContent: 'center',
     flexDirection: 'row',
   },
@@ -179,5 +199,5 @@ const styles = StyleSheet.create({
 
 const borderColor = (focus) =>
   StyleSheet.create({
-    borderBottomColor: focus ? Colors.green500 : Colors.grey400,
+    borderBottomColor: focus ? '#008275' : Colors.grey400,
   })

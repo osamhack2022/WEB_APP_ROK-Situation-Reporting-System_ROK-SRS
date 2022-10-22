@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native'
-import {
-  Colors,
-  FAB,
-  Provider,
-  Modal,
-  Portal,
-  TextInput,
-} from 'react-native-paper'
+import { SafeAreaView, ScrollView, StyleSheet, View, Text } from 'react-native'
+//prettier-ignore
+import { Colors, FAB, Provider, Modal, Portal, TextInput } from 'react-native-paper'
 import { ReportGroup } from '../../components/ReportGroup'
 import DATA from '../../data/procData'
-import { UserCard } from '../../components/UserCard'
 import getReportsysApi from '../../apis/report-sys/getReportsysApi'
 import addReportsysApi from '../../apis/report-sys/addReportsysApi'
 import removeReportsysApi from '../../apis/report-sys/removeReportsysApi'
+import searchUserApi from '../../apis/user/searchUserApi'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
+import { MyButton } from '../../components/MyButton'
 
 const ItemSeparator = () => (
   <Image
@@ -32,6 +27,13 @@ export function SysMgtScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
   const [reportsys, setReportsys] = useState([])
   const [query, setQuery] = useState('')
+  const [users, setUsers] = useState([
+    { name: '김형민', position: '통신 분대장' },
+    { name: '김형민', position: '통신 분대장' },
+    { name: '김형민', position: '통신 분대장' },
+    { name: '김형민', position: '통신 분대장' },
+  ])
+  const [Title, setTitle] = useState('')
 
   const [visible, setVisible] = useState(false)
   const showModal = () => setVisible(true)
@@ -55,29 +57,56 @@ export function SysMgtScreen() {
     setReportsys(reportsys.filter((item) => item._id != _id))
   }
 
+  const searchUserHandler = async ({ query }) => {
+    const res = await searchUserApi({ query })
+    setUsers(users.concat(res))
+  }
+
   return (
     <Provider>
       <SafeAreaView style={styles.container}>
         <Portal>
-          <Modal visible={visible} onDismiss={hideModal}>
+          <Modal
+            visible={visible}
+            onDismiss={hideModal}
+            contentContainerStyle={styles.modal}
+          >
             <TextInput
-              placeholder="이름 또는 군 번을 입력하세요."
+              label="보고체계 이름"
               dense={true}
-              activeUnderlineColor={Colors.green500}
-              onChangeText={(query) => {
-                setQuery(query)
-              }}
-              left={<TextInput.Icon icon="magnify" />}
+              activeUnderlineColor={'#008275'}
+              style={styles.title}
+              onChangeText={(text) => setTitle(text)}
             />
+            <TextInput
+              label="보고 인원 추가"
+              dense={true}
+              style={[styles.textInput]}
+              onChangeText={(query) => setQuery(query)}
+              right={
+                <TextInput.Icon
+                  icon="plus"
+                  color={query ? '#009975' : Colors.grey500}
+                  size={25}
+                  style={{ marginTop: 15 }}
+                  forceTextInputFocus={false}
+                />
+              }
+              onSubmitEditing={() => {}}
+              activeUnderlineColor="#008275"
+            />
+            <View style={{ width: '85%', alignSelf: 'center' }}>
+              <ReportGroup List={users} Title={Title} />
+            </View>
+            <MyButton text="보고체계 추가" style={{ width: '75%' }} />
           </Modal>
         </Portal>
         <ScrollView>
-          {/* {reportsys.map((sys) => <ReportGroup group={sys.List} name={sys.Title} />)} */}
-          <ReportGroup List={DATA.onDuty} Title="onDuty" />
-          <ReportGroup List={DATA.headquarter} Title="headquarter" />
+          <ReportGroup List={DATA.onDuty} Title="당직근무 보고체계" />
+          <ReportGroup List={DATA.headquarter} Title="본부중대 보고체계" />
         </ScrollView>
         <FAB
-          icon="account-plus"
+          icon="account-multiple-plus"
           style={styles.fab}
           onPress={showModal}
           color="white"
@@ -92,12 +121,33 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     flex: 1,
   },
+  title: {
+    width: '85%',
+    alignSelf: 'center',
+    backgroundColor: Colors.white,
+    marginBottom: 20,
+  },
+  textInput: {
+    width: '85%',
+    backgroundColor: Colors.white,
+    alignSelf: 'center',
+    marginBottom: 20,
+  },
+  modal: {
+    backgroundColor: Colors.white,
+    padding: 20,
+    paddingBottom: 15,
+    paddingHorizontal: 5,
+    margin: 10,
+    borderRadius: 15,
+  },
   fab: {
     borderRadius: 60,
     height: 56,
     width: 56,
     position: 'absolute',
     bottom: 25,
-    right: 20,
+    right: 25,
+    backgroundColor: '#009572',
   },
 })

@@ -1,15 +1,37 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { TouchableOpacity, Text, View } from 'react-native'
 import { Card, Paragraph, Colors } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
+import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
 import { styles } from './style'
 
 export function ReportListItem(props) {
-  const { Title, isEnd, Content, severity, date, Type } = props
+  const {
+    Title,
+    Status,
+    Content,
+    Severity,
+    createdAt,
+    Type,
+    ReportingSystem,
+    Invited,
+    Comments,
+    User,
+  } = props
+
+  const [date, setDate] = useState('')
+  useEffect(() => {
+    if (createdAt) {
+      setDate(
+        moment(createdAt.slice(0, 10) + ' ' + createdAt.slice(11, 19)).format(
+          'YYYY년 MM월 DD일 hh시 mm분'
+        )
+      )
+    }
+  })
 
   let [fontsLoaded] = useNunitoFonts()
-
   const navigation = useNavigation()
 
   const goReportScreen = () => {
@@ -17,11 +39,15 @@ export function ReportListItem(props) {
       screen: 'ReportScreen',
       params: {
         Title,
-        isEnd,
+        Status,
         Content,
-        severity,
+        Severity,
         date,
         Type,
+        ReportingSystem,
+        Invited,
+        Comments,
+        User,
       },
     })
   }
@@ -31,14 +57,21 @@ export function ReportListItem(props) {
       onPress={goReportScreen}
       style={[
         styles.cardListItem,
-        { borderColor: isEnd ? Colors.green600 : Colors.red300 },
+        {
+          borderColor: Status === 'Resolved' ? Colors.green600 : Colors.red300,
+        },
       ]}
     >
       <Card.Content style={{ paddingBottom: 5 }}>
         <View style={styles.flexRow}>
           <Text style={styles.title}>{Title}</Text>
-          <Text style={[styles.isEnd, { color: isEnd ? 'green' : 'red' }]}>
-            {isEnd ? '[종결]' : '[미종결]'}
+          <Text
+            style={[
+              styles.isEnd,
+              { color: Status === 'Resolved' ? 'green' : 'red' },
+            ]}
+          >
+            {Status === 'Resolved' ? '[종결]' : '[미종결]'}
           </Text>
         </View>
         <Paragraph
@@ -50,8 +83,8 @@ export function ReportListItem(props) {
         </Paragraph>
         <View style={styles.flexRowEnd}>
           <Text style={styles.severityText}>중요도:</Text>
-          <Text style={styles.severity}>{severity}</Text>
-          <Text style={styles.date}>{date}</Text>
+          <Text style={styles.severity}>{Severity}</Text>
+          <Text style={styles.date}>{date && date}</Text>
         </View>
       </Card.Content>
     </TouchableOpacity>

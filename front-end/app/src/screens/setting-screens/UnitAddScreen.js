@@ -38,7 +38,12 @@ export function UnitAddScreen() {
           style={styles.textInput}
         />
       </View>
-      <ImagePicker imageUrl={Logo} setImageUrl={setLogo} />
+      <ImagePicker
+        imageUrl={Logo}
+        setImageUrl={setLogo}
+        style={{ marginBottom: 30 }}
+        text="부대 로고를 추가하려면 클릭."
+      />
       <MyButton
         text="부대 추가"
         onPress={() => addUnitHandler({ Unitname, Unitslogan, Logo })}

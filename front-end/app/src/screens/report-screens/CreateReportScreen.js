@@ -120,7 +120,7 @@ export function CreateReportScreen() {
           right={
             <TextInput.Icon
               icon="plus"
-              color={Colors.green600}
+              color={query ? '#009975' : Colors.grey500}
               size={25}
               style={{ marginTop: 15 }}
               onPress={() => {

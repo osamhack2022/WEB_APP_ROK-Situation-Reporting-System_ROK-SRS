@@ -47,7 +47,7 @@ export function SettingScreen() {
           }
         />
         <List.Item
-          title="내 정보 수정"
+          title="내 정보 관리"
           left={() => <List.Icon icon="account-edit" />}
           style={styles.listItem}
           onPress={() =>

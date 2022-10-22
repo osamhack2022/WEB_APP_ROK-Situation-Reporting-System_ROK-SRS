@@ -45,7 +45,14 @@ export function UserMgtScreen() {
             />
           ))}
       </ScrollView>
-      <FAB icon="account-plus" style={styles.fab} color="white" />
+      <FAB
+        icon="account-plus"
+        style={styles.fab}
+        color="white"
+        onPress={() =>
+          navigation.navigate('SettingNavigator', { screen: 'UserAddScreen' })
+        }
+      />
     </SafeAreaView>
   )
 }
@@ -73,8 +80,8 @@ export const styles = StyleSheet.create({
     height: 55,
     width: 55,
     position: 'absolute',
-    bottom: 50,
-    right: 20,
+    bottom: 25,
+    right: 25,
   },
   image: {
     backgroundColor: Colors.grey500,

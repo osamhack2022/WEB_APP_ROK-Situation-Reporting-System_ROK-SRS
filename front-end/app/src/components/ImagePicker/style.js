@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   pressable: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: window.height * 0.04,
+    marginBottom: window.height * 0.03,
   },
   image: {
     width: 0.8 * window.width,

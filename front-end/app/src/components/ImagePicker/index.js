@@ -3,7 +3,7 @@ import * as ExpoImagePicker from 'expo-image-picker'
 import { Pressable, Image, Text, View } from 'react-native'
 import { styles } from './style'
 
-export function ImagePicker({ imageUrl, setImageUrl }) {
+export function ImagePicker(props) {
   const [status, requestPermission] =
     ExpoImagePicker.useMediaLibraryPermissions()
 
@@ -25,15 +25,15 @@ export function ImagePicker({ imageUrl, setImageUrl }) {
       return null // 이미지 업로드 취소한 경우
     }
     console.log(result)
-    setImageUrl(result.uri)
+    props.setImageUrl(result.uri)
   }
 
   return (
-    <Pressable onPress={uploadImage} style={styles.pressable}>
-      <Image source={{ uri: imageUrl }} style={styles.image} />
-      {!imageUrl && (
+    <Pressable onPress={uploadImage} style={[styles.pressable, props.style]}>
+      <Image source={{ uri: props.imageUrl }} style={styles.image} />
+      {!props.imageUrl && (
         <View style={styles.absolute}>
-          <Text style={styles.text}>{`부대 마크 변경하려면 클릭`}</Text>
+          <Text style={styles.text}>{props.text}</Text>
         </View>
       )}
     </Pressable>
