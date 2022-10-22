@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { Modal, Image, Row, Col, Select } from 'antd';
+import { Modal, Image, Row, Col, Input, Select } from 'antd';
 import Styles from '../styles/OrganizationForm.module.css';
 
 function InfoElement(props) {
@@ -14,8 +14,8 @@ function InfoElement(props) {
 function InputElement(props) {
   return (
     <div>
-      <div className={Styles.inputLabels}>{props.label}</div>
-      <input className={Styles.formInput} value={props.value} onChange={props.onChange} />
+      <div className={Styles.infoLabel}>{props.label}</div>
+      <Input style={{ width: '180px', height: '32px' }} value={props.value} onChange={props.onChange} />
     </div>
   )
 }
@@ -23,7 +23,7 @@ function InputElement(props) {
 function ParentSelectElement(props) {
   return (
     <div>
-      <div className={Styles.inputLabels}>{props.label}</div>
+      <div className={Styles.infoLabel}>{props.label}</div>
       <Select
         className={Styles.parentSelect}
         labelInValue
@@ -60,6 +60,7 @@ function OrganizationForm(props) {
 
   return (
     <Modal
+      className="organizationForm"
       open={props.isOpen}
       onOk={() => {
         props.onSubmit(formData);
@@ -70,6 +71,7 @@ function OrganizationForm(props) {
       <Row
         className={Styles.elementRow}
         align="middle"
+        justify="center"
       >
         <Col>
           <Image
@@ -77,9 +79,19 @@ function OrganizationForm(props) {
             src="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           />
         </Col>
+      </Row>
+      <Row
+        className={Styles.elementRow}
+        align="middle"
+        justify="center"
+      >
         <Col className={Styles.userProfile}>
-          <div>
-            <input className={Styles.formInput} value={formData.Name} onChange={(event) => serializedEdit('Name', event.target.value)} />
+          <Input.Group compact>
+            <Input
+              style={{ width: '130px', height: '32px' }}
+              value={formData.Name}
+              onChange={(event) => serializedEdit('Name', event.target.value)}
+            />
             <Select
               className={Styles.formSelect}
               value={formData.Rank}
@@ -93,12 +105,14 @@ function OrganizationForm(props) {
                 ))
               }
             </Select>
-          </div>
-          <input className={Styles.formInput} value={formData.DoDID} onChange={(event) => serializedEdit('DoDID', event.target.value)} />
+          </Input.Group>
         </Col>
       </Row>
       <Row className={Styles.elementRow}>
         <Col span={12}><InfoElement label="부대" content={formData.Unit} /></Col>
+        <Col span={12}>
+          <InputElement label="군번" value={formData.DoDID} onChange={(event) => serializedEdit('DoDID', event.target.value)} />
+        </Col>
       </Row>
       <Row className={Styles.elementRow}>
         <Col span={12}>
@@ -116,7 +130,7 @@ function OrganizationForm(props) {
           <InputElement label="군연락망" value={formData.MilNumber} onChange={(event) => serializedEdit('MilNumber', event.target.value)} />
         </Col>
       </Row>
-      <Row>
+      <Row className={Styles.elementRow}>
         <ParentSelectElement
           label="직속상관"
           value={formData.Parent}
