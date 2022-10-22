@@ -62,6 +62,8 @@ function OrganizationForm(props) {
     <Modal
       className="organizationForm"
       open={props.isOpen}
+      okText="저장"
+      cancelText="취소"
       onOk={() => {
         props.onSubmit(formData);
         props.onClose();
@@ -76,7 +78,8 @@ function OrganizationForm(props) {
         <Col>
           <Image
             className={Styles.profileImage}
-            src="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            src={props.data.Avatar}
+            fallback="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           />
         </Col>
       </Row>

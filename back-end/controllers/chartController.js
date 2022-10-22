@@ -17,6 +17,7 @@ const getChart = asyncHandler(async (req, res) => {
   const unitOrganization = await Chart.find({ Unit: { $eq: currentUnit.Unitname } });
   if (unitOrganization.length === 0) {
     await Chart.create({
+      Avatar: currentUser.pic,
       Name: currentUser.Name,
       Rank: currentUser.Rank,
       Unit: currentUnit.Unitname
@@ -30,6 +31,7 @@ const getChart = asyncHandler(async (req, res) => {
 //@access          Protected
 const addChart = asyncHandler(async (req, res) => {
   const {
+    Avatar,
     Name,
     Rank,
     Unit,
@@ -47,6 +49,7 @@ const addChart = asyncHandler(async (req, res) => {
   }
 
   const newChart = await Chart.create({
+    Avatar,
     Name,
     Rank,
     Unit,
@@ -61,6 +64,7 @@ const addChart = asyncHandler(async (req, res) => {
   if (newChart) {
     res.status(201).json({
       _id: newChart._id,
+      Avatar,
       Name,
       Rank,
       Unit,
@@ -84,6 +88,7 @@ const addChart = asyncHandler(async (req, res) => {
 const editChart = asyncHandler(async (req, res) => {
   const {
     _id,
+    Avatar,
     Name,
     Rank,
     Unit,
@@ -101,6 +106,7 @@ const editChart = asyncHandler(async (req, res) => {
   }
 
   const updatedChart = await Chart.findByIdAndUpdate(_id, {
+    Avatar,
     Name,
     Rank,
     Position,
@@ -114,6 +120,7 @@ const editChart = asyncHandler(async (req, res) => {
 
   if (updatedChart) {
     res.status(200).json({
+      Avatar,
       Name,
       Rank,
       Position,
