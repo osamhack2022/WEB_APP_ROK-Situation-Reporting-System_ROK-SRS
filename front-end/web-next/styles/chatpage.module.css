@@ -1,0 +1,44 @@
+.header {
+    width: calc(100vw - 640px); 
+    height: 55px; 
+    background-color: #e9e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.participants {
+    display: flex; 
+    align-items: center; 
+    margin-right: 80px; 
+}
+.title {
+    margin-left: 30px; 
+}
+
+.chatarea {
+    display: flex; 
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+}
+
+.mychatelem {
+    background-color: skyblue;
+    width: fit-content;
+    min-width: 100px;
+    border-radius: 10px;
+    padding: 8px;
+    margin: 1px;
+}
+
+.theirchatelem {
+    background-color: greenyellow;
+    width: fit-content;
+    min-width: 100px;
+    border-radius: 10px;
+    padding: 8px;
+    margin: 1px;
+    margin-right: 13px;
+}

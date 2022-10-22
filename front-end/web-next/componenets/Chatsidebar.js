@@ -10,14 +10,33 @@ import { decodeJwt } from 'jose';
 import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/router'
 import { BsFillChatFill } from 'react-icons/bs';
+import randomColor from 'randomcolor'
 import Addperson from './additionalpeople';
+const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
 
 function getid() {
     const JWTtoken = getCookie('usercookie');
     const { id } = decodeJwt(JWTtoken)
     return id
 }
+export async function getServerSideProps() {
+    let endpoint = backendroot + 'api/user/id?search='
+    let id = getid()
+    const options = {
+        // The method is POST because we are sending data.
+        method: 'GET',
+        // Tell the server we're sending JSON.
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + getCookie('usercookie')
+        }
+    }
+    //Fetch data from external API
+    const res = await fetch(endpoint + id, options)
+    const data = await res.json()
 
+    return { props: { data } }
+}
 function Menuelement(props) {
     const [snapshot, loading, error] = useCollection(collection(db, "chats"))
 
@@ -49,7 +68,9 @@ function Menuelement(props) {
         )
     )
 }
-const Sidebar = ({ children }) => {
+
+
+const Sidebar = ({props, children }) => {
     const [open, setOpen] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [addUser, setAddUser] = useState([]);
@@ -60,10 +81,33 @@ const Sidebar = ({ children }) => {
 
 
     let submitnewchat = async (event) => {
-        console.log(chatTitle)
-        console.log(addUser)
+        
         try {
-            await addDoc(collection(db, "chats"), {name: chatTitle, rectime: new Date(), users: [getid(), addUser[0].key]})
+            let gotuserdata = await getServerSideProps()
+            gotuserdata = gotuserdata['props']['data'][0]
+            var userdata = {};
+            var users = []
+            users.push(gotuserdata._id)
+            userdata[gotuserdata._id] = {
+                'full': gotuserdata.Rank + " " + gotuserdata.Name,
+                'rank': gotuserdata.Rank,
+                'name': gotuserdata.Name,
+                'color': randomColor({luminosity: 'dark', hue: 'random'})
+                 
+            }
+            for (let i = 0; i < addUser.length; i++) {
+                let splitdata = addUser[i].label.split(' ')
+                users.push(addUser[i].key)
+                userdata[addUser[i].key] = {
+                    'full': addUser[i].label,
+                    'rank': splitdata[0],
+                    'name': splitdata[1],
+                    'color': randomColor({luminosity: 'dark', hue: 'random'}),
+                }
+            }
+            await addDoc(collection(db, "chats"), 
+                {name: chatTitle, 
+                rectime: new Date(), users: users, userdata: userdata})
             setOpen(false);
         } catch {
             seterrormsg('Error when creating chat room')
@@ -123,5 +167,8 @@ const Sidebar = ({ children }) => {
 
     </>
 }
+
+
+
 
 export default Sidebar;

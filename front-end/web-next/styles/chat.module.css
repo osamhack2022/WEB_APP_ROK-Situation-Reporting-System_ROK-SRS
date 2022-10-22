@@ -6,6 +6,7 @@
     display: flex; 
     height: 100px; 
     border-bottom: 0.5px lightgrey solid; 
+    width: 360px;
 }
 .menuelemtitle {
     font-size: 20px;
