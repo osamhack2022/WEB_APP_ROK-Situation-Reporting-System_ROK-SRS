@@ -62,6 +62,8 @@ function OrganizationForm(props) {
     <Modal
       className="organizationForm"
       open={props.isOpen}
+      okText="저장"
+      cancelText="취소"
       onOk={() => {
         props.onSubmit(formData);
         props.onClose();

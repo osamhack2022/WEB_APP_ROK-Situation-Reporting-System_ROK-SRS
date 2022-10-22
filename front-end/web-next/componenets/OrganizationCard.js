@@ -28,6 +28,7 @@ function OrganizationCard(props) {
             : (
               <div>
                 <Button
+                  type="primary"
                   onClick={() => {
                     setOpenCreateForm(true);
                     props.onClose();
@@ -44,6 +45,7 @@ function OrganizationCard(props) {
                   수정하기
                 </Button>
                 <Button
+                  danger
                   onClick={() => {
                     props.onRemove(props.data);
                     props.onClose();
