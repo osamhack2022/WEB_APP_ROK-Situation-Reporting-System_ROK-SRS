@@ -5,7 +5,9 @@ import { PageHeader, Image } from 'antd';
 
 function chatpage() {
     return <>
-        <Sidebar></Sidebar>
+        <Sidebar>
+            <p>hi!</p>
+        </Sidebar>
     </>
 }
 

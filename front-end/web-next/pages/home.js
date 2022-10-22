@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import style from '../styles/homepage.module.css'
-import Image from 'next/image'
+import {Image} from 'antd'
 import unitlogo from '../img/unitlogo.png'
 import { Descriptions, Tabs, Avatar, List, PageHeader, Button, Input, Space } from 'antd';
 import {decryptuser, encryptuser} from '../encryption/userencryption'

@@ -11,6 +11,22 @@
     font-size: 20px;
     color: #008272;
 }
+
+.button {
+    background-color: #008272;
+    color: white; 
+    font-size: 14px;
+    border: none;  
+    padding: 5px;
+    height: 35px;
+}
+
+.button:hover {
+    background-color: #00695d;
+    color: white; 
+    cursor: pointer; 
+
+}
 .imagecontainer {
     width: 100px;
     height: 100px;
@@ -38,4 +54,13 @@
     width: 360px; 
     background-color: #F0F0F0;
     height: 100vh; 
+}
+
+.error {
+    color: red; 
+    font-size: 14px; 
+    margin-left: 8px; 
+    line-height: 35px; 
+    margin-top: 20px;
+    margin-bottom: 0px;
 }

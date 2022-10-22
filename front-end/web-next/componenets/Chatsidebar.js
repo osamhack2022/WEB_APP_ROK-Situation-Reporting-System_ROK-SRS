@@ -1,14 +1,16 @@
 import Head from 'next/head'
 import styles from '../styles/chat.module.css'
-import { PageHeader, Image } from 'antd';
+import Image from 'next/image'
+import { Input, PageHeader, Button, Modal, Form } from 'antd';
+import React, { useState } from 'react';
 import { db } from '../firebaseauth'
 import { useCollection } from "react-firebase-hooks/firestore"
-import { collection } from "@firebase/firestore"
-import { decodeJwt, jwtVerify } from 'jose';
-import { useEffect, useState } from 'react'
+import { collection, addDoc } from "@firebase/firestore"
+import { decodeJwt } from 'jose';
 import { getCookie } from 'cookies-next';
-import { redirect } from 'next/dist/server/api-utils'
 import { useRouter } from 'next/router'
+import { BsFillChatFill } from 'react-icons/bs';
+import Addperson from './additionalpeople';
 
 function getid() {
     const JWTtoken = getCookie('usercookie');
@@ -47,7 +49,37 @@ function Menuelement(props) {
         )
     )
 }
-const Sidebar = () => {
+const Sidebar = ({ children }) => {
+    const [open, setOpen] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+    const [addUser, setAddUser] = useState([]);
+    const [errormsg, seterrormsg] = useState([]);
+
+    const [chatTitle, setchatTitle] = useState([]);
+    const [fetchedInvitedList, setFetchedInvitedList] = useState([]);
+
+
+    let submitnewchat = async (event) => {
+        console.log(chatTitle)
+        console.log(addUser)
+        try {
+            await addDoc(collection(db, "chats"), {name: chatTitle, rectime: new Date(), users: [getid(), addUser[0].key]})
+            setOpen(false);
+        } catch {
+            seterrormsg('Error when creating chat room')
+
+        }
+
+    }
+
+    const showModal = () => {
+        setOpen(true);
+    };
+    const handleCancel = () => {
+        console.log('Clicked cancel button');
+        setOpen(false);
+    };
+
     return <>
         <Head>
             <title>메세지</title>
@@ -55,12 +87,38 @@ const Sidebar = () => {
         <PageHeader
             className="site-page-header"
             title="Messages"
+            extra={[
+                <button key="1" type="primary" className={styles.button} onClick={showModal}>
+                    <div style = {{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    <BsFillChatFill style = {{height: '16px'}} /> &nbsp;채팅방 만들기
+                    </div>
+                </button>,
+            ]}
             style={{ backgroundColor: "white", boxShadow: 'inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3)' }}
         />
+        <Modal title="채팅방 만들기" open={open} onCancel={handleCancel} footer={[]}>
+            <Form onFinish={submitnewchat}>
+                <h3>채팅방 이름</h3>
+                <Form.Item name="채팅 이름" rules={[{ required: true }]}>
+                    <Input style = {{width: '440px', marginBottom: '10px'}} onChange={(event) => { setchatTitle(event.target.value) }}></Input>
+                </Form.Item>
+                <h3>인원 추가</h3>
+                <Addperson style = {{margin: '0px'}} addUser={addUser} setAddUser={setAddUser} fetchedInvitedList={fetchedInvitedList} setFetchedInvitedList = {setFetchedInvitedList}></Addperson>
+                <div style  = {{display: 'flex', alignItems: 'center'}}>
+                    <button className = {styles.button} style = {{marginTop: '20px'}} type="primary">채팅방 만들기</button>
+                    <p className = {styles.error}>{errormsg}</p> 
+                </div>
+            </Form>
+            
+        </Modal>
         <div className={styles.flexcontainer}>
             <div className={styles.sidebar}>
-                <Menuelement/>
+                <Menuelement />
             </div>
+            <div className={styles.chatroom}>
+                {children}
+            </div>
+
         </div>
 
     </>
