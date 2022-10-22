@@ -2,7 +2,7 @@
 ![Logo](https://i.ibb.co/VQqT63J/450-300px-300-100px-900-300px.png)
 
 # Table of Contents
-1. [프로잭트 소개](#introduction)
+1. [프로젝트 소개](#introduction)
 2. [기능 설명](#features)
 3. [컴퓨터 구성 / 필수 조건 안내 (Prerequisites)](#requirements)
 4. [기술 스택 (Technique Used) ](#techniques)
@@ -15,14 +15,14 @@
 
 **🚩문제점 제시**
 
-    "7생활관 전원 코로나 걸렸데. 대대장님께 카톡으로 보고드려"
-    "오늘 훈련한 거 사진 찍어서 대대 단톡방에 올려"
+    "7생활관 전원 코로나 걸렸대, 대대장님께 카톡으로 보고드려."
+    "오늘 훈련한 거 사진 찍어서 대대 단톡방에 올려."
     "후임이 다쳤는데 군 전화도 주변에 없네… 어떻게 보고를 하지?"
     "밥이 너무 맛이 없는데 건의를 어떻게 하지? 연대장님께 전화해볼까?" 
 
-대대급 부대 내부에서 용사와 간부 또는 간부 대 간부 간 이용할 효율적고 안전한 보고체계가 없습니다.
+대대급 부대 내부에서 용사와 간부 또는 간부 대 간부 간 이용할 효율적이고 안전한 보고체계가 없습니다.
 
-- 기존의 온나라 체계를 활용한다 하더라도 국방망에 접속이 불가능한 영외 간부에 대한 호출 및 긴급정비와 같은 상황일 경우, 전파에 어려움이 있어 전화/카카오톡과 같은 서비스를 이용하는 것이 현실입니다. 더불어 용사는 해당 체계 계정조차 생성할 수 없다는 것이 뚜렷한 한계점입니다.
+- 기존의 온나라 체계를 이용한다 하더라도 국방망에 접속이 불가능한 영외 간부에 대한 호출 및 긴급정비와 같은 상황일 경우, 전파에 어려움이 있어 전화/카카오톡과 같은 서비스를 이용하는 것이 현실입니다. 더불어 용사는 해당 체계 계정조차 생성할 수 없다는 것이 뚜렷한 한계점입니다.
 - 부대 내부의 정보는 아무리 사소하더라도 군사기밀입니다. 민간 상용 애플리케이션을 이용하는 것은 사이버 보안에 위배되는 행위이고, 기밀 사항을 실수로 다른 사람에게 전달할 수 있는 위험성이 존재하며, 타사 애플리케이션이 해킹당하면 저장된 자료가 암호화되어있다는 보장도 없습니다. 또한, 사회공학으로 군사기밀이 유출될 위험도 있습니다. 
 - 보안성에 문제가 있을 뿐만 아니라, 군에서 원칙적으로 이행되어야 하는 보고체계를 준수하지 않고 보고하는 상황도 많이 발생합니다.
 - 이런 문제점들은 군대라는 조직에서 통제능력 상실과, 상황조치에 큰 차질을 초래할 것입니다.
@@ -83,17 +83,17 @@
  <tr>
 	  <td align='center'><img src = "https://upload.wikimedia.org/wikipedia/commons/2/2a/RSA_Security_logo2.svg" width = "55px" height = "30px"></td>
 	  <td align='center'>RSA</td>
-	  <td align='center'>비대칭 암호와 (암호와된 키 값 전송)</td>
+	  <td align='center'>비대칭 암호화 (암호화된 키 값 전송)</td>
  </tr>
   <tr>
 	  <td align='center'><img src = "https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F1252457264-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fspaces%252F-LVOh1OI8lhWfR_994H2%252Favatar.png%3Fgeneration%3D1546620224707409%26alt%3Dmedia" width = "40px" height = "40px"></td>
 	  	  <td align='center'>Crypto.js</td>
-	  <td align='center'>대칭 암호와 기능 (AES, HMAC)</td>
+	  <td align='center'>대칭 암호화 기능 (AES, HMAC)</td>
  </tr>
    <tr>
 	  <td align='center'><img src = "https://miro.medium.com/max/251/1*YUlYnXhu4NG61i-HRG50AQ.jpeg" width = "40px" height = "40px"></td>
 	  	  <td align='center'>Azure Keystore</td>
-	  <td align='center'>비밀 키값 (Secret Key) 저장</td>
+	  <td align='center'>비밀 키 값 (Secret Key) 저장</td>
  </tr>
 
 </table> 
