@@ -33,7 +33,7 @@ function ParentSelectElement(props) {
         {
           props.nodeList &&
           props.nodeList.map((option) => (
-            props.selfKey != option.key && 
+            props.selfKey != option.key &&
             <Select.Option key={option.key} value={option.value}>
               {option.value}
             </Select.Option>
@@ -121,8 +121,8 @@ function OrganizationForm(props) {
           label="직속상관"
           value={formData.Parent}
           onChange={({ key }) => serializedEdit('Parent', key)}
-          selfKey={formData.key}
-          nodeList={props.nodeList}
+          selfKey={formData._id}
+          nodeList={[{ 'key': null, 'value': '없음' }, ...props.nodeList]}
         />
       </Row>
     </Modal >
