@@ -1,11 +1,11 @@
+import Sidebar from '../componenets/Chatsidebar'
 import Head from 'next/head'
-import Link from "next/link"
-import MenuBar from '../componenets/menubar'
-import MenuLayout from '../componenets/MenuLayout'
-const Messages = () => {
+import { PageHeader, Image } from 'antd';
+
+function Chatpage({children}) {
     return <>
-        <MenuLayout><p>OrgChart</p></MenuLayout>
-    </>
+        <Sidebar>{children}</Sidebar>
+</>
 }
 
-export default Messages; 
+export default Chatpage;

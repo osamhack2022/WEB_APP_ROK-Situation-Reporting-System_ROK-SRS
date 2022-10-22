@@ -2,27 +2,116 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
 const bcrypt = require("bcryptjs");
+const UnitM = require("../models/unitModel");
+
+const getuserbyid = asyncHandler(async (req, res) => {
+  const keyword = req.query.search
+  const index = req.query.index;
+  if (index) {
+    res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
+  } else if (keyword) {
+    let user = await User.find({ _id: { $eq: keyword }}, {password: 0})
+    res.send(user); //.find({ _id: { $ne: req.user._id } }));
+  } else {
+    res.status(400);
+    throw new Error("잘못된 요청입니다.");
+  }
+});
 
 //@description     Get or Search all users
-//@route           GET /api/user?search=
+//@route           GET /api/user?search=?index=
 //@access          Protected
 const allUsers = asyncHandler(async (req, res) => {
+  const ranks = [
+    "CV9",
+    "CV8",
+    "CV7",
+    "CV6",
+    "CV5",
+    "CV4",
+    "CV3",
+    "CV2",
+    "CV1",
+    "PVT",
+    "PFC",
+    "CPL",
+    "SGT",
+    "SST",
+    "SFC",
+    "MST",
+    "SGM",
+    "SEC",
+    "LIU",
+    "LIU",
+    "CPT",
+    "MAJ",
+    "LTC",
+    "COL",
+    "BG",
+    "MG",
+    "LG",
+    "GEN",
+  ];
 
-  const keyword = req.query.search
-    ? {
+  console.log(req.query);
+  const keyword = req.query.search; /*?
+    {
+      $or: [{
+          Name: {
+            $regex: req.query.search,
+            $options: "i"
+          }
+        },
+        {
+          DoDID: {
+            $regex: req.query.search,
+            $options: "i"
+          }
+        },
+        //{ email: { $regex: req.query.search, $options: "i" } },
+      ],
+    } :
+    0;*/
+  users = await User.find(
+    {},
+    {
+      password: 0,
+    }
+  );
+  users.sort(function (a, b) {
+    return (
+      ranks.indexOf(b.Rank) +
+      (b.is_registered ? 0 : 100) -
+      (ranks.indexOf(a.Rank) + (a.is_registered ? 0 : 100))
+    );
+  });
+  const index = req.query.index;
+  // if (index) {
+  //   res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
+  // } else if (keyword) {
+  //   let user = await User.find({ _id: { $eq: keyword }}, {password: 0})
+  //   res.send(user); //.find({ _id: { $ne: req.user._id } }));
+  // } else {
+  //   res.status(400);
+  //   throw new Error("잘못된 요청입니다.");
+  // }
+  if (keyword) {
+    let user = await User.find(
+      {
         $or: [
-          { Name: { $regex: req.query.search, $options: "i" } },
-          { DoDID: { $regex: req.query.search, $options: "i" } },
-          { email: { $regex: req.query.search, $options: "i" } },
+          { Name: { $regex: keyword, $options: "i" } },
+          { Rank: { $regex: keyword, $options: "i" } },
         ],
-      }
-    : {};
-  if (req.query.search == "") {
-    users = await User.find({}, {password:0});
+      },
+      { password: 0 }
+    );
+    res.send(user); //.find({ _id: { $ne: req.user._id } }));
+  } else if (index) {
+    res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
   } else {
-    users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
+    res.status(400);
+    throw new Error("잘못된 요청입니다.");
   }
-  res.send(users);
 });
 
 //@description     Add new user
@@ -36,24 +125,37 @@ const addUser = asyncHandler(async (req, res) => {
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  const userExists = await User.findOne({ DoDID });
+  const userExists = await User.findOne({
+    DoDID,
+  });
 
   if (userExists) {
     res.status(400);
     throw new Error("이미 등록된 사용자입니다.");
   }
 
-  Invcode = Math.random().toString(36).substring(2,10);
+  Invcode = Math.random().toString(36).substring(2, 10);
   Unit = req.user.Unit;
-
   const user = await User.create({
     Name,
     DoDID,
     Rank,
     Type,
     Invcode,
-    Unit
+    Unit,
   });
+
+  const added = await UnitM.findByIdAndUpdate(
+    Unit._id,
+    {
+      $push: {
+        Members: user._id,
+      },
+    },
+    {
+      new: true,
+    }
+  );
 
   if (user) {
     res.status(201).json({
@@ -63,7 +165,7 @@ const addUser = asyncHandler(async (req, res) => {
       DoDID: user.DoDID,
       Type: user.Type,
       Invcode: user.Invcode,
-      Unit: user.Unit
+      Unit: user.Unit,
     });
   } else {
     res.status(400);
@@ -75,14 +177,16 @@ const addUser = asyncHandler(async (req, res) => {
 //@route           POST /api/user/register
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { Rank, Name, DoDID, email, password, pic, Invcode } = req.body;
-
-  if (!Rank || !Name || !email || !password || !DoDID) {
+  const { DoDID, password, pic, Invcode } = req.body;
+  //049opo6a
+  if (!password || !DoDID || !Invcode) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  const userDb = await User.findOne({ DoDID });
+  const userDb = await User.findOne({
+    DoDID,
+  });
 
   if (!userDb) {
     res.status(400);
@@ -102,15 +206,14 @@ const registerUser = asyncHandler(async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     userDb._id,
     {
-      email: email,
       password: await bcrypt.hash(password, await bcrypt.genSalt(10)),
       pic: pic,
-      is_registered: true
+      is_registered: true,
     },
     {
       new: true,
     }
-  )
+  );
 
   if (!updatedUser) {
     res.status(400);
@@ -118,10 +221,7 @@ const registerUser = asyncHandler(async (req, res) => {
   } else {
     res.status(201).json({
       _id: updatedUser._id,
-      Name: updatedUser.Name,
-      Rank: updatedUser.Rank,
       DoDID: updatedUser.DoDID,
-      email: updatedUser.email,
       Type: updatedUser.Type,
       pic: updatedUser.pic,
       token: generateToken(updatedUser._id),
@@ -131,13 +231,17 @@ const registerUser = asyncHandler(async (req, res) => {
 
 //@description     Auth the user
 //@route           POST /api/users/login
-//@access          Public
+//@access          public
 const authUser = asyncHandler(async (req, res) => {
   const { DoDID, password } = req.body;
-  const user = await User.findOne({ DoDID });
+  const user = await User.findOne({
+    DoDID,
+  });
   if (user && !user.is_registered) {
     res.status(400);
-    throw new Error("승인된 사용자이나 아직 등록되지 않았습니다. 계정 등록 후 이용해주세요.");
+    throw new Error(
+      "승인된 사용자이나 아직 등록되지 않았습니다. 계정 등록 후 이용해주세요."
+    );
   }
 
   if (user && (await user.matchPassword(password))) {
@@ -157,9 +261,9 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-//@description     Register new user
-//@route           POST /api/user/register
-//@access          Public
+//@description     update user info
+//@route           PUT /api/user
+//@access          protect
 const updateUser = asyncHandler(async (req, res) => {
   const { Rank, Name, email, milNumber, number } = req.body;
 
@@ -169,7 +273,9 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 
   const DoDID = req.user.DoDID;
-  const userDb = await User.findOne({ DoDID });
+  const userDb = await User.findOne({
+    DoDID,
+  });
 
   if (!userDb) {
     res.status(400);
@@ -189,12 +295,12 @@ const updateUser = asyncHandler(async (req, res) => {
       Name: Name != noData ? Name : userDb.Name,
       email: email != noData ? email : userDb.email,
       milNumber: milNumber != noData ? milNumber : userDb.milNumber,
-      number: number != noData ? number : userDb.number
+      number: number != noData ? number : userDb.number,
     },
     {
       new: true,
     }
-  )
+  );
 
   if (!updatedUser) {
     res.status(400);
@@ -214,4 +320,127 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { allUsers, addUser, registerUser, authUser, updateUser };
+//@description     update user info
+//@route           PUT /api/user/updateweb
+//@access          protect
+const updateUser2 = asyncHandler(async (req, res) => {
+  const { DID, Rank, Role, email, milNumber, number } = req.body;
+
+  if (!DID && !Rank && !Role) {
+    res.status(400);
+    throw new Error("수정할 정보를 입력하세요.");
+  }
+
+  const DoDID = req.user.DoDID;
+  const userDb = await User.findOne({
+    DoDID,
+  });
+
+  if (!userDb) {
+    res.status(400);
+    throw new Error("등록되지 않은 사용자입니다.");
+  }
+
+  if (!userDb.is_registered) {
+    res.status(400);
+    throw new Error("가입 후 시도하세요.");
+  }
+
+  const noData = "";
+  const updatedUser = await User.findByIdAndUpdate(
+    userDb._id,
+    {
+      DoDID: DID != noData ? DID : userDb.DoDID,
+      Rank: Rank != noData ? Rank : userDb.Rank,
+      Role: Role != noData ? Role : userDb.Role,
+      email: email != noData ? email : userDb.email,
+      milNumber: milNumber != noData ? milNumber : userDb.milNumber,
+      number: number != noData ? number : userDb.number,
+    },
+    {
+      new: true,
+    }
+  );
+
+  if (!updatedUser) {
+    res.status(400);
+    throw new Error("사용자를 찾을 수 없습니다.");
+  } else {
+    res.status(201).json({
+      _id: updatedUser._id,
+      Name: updatedUser.Name,
+      Rank: updatedUser.Rank,
+      DoDID: updatedUser.DoDID,
+      email: updatedUser.email,
+      milNumber: updatedUser.milNumber,
+      number: updatedUser.number,
+      Role: updatedUser.Role,
+      pic: updatedUser.pic,
+    });
+  }
+});
+
+//@description     update user picture
+//@route           PUT /api/user/pic
+//@access          protect
+const updatePic = asyncHandler(async (req, res) => {
+  const { pic } = req.body;
+
+  if (!pic) {
+    res.status(400);
+    throw new Error("수정할 사진 정보를 입력하세요.");
+  }
+
+  const DoDID = req.user.DoDID;
+  const userDb = await User.findOne({
+    DoDID,
+  });
+
+  if (!userDb) {
+    res.status(400);
+    throw new Error("등록되지 않은 사용자입니다. 부대 당담자에게 문의하세요.");
+  }
+
+  if (!userDb.is_registered) {
+    res.status(400);
+    throw new Error("가입 후 시도하세요.");
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(
+    userDb._id,
+    {
+      pic: pic,
+    },
+    {
+      new: true,
+    }
+  );
+
+  if (!updatedUser) {
+    res.status(400);
+    throw new Error("사용자를 찾을 수 없습니다.");
+  } else {
+    res.status(201).json({
+      _id: updatedUser._id,
+      Name: updatedUser.Name,
+      Rank: updatedUser.Rank,
+      DoDID: updatedUser.DoDID,
+      email: updatedUser.email,
+      milNumber: updatedUser.milNumber,
+      number: updatedUser.number,
+      Type: updatedUser.Type,
+      pic: updatedUser.pic,
+    });
+  }
+});
+
+module.exports = {
+  getuserbyid,
+  allUsers,
+  addUser,
+  registerUser,
+  authUser,
+  updateUser,
+  updateUser2,
+  updatePic,
+};

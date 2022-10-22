@@ -39,10 +39,10 @@ function ReportList(props) {
       renderItem={(item) => (
         <List.Item>
           <ReportCard
-            name={item.name}
-            position={item.position}
-            memo={item.memo}
-            datetime={item.datetime}
+            name={item.User?.Name}
+            position={item.User?.Position}
+            memo={item.Content}
+            datetime={item.createdAt}
           />
         </List.Item>
       )}
@@ -55,17 +55,20 @@ function ReportLayout(props) {
 
   function ButtonGroup() {
     return (
-      <>
+      <div>
         <Button
-          type="dashed"
+          type="primary"
+          size="large"
           danger
         >
           종결하기
         </Button>
-        <Button>
+        <Button
+          size="large"
+        >
           상급보고
         </Button>
-      </>
+      </div>
     )
   }
 
@@ -93,7 +96,7 @@ function ReportLayout(props) {
           }
         </Col>
       </Row>
-      <div className={Styles.memoFooter}>
+      <div className={Styles.memoFooterGroup}>
         <Input.Group compact>
           <Input
             style={{ width: 'calc(100% - 60px)' }}
@@ -106,7 +109,10 @@ function ReportLayout(props) {
           </Button>
         </Input.Group>
         <Divider className={Styles.memoDivider} />
-        <Row justify='space-between'>
+        <Row
+          className={Styles.memoFooter}
+          justify='space-between'
+        >
           <Col>
             {props.footer}
           </Col>

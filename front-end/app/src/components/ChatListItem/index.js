@@ -11,7 +11,7 @@ const chatHandler = () => {
     .catch((error) => console.log(error))
 }
 
-export const ChatListItem = ({ name, lastMessage, createAt }) => {
+export const ChatListItem = (props) => {
   let [fontsLoaded] = useNunitoFonts()
 
   const navigation = useNavigation()
@@ -28,13 +28,15 @@ export const ChatListItem = ({ name, lastMessage, createAt }) => {
             style={styles.avatar}
           />
           <View style={styles.midContainer}>
-            <Text style={styles.username}>{name}</Text>
+            <Text style={styles.username}>{props.name}</Text>
             <Text numberOfLines={2} style={styles.lastMessage}>
-              {lastMessage}
+              {props.lastMessage}
             </Text>
           </View>
         </View>
-        <Text style={styles.time}>{moment('2022-10-03 04:00').fromNow()}</Text>
+        <Text style={styles.time}>
+          {props.createdAt || moment('2022-10-03 04:00').fromNow()}
+        </Text>
       </View>
     </TouchableOpacity>
   )

@@ -1,12 +1,11 @@
-
 .inputfield {
   width: 400px;
   height: 25px;
   font-size: 17px;
   display: block;
-  border-top: none; 
-  border-left: none; 
-  border-right: none; 
+  border-top: none;
+  border-left: none;
+  border-right: none;
 }
 
 .buttonfield {
@@ -14,53 +13,81 @@
   height: 33px;
   font-size: 18px;
   background-color: #008272;
-  color: white; 
+  color: white;
   border-radius: 5px;
   border: none;
   margin-top: 5px;
   display: block;
+  letter-spacing: 3px;
 }
 
 .buttonfield:hover {
-  cursor: pointer; 
+  cursor: pointer;
   background-color: #016459;
 }
 
-.inputfield:focus{
-  outline: none;
-  border-bottom: 2px solid black; 
+.horizontalline {
+  border: 1px solid grey;
 }
+
+.buttonfielddemo {
+  width: 180px;
+  height: 33px;
+  font-size: 14px;
+  background-color: #008272;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  display: block;
+  letter-spacing: 0.8px;
+  margin-top: 5px;
+}
+
+.inputfield:focus {
+  outline: none;
+  border-bottom: 2px solid black;
+}
+
 #loginfooter {
   width: 400px;
   margin: auto;
   margin-top: 20px;
 }
+
 #demofooter {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  bottom: 330px;
   width: 400px;
-  margin: auto;
-  margin-top: 55px;
 }
+
 #demofooterh2 {
   text-align: center;
-  margin-bottom: 10px;
+  font-weight: bold;
+  margin-bottom: 1px;
+  letter-spacing: 2px;
 }
+
 .desctext {
-  font-size: 10px;
+  font-size: 12px;
+  letter-spacing: 0.8px;
 }
 
 
 #demofooter button {
   background-color: #008272;
-  color: white; 
+  color: white;
   border-radius: 5px;
   border: none;
-  margin-top: 5px;
+  margin-top: 10px;
   height: 28px;
   padding-left: 10px;
   padding-right: 10px;
 }
+
 #demofooter button:hover {
-  cursor: pointer; 
+  cursor: pointer;
   background-color: #016459;
 }
 
@@ -68,17 +95,18 @@
   color: blue;
   font-size: 15px;
 }
+
 .links:hover {
-  color:rgb(0, 0, 158);
+  color: rgb(0, 0, 158);
   text-decoration: underline;
 
 }
 
 #error {
-  color: red; 
-  font-size: 14px; 
+  color: red;
+  font-size: 14px;
   margin-left: 15px;
-  line-height: 33px; 
+  line-height: 33px;
   margin-top: 4px;
   margin-bottom: 0px;
 }

@@ -28,7 +28,7 @@ function MenuLayout(props) {
       label: <span className={styles.menuLabel}>메모 보고</span>
     },
     {
-      key: 'messeges',
+      key: 'messages',
       icon: <AiOutlineMessage className={styles.menuIcon} />,
       label: <span className={styles.menuLabel}>메세지</span>
     },
@@ -60,7 +60,7 @@ function MenuLayout(props) {
             style={{ width: '280px' }}
             mode="vertical"
             items={sideMenu}
-            selectedKeys={currentPath.substring(1, (currentPath.indexOf('/', 1) === -1 ? currentPath.length : currentPath.indexOf('/')))}
+            selectedKeys={currentPath.split('/')[1]}
             onSelect={({ key }) => router.push('/' + key)}
           />
           <Button

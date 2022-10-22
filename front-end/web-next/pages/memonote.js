@@ -1,13 +1,29 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head'
-import { Layout, Row, Col, List, Button, Input, Divider } from 'antd';
+import { Layout, Row, Col, List, Button, Input, Divider, Select, Spin } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
+import { getCookie } from 'cookies-next';
 import ReportLayout from '../componenets/MemoReport';
 import MemoForm from '../componenets/MemoForm';
+import Styles from '../styles/MemoLayout.module.css';
 
 export default function Memo() {
   const [selectedItem, setSelection] = useState(undefined);
+  const [memonoteType, setMemonoteType] = useState('받은 메모 보고');
   const [formOpened, setFormOpened] = useState(false);
+  const [memoRenderList, setMemoRenderList] = useState([]);
+
+  useEffect(() => {
+    fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/report/', {
+      'method': 'GET',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      }
+    })
+      .then(response => response.json())
+      .then(data => setMemoRenderList(data));
+  }, [])
 
   const sampleData = [
     {
@@ -47,11 +63,11 @@ export default function Memo() {
   function Header(props) {
     return (
       <div>
-        <p style={styles.headerTitle}>
+        <p className={Styles.headerTitle}>
           {props.title}
-          {props.isDone ? ' [종결]' : ' [미종결]'}
+          {props.status === 'Unresolved' ? ' [미종결]' : ' [종결]'}
         </p>
-        <div style={styles.headerType}>
+        <div className={Styles.headerType}>
           <Row
             justify='end'
             gutter={12}
@@ -67,8 +83,8 @@ export default function Memo() {
 
   function Footer(props) {
     return (
-      <p style={styles.footer}>
-        보고 체계: {props.unit}
+      <p className={Styles.footer}>
+        보고 체계: {props.reportingSystem}
       </p>
     )
   }
@@ -78,91 +94,120 @@ export default function Memo() {
       <Head>
         <title>메모 보고</title>
       </Head>
-      <Layout style={styles.mainLayout}>
-        <Layout.Sider
-          style={styles.siderLayout}
-          width={400}
-        >
-          <div style={styles.siderMenu}>
+      {
+        memoRenderList.length === 0
+          ? (
             <Row
-              style={{ marginBottom: '20px' }}
+              className={Styles.spinSkeleton}
               align="middle"
-              justify="space-between"
+              justify="center"
             >
               <Col>
-                <div style={styles.siderTitle}>받은 메모 보고</div>
-              </Col>
-              <Col>
-                <Button
-                  shape="circle"
-                  icon={<FormOutlined />}
-                  onClick={() => setFormOpened(true)}
-                />
+              <Spin size="large" />
               </Col>
             </Row>
-            <Input.Search style={styles.menuSearcher} />
-            <div style={styles.scrollableDiv}>
-              <List
-                itemLayout="horizontal"
-                dataSource={sampleData}
-                renderItem={(item) => (
-                  <div>
-                    <Button
-                      style={styles.siderMenuButton}
-                      type="link"
-                      onClick={() => setSelection(item.key)}
+          )
+          : (
+            <Layout className={Styles.mainLayout}>
+              <Layout.Sider
+                className={Styles.siderLayout}
+                width={400}
+              >
+                <div className={Styles.siderMenu}>
+                  <div className={Styles.siderHeader}>
+                    <Row
+                      align="middle"
+                      justify="space-between"
                     >
-                      <p style={styles.siderMenuTitle}>
-                        {item.title}
-                        {item.isDone ? ' [종결]' : ' [미종결]'}
-                      </p>
-                      <p style={styles.siderMenuContent}>
-                        {item.memo}
-                      </p>
-                      <Row
-                        style={styles.siderMenuFooter}
-                        gutter={10}
-                        justify="end"
-                      >
-                        <Col>중요도: {item.level}</Col>
-                        <Col>{item.datetime}</Col>
-                      </Row>
-                    </Button>
-                    <Divider style={{ margin: 0 }} />
+                      <Col>
+                        <div className="memonoteSiderTitle">
+                          <Select
+                            popupClassName={Styles.siderTitle}
+                            bordered={false}
+                            value={memonoteType}
+                            onChange={(v) => { setMemonoteType(v); console.log(v) }}
+                          >
+                            <Select.Option value="receiveMemo">받은 메모 보고</Select.Option>
+                            <Select.Option value="sendMemo">보낸 메모 보고</Select.Option>
+                          </Select>
+                        </div>
+                      </Col>
+                      <Col>
+                        <Button
+                          className={Styles.formButton}
+                          shape="circle"
+                          icon={<FormOutlined />}
+                          onClick={() => setFormOpened(true)}
+                        />
+                      </Col>
+                    </Row>
+                    <Input.Search className={Styles.menuSearcher} />
                   </div>
-                )}
-              />
-            </div>
-          </div>
-        </Layout.Sider>
-        <Layout.Content style={styles.contentLayout}>
-          {
-            (selectedItem !== undefined) &&
-            <div style={styles.contentMenu}>
-              <ReportLayout
-                header={
-                  <Header
-                    title={sampleData[selectedItem].title}
-                    type={sampleData[selectedItem].type}
-                    level={sampleData[selectedItem].level}
-                    datetime={sampleData[selectedItem].datetime}
-                    isDone={sampleData[selectedItem].isDone}
-                  />
+                  <Divider className={Styles.bottomDivider} />
+                  <div className={Styles.scrollableDiv}>
+                    <List
+                      itemLayout="horizontal"
+                      dataSource={memoRenderList}
+                      renderItem={(item, index) => (
+                        <div>
+                          <Button
+                            className={Styles.siderMenuButton}
+                            type="link"
+                            onClick={() => setSelection(index)}
+                          >
+                            <div className={Styles.siderMenuTitle}>
+                              {item.Title}
+                              {item.Status === 'Unresolved' ? ' [미종결]' : ' [종결]'}
+                            </div>
+                            <div className={Styles.siderMenuContent}>
+                              {item.Content}
+                            </div>
+                            <Row
+                              className={Styles.siderMenuFooter}
+                              gutter={10}
+                              justify="end"
+                            >
+                              <Col>중요도: {item.Severity}</Col>
+                              <Col>{item.createdAt}</Col>
+                            </Row>
+                          </Button>
+                          <Divider className={Styles.bottomDivider} />
+                        </div>
+                      )}
+                    />
+                  </div>
+                </div>
+              </Layout.Sider>
+              <Layout.Content className={Styles.contentLayout}>
+                {
+                  selectedItem !== undefined &&
+                  <div className={Styles.contentMenu}>
+                    <ReportLayout
+                      header={
+                        <Header
+                          title={memoRenderList[selectedItem].Title}
+                          type={memoRenderList[selectedItem].Type}
+                          level={memoRenderList[selectedItem].Severity}
+                          datetime={memoRenderList[selectedItem].createdAt}
+                          status={memoRenderList[selectedItem].Status}
+                        />
+                      }
+                      footer={
+                        <Footer reportingSystem={memoRenderList[selectedItem].ReportingSystem} />
+                      }
+                      height="710px"
+                      name={memoRenderList[selectedItem].User?.Name}
+                      position={memoRenderList[selectedItem].User?.Position}
+                      memo={memoRenderList[selectedItem].Content}
+                      datetime={memoRenderList[selectedItem].createdAt}
+                      comment={memoRenderList[selectedItem].Comment}
+                    />
+                  </div>
                 }
-                footer={
-                  <Footer unit={sampleData[selectedItem].unit} />
-                }
-                height="710px"
-                name={sampleData[selectedItem].name}
-                position={sampleData[selectedItem].position}
-                memo={sampleData[selectedItem].memo}
-                datetime={sampleData[selectedItem].datetime}
-                comment={sampleData[selectedItem].comment}
-              />
-            </div>
-          }
-        </Layout.Content>
-      </Layout>
+              </Layout.Content>
+            </Layout>
+          )
+      }
       <MemoForm
         isOpen={formOpened}
         onSubmitted={() => setFormOpened(false)}
@@ -170,82 +215,4 @@ export default function Memo() {
       />
     </>
   )
-}
-
-
-const styles = {
-  mainLayout: {
-    height: '100%',
-    padding: '20px 30px',
-    backgroundColor: '#777'
-  },
-  siderLayout: {
-    height: '100%',
-    backgroundColor: 'transparent',
-    padding: '10px 20px'
-  },
-  siderMenu: {
-    height: '100%',
-    padding: '20px 30px',
-    backgroundColor: '#fff',
-    borderRadius: '20px',
-    boxShadow: '3px 4px 5px #777'
-  },
-  siderTitle: {
-    fontSize: '15pt',
-    fontWeight: 'bold'
-  },
-  contentLayout: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'transparent',
-    padding: '10px 20px'
-  },
-  contentMenu: {
-    height: '100%',
-    padding: '20px 40px',
-    backgroundColor: '#fff',
-    borderRadius: '20px',
-    boxShadow: '3px 4px 5px #777'
-  },
-  headerTitle: {
-    fontSize: '14pt',
-    textAlign: 'center',
-    fontWeight: 'bold'
-  },
-  headerType: {
-    textAlign: 'right'
-  },
-  footer: {
-
-  },
-  menuSearcher: {
-    marginBottom: '15px'
-  },
-  scrollableDiv: {
-    maxHeight: 'calc(100% - 100px)',
-    overflow: 'auto'
-  },
-  siderMenuButton: {
-    width: '100%',
-    height: 'auto',
-    color: '#000',
-    textAlign: 'left',
-    padding: '5px'
-  },
-  siderMenuTitle: {
-    fontSize: '11pt',
-    fontWeight: 'bold'
-  },
-  siderMenuContent: {
-    fontSize: '10pt',
-    paddingLeft: '10pt',
-    maxWidth: '288pt',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
-  },
-  siderMenuFooter: {
-    fontSize: '10pt'
-  }
 }
