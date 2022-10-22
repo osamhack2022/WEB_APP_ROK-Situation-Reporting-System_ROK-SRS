@@ -66,23 +66,22 @@ function OrganizationCard(props) {
           </Col>
           <Col className={Styles.userProfile}>
             <div>
-              <span className={Styles.userName}>{props.data.name}</span>
-              <span className={Styles.milRank}>{props.data.rank}</span>
+              <span className={Styles.userName}>{props.data.Name}</span>
+              <span className={Styles.milRank}>{props.data.Rank}</span>
             </div>
             <div className={Styles.userDodid}>{props.data.DoDID}</div>
           </Col>
         </Row>
         <Row className={Styles.elementRow}>
-          <Col span={12}><InfoElement label="부대" content={props.data.unit} /></Col>
-          <Col span={12}><InfoElement label="직책" content={props.data.position} /></Col>
+          <Col span={12}><InfoElement label="부대" content={props.data.Unit} /></Col>
         </Row>
         <Row className={Styles.elementRow}>
-          <Col span={12}><InfoElement label="권한" content={props.data.roles} /></Col>
-          <Col span={12}><InfoElement label="이메일" content={props.data.email} /></Col>
+          <Col span={12}><InfoElement label="직책" content={props.data.Position} /></Col>
+          <Col span={12}><InfoElement label="이메일" content={props.data.Email} /></Col>
         </Row>
         <Row className={Styles.elementRow}>
-          <Col span={12}><InfoElement label="전화번호" content={props.data.number} /></Col>
-          <Col span={12}><InfoElement label="군연락망" content={props.data.milNumber} /></Col>
+          <Col span={12}><InfoElement label="전화번호" content={props.data.Number} /></Col>
+          <Col span={12}><InfoElement label="군연락망" content={props.data.MilNumber} /></Col>
         </Row>
       </Modal>
       <OrganizationForm

@@ -15,9 +15,9 @@ function renderNode(node, chooseNode) {
         key={node.key}
         label={
           <TreeNodeElement
-            name={node.name}
-            rank={node.rank}
-            position={node.position}
+            name={node.Name}
+            rank={node.Rank}
+            position={node.Position}
             onClick={() => chooseNode(node)}
           />
         }
@@ -93,11 +93,10 @@ function Organogram(props) {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
-        // const objectData = data.reduce((preData, node) => {
-        //   preData[node._id] = node;
-        // }, {})
-        // setOrgData(objectData)
+        const objectData = data.reduce((preData, node) => (
+          { ...preData, [node._id]: node }
+        ), {});
+        setOrgData(objectData)
       });
   }, []);
 
@@ -134,7 +133,8 @@ function Organogram(props) {
         'Authorization': `Bearer ${getCookie('usercookie')}`
       },
       'body': JSON.stringify(node)
-    }).then(response => setOrgData(treeNode => ({ ...treeNode, [response._id]: node })))
+    })
+    .then(() => setOrgData(treeNode => ({ ...treeNode, [node._id]: node })))
   }, [setOrgData]);
 
   const deleteNode = useCallback(async (node) => {
