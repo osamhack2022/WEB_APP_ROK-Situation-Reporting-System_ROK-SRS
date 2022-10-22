@@ -18,6 +18,7 @@ function renderNode(node, chooseNode) {
         lineBorderRadius="10px"
         label={
           <TreeNodeElement
+            avatar={node.Avatar}
             name={node.Name}
             rank={node.Rank}
             position={node.Position}
@@ -34,6 +35,7 @@ function renderNode(node, chooseNode) {
       key={node._id}
       label={
         <TreeNodeElement
+          avatar={node.Avatar}
           name={node.Name}
           rank={node.Rank}
           position={node.Position}
@@ -62,7 +64,8 @@ function TreeNodeElement(props) {
             <Image
               className={Styles.profileImage}
               preview={false}
-              src="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src={props.avatar}
+              fallback="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
           </Col>
           <Col>

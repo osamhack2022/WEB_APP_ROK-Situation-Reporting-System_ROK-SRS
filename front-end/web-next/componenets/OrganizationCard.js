@@ -65,7 +65,8 @@ function OrganizationCard(props) {
           <Col>
             <Image
               className={Styles.profileImage}
-              src="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src={props.data.Avatar}
+              fallback="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
           </Col>
         </Row>
