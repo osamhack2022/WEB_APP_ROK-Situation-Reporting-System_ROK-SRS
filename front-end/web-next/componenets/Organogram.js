@@ -9,15 +9,19 @@ function renderNode(node, chooseNode) {
   if (!node)
     return;
 
-  if (!node.parent)
+  if (!node.Parent)
     return (
       <Tree
-        key={node.key}
+        key={node._id}
+        lineWidth="4px"
+        lineColor="#008080"
+        lineBorderRadius="10px"
         label={
           <TreeNodeElement
-            name={node.name}
-            rank={node.rank}
-            position={node.position}
+            avatar={node.Avatar}
+            name={node.Name}
+            rank={node.Rank}
+            position={node.Position}
             onClick={() => chooseNode(node)}
           />
         }
@@ -28,12 +32,13 @@ function renderNode(node, chooseNode) {
 
   return (
     <TreeNode
-      key={node.key}
+      key={node._id}
       label={
         <TreeNodeElement
-          name={node.name}
-          rank={node.rank}
-          position={node.position}
+          avatar={node.Avatar}
+          name={node.Name}
+          rank={node.Rank}
+          position={node.Position}
           onClick={() => chooseNode(node)}
         />
       }
@@ -51,7 +56,7 @@ function TreeNodeElement(props) {
     >
       <div className={Styles.cardContent}>
         <Row
-          gutter={10}
+          gutter={20}
           align="middle"
           justify="start"
         >
@@ -59,7 +64,8 @@ function TreeNodeElement(props) {
             <Image
               className={Styles.profileImage}
               preview={false}
-              src="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+              src={props.avatar}
+              fallback="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
           </Col>
           <Col>
@@ -93,11 +99,10 @@ function Organogram(props) {
     })
       .then(response => response.json())
       .then(data => {
-        console.log(data)
-        // const objectData = data.reduce((preData, node) => {
-        //   preData[node._id] = node;
-        // }, {})
-        // setOrgData(objectData)
+        const objectData = data.reduce((preData, node) => (
+          { ...preData, [node._id]: node }
+        ), {});
+        setOrgData(objectData)
       });
   }, []);
 
@@ -123,7 +128,14 @@ function Organogram(props) {
       },
       'body': JSON.stringify(node)
     })
-      .then(response => setOrgData(treeNode => ({ ...treeNode, [response._id]: node })))
+      .then(response => {
+        if (response.status === 200 || response.status === 201)
+          return response.json()
+      })
+      .then(data => {
+        if (data)
+          setOrgData(treeNode => ({ ...treeNode, [data._id]: data }))
+      })
   }, [setOrgData]);
 
   const updateNode = useCallback(async (node) => {
@@ -134,16 +146,20 @@ function Organogram(props) {
         'Authorization': `Bearer ${getCookie('usercookie')}`
       },
       'body': JSON.stringify(node)
-    }).then(response => setOrgData(treeNode => ({ ...treeNode, [response._id]: node })))
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201)
+          setOrgData(treeNode => ({ ...treeNode, [node._id]: node }))
+      })
   }, [setOrgData]);
 
   const deleteNode = useCallback(async (node) => {
     const nodeCopy = { ...orgData };
 
     // Redirection for children of removed node
-    const nodeChildren = Object.values(nodeCopy).filter((data) => data.parent == node._id);
+    const nodeChildren = Object.values(nodeCopy).filter((data) => data.Parent == node._id);
     for (let child of nodeChildren) {
-      child.parent = node.parent;
+      child.Parent = node.Parent;
       await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart/edit', {
         'method': 'POST',
         'headers': {
@@ -162,29 +178,31 @@ function Organogram(props) {
       },
       'body': JSON.stringify(node)
     })
-      .then(() => {
-        delete nodeCopy[node._id];
-        setOrgData(nodeCopy);
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) {
+          delete nodeCopy[node._id];
+          setOrgData(nodeCopy);
+        }
       })
   }, [orgData, setOrgData]);
 
   const makeTree = useCallback((data) => {
     // Deep Copy for object
     const dataSet = {};
-    for (let key in data)
-      dataSet[key] = Object.assign({}, data[key]);
+    for (let id in data)
+      dataSet[id] = { ...data[id] };
 
     const dataTree = [];
-    for (let key in dataSet) {
-      if (!dataSet[key].parent) {
-        dataTree.push(dataSet[key]);
+    for (let id in dataSet) {
+      if (!dataSet[id].Parent) {
+        dataTree.push(dataSet[id]);
       }
       else {
-        if (dataSet[dataSet[key].parent].children) {
-          dataSet[dataSet[key].parent].children.push(dataSet[key]);
+        if (dataSet[dataSet[id].Parent].children) {
+          dataSet[dataSet[id].Parent].children.push(dataSet[id]);
         }
         else {
-          dataSet[dataSet[key].parent].children = [dataSet[key]];
+          dataSet[dataSet[id].Parent].children = [dataSet[id]];
         }
       }
     }
@@ -196,7 +214,7 @@ function Organogram(props) {
     <>
       <Row gutter={50}>
         {orgDataTree.map((dataNode) => (
-          <Col>
+          <Col key={dataNode._id}>
             {renderNode(dataNode, chooseOrgInfo)}
           </Col>
         ))}
@@ -209,7 +227,7 @@ function Organogram(props) {
         onCreate={createNode}
         onUpdate={updateNode}
         onRemove={deleteNode}
-        nodeList={props.renderData && Object.values(props.renderData).map((node) => ({ 'key': node.key, 'value': node.rank + ' ' + node.name }))}
+        nodeList={orgData && Object.values(orgData).map((node) => ({ 'key': node._id, 'value': node.Rank + ' ' + node.Name }))}
       />
     </>
   )

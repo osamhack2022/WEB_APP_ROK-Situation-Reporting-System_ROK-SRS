@@ -1,41 +1,29 @@
 const asyncHandler = require("express-async-handler");
+const UnitM = require("../models/unitModel");
 const Chart = require("../models/chartModel");
-const User = require("../models/userModel.js");
-const jwt = require("jsonwebtoken");
 
 //@description     Get organizational chart as array list
 //@route           GET /api/chart
 //@access          Protected
 const getChart = asyncHandler(async (req, res) => {
-  const auth = req.headers.authorization;
+  const currentUser = req.user;
+  const currentUnit = await UnitM.findOne({ _id: currentUser.Unit });
 
-  if (!auth || !auth.startsWith('Bearer')) {
-    res.status(401);
-    throw new Error('토큰이 없거나 인증되지 않았습니다.');
+  if (!currentUnit) {
+    res.status(400);
+    throw new Error('사용자의 부대가 설정되지 않았습니다.');
   }
 
-  try {
-    const token = auth.split(' ')[1];
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const currentUser = await User.findById(decoded.id).select("-password");
-    const currentUnit = await currentUser.Unit?.Unitname;
-
-    if (!currentUnit)
-      throw new ReferenceError('사용자의 부대가 설정되지 않았습니다.');
-
-    const unitOrganization = await Chart.find({ Unit: { $eq: currentUnit } });
-    res.send(unitOrganization);
+  const unitOrganization = await Chart.find({ Unit: { $eq: currentUnit.Unitname } });
+  if (unitOrganization.length === 0) {
+    await Chart.create({
+      Avatar: currentUser.pic,
+      Name: currentUser.Name,
+      Rank: currentUser.Rank,
+      Unit: currentUnit.Unitname
+    })
   }
-  catch (error) {
-    if(error === ReferenceError) {
-      res.status(400);
-      throw new Error(error);
-    }
-
-    res.status(401);
-    throw new Error('잘못된 토큰입니다.');
-  }
+  res.send(unitOrganization);
 });
 
 //@description     Add organizational chart
@@ -43,8 +31,10 @@ const getChart = asyncHandler(async (req, res) => {
 //@access          Protected
 const addChart = asyncHandler(async (req, res) => {
   const {
+    Avatar,
     Name,
     Rank,
+    Unit,
     Position,
     DoDID,
     Number,
@@ -52,63 +42,43 @@ const addChart = asyncHandler(async (req, res) => {
     Email,
     Parent
   } = req.body;
-  const auth = req.headers.authorization;
 
-  if (!auth || !auth.startsWith('Bearer')) {
-    res.status(401);
-    throw new Error('토큰이 없거나 인증되지 않았습니다.');
-  }
-
-  if (!Name || !Rank) {
+  if (!Name || !Rank || !Unit) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  try {
-    const token = auth.split(' ')[1];
+  const newChart = await Chart.create({
+    Avatar,
+    Name,
+    Rank,
+    Unit,
+    Position,
+    DoDID,
+    Number,
+    MilNumber,
+    Email,
+    Parent,
+  });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const currentUser = await User.findById(decoded.id).select("-password");
-    const currentUnit = await currentUser.Unit?.Unitname;
-
-    if (!currentUnit) {
-      res.status(400);
-      throw new Error('사용자의 부대가 설정되지 않았습니다.');
-    }
-
-    const newChart = Chart.create({
+  if (newChart) {
+    res.status(201).json({
+      _id: newChart._id,
+      Avatar,
       Name,
       Rank,
+      Unit,
       Position,
       DoDID,
       Number,
       MilNumber,
       Email,
-      Parent,
-      Unit: currentUnit
-    });
-
-    if (newChart) {
-      res.status(201).json({
-        Name,
-        Rank,
-        Position,
-        DoDID,
-        Number,
-        MilNumber,
-        Email,
-        Parent,
-        Unit: currentUnit
-      })
-    }
-    else {
-      res.send(400);
-      throw new Error('조직도를 추가/수정할 수 없습니다.')
-    }
+      Parent: Parent ?? null,
+    })
   }
-  catch (error) {
-    res.status(401);
-    throw new Error('잘못된 토큰입니다.');
+  else {
+    res.send(400);
+    throw new Error('조직도를 추가/수정할 수 없습니다.')
   }
 });
 
@@ -118,8 +88,10 @@ const addChart = asyncHandler(async (req, res) => {
 const editChart = asyncHandler(async (req, res) => {
   const {
     _id,
+    Avatar,
     Name,
     Rank,
+    Unit,
     Position,
     DoDID,
     Number,
@@ -127,31 +99,28 @@ const editChart = asyncHandler(async (req, res) => {
     Email,
     Parent
   } = req.body;
-  const auth = req.headers.authorization;
 
-  if (!auth || !auth.startsWith('Bearer')) {
-    res.status(401);
-    throw new Error('토큰이 없거나 인증되지 않았습니다.');
-  }
-
-  if (!_id || !Name || !Rank) {
+  if (!_id || !Name || !Rank || !Unit) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  try {
-    const token = auth.split(' ')[1];
+  const updatedChart = await Chart.findByIdAndUpdate(_id, {
+    Avatar,
+    Name,
+    Rank,
+    Position,
+    DoDID,
+    Number,
+    MilNumber,
+    Email,
+    Parent,
+    Unit
+  });
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const currentUser = await User.findById(decoded.id).select("-password");
-    const currentUnit = await currentUser.Unit?.Unitname;
-
-    if (!currentUnit) {
-      res.status(400);
-      throw new Error('사용자의 부대가 설정되지 않았습니다.');
-    }
-
-    const updatedChart = Chart.updateOne({ _id: _id }, {
+  if (updatedChart) {
+    res.status(200).json({
+      Avatar,
       Name,
       Rank,
       Position,
@@ -160,30 +129,12 @@ const editChart = asyncHandler(async (req, res) => {
       MilNumber,
       Email,
       Parent,
-      Unit: currentUnit
-    });
-
-    if (updatedChart) {
-      res.status(200).json({
-        Name,
-        Rank,
-        Position,
-        DoDID,
-        Number,
-        MilNumber,
-        Email,
-        Parent,
-        Unit: currentUnit
-      })
-    }
-    else {
-      res.send(400);
-      throw new Error('조직도를 추가/수정할 수 없습니다.')
-    }
+      Unit
+    })
   }
-  catch (error) {
-    res.status(401);
-    throw new Error('잘못된 토큰입니다.');
+  else {
+    res.send(400);
+    throw new Error('조직도를 추가/수정할 수 없습니다.')
   }
 });
 
@@ -192,43 +143,19 @@ const editChart = asyncHandler(async (req, res) => {
 //@access          Protected
 const deleteChart = asyncHandler(async (req, res) => {
   const { _id } = req.body;
-  const auth = req.headers.authorization;
 
-  if (!auth || !auth.startsWith('Bearer')) {
-    res.status(401);
-    throw new Error('토큰이 없거나 인증되지 않았습니다.');
-  }
-
-  if (!_id || !Name || !Rank) {
+  if (!_id) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  try {
-    const token = auth.split(' ')[1];
-
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const currentUser = await User.findById(decoded.id).select("-password");
-    const currentUnit = await currentUser.Unit?.Unitname;
-
-    if (!currentUnit) {
-      res.status(400);
-      throw new Error('사용자의 부대가 설정되지 않았습니다.');
-    }
-
-    const deleteChart = Chart.remove({ _id: _id });
-
-    if (deleteChart) {
-      res.status(200);
-    }
-    else {
-      res.send(400);
-      throw new Error('조직도를 추가/수정할 수 없습니다.')
-    }
+  const deleteChart = await Chart.findByIdAndDelete(_id);
+  if (deleteChart) {
+    res.send(200);
   }
-  catch (error) {
-    res.status(401);
-    throw new Error('잘못된 토큰입니다.');
+  else {
+    res.send(400);
+    throw new Error('조직도를 추가/수정할 수 없습니다.')
   }
 });
 

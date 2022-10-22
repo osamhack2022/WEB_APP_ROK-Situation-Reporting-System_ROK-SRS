@@ -31,7 +31,12 @@ const chartModel = mongoose.Schema({
   Parent: {
     type: String,
     default: null
-  }
+  },
+  Avatar: {
+    type: String,
+    required: false,
+    default: "https://cdn-icons-png.flaticon.com/512/6142/6142226.png"
+  },
 }, {
   timestamps: true
 });

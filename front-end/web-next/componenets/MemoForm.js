@@ -183,8 +183,7 @@ function MemoForm(props) {
       Type: memoType,
       ReportingSystem: reportOrgList.map((org) => (org.title)),
       Invited: addUserList,
-      Content: memoContent,
-      UserToken: getCookie('usercookie')
+      Content: memoContent
     }
 
     await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/report/', {

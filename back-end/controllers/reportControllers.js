@@ -4,8 +4,6 @@ const Reportsys = require("../models/reportModel");
 const UnitM = require("../models/unitModel");
 const UserM = require("../models/userModel");
 const getScore = require('../ai/classifier.js')
-var mongoose = require('mongoose');
-const jwt = require("jsonwebtoken");
 
 //@description     Get all report cards
 //@route           GET /api/report
@@ -26,7 +24,6 @@ const addReportCard = asyncHandler(async (req, res) => {
     Invited,
     Content,
     Title,
-    UserToken
   } = req.body;
 
   if (!Type || !ReportingSystem || !Invited || !Content || !Title) {
@@ -34,12 +31,9 @@ const addReportCard = asyncHandler(async (req, res) => {
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  //decodes token id
-  const decoded = jwt.verify(UserToken, process.env.JWT_SECRET);
-  const currentUser = await UserM.findById(decoded.id).select("-password");
-
-  let currentUnit = currentUser.Unit
-  let Severity = await getScore(Content)
+  const currentUser = req.user;
+  let currentUnit = currentUser.Unit;
+  let Severity = await getScore(Content);
   const report = await Report.create({
     User: currentUser,
     Type,
