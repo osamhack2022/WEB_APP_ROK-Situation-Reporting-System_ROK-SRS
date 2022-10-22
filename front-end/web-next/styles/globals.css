@@ -117,3 +117,9 @@ a {
 .ant-spin-dot-item {
   background-color: #008080;
 }
+
+.organizationCard > .ant-modal-content, 
+.organizationForm > .ant-modal-content {
+  border-radius: 30px;
+  padding: 5px;
+}
