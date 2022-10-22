@@ -168,9 +168,11 @@ function Organogram(props) {
       },
       'body': JSON.stringify(node)
     })
-      .then(() => {
-        delete nodeCopy[node._id];
-        setOrgData(nodeCopy);
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) {
+          delete nodeCopy[node._id];
+          setOrgData(nodeCopy);
+        }
       })
   }, [orgData, setOrgData]);
 

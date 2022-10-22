@@ -60,6 +60,7 @@ const addChart = asyncHandler(async (req, res) => {
 
   if (newChart) {
     res.status(201).json({
+      _id: newChart._id,
       Name,
       Rank,
       Unit,
@@ -141,9 +142,9 @@ const deleteChart = asyncHandler(async (req, res) => {
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  const deleteChart = Chart.remove({ _id: _id });
+  const deleteChart = await Chart.findByIdAndDelete(_id);
   if (deleteChart) {
-    res.status(200);
+    res.send(200);
   }
   else {
     res.send(400);
