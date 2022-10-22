@@ -15,7 +15,7 @@ const getChart = asyncHandler(async (req, res) => {
   }
 
   const unitOrganization = await Chart.find({ Unit: { $eq: currentUnit.Unitname } });
-  if(unitOrganization.length === 0) {
+  if (unitOrganization.length === 0) {
     await Chart.create({
       Name: currentUser.Name,
       Rank: currentUser.Rank,
@@ -32,6 +32,7 @@ const addChart = asyncHandler(async (req, res) => {
   const {
     Name,
     Rank,
+    Unit,
     Position,
     DoDID,
     Number,
@@ -40,42 +41,34 @@ const addChart = asyncHandler(async (req, res) => {
     Parent
   } = req.body;
 
-  if (!Name || !Rank) {
+  if (!Name || !Rank || !Unit) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
-  }
-
-  const currentUser = req.user;
-  const currentUnit = await currentUser.Unit?.Unitname;
-
-  if (!currentUnit) {
-    res.status(400);
-    throw new Error('사용자의 부대가 설정되지 않았습니다.');
   }
 
   const newChart = await Chart.create({
     Name,
     Rank,
+    Unit,
     Position,
     DoDID,
     Number,
     MilNumber,
     Email,
     Parent,
-    Unit: currentUnit
   });
 
   if (newChart) {
     res.status(201).json({
       Name,
       Rank,
+      Unit,
       Position,
       DoDID,
       Number,
       MilNumber,
       Email,
       Parent,
-      Unit: currentUnit
     })
   }
   else {
@@ -92,6 +85,7 @@ const editChart = asyncHandler(async (req, res) => {
     _id,
     Name,
     Rank,
+    Unit,
     Position,
     DoDID,
     Number,
@@ -100,20 +94,12 @@ const editChart = asyncHandler(async (req, res) => {
     Parent
   } = req.body;
 
-  if (!_id || !Name || !Rank) {
+  if (!_id || !Name || !Rank || !Unit) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  const currentUser = req.user;
-  const currentUnit = await currentUser.Unit?.Unitname;
-
-  if (!currentUnit) {
-    res.status(400);
-    throw new Error('사용자의 부대가 설정되지 않았습니다.');
-  }
-
-  const updatedChart = Chart.updateOne({ _id: _id }, {
+  const updatedChart = await Chart.findByIdAndUpdate(_id, {
     Name,
     Rank,
     Position,
@@ -122,7 +108,7 @@ const editChart = asyncHandler(async (req, res) => {
     MilNumber,
     Email,
     Parent,
-    Unit: currentUnit
+    Unit
   });
 
   if (updatedChart) {
@@ -135,7 +121,7 @@ const editChart = asyncHandler(async (req, res) => {
       MilNumber,
       Email,
       Parent,
-      Unit: currentUnit
+      Unit
     })
   }
   else {
@@ -150,21 +136,12 @@ const editChart = asyncHandler(async (req, res) => {
 const deleteChart = asyncHandler(async (req, res) => {
   const { _id } = req.body;
 
-  if (!_id || !Name || !Rank) {
+  if (!_id) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  const currentUser = req.user;
-  const currentUnit = await currentUser.Unit?.Unitname;
-
-  if (!currentUnit) {
-    res.status(400);
-    throw new Error('사용자의 부대가 설정되지 않았습니다.');
-  }
-
   const deleteChart = Chart.remove({ _id: _id });
-
   if (deleteChart) {
     res.status(200);
   }

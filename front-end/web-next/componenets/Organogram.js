@@ -171,20 +171,20 @@ function Organogram(props) {
   const makeTree = useCallback((data) => {
     // Deep Copy for object
     const dataSet = {};
-    for (let key in data)
-      dataSet[key] = Object.assign({}, data[key]);
+    for (let _id in data)
+      dataSet[_id] = Object.assign({}, data[_id]);
 
     const dataTree = [];
-    for (let key in dataSet) {
-      if (!dataSet[key].parent) {
-        dataTree.push(dataSet[key]);
+    for (let _id in dataSet) {
+      if (!dataSet[_id].parent) {
+        dataTree.push(dataSet[_id]);
       }
       else {
-        if (dataSet[dataSet[key].parent].children) {
-          dataSet[dataSet[key].parent].children.push(dataSet[key]);
+        if (dataSet[dataSet[_id].parent].children) {
+          dataSet[dataSet[_id].parent].children.push(dataSet[_id]);
         }
         else {
-          dataSet[dataSet[key].parent].children = [dataSet[key]];
+          dataSet[dataSet[_id].parent].children = [dataSet[_id]];
         }
       }
     }
@@ -209,7 +209,7 @@ function Organogram(props) {
         onCreate={createNode}
         onUpdate={updateNode}
         onRemove={deleteNode}
-        nodeList={props.renderData && Object.values(props.renderData).map((node) => ({ 'key': node.key, 'value': node.rank + ' ' + node.name }))}
+        nodeList={props.renderData && Object.values(props.renderData).map((node) => ({ 'key': node._id, 'value': node.rank + ' ' + node.name }))}
       />
     </>
   )
