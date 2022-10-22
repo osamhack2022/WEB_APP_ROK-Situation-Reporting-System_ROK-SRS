@@ -20,6 +20,10 @@ const tempData = [
     title: '중사 구창우',
     description: '통신부소대장',
   },
+  {
+    title: '병장 김형민',
+    description: '분대장',
+  },
 ]
 
 export function OrgListItem(props) {
@@ -39,7 +43,7 @@ export function OrgListItem(props) {
               left={LeftImage}
               titleStyle={styles.titleStyle}
               descriptionStyle={styles.descriptionStyle}
-              key={idx}
+              key={idx.toString()}
               onPress={() =>
                 props.showModal({
                   name: item.title,
@@ -50,18 +54,6 @@ export function OrgListItem(props) {
               }
             />
           ))}
-          <List.Accordion
-            title="용사"
-            left={(props) => (
-              <Avatar.Image
-                source={require('../../assets/images/soldier.png')}
-                size={40}
-                style={styles.img}
-              />
-            )}
-          >
-            <List.Item title="분대장 병장 김형민" />
-          </List.Accordion>
         </List.Accordion>
       </List.Section>
     </View>

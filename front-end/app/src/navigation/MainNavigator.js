@@ -1,25 +1,30 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen } from '../screens/LoginScreen'
-import { SignUpScreen } from '../screens/SignUpScreen'
-import { ChatNavigator } from './ChatNavigator'
+import TabNavigator from './TabNavigator'
+import ReportNavigator from './ReportNavigator'
+import ChatNavigator from './ChatNavigator'
+import TopNavigator from './TopNavigator'
+import SettingNavigator from './SettingNavigator'
+import { LoginScreen, SignUpScreen } from '../screens'
 
 const Stack = createStackNavigator()
 
 export default function MainNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: false, headerTitleAlign: 'center' }}
+    >
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen
-        options={{
-          headerShown: true,
-          title: '사용신청',
-          headerTitleAlign: 'center',
-        }}
         name="SignUpScreen"
         component={SignUpScreen}
+        options={{ title: '사용신청', headerShown: true }}
       />
+      <Stack.Screen name="TopNavigator" component={TopNavigator} />
+      <Stack.Screen name="TabNavigator" component={TabNavigator} />
+      <Stack.Screen name="ReportNavigator" component={ReportNavigator} />
       <Stack.Screen name="ChatNavigator" component={ChatNavigator} />
+      <Stack.Screen name="SettingNavigator" component={SettingNavigator} />
     </Stack.Navigator>
   )
 }

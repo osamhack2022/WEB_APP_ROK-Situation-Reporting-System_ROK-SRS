@@ -8,12 +8,14 @@ export function Profile({
   position = '본부중대 통신',
   size = 45,
   src = require('../../assets/images/avatar.png'),
+  style,
   date,
+  right,
 }) {
   let [fontsLoaded] = useNunitoFonts()
 
   return (
-    <View style={styles.avatarView}>
+    <View style={[styles.avatarView, style]}>
       <Avatar.Image source={src} size={size} style={styles.avatarImg} />
       <View style={styles.nameView}>
         <Text style={styles.name}>{name}</Text>
@@ -24,6 +26,7 @@ export function Profile({
           <Text style={styles.dateText}>{date}</Text>
         </View>
       )}
+      {right}
     </View>
   )
 }
