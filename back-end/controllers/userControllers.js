@@ -72,10 +72,28 @@ const allUsers = asyncHandler(async (req, res) => {
     );
   });
   const index = req.query.index;
-  if (index) {
+  // if (index) {
+  //   res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
+  // } else if (keyword) {
+  //   let user = await User.find({ _id: { $eq: keyword }}, {password: 0})
+  //   res.send(user); //.find({ _id: { $ne: req.user._id } }));
+  // } else {
+  //   res.status(400);
+  //   throw new Error("잘못된 요청입니다.");
+  // }
+  if (keyword) {
+    let user = await User.find(
+      {
+        $or: [
+          { Name: { $regex: keyword, $options: "i" } },
+          { Rank: { $regex: keyword, $options: "i" } },
+        ],
+      },
+      { password: 0 }
+    );
+    res.send(user); //.find({ _id: { $ne: req.user._id } }));
+  } else if (index) {
     res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
-  } else if (keyword) {
-    res.send(await User.find({ _id: { $eq: keyword } }, { password: 0 })); //.find({ _id: { $ne: req.user._id } }));
   } else {
     res.status(400);
     throw new Error("잘못된 요청입니다.");
@@ -288,6 +306,66 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
+//@description     update user info
+//@route           PUT /api/user/updateweb
+//@access          protect
+const updateUser2 = asyncHandler(async (req, res) => {
+  const { DID, Rank, Role, email, milNumber, number } = req.body;
+
+  if (!DID && !Rank && !Role) {
+    res.status(400);
+    throw new Error("수정할 정보를 입력하세요.");
+  }
+
+  const DoDID = req.user.DoDID;
+  const userDb = await User.findOne({
+    DoDID,
+  });
+
+  if (!userDb) {
+    res.status(400);
+    throw new Error("등록되지 않은 사용자입니다.");
+  }
+
+  if (!userDb.is_registered) {
+    res.status(400);
+    throw new Error("가입 후 시도하세요.");
+  }
+
+  const noData = "";
+  const updatedUser = await User.findByIdAndUpdate(
+    userDb._id,
+    {
+      DoDID: DID != noData ? DID : userDb.DoDID,
+      Rank: Rank != noData ? Rank : userDb.Rank,
+      Role: Role != noData ? Role : userDb.Role,
+      email: email != noData ? email : userDb.email,
+      milNumber: milNumber != noData ? milNumber : userDb.milNumber,
+      number: number != noData ? number : userDb.number,
+    },
+    {
+      new: true,
+    }
+  );
+
+  if (!updatedUser) {
+    res.status(400);
+    throw new Error("사용자를 찾을 수 없습니다.");
+  } else {
+    res.status(201).json({
+      _id: updatedUser._id,
+      Name: updatedUser.Name,
+      Rank: updatedUser.Rank,
+      DoDID: updatedUser.DoDID,
+      email: updatedUser.email,
+      milNumber: updatedUser.milNumber,
+      number: updatedUser.number,
+      Role: updatedUser.Role,
+      pic: updatedUser.pic,
+    });
+  }
+});
+
 //@description     update user picture
 //@route           PUT /api/user/pic
 //@access          protect
@@ -348,5 +426,6 @@ module.exports = {
   registerUser,
   authUser,
   updateUser,
+  updateUser2,
   updatePic,
 };

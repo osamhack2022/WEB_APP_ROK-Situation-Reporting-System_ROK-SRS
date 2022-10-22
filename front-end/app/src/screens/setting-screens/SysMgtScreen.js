@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native'
-import { Colors, FAB, Provider, Modal } from 'react-native-paper'
+import {
+  Colors,
+  FAB,
+  Provider,
+  Modal,
+  Portal,
+  TextInput,
+} from 'react-native-paper'
 import { ReportGroup } from '../../components/ReportGroup'
 import DATA from '../../data/procData'
 import { UserCard } from '../../components/UserCard'
 import getReportsysApi from '../../apis/report-sys/getReportsysApi'
 import addReportsysApi from '../../apis/report-sys/addReportsysApi'
 import removeReportsysApi from '../../apis/report-sys/removeReportsysApi'
-
-// fetch로 데이터를 받아와서 넘겨줌.
-// 스크롤뷰로 나타냄.
-// title을 체크해서 중복되면 삭제하고 다시 해달라고 alert.
-// 꾹 눌러서 delete alert.
-// 일단 add or delete
-// FAB을 통해 add Screen or Modal
-// 1. Modal이 나을듯
-// delete의 경우 button을 통해?
+import { useRecoilState } from 'recoil'
+import { userState } from '../../states/userState'
 
 const ItemSeparator = () => (
   <Image
@@ -29,7 +29,13 @@ const ItemSeparator = () => (
 )
 
 export function SysMgtScreen() {
+  const [userMe, setUserMe] = useRecoilState(userState)
   const [reportsys, setReportsys] = useState([])
+  const [query, setQuery] = useState('')
+
+  const [visible, setVisible] = useState(false)
+  const showModal = () => setVisible(true)
+  const hideModal = () => setVisible(false)
 
   useEffect(() => {
     const getAllReportsysHandler = async () => {
@@ -39,21 +45,41 @@ export function SysMgtScreen() {
     getAllReportsysHandler()
   })
 
+  const AddReportsysHandler = async ({ Title, List }) => {
+    const res = await addReportsysApi({ Title, List, Unit: userMe.Unit })
+    setReportsys(reportsys.concat(res))
+  }
+
+  const removeReportsysHandler = async ({ _id }) => {
+    const res = await removeReportsysApi({ _id, Unit: userMe.Unit })
+    setReportsys(reportsys.filter((item) => item._id != _id))
+  }
+
   return (
     <Provider>
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <Portal>
-          <Modal></Modal>
+          <Modal visible={visible} onDismiss={hideModal}>
+            <TextInput
+              placeholder="이름 또는 군 번을 입력하세요."
+              dense={true}
+              activeUnderlineColor={Colors.green500}
+              onChangeText={(query) => {
+                setQuery(query)
+              }}
+              left={<TextInput.Icon icon="magnify" />}
+            />
+          </Modal>
         </Portal>
         <ScrollView>
           {/* {reportsys.map((sys) => <ReportGroup group={sys.List} name={sys.Title} />)} */}
-          <ReportGroup group={DATA} name="onDuty" />
-          <ReportGroup group={DATA} name="headquarter" />
+          <ReportGroup List={DATA.onDuty} Title="onDuty" />
+          <ReportGroup List={DATA.headquarter} Title="headquarter" />
         </ScrollView>
         <FAB
           icon="account-plus"
           style={styles.fab}
-          onPress={() => navigation.navigate('UserAddScreen')}
+          onPress={showModal}
           color="white"
         />
       </SafeAreaView>
@@ -62,6 +88,10 @@ export function SysMgtScreen() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: Colors.white,
+    flex: 1,
+  },
   fab: {
     borderRadius: 60,
     height: 56,

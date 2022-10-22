@@ -105,10 +105,10 @@ export function CreateReportScreen() {
         </View>
         <View style={{ width: '85%' }}>
           {groups.includes('onDuty') && (
-            <ReportGroup group={DATA.onDuty} name="onDuty" />
+            <ReportGroup List={DATA.onDuty} Title="onDuty" />
           )}
           {groups.includes('headquarter') && (
-            <ReportGroup group={DATA.headquarter} name="headquarter" />
+            <ReportGroup List={DATA.headquarter} Title="headquarter" />
           )}
         </View>
         <TextInput

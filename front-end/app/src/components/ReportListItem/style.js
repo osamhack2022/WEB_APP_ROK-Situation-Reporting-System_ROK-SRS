@@ -5,11 +5,10 @@ export const styles = StyleSheet.create({
   cardListItem: {
     width: '96%',
     backgroundColor: 'white',
-    marginTop: 8,
     borderRadius: 5,
     elevation: 2,
     paddingVertical: 3,
-    marginVertical: 3,
+    marginVertical: 4,
   },
   title: {
     fontSize: 18,

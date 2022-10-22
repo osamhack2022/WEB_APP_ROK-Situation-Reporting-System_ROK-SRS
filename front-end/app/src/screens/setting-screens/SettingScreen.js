@@ -109,7 +109,7 @@ export function SettingScreen() {
           style={styles.listItem}
           onPress={() =>
             navigation.navigate('SettingNavigator', {
-              screen: 'ProcMgtScreen',
+              screen: 'SysMgtScreen',
             })
           }
         />

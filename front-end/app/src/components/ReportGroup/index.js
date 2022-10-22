@@ -21,7 +21,7 @@ export function ReportGroup(props) {
   return (
     <>
       <FlatList
-        data={props.group}
+        data={props.List}
         renderItem={renderItem}
         contentContainerStyle={styles.container}
         horizontal={true}
@@ -29,7 +29,7 @@ export function ReportGroup(props) {
         showsHorizontalScrollIndicator={false}
       />
       <Text style={styles.text}>
-        {props.name === 'onDuty' ? '당직계통 보고체계' : '본부중대 보고체계'}
+        {props.Title === 'onDuty' ? '당직계통 보고체계' : '본부중대 보고체계'}
       </Text>
     </>
   )

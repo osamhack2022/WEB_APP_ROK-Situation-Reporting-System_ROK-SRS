@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 //prettier-ignore
-import { SafeAreaView, StyleSheet, View, FlatList, Text } from 'react-native'
-import { TextInput } from 'react-native-paper'
+import { SafeAreaView, StyleSheet, View, FlatList, Text, TextInput } from 'react-native'
+import { IconButton } from 'react-native-paper'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportHeader } from '../../components/ReportHeader'
 import { ReportContent } from '../../components/ReportContent'
@@ -31,6 +31,9 @@ export function ReportScreen({ route }) {
     { label: '지시', value: 'order' },
     { label: '긴급', value: 'emergency' },
   ])
+
+  const [focus, setFocus] = useState(false)
+  const inputRef = useRef(null)
 
   const ListHeaderComponent = () => (
     <View style={{ width: '100%', alignItems: 'center' }}>
@@ -74,7 +77,6 @@ export function ReportScreen({ route }) {
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
       />
-
       <View style={styles.commentView}>
         <DropDownPicker
           placeholder="유형"
@@ -92,44 +94,42 @@ export function ReportScreen({ route }) {
           showArrowIcon={false}
           showTickIcon={false}
         />
-        <TextInput
-          style={styles.commentInput}
-          placeholder="댓글을 입력하세요."
-          activeUnderlineColor={Colors.green500}
-          activeOutlineColor={Colors.green500}
-          multiline={true}
-          dense={true}
-          onChangeText={(text) => setComment(text)}
-          value={comment}
-          right={
-            <TextInput.Icon
-              icon="send-outline"
-              style={{
-                paddingTop: 8,
-              }}
-              size={25}
-              color={Colors.green500}
-              onPress={() => {
-                setComments([
-                  ...comments,
-                  {
-                    Name: userMe.Name,
-                    position: userMe.Position,
-                    Content: comment,
-                    Type: commentType,
-                  },
-                ])
-                addCommentHandler({
-                  Title,
-                  Type: commentType,
+        <View style={[styles.commentInput, borderColor(focus)]}>
+          <TextInput
+            placeholder={`댓글을 입력하세요.`}
+            multiline={true}
+            onChangeText={(text) => setComment(text)}
+            value={comment}
+            style={styles.input}
+            onFocus={() => setFocus(true)}
+            onBlur={() => setFocus(false)}
+            ref={inputRef}
+          />
+          <IconButton
+            icon="send-outline"
+            size={25}
+            color={focus ? Colors.green500 : Colors.grey500}
+            onPress={() => {
+              setComments([
+                ...comments,
+                {
+                  Name: userMe.Name,
+                  position: userMe.Position,
                   Content: comment,
-                  _id: userMe._id,
-                })
-                setComment('')
-              }}
-            />
-          }
-        ></TextInput>
+                  Type: commentType,
+                },
+              ])
+              addCommentHandler({
+                Title,
+                Type: commentType,
+                Content: comment,
+                _id: userMe._id,
+              })
+              setComment('')
+              inputRef.current.blur()
+            }}
+          />
+        </View>
       </View>
     </SafeAreaView>
   )
@@ -145,21 +145,25 @@ const styles = StyleSheet.create({
   commentView: {
     bottom: 0,
     position: 'absolute',
-    width: '99%',
+    width: '98%',
     justifyContent: 'center',
     flexDirection: 'row',
   },
   commentInput: {
-    paddingTop: 10,
     width: '82%',
     backgroundColor: Colors.grey100,
     elevation: 4,
     marginLeft: 3,
+    paddingLeft: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1.5,
+    borderRadius: 8,
   },
   dropDown: {
     backgroundColor: Colors.red300,
     borderWidth: 0,
-    borderRadius: 5,
+    borderRadius: 8,
     elevation: 4,
   },
   dropDownText: {
@@ -167,4 +171,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     textAlign: 'center',
   },
+  input: {
+    fontSize: 15,
+    flex: 1,
+  },
 })
+
+const borderColor = (focus) =>
+  StyleSheet.create({
+    borderBottomColor: focus ? Colors.green500 : Colors.grey400,
+  })

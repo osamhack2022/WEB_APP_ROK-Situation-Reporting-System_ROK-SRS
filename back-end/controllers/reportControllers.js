@@ -2,9 +2,19 @@ const asyncHandler = require("express-async-handler");
 const Report = require("../models/reportModel");
 const Reportsys = require("../models/reportModel");
 const UnitM = require("../models/unitModel");
-const UserM = require("../models/unitModel");
+const UserM = require("../models/userModel");
 const getScore = require('../ai/classifier.js')
 var mongoose = require('mongoose');
+const jwt = require("jsonwebtoken");
+
+//@description     Get all report cards
+//@route           GET /api/report
+//@access          Protected
+const getReportCard = asyncHandler(async (req, res) => {
+
+  let reportCards = await Report.find({});
+  res.send(reportCards);
+});
 
 //@description     Create new report card
 //@route           POST /api/report
@@ -15,7 +25,8 @@ const addReportCard = asyncHandler(async (req, res) => {
     ReportingSystem,
     Invited,
     Content,
-    Title
+    Title,
+    UserToken
   } = req.body;
 
   if (!Type || !ReportingSystem || !Invited || !Content || !Title) {
@@ -23,41 +34,48 @@ const addReportCard = asyncHandler(async (req, res) => {
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  User = req.user._id
-  Unit = req.user.Unit._id;
-  Severity = await getScore(Content)
+  //decodes token id
+  const decoded = jwt.verify(UserToken, process.env.JWT_SECRET);
+  const currentUser = await UserM.findById(decoded.id).select("-password");
+
+  let currentUnit = currentUser.Unit
+  let Severity = await getScore(Content)
   const report = await Report.create({
-    User,
+    User: currentUser,
     Type,
     ReportingSystem,
     Invited,
     Content,
     Title,
     Severity,
-    Unit
+    Unit: currentUnit
   });
 
+
+  res.status(201).send(report);
+  return;
+
   const editUnit = await UnitM.findByIdAndUpdate(
-    Unit, {
-      $push: {
-        reportCards: report._id
-      },
-    }, {
-      new: true,
-    }
+    UnitId, {
+    $push: {
+      reportCards: report._id
+    },
+  }, {
+    new: true,
+  }
   )
 
   const editUser = await UserM.findByIdAndUpdate(
-    req.user._id, {
-      $push: {
-        myReportCards: report._id
-      },
-    }, {
-      new: true,
-    }
+    UserId, {
+    $push: {
+      myReportCards: report._id
+    },
+  }, {
+    new: true,
+  }
   )
 
-  if (editReport && editUnit && editUser) {
+  if (editUnit && editUser) {
     res.status(201).send(report);
   } else {
     res.status(400);
@@ -66,5 +84,6 @@ const addReportCard = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  addReportCard
+  addReportCard,
+  getReportCard
 };

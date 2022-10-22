@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { FlatList, SafeAreaView, StyleSheet } from 'react-native'
-import { Colors, Searchbar } from 'react-native-paper'
+// prettier-ignore
+import { FlatList, SafeAreaView, StyleSheet, TextInput, View } from 'react-native'
+import { Colors, IconButton } from 'react-native-paper'
 import { ChatListItem } from '../../components/ChatListItem'
 import userData from '../../data/userData'
 import fetchChatApi from '../../apis/fetchChatApi'
 
 export function ChatListScreen() {
-  const [searchQuery, setSearchQuery] = useState('')
-
+  const [query, setQuery] = useState('')
+  const [focus, setFocus] = useState(false)
   useEffect(() => {
     const fetchChatList = async () => {
       const res = await fetchChatApi()
@@ -16,7 +17,7 @@ export function ChatListScreen() {
     fetchChatList()
   }, [])
 
-  const onChangeSearch = (query) => setSearchQuery(query)
+  const onChangeSearch = (query) => setQuery(query)
 
   const renderItem = ({ item }) => (
     <ChatListItem
@@ -27,18 +28,27 @@ export function ChatListScreen() {
   )
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container]}>
       <FlatList
         data={userData}
         renderItem={renderItem}
-        style={{ backgroundColor: Colors.grey200, width: '100%' }}
+        style={{ width: '100%' }}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
-          <Searchbar
-            onChangeText={onChangeSearch}
-            value={searchQuery}
-            style={styles.searchBar}
-          />
+          <View style={[styles.searchBar, borderColor(focus)]}>
+            <IconButton
+              icon="magnify"
+              size={25}
+              color={focus ? Colors.green500 : Colors.grey500}
+            />
+            <TextInput
+              placeholder="이름 또는 군 번을 입력하세요."
+              onChangeText={onChangeSearch}
+              style={styles.input}
+              onFocus={() => setFocus(true)}
+              onBlur={() => setFocus(false)}
+            />
+          </View>
         }
       />
     </SafeAreaView>
@@ -46,16 +56,24 @@ export function ChatListScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.grey200, alignItems: 'center' },
+  container: { flex: 1, backgroundColor: Colors.white, alignItems: 'center' },
   searchBar: {
-    width: '95%',
-    borderWidth: 1,
-    backgroundColor: 'white',
-    borderColor: Colors.grey400,
-    borderRadius: 10,
-    marginVertical: 5,
+    width: '92%',
+    backgroundColor: Colors.grey100,
     height: 45,
-    elevation: 0,
+    elevation: 4,
     alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 8,
+    borderBottomWidth: 1,
+  },
+  input: {
+    fontSize: 15,
   },
 })
+
+const borderColor = (focus) =>
+  StyleSheet.create({
+    borderBottomColor: focus ? Colors.green500 : Colors.grey400,
+  })

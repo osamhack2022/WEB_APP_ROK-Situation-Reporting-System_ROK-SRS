@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   view: {
     borderRadius: 6,
     alignItems: 'center',
-    paddingVertical: 3,
+    paddingVertical: 5,
     width: 75,
     marginBottom: 2,
     backgroundColor: Colors.grey200,
@@ -14,8 +14,12 @@ export const styles = StyleSheet.create({
   image: {
     marginBottom: 5,
   },
+  title: {
+    fontSize: 12,
+    fontFamily: 'NunitoSans_700Bold',
+  },
   text: {
     fontFamily: 'NunitoSans_400Regular',
-    fontSize: 12,
+    fontSize: 11,
   },
 })

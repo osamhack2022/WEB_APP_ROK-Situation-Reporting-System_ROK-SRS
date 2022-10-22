@@ -9,7 +9,7 @@ export function UserCard(props) {
   return (
     <View style={styles.view}>
       <Avatar.Image source={props.source} size={48} style={styles.image} />
-      <Text style={styles.text}>{props.name}</Text>
+      <Text style={styles.title}>{props.name}</Text>
       <Text style={styles.text}>{props.position}</Text>
     </View>
   )
