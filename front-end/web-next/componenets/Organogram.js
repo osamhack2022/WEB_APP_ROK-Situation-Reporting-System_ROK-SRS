@@ -208,7 +208,7 @@ function Organogram(props) {
     <>
       <Row gutter={50}>
         {orgDataTree.map((dataNode) => (
-          <Col>
+          <Col key={dataNode._id}>
             {renderNode(dataNode, chooseOrgInfo)}
           </Col>
         ))}

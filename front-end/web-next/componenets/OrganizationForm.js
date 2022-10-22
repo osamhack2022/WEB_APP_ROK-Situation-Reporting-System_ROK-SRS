@@ -120,7 +120,7 @@ function OrganizationForm(props) {
         <ParentSelectElement
           label="직속상관"
           value={formData.Parent}
-          onChange={({ key }) => serializedEdit('Parent', key)}
+          onChange={({ key }) => serializedEdit('Parent', key === 'null' ? null : key)}
           selfKey={formData._id}
           nodeList={[{ 'key': null, 'value': '없음' }, ...props.nodeList]}
         />
