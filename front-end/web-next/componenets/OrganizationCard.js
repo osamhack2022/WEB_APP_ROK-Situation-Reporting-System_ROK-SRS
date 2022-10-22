@@ -19,6 +19,7 @@ function OrganizationCard(props) {
   return (
     <>
       <Modal
+        className="organizationCard"
         open={props.isOpen}
         onCancel={props.onClose}
         footer={
@@ -57,6 +58,7 @@ function OrganizationCard(props) {
         <Row
           className={Styles.elementRow}
           align="middle"
+          justify="center"
         >
           <Col>
             <Image
@@ -64,38 +66,44 @@ function OrganizationCard(props) {
               src="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             />
           </Col>
+        </Row>
+        <Row
+          className={Styles.elementRow}
+          align="middle"
+          justify="center"
+        >
           <Col className={Styles.userProfile}>
             <div>
-              <span className={Styles.userName}>{props.data.name}</span>
-              <span className={Styles.milRank}>{props.data.rank}</span>
+              <span className={Styles.userName}>{props.data.Name}</span>
+              <span className={Styles.milRank}>{props.data.Rank}</span>
             </div>
-            <div className={Styles.userDodid}>{props.data.DoDID}</div>
           </Col>
         </Row>
         <Row className={Styles.elementRow}>
-          <Col span={12}><InfoElement label="부대" content={props.data.unit} /></Col>
-          <Col span={12}><InfoElement label="직책" content={props.data.position} /></Col>
+          <Col span={12}><InfoElement label="부대" content={props.data.Unit} /></Col>
+          <Col span={12}><InfoElement label="군번" content={props.data.DoDID} /></Col>
         </Row>
         <Row className={Styles.elementRow}>
-          <Col span={12}><InfoElement label="권한" content={props.data.roles} /></Col>
-          <Col span={12}><InfoElement label="이메일" content={props.data.email} /></Col>
+          <Col span={12}><InfoElement label="직책" content={props.data.Position} /></Col>
+          <Col span={12}><InfoElement label="이메일" content={props.data.Email} /></Col>
         </Row>
         <Row className={Styles.elementRow}>
-          <Col span={12}><InfoElement label="전화번호" content={props.data.number} /></Col>
-          <Col span={12}><InfoElement label="군연락망" content={props.data.milNumber} /></Col>
+          <Col span={12}><InfoElement label="전화번호" content={props.data.Number} /></Col>
+          <Col span={12}><InfoElement label="군연락망" content={props.data.MilNumber} /></Col>
         </Row>
       </Modal>
       <OrganizationForm
         isOpen={openCreateForm}
         onClose={() => setOpenCreateForm(false)}
+        data={{ Unit: props.data.Unit }}
         onSubmit={props.onCreate}
         nodeList={props.nodeList}
       />
       <OrganizationForm
         isOpen={openUpdateForm}
         onClose={() => setOpenUpdateForm(false)}
-        onSubmit={props.onUpdate}
         data={props.data}
+        onSubmit={props.onUpdate}
         nodeList={props.nodeList}
       />
     </>
