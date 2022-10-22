@@ -1,60 +1,57 @@
-import React from 'react'
-import { FAB, List, Avatar } from 'react-native-paper'
-import { SafeAreaView, StyleSheet, ScrollView } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { FAB, Avatar, Colors } from 'react-native-paper'
+//prettier-ignore
+import { SafeAreaView, StyleSheet, TouchableOpacity, ScrollView, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
+import searchUserApi from '../../apis/user/searchUserApi'
+import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 
-const LeftImage = () => (
-  <Avatar.Image
-    source={require('../../assets/images/avatar.png')}
-    size={40}
-    style={{ alignSelf: 'center', marginLeft: 15, marginRight: 5 }}
-  />
+const Item = ({ Name, Rank, pic, Position }) => (
+  <View style={styles.item}>
+    <Avatar.Image soruce={{ uri: pic }} size={30} style={styles.image} />
+    <Text style={styles.text}>{Rank}</Text>
+    <Text style={styles.text}>{Name}</Text>
+    <Text style={styles.text}>{Position}</Text>
+    <TouchableOpacity style={{ flex: 1, alignItems: 'flex-end' }}>
+      <Text style={styles.btnText}>Delete</Text>
+    </TouchableOpacity>
+  </View>
 )
 
-const tempData = [
-  {
-    Name: '김형민',
-    position: '본부중대 통신',
-  },
-]
-
-const deleteUserHandler = () => {}
-
 export function UserMgtScreen() {
+  let [fontsLoaded] = useNunitoFonts()
+
+  const [data, setData] = useState([])
+  useEffect(() => {
+    const fetchUserHandler = async () => {
+      setData([...(await searchUserApi({ index: 1 }))])
+    }
+    fetchUserHandler()
+  }, [])
+
   const navigation = useNavigation()
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        {tempData.map((user, idx) => (
-          <List.Item
-            title={user.Name}
-            description={user.position}
-            left={LeftImage}
-            right={() => (
-              <List.Icon
-                icon="minus-circle-outline"
-                onPress={() => deleteUserHandler()}
-              />
-            )}
-            titleStyle={styles.titleStyle}
-            descriptionStyle={styles.descriptionStyle}
-            key={idx}
-            onPress={() =>
-              props.showModal({
-                name: user.title,
-                role: user.description,
-                team: '통신소대',
-                tel: '010-1234-5678',
-              })
-            }
-          />
-        ))}
+      <ScrollView style={styles.view}>
+        {data &&
+          data.map((user, idx) => (
+            <Item
+              Name={user.Name}
+              Rank={user.Rank}
+              pic={user.pic}
+              Position={user.Position}
+              key={idx}
+            />
+          ))}
       </ScrollView>
       <FAB
         icon="account-plus"
         style={styles.fab}
-        onPress={() => navigation.navigate('UserAddScreen')}
+        color="white"
+        onPress={() =>
+          navigation.navigate('SettingNavigator', { screen: 'UserAddScreen' })
+        }
       />
     </SafeAreaView>
   )
@@ -66,12 +63,41 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
   },
+  view: {
+    width: '90%',
+  },
+  item: {
+    width: '100%',
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.grey300,
+    padding: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   fab: {
+    backgroundColor: '#009572',
     borderRadius: 60,
-    height: 56,
-    width: 56,
+    height: 55,
+    width: 55,
     position: 'absolute',
     bottom: 25,
-    right: 20,
+    right: 25,
+  },
+  image: {
+    backgroundColor: Colors.grey500,
+    marginRight: 5,
+  },
+  text: {
+    fontFamily: 'NunitoSans_400Regular',
+    marginRight: 4,
+  },
+  posText: {
+    fontFamily: 'NunitoSans_400Regular',
+    color: Colors.grey500,
+  },
+  btnText: {
+    fontFamily: 'NunitoSans_400Regular',
+    color: Colors.red400,
+    marginRight: 5,
   },
 })

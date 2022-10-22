@@ -6,7 +6,7 @@ import { SafeAreaView, StyleSheet, ScrollView, Switch, Alert } from 'react-nativ
 import { List, Colors } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
-import logoutApi from '../../apis/logoutApi'
+import logoutApi from '../../apis/sign/logoutApi'
 
 export function SettingScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
@@ -39,13 +39,22 @@ export function SettingScreen() {
           left={() => <List.Icon icon="logout" />}
           style={styles.listItem}
           onPress={() =>
-            logoutHandler(() => navigation.navigate('LoginScreen'))
+            logoutHandler(() =>
+              navigation.navigate('SettingNavigator', {
+                screen: 'LoginScreen',
+              })
+            )
           }
         />
         <List.Item
-          title="개인정보 수정"
+          title="내 정보 관리"
           left={() => <List.Icon icon="account-edit" />}
           style={styles.listItem}
+          onPress={() =>
+            navigation.navigate('SettingNavigator', {
+              screen: 'UserUpdateScreen',
+            })
+          }
         />
         <List.Item
           title="앱 알림 설정"
@@ -68,19 +77,41 @@ export function SettingScreen() {
           title="사용자 관리"
           left={() => <List.Icon icon="account-details" />}
           style={styles.listItem}
-          onPress={() => navigation.navigate('UserMgtScreen')}
+          onPress={() =>
+            navigation.navigate('SettingNavigator', {
+              screen: 'UserMgtScreen',
+            })
+          }
         />
         <List.Item
           title="부대 관리"
           left={() => <List.Icon icon="account-multiple-check" />}
           style={styles.listItem}
-          onPress={() => navigation.navigate('UnitMgtScreen')}
+          onPress={() =>
+            navigation.navigate('SettingNavigator', {
+              screen: 'UnitMgtScreen',
+            })
+          }
+        />
+        <List.Item
+          title="부대 추가"
+          left={() => <List.Icon icon="account-multiple-check" />}
+          style={styles.listItem}
+          onPress={() =>
+            navigation.navigate('SettingNavigator', {
+              screen: 'UnitAddScreen',
+            })
+          }
         />
         <List.Item
           title="보고체계 관리"
           left={() => <List.Icon icon="arrow-decision" />}
           style={styles.listItem}
-          onPress={() => navigation.navigate('ProcMgtScreen')}
+          onPress={() =>
+            navigation.navigate('SettingNavigator', {
+              screen: 'SysMgtScreen',
+            })
+          }
         />
       </ScrollView>
     </SafeAreaView>

@@ -5,6 +5,11 @@ const cors = require("cors");
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
+const unitRoutes = require("./routes/unitRoutes");
+const reportRoutes = require("./routes/reportRoutes");
+const commentRoutes = require("./routes/commentRoutes");
+const chartRoutes = require("./routes/chartRoutes");
+const reportsysRoutes = require("./routes/reportsysRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const path = require("path");
 
@@ -25,13 +30,12 @@ app.use("/api/message", messageRoutes);
 app.use("/api/unit", unitRoutes);
 app.use("/api/report", reportRoutes);
 app.use("/api/comment", commentRoutes);
-
+app.use("/api/reportsys", reportsysRoutes);
+app.use("/api/chart", chartRoutes);
 
 /*const __dirname1 = path.resolve();
-
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname1, "/frontend/build")));
-
   app.get("*", (req, res) =>
     res.sendFile(path.resolve(__dirname1, "frontend", "build", "index.html"))
   );
@@ -41,7 +45,6 @@ app.get("/", (req, res) => {
   res.send("API is running..");
 });
 //}
-
 
 // Error Handling middlewares
 app.use(notFound);
@@ -59,7 +62,7 @@ const io = require("socket.io")(server, {
   cors: {
     //origin: "http://localhost:3000",
     // credentials: true,
-    origin: "*"
+    origin: "*",
   },
 });
 
@@ -94,4 +97,3 @@ io.on("connection", (socket) => {
     socket.leave(userData._id);
   });
 });
-

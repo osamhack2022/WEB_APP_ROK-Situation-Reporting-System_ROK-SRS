@@ -3,10 +3,11 @@ import { TextInput } from 'react-native-paper'
 // prettier-ignore
 import { View ,SafeAreaView, TouchableOpacity, ScrollView, Text, Alert } from 'react-native'
 import { styles } from './style'
+import { useNavigation } from '@react-navigation/native'
 import { GuideText } from '../../components/GuideText'
 import RankItems from '../../data/ranks'
 import DropDownPicker from 'react-native-dropdown-picker'
-import registerApi from '../../apis/registerApi'
+import registerApi from '../../apis/sign/registerApi'
 import { Colors } from 'react-native-paper'
 
 const checkPasswordMatch = (password, confirmPassword) => {
@@ -18,10 +19,14 @@ const checkPasswordMatch = (password, confirmPassword) => {
 }
 
 export function SignUpScreen() {
+  const navigation = useNavigation()
+
   const registerHandler = useCallback(async (userData) => {
     const res = await registerApi(userData)
-    if (res.token) Alert.alert('회원가입에 성공하였습니다.')
-    else Alert.alert(res.message)
+    if (res.token) {
+      Alert.alert('회원가입에 성공하였습니다.')
+      navigation.navigate('LoginScreen')
+    } else Alert.alert(res.message)
   })
 
   const [RankOpen, setRankOpen] = useState(false)
@@ -68,7 +73,7 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(Name) => setName(Name)}
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={``} />
           </View>
@@ -78,7 +83,7 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(DoDID) => setDoDID(DoDID)}
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={`2x-xxxxxxxx`} />
           </View>
@@ -88,7 +93,7 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(password) => setPassword(password)}
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={`${password.length}/15`} />
           </View>
@@ -100,7 +105,7 @@ export function SignUpScreen() {
               setConfirmPassword(confirmPassword)
             }
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText
               guideText={checkPasswordMatch(password, confirmPassword)}
@@ -112,7 +117,7 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(email) => setEmail(email)}
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={``} />
           </View>
@@ -122,13 +127,13 @@ export function SignUpScreen() {
             activeUnderlineColor="#008275"
             onChangeText={(Invcode) => setInvcode(Invcode)}
             style={styles.signUpTextInput}
-          ></TextInput>
+          />
           <View style={styles.guideTextView}>
             <GuideText guideText={`부대에서 받은 초대코드 입력`} />
           </View>
         </View>
         {Rank &&
-          id &&
+          DoDID &&
           password &&
           password === confirmPassword &&
           Name &&

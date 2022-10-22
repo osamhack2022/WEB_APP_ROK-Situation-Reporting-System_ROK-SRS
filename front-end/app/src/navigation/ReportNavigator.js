@@ -1,28 +1,22 @@
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
-import { RecdReportNavigator } from './RecdReportNavigator'
-import { SentReportNavigator } from './SentReportNavigator'
+import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack'
+import { ReportScreen, CreateReportScreen } from '../screens'
 
-const Tab = createMaterialTopTabNavigator()
+const Stack = createStackNavigator()
 
-export function ReportNavigator() {
+export default function ReportNavigator() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen
-        name="RecdReportNavigator"
-        component={RecdReportNavigator}
-        options={{
-          title: '받은 메모보고',
-          tabBarLabelStyle: { fontSize: 15, fontWeight: '600' },
-        }}
+    <Stack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
+      <Stack.Screen
+        name="ReportScreen"
+        component={ReportScreen}
+        options={{ title: '메모보고' }}
       />
-      <Tab.Screen
-        name="SentReportNavigator"
-        component={SentReportNavigator}
-        options={{
-          title: '보낸 메모보고',
-          tabBarLabelStyle: { fontSize: 15, fontWeight: '600' },
-        }}
+      <Stack.Screen
+        name="CreateReportScreen"
+        component={CreateReportScreen}
+        options={{ title: '메모보고 생성' }}
       />
-    </Tab.Navigator>
+    </Stack.Navigator>
   )
 }

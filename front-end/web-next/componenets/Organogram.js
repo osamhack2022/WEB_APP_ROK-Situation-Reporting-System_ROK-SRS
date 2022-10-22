@@ -1,88 +1,26 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Tree, TreeNode } from 'react-organizational-chart';
 import { Button, Image, Row, Col } from 'antd';
-import OrgCard from './OrganizationCard';
+import { getCookie } from 'cookies-next';
+import OrganizationCard from './OrganizationCard';
 import Styles from '../styles/Organogram.module.css';
-
-const myData = [{
-  'key': 1,
-  'username': 'Kim',
-  'department': 'rok_srs',
-  'position': '보안팀장',
-  'roles': 'editable',
-  'rank': '대위',
-  'DoDID': '00-12345678',
-  'phoneNumber': '010-0000-1111',
-  'voipNumber': 'voip',
-  'email': '@@@',
-  'parent': null,
-},
-{
-  'key': 2,
-  'username': 'Jo',
-  'department': 'rok_srs',
-  'position': '백엔드',
-  'roles': 'viewable',
-  'rank': '상병',
-  'DoDID': '99-00112233',
-  'phoneNumber': '010-2222-3333',
-  'voipNumber': 'voip',
-  'email': '@@@',
-  'parent': 1
-},
-{
-  'key': 3,
-  'username': 'Kim',
-  'department': 'rok_srs',
-  'position': '프론트엔드(APP)',
-  'roles': 'viewable',
-  'rank': '병장',
-  'DoDID': '98-76543210',
-  'phoneNumber': '010-6666-7777',
-  'voipNumber': 'voip',
-  'email': '@@@',
-  'parent': 1
-},
-{
-  'key': 4,
-  'username': 'Choe',
-  'department': 'rok_srs',
-  'position': '프론트엔드(WEB)',
-  'roles': 'none',
-  'rank': '일병',
-  'DoDID': '88-44556677',
-  'phoneNumber': '010-4444-5555',
-  'voipNumber': 'voip',
-  'email': '@@@',
-  'parent': 2
-},
-{
-  'key': 5,
-  'username': 'Annoymous',
-  'department': 'rok_srs',
-  'position': 'TEST',
-  'roles': 'none',
-  'rank': '이병',
-  'DoDID': '-',
-  'phoneNumber': '-',
-  'voipNumber': '-',
-  'email': '@@@',
-  'parent': null
-}];
 
 function renderNode(node, chooseNode) {
   if (!node)
     return;
 
-  if (!node.parent)
+  if (!node.Parent)
     return (
       <Tree
-        key={node.key}
+        key={node._id}
+        lineWidth="4px"
+        lineColor="#008080"
+        lineBorderRadius="10px"
         label={
           <TreeNodeElement
-            name={node.username}
-            rank={node.rank}
-            position={node.position}
+            name={node.Name}
+            rank={node.Rank}
+            position={node.Position}
             onClick={() => chooseNode(node)}
           />
         }
@@ -93,12 +31,12 @@ function renderNode(node, chooseNode) {
 
   return (
     <TreeNode
-      key={node.key}
+      key={node._id}
       label={
         <TreeNodeElement
-          name={node.username}
-          rank={node.rank}
-          position={node.position}
+          name={node.Name}
+          rank={node.Rank}
+          position={node.Position}
           onClick={() => chooseNode(node)}
         />
       }
@@ -116,7 +54,7 @@ function TreeNodeElement(props) {
     >
       <div className={Styles.cardContent}>
         <Row
-          gutter={10}
+          gutter={20}
           align="middle"
           justify="start"
         >
@@ -144,38 +82,124 @@ function TreeNodeElement(props) {
 
 function Organogram(props) {
   const [isCardOpened, setCardOpened] = useState(false)
-  const [orgInfo, setOrgInfo] = useState({});
+  const [selectedOrgInfo, setSelectedOrgInfo] = useState({});
+  const [orgData, setOrgData] = useState({});
   const [orgDataTree, setOrgDataTree] = useState([]);
 
   useEffect(() => {
-    props.onPreventDraggable(isCardOpened);
+    fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart', {
+      'method': 'GET',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+    })
+      .then(response => response.json())
+      .then(data => {
+        const objectData = data.reduce((preData, node) => (
+          { ...preData, [node._id]: node }
+        ), {});
+        setOrgData(objectData)
+      });
+  }, []);
 
-    if (orgDataTree.length === 0)
-      makeTree(myData);
-  }, [isCardOpened, orgDataTree, myData]);
+  useEffect(() => {
+    makeTree(orgData);
+  }, [orgData])
+
+  useEffect(() => {
+    props.onPreventDraggable(isCardOpened);
+  }, [isCardOpened]);
 
   const chooseOrgInfo = useCallback((node) => {
-    setOrgInfo(node);
+    setSelectedOrgInfo(node);
     setCardOpened(true);
-  }, [setOrgInfo, setCardOpened]);
+  }, [setSelectedOrgInfo, setCardOpened]);
+
+  const createNode = useCallback(async (node) => {
+    await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart/add', {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+      'body': JSON.stringify(node)
+    })
+      .then(response => {
+        if (response.status === 200 || response.status === 201)
+          return response.json()
+      })
+      .then(data => {
+        if (data)
+          setOrgData(treeNode => ({ ...treeNode, [data._id]: data }))
+      })
+  }, [setOrgData]);
+
+  const updateNode = useCallback(async (node) => {
+    await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart/edit', {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+      'body': JSON.stringify(node)
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201)
+          setOrgData(treeNode => ({ ...treeNode, [node._id]: node }))
+      })
+  }, [setOrgData]);
+
+  const deleteNode = useCallback(async (node) => {
+    const nodeCopy = { ...orgData };
+
+    // Redirection for children of removed node
+    const nodeChildren = Object.values(nodeCopy).filter((data) => data.Parent == node._id);
+    for (let child of nodeChildren) {
+      child.Parent = node.Parent;
+      await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart/edit', {
+        'method': 'POST',
+        'headers': {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getCookie('usercookie')}`
+        },
+        'body': JSON.stringify(child)
+      });
+    }
+
+    await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart/delete', {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+      'body': JSON.stringify(node)
+    })
+      .then((response) => {
+        if (response.status === 200 || response.status === 201) {
+          delete nodeCopy[node._id];
+          setOrgData(nodeCopy);
+        }
+      })
+  }, [orgData, setOrgData]);
 
   const makeTree = useCallback((data) => {
-    const dataSet = data.reduce((prevSet, currData) => {
-      prevSet[currData.key] = Object.assign({}, currData);
-      return prevSet;
-    }, {})
+    // Deep Copy for object
+    const dataSet = {};
+    for (let id in data)
+      dataSet[id] = { ...data[id] };
 
     const dataTree = [];
-    for (let key in dataSet) {
-      if (!dataSet[key].parent) {
-        dataTree.push(dataSet[key]);
+    for (let id in dataSet) {
+      if (!dataSet[id].Parent) {
+        dataTree.push(dataSet[id]);
       }
       else {
-        if (dataSet[dataSet[key].parent].children) {
-          dataSet[dataSet[key].parent].children.push(dataSet[key]);
+        if (dataSet[dataSet[id].Parent].children) {
+          dataSet[dataSet[id].Parent].children.push(dataSet[id]);
         }
         else {
-          dataSet[dataSet[key].parent].children = [dataSet[key]];
+          dataSet[dataSet[id].Parent].children = [dataSet[id]];
         }
       }
     }
@@ -187,23 +211,20 @@ function Organogram(props) {
     <>
       <Row gutter={50}>
         {orgDataTree.map((dataNode) => (
-          <Col>
+          <Col key={dataNode._id}>
             {renderNode(dataNode, chooseOrgInfo)}
           </Col>
         ))}
       </Row>
-      <OrgCard
+      <OrganizationCard
         isOpen={isCardOpened}
         onClose={() => setCardOpened(false)}
-        rank={orgInfo.rank}
-        name={orgInfo.username}
-        DoDID={orgInfo.DoDID}
-        department={orgInfo.department}
-        position={orgInfo.position}
-        roles={orgInfo.roles}
-        email={orgInfo.email}
-        tel={orgInfo.phoneNumber}
-        mTel={orgInfo.voipNumber}
+        data={selectedOrgInfo}
+        isEditable
+        onCreate={createNode}
+        onUpdate={updateNode}
+        onRemove={deleteNode}
+        nodeList={orgData && Object.values(orgData).map((node) => ({ 'key': node._id, 'value': node.Rank + ' ' + node.Name }))}
       />
     </>
   )

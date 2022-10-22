@@ -19,6 +19,7 @@
   border: none;
   margin-top: 5px;
   display: block;
+  letter-spacing: 1.5px;
 }
 
 .buttonfield:hover {
@@ -30,12 +31,6 @@
   margin-bottom: 0px;
 }
 
-.inputdesc {
-  color: darkgrey; 
-  font-size: 13px;
-  line-height: 13px;
-  margin-top: 0px;
-}
 
 #loginfooter {
   width: 400px;
@@ -60,4 +55,16 @@
   line-height: 33px; 
   margin-top: 4px;
   margin-bottom: 0px;
+}
+
+#success {
+  color: green; 
+  font-size: 14px; 
+  line-height: 33px; 
+  margin-top: 4px;
+  margin-bottom: 0px;
+}
+
+.inputfield {
+  margin-bottom: 20px;
 }
