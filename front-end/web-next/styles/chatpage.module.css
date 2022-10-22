@@ -14,9 +14,15 @@
 }
 .title {
 }
+.container {
+    height: calc(100vh - 75px);
+    display: flex; 
+    flex-direction: column;
+}
 
 .chatarea {
     display: flex; 
+    flex: 1; 
     flex-direction: column;
     width: 90%;
     margin: auto;
@@ -39,4 +45,9 @@
     padding: 8px;
     margin: 1px;
     margin-right: 13px;
+}
+
+.footer {
+    height: 55px;
+    background-color: #e9e8e8;
 }

@@ -1,10 +1,8 @@
-import Sidebar from '../../componenets/Chatsidebar'
 import Chatpage from '../messages'
 import Head from 'next/head'
-import { Avatar, Divider, Tooltip, Button, Popover } from 'antd';
+import { Avatar, Form, Select, Input } from 'antd';
 import styles from '../../styles/chatpage.module.css'
-import { PageHeader, Image } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from "next/router"
 import { collection, query } from "@firebase/firestore"
 import { getCookie } from 'cookies-next';
@@ -21,14 +19,15 @@ function getid() {
     return id
 }
 
-
 function chatpage() {
+    const [messagetype, setmessagetype] = useState('regular');
+    const [message, setmessage] = useState('regular');
+
     const router = useRouter()
     const { id } = router.query
 
     const [snapshot, loading, error] = useCollection(collection(db, "chats"))
     if (loading || !snapshot || !id) return <div>Loading...</div>
-
     let chatdata = null
     for (let i = 0; i < snapshot.docs.length; i++) {
         if (snapshot.docs[i].id == id) {
@@ -65,6 +64,8 @@ function chatpage() {
     }
     return <>
         <Chatpage>
+            <div className = {styles.container}>
+
             <div className={styles.header}>
                 <div style={{ width: '90%', margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <h1 className={styles.title}>{chatdata.name}</h1>
@@ -76,9 +77,25 @@ function chatpage() {
                     </div>
                 </div>
             </div>
-            <div className={styles.chatarea}>
+            <div className={styles.chatarea} style = {{flex: '1'}}>
                 <Generatechat id={id} />
             </div>
+            <div className = {styles.footer}>
+                <Form style  = {{display: 'flex', alignItems: 'center', width: '90%', height: '55px', margin: 'auto'}}>
+                <Select showSearch value = {messagetype} placeholder="메세지 종류" optionFilterProp="children" style={{ width: '140px' }}
+
+                    onChange={(event) => { setmessagetype(event.value) }}
+                >
+                    <Option value="regular">일반메세지</Option>
+                    <Option value="report">상황보고</Option>
+                    <Option value="order">지시사항</Option>
+                    <Option value="secret">암구호</Option>
+                </Select>
+                <Input  onChange={(event) => { setmessage(event.target.value) }} placeholder="Basic usage"/>
+                </Form>
+            </div>
+            </div>
+
 
         </Chatpage>
     </>

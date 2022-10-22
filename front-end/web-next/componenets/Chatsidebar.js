@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/chat.module.css'
 import Image from 'next/image'
-import { Input, PageHeader, Button, Modal, Form } from 'antd';
+import { Input, PageHeader, Modal, Form } from 'antd';
 import React, { useState } from 'react';
 import { db } from '../firebaseauth'
 import { useCollection } from "react-firebase-hooks/firestore"
@@ -43,6 +43,13 @@ function Menuelement(props) {
     if (loading || !snapshot) return <div>Loading...</div>
 
     const id = getid()
+    console.log(snapshot.docs.length)
+    if (snapshot.docs.length == 0) {
+        return <>
+        
+        
+        </>
+    }
     const chats = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).filter(chat => chat.users.includes(id))
     const router = useRouter()
     const redirect = (id) => {
@@ -60,8 +67,9 @@ function Menuelement(props) {
                         <p className={styles.date}>{new Date(thechat.rectime.seconds * 1000).toLocaleString([], { hourCycle: 'h23', year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })}</p>
                     </div>
                     <p className={styles.content}>
-                        {thechat.users}
+                        {thechat.recentmsg}
                     </p>
+                    <p style = {{margin: '0px'}} id={thechat.severity}>위험도: {thechat.severity}</p>
                 </div>
             </div>
         )
@@ -106,7 +114,7 @@ const Sidebar = ({props, children }) => {
             }
             await addDoc(collection(db, "chats"), 
                 {name: chatTitle, 
-                rectime: new Date(), users: users, userdata: userdata, recentmsg: '새 채팅'})
+                rectime: new Date(), users: users, userdata: userdata, severity: '2', recentmsg: '새 채팅'})
             setOpen(false);
         } catch {
             seterrormsg('Error when creating chat room')

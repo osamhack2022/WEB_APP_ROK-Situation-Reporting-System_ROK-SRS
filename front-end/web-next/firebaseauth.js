@@ -9,17 +9,16 @@ import { getAnalytics } from "firebase/analytics";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBanpq8RSFEdjeLuPLFLxP5SSSaRiuQt_Q",
-  authDomain: "roka-srs.firebaseapp.com",
-  projectId: "roka-srs",
-  storageBucket: "roka-srs.appspot.com",
-  messagingSenderId: "507147817796",
-  appId: "1:507147817796:web:322e5dd0bd63c0dc033d11",
-  measurementId: "G-2TFC1LHNV0"
+  apiKey: "AIzaSyDkafDYy9l1VbpIzkr-dFJQp6ivEIC0GEk",
+  authDomain: "roka-srs-7afac.firebaseapp.com",
+  projectId: "roka-srs-7afac",
+  storageBucket: "roka-srs-7afac.appspot.com",
+  messagingSenderId: "919446399362",
+  appId: "1:919446399362:web:4f56e14e55e06cb063079b",
+  measurementId: "G-1JYFFV9CPE"
 };
 
 // Initialize Firebase
-console.log(getFirestore)
 const app = initializeApp(firebaseConfig);
 const db = getFirestore()
 //const analytics = getAnalytics(app);
