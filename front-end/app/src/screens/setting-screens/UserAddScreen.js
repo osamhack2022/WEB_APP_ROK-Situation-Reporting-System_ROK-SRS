@@ -6,7 +6,7 @@ import { GuideText } from '../../components/GuideText'
 import { window } from '../../constants/layout'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { MyButton } from '../../components/MyButton'
-import addUserApi from '../../apis/addUserApi'
+import addUserApi from '../../apis/user/addUserApi'
 
 const AccountTypeItems = [
   { label: '지휘관', value: 'Commander' },
@@ -19,15 +19,15 @@ export function UserAddScreen() {
     const res = await addUserApi({ Rank, Name, DoDID, Type })
     if (res.Invcode)
       Alert.alert(
-        `사용자 등록에 성공했습니다, 초대 코드는 ${res.Invcode}입니다.`
+        `사용자 등록에 성공했습니다.\n초대 코드는 ${res.Invcode}입니다.`
       )
     else Alert.alert(res.message)
-    cb()
+    console.log(res.message)
   }
 
   const [DoDID, setDoDID] = useState('')
   const [Name, setName] = useState('')
-  const [role, setRole] = useState('')
+  const [Position, setPosition] = useState('')
 
   const [RankOpen, setRankOpen] = useState(false)
   const [Rank, setRank] = useState(null)
@@ -39,83 +39,89 @@ export function UserAddScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-        <View style={styles.view}>
-          <TextInput
-            label="군 번"
-            dense={true}
-            activeUnderlineColor="#008275"
-            onChangeText={(DoDID) => setDoDID(DoDID)}
-            style={styles.textInput}
-          ></TextInput>
-          <View style={styles.guideTextView}>
-            <GuideText guideText={`2x-xxxxxxxx`} />
-          </View>
-          <DropDownPicker
-            placeholder="계급"
-            open={RankOpen}
-            value={Rank}
-            items={Ranks}
-            setOpen={setRankOpen}
-            setValue={setRank}
-            setItems={setRanks}
-            style={styles.dropDown}
-            textStyle={{
-              fontSize: 16,
-              color: Rank ? Colors.black : Colors.grey600,
-              marginLeft: 2,
-            }}
-            zIndex={5001}
-          />
-          <View style={styles.guideTextView}>
-            <GuideText guideText={``} />
-          </View>
-          <TextInput
-            label="이름"
-            dense={true}
-            activeUnderlineColor="#008275"
-            onChangeText={(Name) => setName(Name)}
-            style={styles.textInput}
-          ></TextInput>
-          <View style={styles.guideTextView}>
-            <GuideText guideText={``} />
-          </View>
-          <DropDownPicker
-            placeholder="계정 유형"
-            open={typeOpen}
-            value={AccountType}
-            items={AccountTypes}
-            setOpen={setTypeOpen}
-            setValue={setAccountType}
-            setItems={setAccountTypes}
-            style={styles.dropDown}
-            textStyle={{
-              fontSize: 16,
-              color: Rank ? Colors.black : Colors.grey600,
-              marginLeft: 2,
-            }}
-          />
-          <View style={styles.guideTextView}>
-            <GuideText guideText={``} />
-          </View>
-          <TextInput
-            label="직책"
-            dense={true}
-            activeUnderlineColor="#008275"
-            onChangeText={(role) => setRole(role)}
-            style={styles.textInput}
-          ></TextInput>
-          <View style={styles.guideTextView}>
-            <GuideText guideText={``} />
-          </View>
+      <ScrollView style={styles.view} showsVerticalScrollIndicator={false}>
+        <TextInput
+          label="군 번"
+          dense={true}
+          activeUnderlineColor="#008275"
+          onChangeText={(DoDID) => setDoDID(DoDID)}
+          style={styles.textInput}
+        ></TextInput>
+        <View style={styles.guideTextView}>
+          <GuideText guideText={`2x-xxxxxxxx`} />
         </View>
-        {DoDID && Rank && Name && AccountType && role && (
+        <DropDownPicker
+          placeholder="계급"
+          open={RankOpen}
+          value={Rank}
+          items={Ranks}
+          setOpen={setRankOpen}
+          setValue={setRank}
+          setItems={setRanks}
+          style={styles.dropDown}
+          textStyle={{
+            fontSize: 16,
+            color: Rank ? Colors.black : Colors.grey600,
+            marginLeft: 2,
+          }}
+          zIndex={5001}
+        />
+        <View style={styles.guideTextView}>
+          <GuideText guideText={``} />
+        </View>
+        <TextInput
+          label="이름"
+          dense={true}
+          activeUnderlineColor="#008275"
+          onChangeText={(Name) => setName(Name)}
+          style={styles.textInput}
+        ></TextInput>
+        <View style={styles.guideTextView}>
+          <GuideText guideText={``} />
+        </View>
+        <DropDownPicker
+          placeholder="계정 유형"
+          open={typeOpen}
+          value={AccountType}
+          items={AccountTypes}
+          setOpen={setTypeOpen}
+          setValue={setAccountType}
+          setItems={setAccountTypes}
+          style={styles.dropDown}
+          textStyle={{
+            fontSize: 16,
+            color: Rank ? Colors.black : Colors.grey600,
+            marginLeft: 2,
+          }}
+        />
+        <View style={styles.guideTextView}>
+          <GuideText guideText={``} />
+        </View>
+        <TextInput
+          label="직책"
+          dense={true}
+          activeUnderlineColor="#008275"
+          onChangeText={(Position) => setPosition(Position)}
+          style={styles.textInput}
+        ></TextInput>
+        <View style={styles.guideTextView}>
+          <GuideText guideText={``} />
+        </View>
+        {DoDID && Rank && Name && AccountType && Position && (
           <MyButton
             text="사용자 추가"
             onPress={() =>
-              addUserHandler({ Rank, Name, DoDID, Type: AccountType })
+              addUserHandler({
+                Rank,
+                Name,
+                DoDID,
+                Type: AccountType,
+                Position,
+              })
             }
           />
         )}
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -125,9 +131,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-  },
-  scrollView: {
-    width: '100%',
   },
   guideTextView: {
     marginBottom: (15 / 812) * window.height,

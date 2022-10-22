@@ -4,10 +4,11 @@ import { Colors } from 'react-native-paper'
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    width: '100%',
+    width: '97%',
     justifyContent: 'space-between',
     alignSelf: 'center',
-    padding: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 3,
     backgroundColor: 'white',
     borderColor: Colors.grey200,
     borderBottomWidth: 1,

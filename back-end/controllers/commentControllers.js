@@ -6,11 +6,7 @@ const ReportM = require("../models/reportModel");
 //@route           POST /api/comment
 //@access          Protected
 const addComment = asyncHandler(async (req, res) => {
-  const {
-    Type,
-    Content,
-    Title
-  } = req.body;
+  const { Type, Content, Title } = req.body;
 
   if (!Type || !Content || !Title) {
     res.status(400);
@@ -19,7 +15,9 @@ const addComment = asyncHandler(async (req, res) => {
 
   User = req.user._id;
 
-  report = await Report.find({ Title: { $eq: keyword }}).find({Unit: {$eq: req.user.Unit}});
+  report = await Report.find({ Title: { $eq: keyword } }).find({
+    Unit: { $eq: req.user.Unit },
+  });
 
   Report = report._id;
 
@@ -27,18 +25,20 @@ const addComment = asyncHandler(async (req, res) => {
     User,
     Type,
     Content,
-    report
+    report,
   });
 
   const editReport = await ReportM.findByIdAndUpdate(
-    report._id, {
+    report._id,
+    {
       $push: {
-        Comments: comment
+        Comments: comment,
       },
-    }, {
+    },
+    {
       new: true,
     }
-  )
+  );
 
   if (editReport && editUnit && editUser) {
     res.status(201).send(comment);
@@ -49,5 +49,5 @@ const addComment = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-  addComment
+  addComment,
 };

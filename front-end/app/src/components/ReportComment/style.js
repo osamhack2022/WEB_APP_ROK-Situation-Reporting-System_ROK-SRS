@@ -1,30 +1,31 @@
 import { StyleSheet } from 'react-native'
 import { Colors } from 'react-native-paper'
-import { window } from '../../constants/layout'
 
 export const styles = StyleSheet.create({
   contentView: {
-    width: '95%',
-    borderBottomWidth: 1,
-    borderColor: Colors.grey400,
+    width: '97%',
     paddingTop: 5,
-    paddingBottom: 5,
-    marginLeft: window.width * 0.025,
+    paddingBottom: 3,
+    paddingLeft: 3,
+    alignSelf: 'center',
   },
   avatarView: {
     width: '100%',
     flexDirection: 'row',
   },
-  nameView: { marginLeft: 6, marginTop: 4 },
+  nameView: { marginTop: 4 },
   name: { fontSize: 14, fontFamily: 'NunitoSans_700Bold' },
   position: {
     fontSize: 11,
     fontFamily: 'NunitoSans_300Light',
     color: Colors.grey900,
   },
+  type: {
+    fontFamily: 'NunitoSans_600SemiBold',
+    fontSize: 13,
+    marginRight: 3,
+  },
   paragraph: {
-    width: '100%',
-    marginTop: 5,
     fontFamily: 'NunitoSans_400Regular',
     fontSize: 13,
   },

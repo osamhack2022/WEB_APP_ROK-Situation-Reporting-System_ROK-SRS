@@ -2,6 +2,18 @@ const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const Unit = require("../models/unitModel");
 
+//@description    GET new unit
+//@route          GET /api/unit/get
+//@access         Protected
+const getUnit = asyncHandler(async (req, res) => {
+  const keyword = req.query.search
+  if (keyword) {
+    res.send(await Unit.find({ _id: { $eq: keyword }})); //.find({ _id: { $ne: req.user._id } }));
+  } else {
+    res.status(400);
+    throw new Error("잘못된 요청입니다.");
+  }
+})
 //@description     Add new unit
 //@route           POST /api/unit
 //@access          Protected
@@ -129,6 +141,7 @@ const updateLogo = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  getUnit,
   updateUnit,
   updateLogo,
   addUnit

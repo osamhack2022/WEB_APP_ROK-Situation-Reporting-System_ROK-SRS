@@ -2,26 +2,16 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Colors } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { ReportNavigator } from './ReportNavigator'
-import { SettingNavigator } from './SettingNavigator'
-import { ChatListScreen, OrgChartScreen, NotificationScreen } from '../screens'
+import TopNavigator from './TopNavigator'
+import { ChatListScreen, OrgChartScreen, SettingScreen } from '../screens'
 
 const Tab = createBottomTabNavigator()
 
 const icons = {
-  ReportNavigator: ['note-text', 'note-text-outline'],
+  TopNavigator: ['note-text', 'note-text-outline'],
   ChatListScreen: ['message-text', 'message-text-outline'],
   OrgChartScreen: ['graph', 'graph-outline'],
-  NotificationScreen: ['bell', 'bell-outline'],
-  SettingNavigator: ['cog', 'cog-outline'],
-}
-
-const getActiveRouteName = (route) => {
-  if (route.state) {
-    return getActiveRouteName(route.state.routes[route.state.index])
-  }
-
-  return route.name
+  SettingScreen: ['cog', 'cog-outline'],
 }
 
 const screenOptions = ({ route }) => {
@@ -41,13 +31,13 @@ const screenOptions = ({ route }) => {
   }
 }
 
-export function TabNavigator() {
+export default function TabNavigator() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
-        name="ReportNavigator"
+        name="TopNavigator"
         options={{ tabBarLabel: '메모보고', headerShown: false }}
-        component={ReportNavigator}
+        component={TopNavigator}
       />
       <Tab.Screen
         name="ChatListScreen"
@@ -63,14 +53,9 @@ export function TabNavigator() {
         component={OrgChartScreen}
       />
       <Tab.Screen
-        name="NotificationScreen"
-        options={{ title: '알림', headerTitle: '알 림' }}
-        component={NotificationScreen}
-      />
-      <Tab.Screen
-        name="SettingNavigator"
-        options={{ title: '설정', headerShown: false }}
-        component={SettingNavigator}
+        name="SettingScreen"
+        options={{ title: '설정', headerShown: true }}
+        component={SettingScreen}
       />
     </Tab.Navigator>
   )
