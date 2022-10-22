@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
+import {Colors} from 'react-native-paper'
 
 function renderBubble(props) {
   return (
@@ -55,12 +56,19 @@ export function ChatRoomScreen() {
 
   return (
     <GiftedChat
+      alignTop={true}
       renderBubble={renderBubble}
       showAvatarForEveryMessage={true}
       messages={messages}
       onSend={(messages) => onSend(messages)}
       placeholder="메시지를 입력하세요."
       user={{ _id: 2, name: '김형민' }}
+      textInputStyle={{
+        width: '96%',
+        backgroundColor: Colors.grey100,
+        elevation: 4,
+      }}
+      
     />
   )
 }

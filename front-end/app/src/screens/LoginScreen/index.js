@@ -10,7 +10,7 @@ import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import { GuideText } from '../../components/GuideText'
 import AppLoading from 'expo-app-loading'
-import loginApi from '../../apis/loginApi'
+import loginApi from '../../apis/sign/loginApi'
 
 export function LoginScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
@@ -29,8 +29,6 @@ export function LoginScreen() {
           token: null,
         })
         cb()
-        console.log(res)
-        console.log(userMe)
       } else {
         Alert.alert(res.message)
       }
@@ -43,8 +41,8 @@ export function LoginScreen() {
 
   const navigation = useNavigation()
 
-  const goChatNavigator = useCallback(
-    () => navigation.navigate('ChatNavigator'),
+  const goTabNavigator = useCallback(
+    () => navigation.navigate('TabNavigator'),
     []
   )
   const goSignUpScreen = useCallback(
@@ -93,7 +91,7 @@ export function LoginScreen() {
           <GuideText guideText={`${password.length}/15`} />
         </View>
         <TouchableOpacity
-          onPress={() => loginHandler({ DoDID, password }, goChatNavigator)}
+          onPress={() => loginHandler({ DoDID, password }, goTabNavigator)}
           style={styles.loginButtonView}
         >
           <Text style={styles.LoginText}>로 그 인</Text>

@@ -28,7 +28,7 @@ function MenuLayout(props) {
       label: <span className={styles.menuLabel}>메모 보고</span>
     },
     {
-      key: 'messeges',
+      key: 'messages',
       icon: <AiOutlineMessage className={styles.menuIcon} />,
       label: <span className={styles.menuLabel}>메세지</span>
     },
