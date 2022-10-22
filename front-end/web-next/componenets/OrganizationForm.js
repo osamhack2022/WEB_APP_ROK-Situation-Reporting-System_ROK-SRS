@@ -79,11 +79,11 @@ function OrganizationForm(props) {
         </Col>
         <Col className={Styles.userProfile}>
           <div>
-            <input className={Styles.formInput} value={formData.Name} onChange={(event) => serializedEdit('name', event.target.value)} />
+            <input className={Styles.formInput} value={formData.Name} onChange={(event) => serializedEdit('Name', event.target.value)} />
             <Select
               className={Styles.formSelect}
               value={formData.Rank}
-              onChange={(value) => serializedEdit('rank', value)}
+              onChange={(value) => serializedEdit('Rank', value)}
             >
               {
                 rankOptions.map((option) => (
@@ -102,25 +102,25 @@ function OrganizationForm(props) {
       </Row>
       <Row className={Styles.elementRow}>
         <Col span={12}>
-          <InputElement label="직책" value={formData.Position} onChange={(event) => serializedEdit('position', event.target.value)} />
+          <InputElement label="직책" value={formData.Position} onChange={(event) => serializedEdit('Position', event.target.value)} />
         </Col>
         <Col span={12}>
-          <InputElement label="이메일" value={formData.Email} onChange={(event) => serializedEdit('email', event.target.value)} />
+          <InputElement label="이메일" value={formData.Email} onChange={(event) => serializedEdit('Email', event.target.value)} />
         </Col>
       </Row>
       <Row className={Styles.elementRow}>
         <Col span={12}>
-          <InputElement label="전화번호" value={formData.Number} onChange={(event) => serializedEdit('number', event.target.value)} />
+          <InputElement label="전화번호" value={formData.Number} onChange={(event) => serializedEdit('Number', event.target.value)} />
         </Col>
         <Col span={12}>
-          <InputElement label="군연락망" value={formData.MilNumber} onChange={(event) => serializedEdit('milNumber', event.target.value)} />
+          <InputElement label="군연락망" value={formData.MilNumber} onChange={(event) => serializedEdit('MilNumber', event.target.value)} />
         </Col>
       </Row>
       <Row>
         <ParentSelectElement
           label="직속상관"
           value={formData.Parent}
-          onChange={({ key }) => serializedEdit('parent', key)}
+          onChange={({ key }) => serializedEdit('Parent', key)}
           selfKey={formData.key}
           nodeList={props.nodeList}
         />

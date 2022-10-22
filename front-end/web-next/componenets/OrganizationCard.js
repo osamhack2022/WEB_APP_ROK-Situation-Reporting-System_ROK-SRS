@@ -87,14 +87,15 @@ function OrganizationCard(props) {
       <OrganizationForm
         isOpen={openCreateForm}
         onClose={() => setOpenCreateForm(false)}
+        data={{ Unit: props.data.Unit }}
         onSubmit={props.onCreate}
         nodeList={props.nodeList}
       />
       <OrganizationForm
         isOpen={openUpdateForm}
         onClose={() => setOpenUpdateForm(false)}
-        onSubmit={props.onUpdate}
         data={props.data}
+        onSubmit={props.onUpdate}
         nodeList={props.nodeList}
       />
     </>

@@ -122,7 +122,10 @@ function Organogram(props) {
       },
       'body': JSON.stringify(node)
     })
-      .then(response => setOrgData(treeNode => ({ ...treeNode, [response._id]: node })))
+      .then(response => {
+        if (response.status === 200 || response.status === 201)
+          setOrgData(treeNode => ({ ...treeNode, [response._id]: node }))
+      })
   }, [setOrgData]);
 
   const updateNode = useCallback(async (node) => {
@@ -134,7 +137,10 @@ function Organogram(props) {
       },
       'body': JSON.stringify(node)
     })
-    .then(() => setOrgData(treeNode => ({ ...treeNode, [node._id]: node })))
+      .then((response) => {
+        if (response.status === 200 || response.status === 201)
+          setOrgData(treeNode => ({ ...treeNode, [node._id]: node }))
+      })
   }, [setOrgData]);
 
   const deleteNode = useCallback(async (node) => {
