@@ -47,11 +47,10 @@ function Menuelement(props) {
     const router = useRouter()
     const redirect = (id) => {
         router.push(`/messages/${id}`)
-
     }
     return (
         chats.map(thechat =>
-            <div key={Math.random()} className={styles.menuelem} onClick={() => redirect(thechat.id)}>
+            <div key={thechat.id} className={styles.menuelem} onClick={() => redirect(thechat.id)}>
                 <div className={styles.imagecontainer}>
                     <Image style={{ borderRadius: '20px' }} width='50px' height='50px' src="https://camo.githubusercontent.com/3c2bd3f35721dc332ebf2b11ace89722c37a0f60b94eac42b2a0462fdeb2d420/68747470733a2f2f63646e2d69636f6e732d706e672e666c617469636f6e2e636f6d2f3531322f363134322f363134323232362e706e67"></Image>
                 </div>
@@ -107,7 +106,7 @@ const Sidebar = ({props, children }) => {
             }
             await addDoc(collection(db, "chats"), 
                 {name: chatTitle, 
-                rectime: new Date(), users: users, userdata: userdata})
+                rectime: new Date(), users: users, userdata: userdata, recentmsg: '새 채팅'})
             setOpen(false);
         } catch {
             seterrormsg('Error when creating chat room')
@@ -166,6 +165,7 @@ const Sidebar = ({props, children }) => {
         </div>
 
     </>
+
 }
 
 

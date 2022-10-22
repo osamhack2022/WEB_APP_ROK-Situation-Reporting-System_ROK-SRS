@@ -6,45 +6,85 @@ import styles from '../../styles/chatpage.module.css'
 import { PageHeader, Image } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from "next/router"
+import { collection, query } from "@firebase/firestore"
+import { getCookie } from 'cookies-next';
+import { decodeJwt } from 'jose';
+
+import { useCollection, useCollectionData } from "react-firebase-hooks/firestore"
+import { orderBy } from 'firebase/firestore';
+import { db } from '../../firebaseauth'
+
+
+function getid() {
+    const JWTtoken = getCookie('usercookie');
+    const { id } = decodeJwt(JWTtoken)
+    return id
+}
 
 
 function chatpage() {
     const router = useRouter()
     const { id } = router.query
-    console.log(id)
+
+    const [snapshot, loading, error] = useCollection(collection(db, "chats"))
+    if (loading || !snapshot || !id) return <div>Loading...</div>
+
+    let chatdata = null
+    for (let i = 0; i < snapshot.docs.length; i++) {
+        if (snapshot.docs[i].id == id) {
+            chatdata = snapshot.docs[i].data()
+        }
+    }
+    function Getparticipants() {
+        let userdatas = chatdata['userdata']
+        return Object.entries(userdatas).map(([key, value]) => <Avatar key={key} style={{ backgroundColor: value.color, }}> {value.name} </Avatar>)
+    }
+    function Getparticipantbyid(id) {
+        let userdatas = chatdata['userdata']
+        for (const [key, value] of Object.entries(userdatas)) {
+            if (key == id) {
+                return value
+            }
+        }
+    }
+    function Generatechat({ id }) {
+        const q = query(collection(db, "chats", id, "messages"), orderBy("timestamp"))
+        const [messages, loading, error] = useCollectionData(q)
+        if (loading || !messages) return <div>Loading...</div>
+    
+        return messages.map(message => {
+            let participant = Getparticipantbyid(message.sender)
+            if (message.sender != getid()) {
+                return generatechatelement('theirs', message.type, message.text, participant.name, participant.color)
+            } else {
+                return generatechatelement('mine', message.type, message.text, participant.name, participant.color)
+    
+            }
+        })
+    
+    }
     return <>
         <Chatpage>
             <div className={styles.header}>
-                <h1 className={styles.title}>Hi!</h1>
-                <div className={styles.participants}>
-                    <h3>Participants: </h3>
-                    <Avatar.Group>
-                        <Avatar style={{ backgroundColor: '#F5F5F5', }}> 상영 </Avatar>
-                        <Avatar style={{ backgroundColor: '#f56a00', }}> K </Avatar>
-                        <Avatar style={{ backgroundColor: '#f56a00', }}> K </Avatar>
-
-                    </Avatar.Group>
-
+                <div style={{ width: '90%', margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <h1 className={styles.title}>{chatdata.name}</h1>
+                    <div className={styles.participants}>
+                        <h3>참가자: </h3>
+                        <Avatar.Group>
+                            <Getparticipants></Getparticipants>
+                        </Avatar.Group>
+                    </div>
                 </div>
-
             </div>
             <div className={styles.chatarea}>
-                {generatechatelement('mine', 'regular', 'helloworld!')}
-                {generatechatelement('mine', 'report', 'helloworld!')}
-
-                {generatechatelement('theirs', 'regular', 'ajsdf;lahf')}
-                {generatechatelement('mine', 'secret', 'ajsdf;lahf')}
-                {generatechatelement('theirs', 'secret', 'ajsdf;lahf')}
-
-
-
+                <Generatechat id={id} />
             </div>
 
         </Chatpage>
     </>
 }
 
-function generatechatelement(which, type, content) {
+function generatechatelement(which, type, content, name, color) {
     if (which == 'mine') {
         if (type == 'regular') {
             return <>
@@ -88,9 +128,9 @@ function generatechatelement(which, type, content) {
                     <div className={styles.theirchatelem}>
                         {content}
                     </div>
-                    <div>
-                        <Avatar style={{ backgroundColor: '#F5F5F5', }}> 상영 </Avatar>
-                        <div style={{ margin: 0 }}>상영</div>
+                    <div style = {{width: '50px', display: 'flex', flexDirection: 'column'}}>
+                        <Avatar style={{ backgroundColor: color, margin: 'auto' }}> {name} </Avatar>
+                        <div style={{ margin: 0, margin: 'auto' }}>{name}</div>
                     </div>
 
                 </div>
@@ -105,9 +145,9 @@ function generatechatelement(which, type, content) {
                         <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold' }}>[상황보고]</p>
                         {content}
                     </div>
-                    <div>
-                        <Avatar style={{ backgroundColor: '#F5F5F5', }}> 상영 </Avatar>
-                        <div style={{ margin: 0 }}>상영</div>
+                    <div style = {{width: '50px', display: 'flex', flexDirection: 'column'}}>
+                        <Avatar style={{ backgroundColor: color, margin: 'auto' }}> {name} </Avatar>
+                        <div style={{ margin: 0, margin: 'auto' }}>{name}</div>
                     </div>
 
                 </div>
@@ -116,12 +156,12 @@ function generatechatelement(which, type, content) {
             return <>
                 <div style={{ display: 'flex', alignItems: 'center', alignSelf: 'flex-end' }}>
                     <div className={styles.theirchatelem}>
-                        <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold' }}>[상황보고]</p>
+                        <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold' }}>[지시사항]</p>
                         {content}
                     </div>
-                    <div>
-                        <Avatar style={{ backgroundColor: '#F5F5F5', }}> 상영 </Avatar>
-                        <div style={{ margin: 0 }}>상영</div>
+                    <div style = {{width: '50px', display: 'flex', flexDirection: 'column'}}>
+                        <Avatar style={{ backgroundColor: color, margin: 'auto'}}> {name} </Avatar>
+                        <div style={{ margin: 0, margin: 'auto' }}>{name}</div>
                     </div>
 
                 </div>
@@ -136,9 +176,9 @@ function generatechatelement(which, type, content) {
                         {isVisible ? content : <>
                             클릭해 주세요.</>}
                     </div>
-                    <div>
-                        <Avatar style={{ backgroundColor: '#F5F5F5', }}> 상영 </Avatar>
-                        <div style={{ margin: 0 }}>상영</div>
+                    <div style = {{width: '50px'}}>
+                        <Avatar style={{ backgroundColor: color, margin: 'auto' }}> {name} </Avatar>
+                        <div style={{ margin: 0, margin: 'auto' }}>{name}</div>
                     </div>
                 </div></>
 

@@ -11,10 +11,8 @@
 .participants {
     display: flex; 
     align-items: center; 
-    margin-right: 80px; 
 }
 .title {
-    margin-left: 30px; 
 }
 
 .chatarea {
