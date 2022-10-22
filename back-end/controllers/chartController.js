@@ -69,7 +69,7 @@ const addChart = asyncHandler(async (req, res) => {
       Number,
       MilNumber,
       Email,
-      Parent,
+      Parent: Parent ?? null,
     })
   }
   else {

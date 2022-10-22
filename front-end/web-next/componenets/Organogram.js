@@ -124,7 +124,11 @@ function Organogram(props) {
     })
       .then(response => {
         if (response.status === 200 || response.status === 201)
-          setOrgData(treeNode => ({ ...treeNode, [response._id]: node }))
+          return response.json()
+      })
+      .then(data => {
+        if (data)
+          setOrgData(treeNode => ({ ...treeNode, [data._id]: data }))
       })
   }, [setOrgData]);
 
