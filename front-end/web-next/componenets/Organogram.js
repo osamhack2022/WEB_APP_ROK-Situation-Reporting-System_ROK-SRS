@@ -9,10 +9,10 @@ function renderNode(node, chooseNode) {
   if (!node)
     return;
 
-  if (!node.parent)
+  if (!node.Parent)
     return (
       <Tree
-        key={node.key}
+        key={node._id}
         label={
           <TreeNodeElement
             name={node.Name}
@@ -28,12 +28,12 @@ function renderNode(node, chooseNode) {
 
   return (
     <TreeNode
-      key={node.key}
+      key={node._id}
       label={
         <TreeNodeElement
-          name={node.name}
-          rank={node.rank}
-          position={node.position}
+          name={node.Name}
+          rank={node.Rank}
+          position={node.Position}
           onClick={() => chooseNode(node)}
         />
       }
@@ -147,9 +147,9 @@ function Organogram(props) {
     const nodeCopy = { ...orgData };
 
     // Redirection for children of removed node
-    const nodeChildren = Object.values(nodeCopy).filter((data) => data.parent == node._id);
+    const nodeChildren = Object.values(nodeCopy).filter((data) => data.Parent == node._id);
     for (let child of nodeChildren) {
-      child.parent = node.parent;
+      child.Parent = node.Parent;
       await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/chart/edit', {
         'method': 'POST',
         'headers': {
@@ -177,20 +177,20 @@ function Organogram(props) {
   const makeTree = useCallback((data) => {
     // Deep Copy for object
     const dataSet = {};
-    for (let _id in data)
-      dataSet[_id] = Object.assign({}, data[_id]);
+    for (let id in data)
+      dataSet[id] = { ...data[id] };
 
     const dataTree = [];
-    for (let _id in dataSet) {
-      if (!dataSet[_id].parent) {
-        dataTree.push(dataSet[_id]);
+    for (let id in dataSet) {
+      if (!dataSet[id].Parent) {
+        dataTree.push(dataSet[id]);
       }
       else {
-        if (dataSet[dataSet[_id].parent].children) {
-          dataSet[dataSet[_id].parent].children.push(dataSet[_id]);
+        if (dataSet[dataSet[id].Parent].children) {
+          dataSet[dataSet[id].Parent].children.push(dataSet[id]);
         }
         else {
-          dataSet[dataSet[_id].parent].children = [dataSet[_id]];
+          dataSet[dataSet[id].Parent].children = [dataSet[id]];
         }
       }
     }
@@ -215,7 +215,7 @@ function Organogram(props) {
         onCreate={createNode}
         onUpdate={updateNode}
         onRemove={deleteNode}
-        nodeList={props.renderData && Object.values(props.renderData).map((node) => ({ 'key': node._id, 'value': node.rank + ' ' + node.name }))}
+        nodeList={orgData && Object.values(orgData).map((node) => ({ 'key': node._id, 'value': node.Rank + ' ' + node.Name }))}
       />
     </>
   )
