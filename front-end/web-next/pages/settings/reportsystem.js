@@ -75,6 +75,10 @@ const ReportSystem = () => {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
+    refreshSystem();
+  }, []);
+
+  const refreshSystem = useCallback(() => {
     fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys', {
       'method': 'GET',
       'headers': {
@@ -88,7 +92,7 @@ const ReportSystem = () => {
         return [];
       })
       .then(data => setSystemList(data));
-  }, []);
+  }, [setSystemList]);
 
   const removeSystem = useCallback(async (id) => {
     await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys/', {
@@ -100,10 +104,15 @@ const ReportSystem = () => {
       },
       'body': JSON.stringify({ _id: id })
     })
-      .then(res => console.log(res))
+      .then(res => {
+        if(res.status === 200)
+          refreshSystem();
+        else
+          console.log(res);
+      })
       .catch(err => console.log(err))
     return;
-  }, []);
+  }, [formOpen]);
 
   return (
     <>
@@ -175,7 +184,9 @@ const ReportSystem = () => {
                       className={Styles.formButton}
                       icon={<CloseOutlined style={{fontSize: '12pt'}} />}
                       shape="circle"
-                      onClick={() => removeSystem(item._id)}
+                      onClick={() => {
+                        removeSystem(item._id);
+                      }}
                     />
                   </Col>
                 </Row>
@@ -188,7 +199,10 @@ const ReportSystem = () => {
       <ReportSystemForm
         isOpen={formOpen}
         data={formData}
-        onSubmit={() => setFormOpen(false)}
+        onSubmit={() => {
+          setFormOpen(false);
+          refreshSystem();
+        }}
         onCancel={() => setFormOpen(false)}
       />
     </>
