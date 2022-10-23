@@ -10,7 +10,9 @@ function UserSelector(props) {
 
   useEffect(() => {
     if (props.value)
-      selectUser(props.value)
+      selectUser(props.value);
+    
+    return selectUser(undefined);
   }, [props]);
 
   const fetchUser = useCallback(async () => {
@@ -71,10 +73,14 @@ function ReportSystemForm(props) {
   useEffect(() => {
     if (props.data.Title)
       setReportTitle(props.data.Title);
+    else
+      setReportTitle('');
 
     if (props.data.List)
       setReportList([...props.data.List]);
-  }, [props]);
+    else
+      setReportList([undefined]);
+  }, [props.data]);
 
   const appendReportList = useCallback(() => {
     setReportList(reportList => [...reportList, undefined]);

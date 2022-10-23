@@ -201,9 +201,13 @@ const ReportSystem = () => {
         data={formData}
         onSubmit={() => {
           setFormOpen(false);
+          setFormData({});
           refreshSystem();
         }}
-        onCancel={() => setFormOpen(false)}
+        onCancel={() => {
+          setFormOpen(false);
+          setFormData({});
+        }}
       />
     </>
   )
