@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Modal, Select, Button, Input, Row, Col } from 'antd';
-import { PlusOutlined, DownOutlined, CloseOutlined } from '@ant-design/icons'
+import { PlusOutlined, DownOutlined, MinusOutlined } from '@ant-design/icons'
 import { getCookie } from 'cookies-next';
 import styles from '../styles/ReportSystemForm.module.css';
 
@@ -163,6 +163,7 @@ function ReportSystemForm(props) {
               <Col>
                 <Button
                   icon={<PlusOutlined />}
+                  shape="circle"
                   onClick={() => appendReportList()}
                 />
               </Col>
@@ -180,7 +181,9 @@ function ReportSystemForm(props) {
                 }
                 <Input.Group compact>
                   <Button
-                    icon={<CloseOutlined />}
+                    icon={<MinusOutlined />}
+                    danger="true"
+                    size="large"
                     onClick={() => removeReportList(index)}
                   />
                   <UserSelector

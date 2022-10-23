@@ -131,13 +131,17 @@ const ReportSystem = () => {
             </Breadcrumb.Item>
           </Breadcrumb>
         }
-      />
-      <Button
-        icon={<PlusOutlined />}
-        onClick={() => {
-          setFormData({});
-          setFormOpen(true);
-        }}
+        extra={
+          <Button
+            className={Styles.formButton}
+            icon={<PlusOutlined />}
+            shape="circle"
+            onClick={() => {
+              setFormData({});
+              setFormOpen(true);
+            }}
+          />
+        }
       />
       {
         systemList.length !== 0 &&
@@ -148,13 +152,18 @@ const ReportSystem = () => {
             dataSource={systemList}
             renderItem={(item) => (
               <List.Item>
-                <Row className={Styles.systemTitle}>
+                <Row
+                  className={Styles.systemTitle}
+                  gutter={5}
+                >
                   <Col>
                     {item.Title}
                   </Col>
                   <Col>
                     <Button
-                      icon={<EditOutlined />}
+                      className={Styles.formButton}
+                      icon={<EditOutlined style={{fontSize: '12pt'}} />}
+                      shape="circle"
                       onClick={() => {
                         setFormData(item);
                         setFormOpen(true);
@@ -163,7 +172,9 @@ const ReportSystem = () => {
                   </Col>
                   <Col>
                     <Button
-                      icon={<CloseOutlined />}
+                      className={Styles.formButton}
+                      icon={<CloseOutlined style={{fontSize: '12pt'}} />}
+                      shape="circle"
                       onClick={() => removeSystem(item._id)}
                     />
                   </Col>
