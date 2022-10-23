@@ -45,10 +45,6 @@ const addReportCard = asyncHandler(async (req, res) => {
     Unit: currentUnit
   });
 
-
-  res.status(201).send(report);
-  return;
-
   const editUnit = await UnitM.findByIdAndUpdate(
     UnitId, {
     $push: {
