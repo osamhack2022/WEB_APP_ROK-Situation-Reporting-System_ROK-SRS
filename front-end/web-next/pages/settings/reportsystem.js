@@ -75,6 +75,10 @@ const ReportSystem = () => {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
+    refreshSystem();
+  }, []);
+
+  const refreshSystem = useCallback(() => {
     fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys', {
       'method': 'GET',
       'headers': {
@@ -88,7 +92,7 @@ const ReportSystem = () => {
         return [];
       })
       .then(data => setSystemList(data));
-  }, []);
+  }, [setSystemList]);
 
   const removeSystem = useCallback(async (id) => {
     await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys/', {
@@ -100,10 +104,15 @@ const ReportSystem = () => {
       },
       'body': JSON.stringify({ _id: id })
     })
-      .then(res => console.log(res))
+      .then(res => {
+        if(res.status === 200)
+          refreshSystem();
+        else
+          console.log(res);
+      })
       .catch(err => console.log(err))
     return;
-  }, []);
+  }, [formOpen]);
 
   return (
     <>
@@ -131,13 +140,17 @@ const ReportSystem = () => {
             </Breadcrumb.Item>
           </Breadcrumb>
         }
-      />
-      <Button
-        icon={<PlusOutlined />}
-        onClick={() => {
-          setFormData({});
-          setFormOpen(true);
-        }}
+        extra={
+          <Button
+            className={Styles.formButton}
+            icon={<PlusOutlined />}
+            shape="circle"
+            onClick={() => {
+              setFormData({});
+              setFormOpen(true);
+            }}
+          />
+        }
       />
       {
         systemList.length !== 0 &&
@@ -148,13 +161,18 @@ const ReportSystem = () => {
             dataSource={systemList}
             renderItem={(item) => (
               <List.Item>
-                <Row className={Styles.systemTitle}>
+                <Row
+                  className={Styles.systemTitle}
+                  gutter={5}
+                >
                   <Col>
                     {item.Title}
                   </Col>
                   <Col>
                     <Button
-                      icon={<EditOutlined />}
+                      className={Styles.formButton}
+                      icon={<EditOutlined style={{fontSize: '12pt'}} />}
+                      shape="circle"
                       onClick={() => {
                         setFormData(item);
                         setFormOpen(true);
@@ -163,8 +181,12 @@ const ReportSystem = () => {
                   </Col>
                   <Col>
                     <Button
-                      icon={<CloseOutlined />}
-                      onClick={() => removeSystem(item._id)}
+                      className={Styles.formButton}
+                      icon={<CloseOutlined style={{fontSize: '12pt'}} />}
+                      shape="circle"
+                      onClick={() => {
+                        removeSystem(item._id);
+                      }}
                     />
                   </Col>
                 </Row>
@@ -177,8 +199,15 @@ const ReportSystem = () => {
       <ReportSystemForm
         isOpen={formOpen}
         data={formData}
-        onSubmit={() => setFormOpen(false)}
-        onCancel={() => setFormOpen(false)}
+        onSubmit={() => {
+          setFormOpen(false);
+          setFormData({});
+          refreshSystem();
+        }}
+        onCancel={() => {
+          setFormOpen(false);
+          setFormData({});
+        }}
       />
     </>
   )

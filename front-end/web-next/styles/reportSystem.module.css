@@ -14,5 +14,12 @@
 
 .scrollableView {
     height: calc(100% - 100px);
+    margin-top: 10px;
     overflow-y: auto;
+}
+
+.formButton {
+    background-color: transparent;
+    color: #333;
+    border: 2px solid #777;
 }
