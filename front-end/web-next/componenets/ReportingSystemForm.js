@@ -95,10 +95,25 @@ function ReportSystemForm(props) {
     });
   });
 
-  const submitSystem = useCallback(async (title, list) => {
+  const submitSystem = useCallback(async (title, list, _id) => {
     const submitData = {
       Title: title,
       List: list.filter(e => e),
+    }
+
+    if (_id) {
+      await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys/', {
+        'method': 'PUT',
+        'headers': {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${getCookie('usercookie')}`
+        },
+        'body': JSON.stringify({ ...submitData, _id: _id })
+      })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+      return;
     }
 
     await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys/', {
@@ -118,7 +133,7 @@ function ReportSystemForm(props) {
     <Modal
       open={props.isOpen}
       onOk={() => {
-        submitSystem(reportTitle, reportList);
+        submitSystem(reportTitle, reportList, props.data._id);
         props.onSubmit();
       }}
       onCancel={props.onCancel}

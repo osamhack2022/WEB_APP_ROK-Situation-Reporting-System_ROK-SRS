@@ -50,6 +50,41 @@ const addReportsys = asyncHandler(async (req, res) => {
 	}
 });
 
+//@description     Create new reportsys
+//@route           POST /api/reportsys
+//@access          Protected(onlyadmin)
+const editReportsys = asyncHandler(async (req, res) => {
+	const {
+		_id,
+		Title,
+		List
+	} = req.body;
+
+	if (!_id || !Title || !List) {
+		res.status(400);
+		throw new Error("모든 정보를 입력하세요.");
+	}
+	const currentUnit = req.user.Unit;
+
+	const reportsys = await Reportsys.findByIdAndUpdate(_id, {
+		Title,
+		List,
+		Unit: currentUnit
+	});
+
+	if (reportsys) {
+		res.status(200).json({
+			_id: reportsys._id,
+			Title: reportsys.Title,
+			List: reportsys.List,
+			Unit: reportsys.Unit
+		});
+	} else {
+		res.status(400);
+		throw new Error("보고체계를 찾을 수 없습니다.");
+	}
+});
+
 //@description     Delete reportsys
 //@route           DELETE /api/reportsys
 //@access          Protected(onlyadmin)
@@ -108,6 +143,7 @@ const getReportsys = asyncHandler(async (req, res) => {
 
 module.exports = {
 	addReportsys,
+	editReportsys,
 	removeReportsys,
 	getReportsys
 };
