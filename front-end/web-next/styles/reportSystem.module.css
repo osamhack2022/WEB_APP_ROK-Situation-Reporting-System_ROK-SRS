@@ -11,3 +11,8 @@
 .linkedNode {
     margin: 0px 7px;
 }
+
+.scrollableView {
+    height: calc(100% - 100px);
+    overflow-y: auto;
+}

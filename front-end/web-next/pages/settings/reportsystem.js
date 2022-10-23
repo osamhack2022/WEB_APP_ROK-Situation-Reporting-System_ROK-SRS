@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import Link from "next/link"
-import RegisterHeader from '../../componenets/registerheader'
 import { useState, useEffect } from 'react';
-import { PageHeader, Breadcrumb, Row, Col, Avatar, List } from 'antd';
+import { PageHeader, Breadcrumb, Row, Col, Avatar, List, Button } from 'antd';
 import { PlusOutlined, ArrowRightOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons'
 import { getCookie } from 'cookies-next';
+import RegisterHeader from '../../componenets/registerheader'
+import ReportSystemForm from '../../componenets/ReportingSystemForm';
 import Styles from '../../styles/reportSystem.module.css'
 
 function UserNode(props) {
@@ -70,6 +71,7 @@ function LinkedUser(props) {
 
 const ReportSystem = () => {
   const [systemList, setSystemList] = useState([]);
+  const [formOpen, setFormOpen] = useState(false);
 
   useEffect(() => {
     fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys', {
@@ -86,10 +88,6 @@ const ReportSystem = () => {
       })
       .then(data => setSystemList(data));
   }, []);
-  useEffect(() => {
-
-    console.log(systemList);
-  }, [systemList]);
 
   return (
     <>
@@ -118,20 +116,31 @@ const ReportSystem = () => {
           </Breadcrumb>
         }
       />
+      <Button
+        icon={<PlusOutlined />}
+        onClick={() => setFormOpen(true)}
+      />
       {
         systemList.length !== 0 &&
-        <List
-          className={Styles.systemLayout}
-          itemLayout="vertical"
-          dataSource={systemList}
-          renderItem={(item) => (
-            <List.Item>
-              <div className={Styles.systemTitle}>{item.Title}</div>
-              <LinkedUser title={item.Title} list={item.List} />
-            </List.Item>
-          )}
-        />
+        <div className={Styles.scrollableView}>
+          <List
+            className={Styles.systemLayout}
+            itemLayout="vertical"
+            dataSource={systemList}
+            renderItem={(item) => (
+              <List.Item>
+                <div className={Styles.systemTitle}>{item.Title}</div>
+                <LinkedUser title={item.Title} list={item.List} />
+              </List.Item>
+            )}
+          />
+        </div>
       }
+      <ReportSystemForm
+        isOpen={formOpen}
+        onSubmit={() => setFormOpen(false)}
+        onCancel={() => setFormOpen(false)}
+      />
     </>
   )
 }
