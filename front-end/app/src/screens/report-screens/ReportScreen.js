@@ -12,11 +12,6 @@ import { userState } from '../../states/userState'
 import addCommentApi from '../../apis/report/addCommentApi'
 
 export function ReportScreen({ route }) {
-  const addCommentHandler = async ({ Type, Content, Title, _id }) => {
-    const res = await addCommentApi({ Type, Content, Title, _id })
-    console.log(res)
-  }
-
   const {
     Title,
     Status,
@@ -53,8 +48,15 @@ export function ReportScreen({ route }) {
         Status={Status}
         Severity={Severity}
         date={date}
+        Type={Type}
       />
-      <ReportContent Content={Content} Type={Type} />
+      <ReportContent
+        Content={Content}
+        Name={User.Name}
+        position={User.position}
+        ReportingSystem={ReportingSystem}
+        Rank={User.Rank}
+      />
       <View
         style={{
           width: '97%',
@@ -86,8 +88,15 @@ export function ReportScreen({ route }) {
       position={item.position}
       Content={item.Content}
       Type={item.Type}
+      Rank={item.Rank}
     />
   )
+
+  const addCommentHandler = async ({ Type, Content, Title, _id }) => {
+    console.log({ Type, Content, Title, _id })
+    const res = await addCommentApi({ Type, Content, Title, _id })
+    console.log(res)
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -132,6 +141,7 @@ export function ReportScreen({ route }) {
             size={25}
             color={focus ? '#008275' : Colors.grey500}
             onPress={() => {
+              // 추후 수정 필요
               setComments([
                 ...comments,
                 {
@@ -139,6 +149,7 @@ export function ReportScreen({ route }) {
                   position: userMe.Position,
                   Content: comment,
                   Type: commentType,
+                  Rank: userMe.Rank,
                 },
               ])
               addCommentHandler({

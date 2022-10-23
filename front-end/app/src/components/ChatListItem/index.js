@@ -16,7 +16,9 @@ export const ChatListItem = (props) => {
 
   const navigation = useNavigation()
   const goChatRoom = () => {
-    navigation.navigate('ChatRoomScreen')
+    navigation.navigate('ChatNavigator', {
+      screen: 'ChatRoomScreen',
+    })
   }
 
   return (

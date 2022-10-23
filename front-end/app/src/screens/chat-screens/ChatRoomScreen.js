@@ -1,6 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
-import {Colors} from 'react-native-paper'
+import { Colors } from 'react-native-paper'
+import {
+  collection,
+  addDoc,
+  orderBy,
+  query,
+  onSnapshot,
+} from 'firebase/firestore'
+import { db } from '../../config/firebase'
 
 function renderBubble(props) {
   return (
@@ -24,34 +32,34 @@ export function ChatRoomScreen() {
   const [messages, setMessages] = useState([])
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: '만나서 반갑습니다.',
-        createdAt: new Date(),
-        user: {
-          _id: 1,
-          name: '김형민',
-          avatar:
-            'https://d2v80xjmx68n4w.cloudfront.net/gigs/rate/ApRqY1571825139.PNG',
-        },
-      },
-      {
-        _id: 2,
-        text: '안녕하세요.',
-        createdAt: new Date(),
-        user: {
-          _id: 1,
-          name: '김형민',
-          avatar:
-            'https://d2v80xjmx68n4w.cloudfront.net/gigs/rate/ApRqY1571825139.PNG',
-        },
-      },
-    ])
+    const collectionRef = collection(db, 'chats')
+    const q = query(collectionRef, orderBy('createdAt', 'desc'))
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      setMessages(
+        querySnapshot.docs.map((doc) => ({
+          _id: doc.data()._id,
+          createdAt: doc.data().createdAt.toDate(),
+          text: doc.data().text,
+          user: doc.data().user,
+        }))
+      )
+    })
+
+    return () => unsubscribe()
   }, [])
 
   const onSend = useCallback((messages = []) => {
-    setMessages((prevMessages) => GiftedChat.append(prevMessages, messages))
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, messages)
+    )
+    const { _id, createdAt, text, user } = messages[0]
+    addDoc(collection(db, 'chats'), {
+      _id,
+      createdAt,
+      text,
+      user,
+    })
   }, [])
 
   return (
@@ -68,7 +76,6 @@ export function ChatRoomScreen() {
         backgroundColor: Colors.grey100,
         elevation: 4,
       }}
-      
     />
   )
 }

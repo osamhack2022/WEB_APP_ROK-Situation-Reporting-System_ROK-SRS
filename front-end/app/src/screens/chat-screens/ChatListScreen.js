@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
 // prettier-ignore
-import { FlatList, SafeAreaView, StyleSheet, TextInput, View } from 'react-native'
-import { Colors, IconButton } from 'react-native-paper'
+import { FlatList, SafeAreaView, StyleSheet } from 'react-native'
+import { Colors } from 'react-native-paper'
 import { ChatListItem } from '../../components/ChatListItem'
 import userData from '../../data/userData'
-import fetchChatApi from '../../apis/fetchChatApi'
+import getChatApi from '../../apis/getChatApi'
 import { Searchbar } from '../../components/Searchbar'
 
 export function ChatListScreen() {
   const [query, setQuery] = useState('')
   useEffect(() => {
     const fetchChatList = async () => {
-      const res = await fetchChatApi()
+      const res = await getChatApi()
       console.log(res)
     }
     fetchChatList()

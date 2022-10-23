@@ -1,18 +1,18 @@
-import URL from '../../url'
+import URL from '../../../url'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
-const fetchChatApi = async () => {
+const getUserByIdApi = async ({ _id }) => {
   try {
-    const res = await fetch(URL + '/api/chat', {
+    const res = await fetch(URL + '/api/user/id?search=' + _id, {
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${await asyncStorage.getItem('roksrs-token')}`,
       },
     })
-    console.log(res.status)
     return res.json()
   } catch (error) {
     console.log(error)
   }
 }
 
-export default fetchChatApi
+export default getUserByIdApi

@@ -12,14 +12,14 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontFamily: 'NunitoSans_600SemiBold',
     paddingVertical: 4,
+    fontFamily: 'NunitoSans_400Regular',
   },
   paragraph: {
     fontSize: 13,
-    fontFamily: 'NunitoSans_400Regular',
     color: Colors.grey800,
     flexWrap: 'wrap',
+    fontFamily: 'NunitoSans_400Regular',
   },
   flexRow: {
     flexDirection: 'row',
@@ -33,21 +33,20 @@ export const styles = StyleSheet.create({
   isEnd: {
     fontSize: 17,
     marginLeft: 5,
-    fontFamily: 'NunitoSans_600SemiBold',
   },
   severityText: {
     fontSize: 13,
-    fontFamily: 'NunitoSans_300Light',
     marginRight: 3,
+    fontFamily: 'NunitoSans_400Regular',
   },
   severity: {
     fontSize: 13,
-    fontFamily: 'NunitoSans_600SemiBold',
     color: 'red',
+    fontFamily: 'NunitoSans_400Regular',
   },
   date: {
     fontSize: 12,
-    fontFamily: 'NunitoSans_300Light',
     marginLeft: 10,
+    fontFamily: 'NunitoSans_300Light',
   },
 })

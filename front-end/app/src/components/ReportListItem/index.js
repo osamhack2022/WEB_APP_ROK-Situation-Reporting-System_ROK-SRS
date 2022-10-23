@@ -4,6 +4,7 @@ import { Card, Paragraph, Colors } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
+import getUserByIdApi from '../../apis/user/getUserByIdApi'
 import { styles } from './style'
 
 export function ReportListItem(props) {
@@ -20,12 +21,22 @@ export function ReportListItem(props) {
     User,
   } = props
 
+  const [author, setAuthor] = useState(null)
+  useEffect(() => {
+    if (User) {
+      const getUserByIdHandler = async ({ _id }) => {
+        setAuthor(await getUserByIdApi({ _id }))
+      }
+      getUserByIdHandler({ _id: User })
+    }
+  })
+
   const [date, setDate] = useState('')
   useEffect(() => {
     if (createdAt) {
       setDate(
         moment(createdAt.slice(0, 10) + ' ' + createdAt.slice(11, 19)).format(
-          'YYYY년 MM월 DD일 hh시 mm분'
+          'YYYY-MM-DD hh:mm'
         )
       )
     }
@@ -47,7 +58,7 @@ export function ReportListItem(props) {
         ReportingSystem,
         Invited,
         Comments,
-        User,
+        User: author[0],
       },
     })
   }
