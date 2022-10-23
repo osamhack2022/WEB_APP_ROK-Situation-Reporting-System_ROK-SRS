@@ -24,7 +24,7 @@
     flex-direction: column;
     width: 90%;
     margin: auto;
-    overflow-x: scroll;
+    overflow-y: scroll;
     scrollbar-width: none;
 }
 

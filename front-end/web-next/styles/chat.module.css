@@ -1,13 +1,18 @@
 .flexcontainer {
-    display: flex; 
+    display: flex;
 }
 
 .menuelem {
-    display: flex; 
-    height: 100px; 
-    border-bottom: 0.5px lightgrey solid; 
+    display: flex;
+    height: 100px;
+    border-bottom: 0.5px lightgrey solid;
     width: 360px;
 }
+.menuelem:hover {
+    cursor: pointer; 
+    background-color: #e9e8e8;
+}
+
 .menuelemtitle {
     font-size: 20px;
     color: #008272;
@@ -15,19 +20,20 @@
 
 .button {
     background-color: #008272;
-    color: white; 
+    color: white;
     font-size: 14px;
-    border: none;  
+    border: none;
     padding: 5px;
     height: 35px;
 }
 
 .button:hover {
     background-color: #00695d;
-    color: white; 
-    cursor: pointer; 
+    color: white;
+    cursor: pointer;
 
 }
+
 .imagecontainer {
     width: 100px;
     height: 100px;
@@ -36,36 +42,58 @@
     justify-content: center;
 
 }
+
 .firstrow {
-    display: flex; 
-    justify-content: space-between; 
-    width: 250px; 
-    margin-top: 5px; 
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    margin-top: 5px;
 }
+
 .date {
     margin-top: 5px;
     font-size: 12px;
 }
+
 .content {
     width: 250px;
     max-width: 250px;
     word-wrap: break-word;
 }
+
 .sidebar {
-    width: 360px; 
+    width: 360px;
     background-color: #F0F0F0;
-    height: 100vh; 
+    height: 100%;
+    /* TODO: 100vh 사용시 문제 발생...? */
 }
 
 .error {
-    color: red; 
-    font-size: 14px; 
-    margin-left: 8px; 
-    line-height: 35px; 
+    color: red;
+    font-size: 14px;
+    margin-left: 8px;
+    line-height: 35px;
     margin-top: 20px;
     margin-bottom: 0px;
 }
 
-#2 {
-    color: green;
+.severityLevel1 {
+    color: green; 
+}
+
+.severityLevel2 {
+    color: darkorange; 
+}
+
+.severityLevel3 {
+    color: pink; 
+}
+
+.severityLevel4 {
+    color: rgb(230, 92, 92); 
+
+}
+.severityLevel5 {
+    color: red; 
+
 }
