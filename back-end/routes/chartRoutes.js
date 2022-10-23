@@ -11,7 +11,6 @@ const {
 } = require("../middleware/authMiddleware");
 
 const router = express.Router();
-
 router.route("/").get(protect, getChart);
 router.route("/add").post(onlyAdmin, addChart);
 router.route("/edit").post(onlyAdmin, editChart);
