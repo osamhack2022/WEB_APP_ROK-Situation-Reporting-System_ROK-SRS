@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from "next/link"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { PageHeader, Breadcrumb, Row, Col, Avatar, List, Button } from 'antd';
 import { PlusOutlined, ArrowRightOutlined, EditOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons'
 import { getCookie } from 'cookies-next';
@@ -90,6 +90,21 @@ const ReportSystem = () => {
       .then(data => setSystemList(data));
   }, []);
 
+  const removeSystem = useCallback(async (id) => {
+    await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys/', {
+      'method': 'DELETE',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+      'body': JSON.stringify({ _id: id })
+    })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+    return;
+  }, []);
+
   return (
     <>
       <Head>
@@ -144,6 +159,12 @@ const ReportSystem = () => {
                         setFormData(item);
                         setFormOpen(true);
                       }}
+                    />
+                  </Col>
+                  <Col>
+                    <Button
+                      icon={<CloseOutlined />}
+                      onClick={() => removeSystem(item._id)}
                     />
                   </Col>
                 </Row>

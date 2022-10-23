@@ -114,7 +114,7 @@ const removeReportsys = asyncHandler(async (req, res) => {
 	}
 	)
 
-	res.status(201).json({
+	res.status(200).json({
 		message: "remove success",
 		_id: mongoose.Types.ObjectId(_id)
 	});

@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Modal, Select, Button, Input, Row, Col } from 'antd';
 import { PlusOutlined, DownOutlined, CloseOutlined } from '@ant-design/icons'
 import { getCookie } from 'cookies-next';
-import styles from '../styles/MemoForm.module.css';
+import styles from '../styles/ReportSystemForm.module.css';
 
 function UserSelector(props) {
   const [selectedUser, selectUser] = useState(undefined);
@@ -132,6 +132,8 @@ function ReportSystemForm(props) {
   return (
     <Modal
       open={props.isOpen}
+      okText="저장하기"
+      cancelText="취소"
       onOk={() => {
         submitSystem(reportTitle, reportList, props.data._id);
         props.onSubmit();
@@ -139,6 +141,7 @@ function ReportSystemForm(props) {
       onCancel={props.onCancel}
     >
       <div className={styles.formLayout}>
+        <p className={styles.formTitle}>{props.data._id ? '수정하기' : '추가하기'}</p>
         <div className="memoCustomForm">
           <div className={styles.formElement}>
             <p className={styles.formLabel}>제목</p>
