@@ -13,6 +13,7 @@ export const styles = StyleSheet.create({
     elevation: 10,
     shadowOpacity: 0.5,
     shadowRadius: 1,
+    alignSelf: 'center',
   },
   text: {
     fontSize: 18,

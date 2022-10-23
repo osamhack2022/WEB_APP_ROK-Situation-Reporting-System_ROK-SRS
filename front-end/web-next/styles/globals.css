@@ -15,6 +15,32 @@ body {
   padding: 0;
 }
 
+h3{
+  margin: 0;
+}
+h1 {
+  margin: 0;
+}
+div {
+  margin: 0;
+}
+.wordwrap {  
+  white-space: pre-wrap;      /* Webkit */    
+  white-space: -moz-pre-wrap; /* Firefox */     
+  white-space: -pre-wrap;     /* Opera <7 */    
+  white-space: -o-pre-wrap;   /* Opera 7 */     
+  word-wrap: break-word;      /* IE */ 
+}
+/* 
+antd와 같은 요소들로 인해 불가피하게 global한 css를 변경할 경우,
+모든 대상에게 적용되게 하는 대신 div에 class를 설정하여,
+해당 div 안에 있는 component만 적용될 수 있도록 합시다! (issue #55)
+.ant-btn-primary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
 a {
   color: inherit;
   text-decoration: none;
@@ -71,12 +97,33 @@ a {
   box-sizing: content-box;
 }
 
-.memoCustomForm > .ant-select:not(.ant-select-customize-input) .ant-select-selector,
-.memoCustomForm > .ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+.memoCustomForm>.ant-select:not(.ant-select-customize-input) .ant-select-selector,
+.memoCustomForm>.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
   background-color: transparent;
   /* border: 0; */
 }
 
 .ant-form-item {
   margin-bottom: 0px;
+}
+
+.memonoteSiderTitle>.ant-select:not(.ant-select-customize-input) .ant-select-selector,
+.memonoteSiderTitle>.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  background-color: transparent;
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+.memonoteSiderTitle>.ant-select-arrow {
+  color: #000;
+}
+
+.ant-spin-dot-item {
+  background-color: #008080;
+}
+
+.organizationCard > .ant-modal-content, 
+.organizationForm > .ant-modal-content {
+  border-radius: 30px;
+  padding: 5px;
 }

@@ -1,26 +1,38 @@
 import { View, Text } from 'react-native'
-import { Avatar, Paragraph } from 'react-native-paper'
+import { Paragraph, Colors } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import moment from 'moment'
 import { styles } from './style'
 import { Profile } from '../Profile'
 
-export function ReportComment({ name, position, text }) {
+export function ReportComment(props) {
   let [fontsLoaded] = useNunitoFonts()
 
-  console.log({ name, position, text })
-
+  const Type =
+    props.Type === 'emergency'
+      ? '[긴급]'
+      : props.Type === 'order'
+      ? '[지시]'
+      : '[보고]'
+  const color =
+    props.Type === 'emergency'
+      ? 'red'
+      : props.Type === 'order'
+      ? Colors.amber700
+      : 'green'
   return (
     <View style={styles.contentView}>
       <Profile
-        name="상병 허태호"
-        position="본부중대 저격"
+        name={props.Name}
+        position={props.position}
         size={40}
         src={require('../../assets/images/avatar.png')}
         date={moment().format('YYYY-MM-DD hh:mm')}
       />
-      <Paragraph style={styles.paragraph}>{text}</Paragraph>
-      <View style={styles.contView}></View>
+      <View style={{ flex: 1, flexDirection: 'row' }}>
+        <Paragraph style={[styles.type, { color: color }]}>{Type}</Paragraph>
+        <Paragraph style={styles.paragraph}>{props.Content}</Paragraph>
+      </View>
     </View>
   )
 }

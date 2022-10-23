@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Reportsys = require("../models/reportsysModel");
-const UnitM = require("../models/unitModel");
+const User = require("../models/userModel");
+const Unit = require("../models/unitModel");
 var mongoose = require('mongoose');
 
 //@description     Create new reportsys
@@ -17,23 +18,23 @@ const addReportsys = asyncHandler(async (req, res) => {
 		throw new Error("모든 정보를 입력하세요.");
 	}
 
-	Unit = req.user.Unit;
+	const currentUnit = req.user.Unit;
 
 	const reportsys = await Reportsys.create({
 		Title,
 		List,
-		Unit
+		Unit: currentUnit
 	});
 
 
-	const added = await UnitM.findByIdAndUpdate(
-		Unit._id, {
-			$push: {
-				reportSys: reportsys._id
-			},
-		}, {
-			new: true,
-		}
+	const added = await Unit.findByIdAndUpdate(
+		currentUnit._id, {
+		$push: {
+			reportSys: reportsys._id
+		},
+	}, {
+		new: true,
+	}
 	)
 
 	if (reportsys) {
@@ -49,20 +50,53 @@ const addReportsys = asyncHandler(async (req, res) => {
 	}
 });
 
+//@description     Create new reportsys
+//@route           POST /api/reportsys
+//@access          Protected(onlyadmin)
+const editReportsys = asyncHandler(async (req, res) => {
+	const {
+		_id,
+		Title,
+		List
+	} = req.body;
+
+	if (!_id || !Title || !List) {
+		res.status(400);
+		throw new Error("모든 정보를 입력하세요.");
+	}
+	const currentUnit = req.user.Unit;
+
+	const reportsys = await Reportsys.findByIdAndUpdate(_id, {
+		Title,
+		List,
+		Unit: currentUnit
+	});
+
+	if (reportsys) {
+		res.status(200).json({
+			_id: reportsys._id,
+			Title: reportsys.Title,
+			List: reportsys.List,
+			Unit: reportsys.Unit
+		});
+	} else {
+		res.status(400);
+		throw new Error("보고체계를 찾을 수 없습니다.");
+	}
+});
+
 //@description     Delete reportsys
 //@route           DELETE /api/reportsys
 //@access          Protected(onlyadmin)
 const removeReportsys = asyncHandler(async (req, res) => {
-	const {
-		_id
-	} = req.body;
+	const { _id } = req.body;
 
 	if (!_id) {
 		res.status(400);
 		throw new Error("정보를 입력하세요.");
 	}
 
-	Unit = req.user.Unit;
+	const currentUnit = req.user.Unit;
 
 	try {
 		await Reportsys.findByIdAndRemove(_id).exec();
@@ -70,18 +104,17 @@ const removeReportsys = asyncHandler(async (req, res) => {
 		res.status(400);
 		throw new Error("해당 보고체계가 없습니다.");
 	}
-	console.log(Unit._id)
-	const removed = await UnitM.findByIdAndUpdate(
-		Unit._id, {
-			$pull: {
-				reportSys: mongoose.Types.ObjectId(_id)
-			},
-		}, {
-			new: true,
-		}
+	const removed = await Unit.findByIdAndUpdate(
+		currentUnit._id, {
+		$pull: {
+			reportSys: mongoose.Types.ObjectId(_id)
+		},
+	}, {
+		new: true,
+	}
 	)
 
-	res.status(201).json({
+	res.status(200).json({
 		message: "remove success",
 		_id: mongoose.Types.ObjectId(_id)
 	});
@@ -89,21 +122,28 @@ const removeReportsys = asyncHandler(async (req, res) => {
 
 
 //@description     get reportsys
-//@route           GET /api/reportsys
+//@route           GET /api/reportsys?search=
 //@access          Protected
 const getReportsys = asyncHandler(async (req, res) => {
 	const keyword = req.query.search;
 
 	if (keyword) {
-		ret = await Reportsys.find({ Title: { $eq: keyword }}).find({Unit: {$eq: req.user.Unit}});
-		return res.status(200).send(ret);
+		const reportSystem = await Reportsys.find({ Title: { $eq: keyword } }).find({ Unit: { $eq: req.user.Unit } });
+		for (const system of reportSystem)
+			system.List = await User.find({ '_id': { '$in': system.List } }).select("-password");
+		return res.status(200).send(reportSystem);
 	} else {
-		return res.status(200).send(await Reportsys.find({Unit: {$eq: req.user.Unit}}));
+		const reportSystem = await Reportsys.find({ Unit: { $eq: req.user.Unit } })
+		// convert uid as user model
+		for (const system of reportSystem)
+			system.List = await User.find({ '_id': { '$in': system.List } }).select("-password");
+		return res.status(200).send(reportSystem);
 	}
 });
 
 module.exports = {
 	addReportsys,
+	editReportsys,
 	removeReportsys,
 	getReportsys
 };

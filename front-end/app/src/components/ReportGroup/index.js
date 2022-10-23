@@ -1,61 +1,39 @@
 import React from 'react'
-import { FlatList, Text, View, TouchableOpacity } from 'react-native'
-import { Avatar } from 'react-native-paper'
+import { FlatList, Text, Image, View } from 'react-native'
 import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
+import { UserCard } from '../UserCard'
 
 const ItemSeparator = () => (
-  <TouchableOpacity style={{ alignItems: 'center' }}>
-    <Avatar.Icon
-      icon="arrow-right"
-      size={50}
-      style={{ backgroundColor: 'white', padding: 0 }}
-    />
-    <Avatar.Icon
-      icon="plus"
-      size={30}
-      style={{ backgroundColor: 'white', color: 'green' }}
-    />
-  </TouchableOpacity>
+  <Image
+    source={require('../../assets/images/arrow.png')}
+    style={[styles.image]}
+  />
 )
 
-const renderItem = ({ item }) => (
-  <>
-    <View style={styles.view}>
-      <Avatar.Image
-        source={require('../../assets/images/avatar.png')}
-        size={40}
-        style={styles.image}
-      />
-      <Text style={styles.itemText}>{item.name}</Text>
-      <Text style={styles.itemText}>{item.position}</Text>
-    </View>
-    <TouchableOpacity>
-      <Avatar.Icon
-        icon="alpha-x"
-        size={30}
-        style={{ backgroundColor: 'white' }}
-      />
-    </TouchableOpacity>
-  </>
+const renderItem = ({ item, props }) => (
+  <UserCard
+    name={item.name}
+    position={item.position}
+    source={item.source}
+    style={props.cardStyle}
+  />
 )
 
-export function ReportGroup({ group, name, pic, isSetting = false }) {
+export function ReportGroup(props) {
   let [fontsLoaded] = useNunitoFonts()
 
   return (
-    <>
+    <View>
       <FlatList
-        data={group}
-        renderItem={renderItem}
+        data={props.List}
+        renderItem={({ item }) => renderItem({ item, props })}
         contentContainerStyle={styles.container}
         horizontal={true}
         ItemSeparatorComponent={ItemSeparator}
         showsHorizontalScrollIndicator={false}
       />
-      <Text style={styles.text}>
-        {name === 'onDuty' ? '당직계통 보고체계' : '본부중대 보고체계'}
-      </Text>
-    </>
+      <Text style={styles.text}>{props.Title}</Text>
+    </View>
   )
 }

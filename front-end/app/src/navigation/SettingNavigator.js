@@ -1,22 +1,23 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import {
-  SettingScreen,
-  UnitMgtScreen,
-  UserMgtScreen,
+  UserUpdateScreen,
   UserAddScreen,
-  ProcMgtScreen,
+  UserMgtScreen,
+  UnitMgtScreen,
+  UnitAddScreen,
+  SysMgtScreen,
 } from '../screens'
 
 const Stack = createStackNavigator()
 
-export function SettingNavigator() {
+export default function SettingNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
       <Stack.Screen
-        name="SettingScreen"
-        component={SettingScreen}
-        options={{ title: '설 정' }}
+        name="UserUpdateScreen"
+        component={UserUpdateScreen}
+        options={{ title: '내 정보 관리' }}
       />
       <Stack.Screen
         name="UserMgtScreen"
@@ -31,11 +32,16 @@ export function SettingNavigator() {
       <Stack.Screen
         name="UnitMgtScreen"
         component={UnitMgtScreen}
-        options={{ title: '부대 관리' }}
+        options={{ title: '부대 정보 관리' }}
       />
       <Stack.Screen
-        name="ProcMgtScreen"
-        component={ProcMgtScreen}
+        name="UnitAddScreen"
+        component={UnitAddScreen}
+        options={{ title: '부대 추가' }}
+      />
+      <Stack.Screen
+        name="SysMgtScreen"
+        component={SysMgtScreen}
         options={{ title: '보고체계 관리' }}
       />
     </Stack.Navigator>
