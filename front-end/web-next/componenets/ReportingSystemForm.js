@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { Modal, Select, Button, Form, Input, Row, Col } from 'antd';
+import { Modal, Select, Button, Input, Row, Col } from 'antd';
 import { PlusOutlined, DownOutlined, CloseOutlined } from '@ant-design/icons'
 import { getCookie } from 'cookies-next';
 import styles from '../styles/MemoForm.module.css';
@@ -7,6 +7,11 @@ import styles from '../styles/MemoForm.module.css';
 function UserSelector(props) {
   const [selectedUser, selectUser] = useState(undefined);
   const [userList, setUserList] = useState([]);
+
+  useEffect(() => {
+    if (props.value)
+      selectUser(props.value)
+  }, [props]);
 
   const fetchUser = useCallback(async () => {
     await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user?index=0', {
@@ -63,6 +68,14 @@ function ReportSystemForm(props) {
   const [reportTitle, setReportTitle] = useState('');
   const [reportList, setReportList] = useState([undefined]);
 
+  useEffect(() => {
+    if (props.data.Title)
+      setReportTitle(props.data.Title);
+
+    if (props.data.List)
+      setReportList([...props.data.List]);
+  }, [props]);
+
   const appendReportList = useCallback(() => {
     setReportList(reportList => [...reportList, undefined]);
   }, []);
@@ -82,7 +95,7 @@ function ReportSystemForm(props) {
     });
   });
 
-  const submitSystem = useCallback(async (title, list, unit) => {
+  const submitSystem = useCallback(async (title, list) => {
     const submitData = {
       Title: title,
       List: list.filter(e => e),
@@ -111,16 +124,16 @@ function ReportSystemForm(props) {
       onCancel={props.onCancel}
     >
       <div className={styles.formLayout}>
-        <Form className="memoCustomForm">
-          <Form.Item className={styles.formElement}>
+        <div className="memoCustomForm">
+          <div className={styles.formElement}>
             <p className={styles.formLabel}>제목</p>
             <Input
               className={styles.formTitleInput}
               value={reportTitle}
               onChange={(event) => setReportTitle(event.target.value)}
             />
-          </Form.Item>
-          <Form.Item className={styles.formElement}>
+          </div>
+          <div className={styles.formElement}>
             <Row
               style={{ marginBottom: '15px' }}
               align="middle"
@@ -153,13 +166,14 @@ function ReportSystemForm(props) {
                     onClick={() => removeReportList(index)}
                   />
                   <UserSelector
+                    value={report ? { 'key': report._id, 'value': '' + report.Rank + ' ' + report.Name } : undefined}
                     onChange={(value) => editReportList(index, value)}
                   />
                 </Input.Group>
               </div>
             ))}
-          </Form.Item>
-        </Form>
+          </div>
+        </div>
       </div>
     </Modal>
   )

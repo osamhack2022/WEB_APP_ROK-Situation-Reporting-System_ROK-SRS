@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from "next/link"
 import { useState, useEffect } from 'react';
 import { PageHeader, Breadcrumb, Row, Col, Avatar, List, Button } from 'antd';
-import { PlusOutlined, ArrowRightOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons'
+import { PlusOutlined, ArrowRightOutlined, EditOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons'
 import { getCookie } from 'cookies-next';
 import RegisterHeader from '../../componenets/registerheader'
 import ReportSystemForm from '../../componenets/ReportingSystemForm';
@@ -72,6 +72,7 @@ function LinkedUser(props) {
 const ReportSystem = () => {
   const [systemList, setSystemList] = useState([]);
   const [formOpen, setFormOpen] = useState(false);
+  const [formData, setFormData] = useState({});
 
   useEffect(() => {
     fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys', {
@@ -118,7 +119,10 @@ const ReportSystem = () => {
       />
       <Button
         icon={<PlusOutlined />}
-        onClick={() => setFormOpen(true)}
+        onClick={() => {
+          setFormData({});
+          setFormOpen(true);
+        }}
       />
       {
         systemList.length !== 0 &&
@@ -129,7 +133,20 @@ const ReportSystem = () => {
             dataSource={systemList}
             renderItem={(item) => (
               <List.Item>
-                <div className={Styles.systemTitle}>{item.Title}</div>
+                <Row className={Styles.systemTitle}>
+                  <Col>
+                    {item.Title}
+                  </Col>
+                  <Col>
+                    <Button
+                      icon={<EditOutlined />}
+                      onClick={() => {
+                        setFormData(item);
+                        setFormOpen(true);
+                      }}
+                    />
+                  </Col>
+                </Row>
                 <LinkedUser title={item.Title} list={item.List} />
               </List.Item>
             )}
@@ -138,6 +155,7 @@ const ReportSystem = () => {
       }
       <ReportSystemForm
         isOpen={formOpen}
+        data={formData}
         onSubmit={() => setFormOpen(false)}
         onCancel={() => setFormOpen(false)}
       />
