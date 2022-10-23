@@ -4,6 +4,20 @@ const generateToken = require("../config/generateToken");
 const bcrypt = require("bcryptjs");
 const UnitM = require("../models/unitModel");
 
+const getuserbyid = asyncHandler(async (req, res) => {
+  const keyword = req.query.search
+  const index = req.query.index;
+  if (index) {
+    res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
+  } else if (keyword) {
+    let user = await User.find({ _id: { $eq: keyword }}, {password: 0})
+    res.send(user); //.find({ _id: { $ne: req.user._id } }));
+  } else {
+    res.status(400);
+    throw new Error("잘못된 요청입니다.");
+  }
+});
+
 //@description     Get or Search all users
 //@route           GET /api/user?search=?index=
 //@access          Protected
@@ -421,6 +435,7 @@ const updatePic = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  getuserbyid,
   allUsers,
   addUser,
   registerUser,

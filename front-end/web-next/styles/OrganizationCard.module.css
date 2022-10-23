@@ -1,24 +1,19 @@
 .profileImage {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     border: 1px solid #ddd;
     border-radius: 100%;
 }
 
 .userName {
-    font-size: 14pt;
+    font-size: 18pt;
     font-weight: bold;
 }
 
 .milRank {
-    font-size: 12pt;
+    font-size: 16pt;
     font-weight: bold;
     margin-left: 5pt;
-}
-
-.userDodid {
-    font-size: 12pt;
-    color: #444;
 }
 
 .infoLabel {
@@ -32,9 +27,9 @@
 
 .elementRow {
     margin: 7px 0px;
-    padding: 0px 15px;
+    padding: 0px 25px;
 }
 
 .userProfile {
-    margin-left: 15px;
+    margin-bottom: 15px;
 }
