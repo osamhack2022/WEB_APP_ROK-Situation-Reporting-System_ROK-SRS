@@ -3,14 +3,19 @@ import Link from "next/link"
 import RegisterHeader from '../../componenets/registerheader'
 import { useState, useEffect } from 'react';
 import { PageHeader, Breadcrumb, Row, Col, Avatar, List } from 'antd';
-import { PlusOutlined, ArrowRightOutlined, CloseOutlined } from '@ant-design/icons'
+import { PlusOutlined, ArrowRightOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons'
 import { getCookie } from 'cookies-next';
+import Styles from '../../styles/reportSystem.module.css'
 
 function UserNode(props) {
   return (
-    <Row>
+    <Row gutter={10}>
       <Col>
-        <Avatar src={props.avatar} size={48} />
+        <Avatar
+          src={props.avatar}
+          icon={<UserOutlined />}
+          size={48}
+        />
       </Col>
       <Col>
         <div>{props.rank} {props.name}</div>
@@ -26,7 +31,10 @@ function LinkedUser(props) {
 
   const unitLink = props.list.reduce((preLink, user, index) => {
     preLink.push(
-      <Col key={user.DoDID}>
+      <Col
+        key={user.DoDID}
+        className={Styles.linkedNode}
+      >
         <UserNode
           avatar={user.pic}
           rank={user.Rank}
@@ -38,8 +46,11 @@ function LinkedUser(props) {
 
     if (index !== props.list.length - 1)
       preLink.push(
-        <Col key={'a' + user.DoDID}>
-          <ArrowRightOutlined />
+        <Col
+          key={'arrow' + user.DoDID}
+          className={Styles.linkedNode}
+        >
+          <ArrowRightOutlined style={{ fontSize: '20pt' }} />
         </Col>
       )
 
@@ -74,11 +85,11 @@ const ReportSystem = () => {
         return [];
       })
       .then(data => setSystemList(data));
-    }, []);
-    useEffect(() => {
+  }, []);
+  useEffect(() => {
 
-      console.log(systemList);
-    }, [systemList]);
+    console.log(systemList);
+  }, [systemList]);
 
   return (
     <>
@@ -108,17 +119,18 @@ const ReportSystem = () => {
         }
       />
       {
-        systemList.length !== 0 && 
+        systemList.length !== 0 &&
         <List
+          className={Styles.systemLayout}
           itemLayout="vertical"
-            dataSource={systemList}
-            renderItem={(item) => (
-              <List.Item>
-                <div>{item.Title}</div>
-                <LinkedUser title={item.Title} list={item.List} />
-              </List.Item>
-  )}
-          />
+          dataSource={systemList}
+          renderItem={(item) => (
+            <List.Item>
+              <div className={Styles.systemTitle}>{item.Title}</div>
+              <LinkedUser title={item.Title} list={item.List} />
+            </List.Item>
+          )}
+        />
       }
     </>
   )

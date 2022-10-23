@@ -1,0 +1,13 @@
+.systemLayout {
+    padding: 15px 30px;
+}
+
+.systemTitle {
+    font-size: 16pt;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.linkedNode {
+    margin: 0px 7px;
+}
