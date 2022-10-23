@@ -4,7 +4,7 @@ import { Avatar, Form, Select, Input } from 'antd';
 import styles from '../../styles/chatpage.module.css'
 import React, { useState } from 'react';
 import { useRouter } from "next/router"
-import { collection, query } from "@firebase/firestore"
+import { collection, query, addDoc, updateDoc, doc } from "@firebase/firestore"
 import { getCookie } from 'cookies-next';
 import { decodeJwt } from 'jose';
 
@@ -20,11 +20,9 @@ function getid() {
 }
 
 function chatpage() {
-    const [messagetype, setmessagetype] = useState('regular');
-    const [message, setmessage] = useState('regular');
-
     const router = useRouter()
     const { id } = router.query
+    
 
     const [snapshot, loading, error] = useCollection(collection(db, "chats"))
     if (loading || !snapshot || !id) return <div>Loading...</div>
@@ -34,6 +32,34 @@ function chatpage() {
             chatdata = snapshot.docs[i].data()
         }
     }
+    let submitnewmessage = async (values) => {
+        console.log(values)
+        let chattype = values.type
+        let message = values.message
+        if (!message) {
+            return 
+        }
+        if (!chattype) {
+            chattype = 'regular'
+        }
+        console.log(id)
+        await addDoc(collection(db, "chats", id, "messages"), {
+            sender: getid(),
+            text: message,
+            timestamp: new Date(),
+            type: chattype
+        })
+        const collectionref = collection(db, "chats")
+        await updateDoc(doc(collectionref, id), {
+            recentmsg: message,
+            rectime: new Date()
+        })
+        values.message = ""
+
+
+
+    }
+
     function Getparticipants() {
         let userdatas = chatdata['userdata']
         return Object.entries(userdatas).map(([key, value]) => <Avatar key={key} style={{ backgroundColor: value.color, }}> {value.name} </Avatar>)
@@ -48,10 +74,8 @@ function chatpage() {
     }
     function Generatechat({ id }) {
         const q = query(collection(db, "chats", id, "messages"), orderBy("timestamp"))
-        const [messages, loading, error] = useCollectionData(q)
-        if (loading || !messages) return <div>Loading...</div>
-    
-        return messages.map(message => {
+        const [messages, loading, error] = useCollectionData(q)    
+        return messages?.map(message => {
             let participant = Getparticipantbyid(message.sender)
             if (message.sender != getid()) {
                 return generatechatelement('theirs', message.type, message.text, participant.name, participant.color)
@@ -81,17 +105,19 @@ function chatpage() {
                 <Generatechat id={id} />
             </div>
             <div className = {styles.footer}>
-                <Form style  = {{display: 'flex', alignItems: 'center', width: '90%', height: '55px', margin: 'auto'}}>
-                <Select showSearch value = {messagetype} placeholder="메세지 종류" optionFilterProp="children" style={{ width: '140px' }}
-
-                    onChange={(event) => { setmessagetype(event.value) }}
-                >
-                    <Option value="regular">일반메세지</Option>
-                    <Option value="report">상황보고</Option>
-                    <Option value="order">지시사항</Option>
-                    <Option value="secret">암구호</Option>
-                </Select>
-                <Input  onChange={(event) => { setmessage(event.target.value) }} placeholder="Basic usage"/>
+                <Form initialValues={{remember: true}} className = {styles.messageform} onFinish={submitnewmessage}>
+                <Form.Item name="type">
+                    <Select id = "type" name = "type" defaultValue = "regular" placeholder="메세지 종류" optionFilterProp="children" style={{ width: '140px' }}>
+                        <Option value="regular">일반메세지</Option>
+                        <Option value="report">상황보고</Option>
+                        <Option value="order">지시사항</Option>
+                        <Option value="secret">암구호</Option>
+                    </Select>
+                </Form.Item>
+                <Form.Item name="message" style = {{flex: '1'}}>
+                    <Input id = "message" name = "message" placeholder="메세지를 입력해주세요"/>
+                </Form.Item>
+                <button className = {styles.button} type="primary">보내기</button>
                 </Form>
             </div>
             </div>
@@ -112,7 +138,7 @@ function generatechatelement(which, type, content, name, color) {
         } else if (type == 'report') {
             return <>
                 <div className={styles.mychatelem}>
-                    <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold' }}>[상황보고]</p>
+                    <p style={{ color: 'green', textAlign: 'center', fontWeight: 'bold' }}>[상황보고]</p>
                     {content}
                 </div>
             </>
@@ -159,7 +185,7 @@ function generatechatelement(which, type, content, name, color) {
             return <>
                 <div style={{ display: 'flex', alignItems: 'center', alignSelf: 'flex-end' }}>
                     <div className={styles.theirchatelem}>
-                        <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold' }}>[상황보고]</p>
+                        <p style={{ color: 'green', textAlign: 'center', fontWeight: 'bold' }}>[상황보고]</p>
                         {content}
                     </div>
                     <div style = {{width: '50px', display: 'flex', flexDirection: 'column'}}>

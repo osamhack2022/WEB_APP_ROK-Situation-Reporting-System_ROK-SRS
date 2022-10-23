@@ -43,7 +43,6 @@ function Menuelement(props) {
     if (loading || !snapshot) return <div>Loading...</div>
 
     const id = getid()
-    console.log(snapshot.docs.length)
     if (snapshot.docs.length == 0) {
         return <>
         
