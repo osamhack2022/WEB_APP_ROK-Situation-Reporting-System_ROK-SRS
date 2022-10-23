@@ -99,6 +99,7 @@ function chatpage() {
         }, [messages, scrollToBottom])
         return messages?.map(message => {
             let participant = Getparticipantbyid(message.sender)
+            console.log(participant)
             if (message.sender != getid()) {
                 return generatechatelement('theirs', message.type, message.text, participant.name, participant.color)
             } else {
