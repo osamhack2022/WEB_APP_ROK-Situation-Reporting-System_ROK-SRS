@@ -9,8 +9,9 @@ const getScore = require('../ai/classifier.js')
 //@route           GET /api/report
 //@access          Protected
 const getReportCard = asyncHandler(async (req, res) => {
-
-  let reportCards = await Report.find({});
+  const reportCards = await Report.find({});
+  for(const card of reportCards)
+    card.User = await UserM.findById(card.User).select("-password");
   res.send(reportCards);
 });
 
@@ -44,10 +45,6 @@ const addReportCard = asyncHandler(async (req, res) => {
     Severity,
     Unit: currentUnit
   });
-
-
-  res.status(201).send(report);
-  return;
 
   const editUnit = await UnitM.findByIdAndUpdate(
     UnitId, {
