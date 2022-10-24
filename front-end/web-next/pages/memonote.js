@@ -82,9 +82,10 @@ export default function Memo() {
   }
 
   function Footer(props) {
+    const reportSystem = props.reportingSystem.map((system) => (system.Title));
     return (
       <p className={Styles.footer}>
-        보고 체계: {props.reportingSystem}
+        보고 체계: {reportSystem ? reportSystem.join(', ') : '추가 보고'}
       </p>
     )
   }

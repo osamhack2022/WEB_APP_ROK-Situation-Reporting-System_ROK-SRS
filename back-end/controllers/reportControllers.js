@@ -25,6 +25,9 @@ const getReportCard = asyncHandler(async (req, res) => {
 
   for (const card of reportCards) {
     card.User = await UserM.findById(card.User).select("-password");
+    for(const systemIndex in card.ReportingSystem) {
+      card.ReportingSystem[systemIndex] = await Reportsys.findById(card.ReportingSystem[systemIndex]);
+    }
   }
   
   res.send(reportCards);
