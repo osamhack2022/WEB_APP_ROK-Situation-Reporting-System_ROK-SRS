@@ -15,7 +15,7 @@ function ReportCard(props) {
               <Avatar src="https://joeschmoe.io/api/v1/random" size={48} />
             </Col>
             <Col>
-              <div className={Styles.cardName}>{props.name}</div>
+              <div className={Styles.cardName}>{props.name} {props.rank}</div>
               <div className={Styles.cardPosition}>{props.position}</div>
             </Col>
           </Row>
@@ -40,6 +40,7 @@ function ReportList(props) {
         <List.Item>
           <ReportCard
             name={item.User?.Name}
+            rank={item.User?.Rank}
             position={item.User?.Position}
             memo={item.Content}
             datetime={item.createdAt}
@@ -84,6 +85,7 @@ function ReportLayout(props) {
         <Col className={Styles.cardListLayout}>
           <ReportCard
             name={props.name}
+            rank={props.rank}
             position={props.position}
             memo={props.memo}
             datetime={props.datetime}

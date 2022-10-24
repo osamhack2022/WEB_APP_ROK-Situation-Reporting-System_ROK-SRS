@@ -21,7 +21,10 @@ export default function Memo() {
         'Authorization': `Bearer ${getCookie('usercookie')}`
       }
     })
-      .then(response => response.json())
+      .then(response => {
+        if(response.status == 200)
+          return response.json()
+      })
       .then(data => setMemoRenderList(data));
   }, []);
 
@@ -172,6 +175,7 @@ export default function Memo() {
                       }
                       height="710px"
                       name={memoRenderList[selectedItem].User?.Name}
+                      rank={memoRenderList[selectedItem].User?.Rank}
                       position={memoRenderList[selectedItem].User?.Position}
                       memo={memoRenderList[selectedItem].Content}
                       datetime={koreanTimeFormat(memoRenderList[selectedItem].createdAt)}
