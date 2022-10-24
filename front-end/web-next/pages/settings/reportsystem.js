@@ -87,6 +87,10 @@ const ReportSystem = (props) => {
         }}
       />
     );
+
+    return () => {
+      props.setHeaderExtra(undefined);
+    }
   }, []);
 
   const refreshSystem = useCallback(() => {
