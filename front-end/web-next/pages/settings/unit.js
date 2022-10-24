@@ -77,64 +77,65 @@ const treeData2 = [
 ];
 
 const UnitSettings = () => {
-  const [uploadedunitlogo, setuploadedunitlogo] = useState("none");
-  const [uploadedunitname, setuploadedunitname] = useState("none");
-  const [uploadedunitslogan, setuploadedunitslogan] = useState("none");
+    const [uploadedunitlogo, setuploadedunitlogo] = useState("none")
+    const [uploadedunitname, setuploadedunitname] = useState("none")
+    const [uploadedunitslogan, setuploadedunitslogan] = useState("none")
 
-  //user loading function
-  const count = 4;
-  const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
-  const [initLoading, setInitLoading] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-  const [list, setList] = useState([]);
 
-  useEffect(() => {
-    fetch(fakeDataUrl)
-      .then((res) => res.json())
-      .then((res) => {
-        setInitLoading(false);
-        setData(res.results);
-        setList(res.results);
-      });
-  }, [fakeDataUrl, setInitLoading, setData, setList]);
 
-  const onLoadMore = () => {
-    setLoading(true);
-    setList(
-      data.concat(
-        [...new Array(count)].map(() => ({
-          loading: true,
-          name: {},
-          picture: {},
-        }))
-      )
-    );
-    fetch(fakeDataUrl)
-      .then((res) => res.json())
-      .then((res) => {
-        const newData = data.concat(res.results);
-        setData(newData);
-        setList(newData);
-        setLoading(false); // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-        // In real scene, you can using public method of react-virtualized:
-        // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-        window.dispatchEvent(new Event("resize"));
-      });
-  };
-  const loadMore =
-    !initLoading && !loading ? (
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: 12,
-          height: 30,
-          lineHeight: "30px",
-        }}
-      >
-        <Button onClick={onLoadMore}>더 보기</Button>
-      </div>
-    ) : null;
+
+    //user loading function
+    const count = 4;
+    const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
+    const [initLoading, setInitLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([]);
+    const [list, setList] = useState([]);
+    useEffect(() => {
+        fetch(fakeDataUrl)
+            .then((res) => res.json())
+            .then((res) => {
+                setInitLoading(false);
+                setData(res.results);
+                setList(res.results);
+            });
+    }, []);
+    const onLoadMore = () => {
+        setLoading(true);
+        setList(
+            data.concat(
+                [...new Array(count)].map(() => ({
+                    loading: true,
+                    name: {},
+                    picture: {},
+                })),
+            ),
+        );
+        fetch(fakeDataUrl)
+            .then((res) => res.json())
+            .then((res) => {
+                const newData = data.concat(res.results);
+                setData(newData);
+                setList(newData);
+                setLoading(false); // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+                // In real scene, you can using public method of react-virtualized:
+                // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+                window.dispatchEvent(new Event('resize'));
+            });
+    };
+    const loadMore =
+        !initLoading && !loading ? (
+            <div
+                style={{
+                    textAlign: 'center',
+                    marginTop: 12,
+                    height: 30,
+                    lineHeight: '30px',
+                }}
+            >
+                <Button onClick={onLoadMore}>더 보기</Button>
+            </div>
+        ) : null;
 
   //Submit NewUser
   const [DoDID, setDoDID] = useState();
@@ -220,31 +221,6 @@ const UnitSettings = () => {
   return (
     <>
       <div className={styles.background}>
-        <PageHeader
-          className="site-page-header"
-          title="부대설정"
-          breadcrumb={
-            <Breadcrumb>
-              <Breadcrumb.Item>
-                <Link href="/settings">계정설정</Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item style={{ color: "black", cursor: "pointer" }}>
-                부대설정
-              </Breadcrumb.Item>
-              <Breadcrumb.Item className={styles.lastitem}>
-                <Link href="settings/reportsystem">보고체계 설정</Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item>
-                <Link href = "/" style={{ display: "none" }}>hi</Link>
-              </Breadcrumb.Item>
-            </Breadcrumb>
-          }
-          style={{
-            backgroundColor: "white",
-            boxShadow:
-              "inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3)",
-          }}
-        />{" "}
         <div className={styles.formarea}>
           <div className={styles.formarea1}>
             <Form className={styles.changeunitinfo} onFinish={submitunitinfo}>

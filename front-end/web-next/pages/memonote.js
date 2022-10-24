@@ -103,7 +103,7 @@ export default function Memo() {
               justify="center"
             >
               <Col>
-              <Spin size="large" />
+                <Spin size="large" />
               </Col>
             </Row>
           )

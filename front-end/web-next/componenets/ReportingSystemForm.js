@@ -12,7 +12,7 @@ function UserSelector(props) {
     if (props.value)
       selectUser(props.value);
     
-    return selectUser(undefined);
+    return () => selectUser(undefined);
   }, [props]);
 
   const fetchUser = useCallback(async () => {
