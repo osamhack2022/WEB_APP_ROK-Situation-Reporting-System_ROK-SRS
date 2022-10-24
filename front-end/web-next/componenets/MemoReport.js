@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { Avatar, Button, List, Row, Col, Divider, Input } from 'antd';
 import { getCookie } from 'cookies-next';
+import koreanTimeFormat from '../helperfunction/koreanDateFormat';
 import Styles from '../styles/MemoReport.module.css';
 
 function ReportCard(props) {
@@ -22,7 +23,7 @@ function ReportCard(props) {
           </Row>
         </Col>
         <Col className={Styles.cardDatetime}>
-          {props.datetime}
+          {koreanTimeFormat(props.datetime)}
         </Col>
       </Row>
       <div className={Styles.cardMemo}>

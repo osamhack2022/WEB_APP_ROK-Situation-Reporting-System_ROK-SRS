@@ -3,6 +3,7 @@ const Report = require("../models/reportModel");
 const Reportsys = require("../models/reportsysModel");
 const UnitM = require("../models/unitModel");
 const UserM = require("../models/userModel");
+const Comment = require('../models/commentModel');
 const getScore = require('../ai/classifier.js')
 
 //@description     Get all report cards
@@ -27,6 +28,11 @@ const getReportCard = asyncHandler(async (req, res) => {
     card.User = await UserM.findById(card.User).select("-password");
     for(const systemIndex in card.ReportingSystem) {
       card.ReportingSystem[systemIndex] = await Reportsys.findById(card.ReportingSystem[systemIndex]);
+      for(const commentIndex in card.Comments) {
+        card.Comments[commentIndex] = await Comment.findById(card.Comments[commentIndex]);
+        if(card.Comments[commentIndex])
+          card.Comments[commentIndex].User = await UserM.findById(card.Comments[commentIndex].User).select("-password");
+      }
     }
   }
   

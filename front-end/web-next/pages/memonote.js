@@ -5,6 +5,7 @@ import { FormOutlined } from '@ant-design/icons';
 import { getCookie } from 'cookies-next';
 import ReportLayout from '../componenets/MemoReport';
 import MemoForm from '../componenets/MemoForm';
+import koreanTimeFormat from '../helperfunction/koreanDateFormat';
 import Styles from '../styles/MemoLayout.module.css';
 
 export default function Memo() {
@@ -46,16 +47,6 @@ export default function Memo() {
     }
   }, [memonoteType]);
 
-  const koreanTimeFormat = useCallback((UTCdate) => {
-    const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-    const krDate = new Date(new Date(UTCdate) + KR_TIME_DIFF);
-    return (
-      '' + krDate.getFullYear() + '/' + (krDate.getMonth() + 1) + '/' + krDate.getDate()
-      + ' ' + (krDate.getHours() < 10 ? '0' + krDate.getHours() : krDate.getHours())
-      + ':' + (krDate.getMinutes() < 10 ? '0' + krDate.getMinutes() : krDate.getMinutes())
-    )
-  }, []);
-
   const selectStyle = useCallback((isSelected) => {
     return (isSelected ? ({ backgroundColor: '#ccc' }) : ({}))
   }, []);
@@ -74,7 +65,7 @@ export default function Memo() {
           >
             <Col>종류: {props.type}</Col>
             <Col>중요도: {props.level}</Col>
-            <Col>{props.datetime}</Col>
+            <Col>{koreanTimeFormat(props.datetime)}</Col>
           </Row>
         </div>
       </div>
@@ -191,7 +182,7 @@ export default function Memo() {
                         title={memoRenderList[selectedItem].Title}
                         type={memoRenderList[selectedItem].Type}
                         level={memoRenderList[selectedItem].Severity}
-                        datetime={koreanTimeFormat(memoRenderList[selectedItem].createdAt)}
+                        datetime={memoRenderList[selectedItem].createdAt}
                         status={memoRenderList[selectedItem].Status}
                       />
                     }
@@ -204,7 +195,7 @@ export default function Memo() {
                     rank={memoRenderList[selectedItem].User?.Rank}
                     position={memoRenderList[selectedItem].User?.Position}
                     memo={memoRenderList[selectedItem].Content}
-                    datetime={koreanTimeFormat(memoRenderList[selectedItem].createdAt)}
+                    datetime={memoRenderList[selectedItem].createdAt}
                     comment={memoRenderList[selectedItem].Comments}
                   />
                 </div>
