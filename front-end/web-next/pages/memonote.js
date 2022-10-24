@@ -94,123 +94,122 @@ export default function Memo() {
       <Head>
         <title>메모 보고</title>
       </Head>
-      {
-        memoRenderList.length === 0
-          ? (
-            <Row
-              className={Styles.spinSkeleton}
-              align="middle"
-              justify="center"
-            >
-              <Col>
-                <Spin size="large" />
-              </Col>
-            </Row>
-          )
-          : (
-            <Layout className={Styles.mainLayout}>
-              <Layout.Sider
-                className={Styles.siderLayout}
-                width={400}
+      <Layout className={Styles.mainLayout}>
+        <Layout.Sider
+          className={Styles.siderLayout}
+          width={400}
+        >
+          <div className={Styles.siderMenu}>
+            <div className={Styles.siderHeader}>
+              <Row
+                align="middle"
+                justify="space-between"
               >
-                <div className={Styles.siderMenu}>
-                  <div className={Styles.siderHeader}>
-                    <Row
-                      align="middle"
-                      justify="space-between"
+                <Col>
+                  <div className="memonoteSiderTitle">
+                    <Select
+                      popupClassName={Styles.siderTitle}
+                      bordered={false}
+                      value={memonoteType}
+                      defaultValue={'받은 메모 보고'}
+                      onChange={(value) => setMemonoteType(value)}
                     >
-                      <Col>
-                        <div className="memonoteSiderTitle">
-                          <Select
-                            popupClassName={Styles.siderTitle}
-                            bordered={false}
-                            value={memonoteType}
-                            defaultValue={'받은 메모 보고'}
-                            onChange={(value) => setMemonoteType(value)}
-                          >
-                            <Select.Option value="receiveMemo">받은 메모 보고</Select.Option>
-                            <Select.Option value="sendMemo">보낸 메모 보고</Select.Option>
-                          </Select>
-                        </div>
-                      </Col>
-                      <Col>
-                        <Button
-                          className={Styles.formButton}
-                          shape="circle"
-                          icon={<FormOutlined />}
-                          onClick={() => setFormOpened(true)}
-                        />
-                      </Col>
-                    </Row>
-                    <Input.Search className={Styles.menuSearcher} />
+                      <Select.Option value="receiveMemo">받은 메모 보고</Select.Option>
+                      <Select.Option value="sendMemo">보낸 메모 보고</Select.Option>
+                    </Select>
                   </div>
-                  <Divider className={Styles.bottomDivider} />
-                  <div className={Styles.scrollableDiv}>
-                    <List
-                      itemLayout="horizontal"
-                      dataSource={memoRenderList}
-                      renderItem={(item, index) => (
-                        <div>
-                          <Button
-                            className={Styles.siderMenuButton}
-                            style={selectStyle(index == selectedItem)}
-                            type="link"
-                            onClick={() => setSelection(index)}
-                          >
-                            <div className={Styles.siderMenuTitle}>
-                              {item.Title}
-                              {item.Status === 'Unresolved' ? ' [미종결]' : ' [종결]'}
-                            </div>
-                            <div className={Styles.siderMenuContent}>
-                              {item.Content}
-                            </div>
-                            <Row
-                              className={Styles.siderMenuFooter}
-                              gutter={10}
-                              justify="end"
-                            >
-                              <Col>중요도: {item.Severity}</Col>
-                              <Col>{koreanTimeFormat(item.createdAt)}</Col>
-                            </Row>
-                          </Button>
-                          <Divider className={Styles.bottomDivider} />
-                        </div>
-                      )}
-                    />
+                </Col>
+                <Col>
+                  <Button
+                    className={Styles.formButton}
+                    shape="circle"
+                    icon={<FormOutlined />}
+                    onClick={() => setFormOpened(true)}
+                  />
+                </Col>
+              </Row>
+              <Input.Search className={Styles.menuSearcher} />
+            </div>
+            <Divider className={Styles.bottomDivider} />
+            <div className={Styles.scrollableDiv}>
+              <List
+                itemLayout="horizontal"
+                dataSource={memoRenderList}
+                renderItem={(item, index) => (
+                  <div>
+                    <Button
+                      className={Styles.siderMenuButton}
+                      style={selectStyle(index == selectedItem)}
+                      type="link"
+                      onClick={() => setSelection(index)}
+                    >
+                      <div className={Styles.siderMenuTitle}>
+                        {item.Title}
+                        {item.Status === 'Unresolved' ? ' [미종결]' : ' [종결]'}
+                      </div>
+                      <div className={Styles.siderMenuContent}>
+                        {item.Content}
+                      </div>
+                      <Row
+                        className={Styles.siderMenuFooter}
+                        gutter={10}
+                        justify="end"
+                      >
+                        <Col>중요도: {item.Severity}</Col>
+                        <Col>{koreanTimeFormat(item.createdAt)}</Col>
+                      </Row>
+                    </Button>
+                    <Divider className={Styles.bottomDivider} />
                   </div>
+                )}
+              />
+            </div>
+          </div>
+        </Layout.Sider>
+        <Layout.Content className={Styles.contentLayout}>
+
+          {
+            memoRenderList.length === 0
+              ? (
+                <Row
+                  className={Styles.spinSkeleton}
+                  align="middle"
+                  justify="center"
+                >
+                  <Col>
+                    <Spin size="large" />
+                  </Col>
+                </Row>
+              )
+              : (
+                selectedItem !== undefined &&
+                <div className={Styles.contentMenu}>
+                  <ReportLayout
+                    header={
+                      <Header
+                        title={memoRenderList[selectedItem].Title}
+                        type={memoRenderList[selectedItem].Type}
+                        level={memoRenderList[selectedItem].Severity}
+                        datetime={koreanTimeFormat(memoRenderList[selectedItem].createdAt)}
+                        status={memoRenderList[selectedItem].Status}
+                      />
+                    }
+                    footer={
+                      <Footer reportingSystem={memoRenderList[selectedItem].ReportingSystem} />
+                    }
+                    height="710px"
+                    name={memoRenderList[selectedItem].User?.Name}
+                    rank={memoRenderList[selectedItem].User?.Rank}
+                    position={memoRenderList[selectedItem].User?.Position}
+                    memo={memoRenderList[selectedItem].Content}
+                    datetime={koreanTimeFormat(memoRenderList[selectedItem].createdAt)}
+                    comment={memoRenderList[selectedItem].Comment}
+                  />
                 </div>
-              </Layout.Sider>
-              <Layout.Content className={Styles.contentLayout}>
-                {
-                  selectedItem !== undefined &&
-                  <div className={Styles.contentMenu}>
-                    <ReportLayout
-                      header={
-                        <Header
-                          title={memoRenderList[selectedItem].Title}
-                          type={memoRenderList[selectedItem].Type}
-                          level={memoRenderList[selectedItem].Severity}
-                          datetime={koreanTimeFormat(memoRenderList[selectedItem].createdAt)}
-                          status={memoRenderList[selectedItem].Status}
-                        />
-                      }
-                      footer={
-                        <Footer reportingSystem={memoRenderList[selectedItem].ReportingSystem} />
-                      }
-                      height="710px"
-                      name={memoRenderList[selectedItem].User?.Name}
-                      rank={memoRenderList[selectedItem].User?.Rank}
-                      position={memoRenderList[selectedItem].User?.Position}
-                      memo={memoRenderList[selectedItem].Content}
-                      datetime={koreanTimeFormat(memoRenderList[selectedItem].createdAt)}
-                      comment={memoRenderList[selectedItem].Comment}
-                    />
-                  </div>
-                }
-              </Layout.Content>
-            </Layout>
-          )
-      }
+              )
+          }
+        </Layout.Content>
+      </Layout>
       <MemoForm
         isOpen={formOpened}
         onSubmitted={() => setFormOpened(false)}
