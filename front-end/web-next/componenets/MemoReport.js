@@ -14,7 +14,7 @@ function ReportCard(props) {
         <Col>
           <Row gutter={12}>
             <Col>
-              <Avatar src="https://joeschmoe.io/api/v1/random" size={48} />
+              <Avatar src={props.pic} size={48} />
             </Col>
             <Col>
               <div className={Styles.cardName}>{props.name} {props.rank}</div>
