@@ -17,12 +17,17 @@ const reportModel = mongoose.Schema({
     type: String,
     default: "Unresolved"
   },
+  Receiver: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }],
   Invited: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"
   }],
   ReportingSystem: [{
-    type: String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Reportsys"
   }],
   Content: {
     type: String

@@ -5,7 +5,7 @@ import { Image } from 'antd'
 import unitlogo from '../img/unitlogo.png'
 import { Descriptions, Tabs, Avatar, List, PageHeader, Input, Space } from 'antd';
 import { decodeJwt } from 'jose';
-
+import { getCookie } from 'cookies-next';
 
 const { Search } = Input;
 let onSearch = async (event) => {

@@ -4,56 +4,6 @@ import { PlusOutlined, ArrowRightOutlined, CloseOutlined } from '@ant-design/ico
 import { getCookie } from 'cookies-next';
 import styles from '../styles/MemoForm.module.css';
 
-const orgType = [
-  {
-    key: 0,
-    title: '당직계통',
-    list: [
-      {
-        DoDID: 0,
-        pic: "https://joeschmoe.io/api/v1/random",
-        Name: 'OOO',
-        Rank: '상사',
-        Position: '당직사관',
-      },
-      {
-        DoDID: 1,
-        pic: "https://joeschmoe.io/api/v1/random",
-        Name: 'XXX',
-        Rank: '대위',
-        Position: '당직사령',
-      }
-    ]
-  },
-  {
-    key: 1,
-    title: '3중대',
-    list: [
-      {
-        DoDID: 0,
-        pic: "https://joeschmoe.io/api/v1/random",
-        Name: 'OOO',
-        Rank: '소위',
-        Position: '3중대 1소대장',
-      },
-      {
-        DoDID: 1,
-        pic: "https://joeschmoe.io/api/v1/random",
-        Name: 'XXX',
-        Rank: '상사',
-        Position: '3중대 행정보급관',
-      },
-      {
-        DoDID: 2,
-        pic: "https://joeschmoe.io/api/v1/random",
-        Name: 'XOX',
-        Rank: '대위',
-        Position: '3중대장',
-      }
-    ]
-  }
-]
-
 function linkedUnit(unitList, key, onRemove = null) {
   if (unitList.length === 0)
     return;
@@ -152,6 +102,23 @@ function MemoForm(props) {
   const [addUserList, setAddUserList] = useState([]);
   const [memoContent, setMemoContent] = useState('');
   const [fetchedInvitedList, setFetchedInvitedList] = useState([]);
+  const [fetchedReportingSystem, setFetchedReportingSystem] = useState([]);
+
+  const fetchReportingSystem = useCallback(async () => {
+    fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys', {
+      'method': 'GET',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+    })
+      .then(response => {
+        if (response.status == 200)
+          return response.json();
+        return [];
+      })
+      .then(data => setFetchedReportingSystem(data))
+  }, [setFetchedReportingSystem]);
 
   const fetchInvited = useCallback(async () => {
     await fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user?index=0', {
@@ -161,7 +128,11 @@ function MemoForm(props) {
         'authorization': `Bearer ${getCookie('usercookie')}`
       }
     })
-      .then(response => response.json())
+    .then(response => {
+      if (response.status == 200)
+        return response.json();
+      return [];
+    })
       .then(data => setFetchedInvitedList(data))
   }, [setFetchedInvitedList]);
 
@@ -173,7 +144,11 @@ function MemoForm(props) {
         'authorization': `Bearer ${getCookie('usercookie')}`
       }
     })
-    .then(response => response.json())
+    .then(response => {
+      if (response.status == 200)
+        return response.json();
+      return [];
+    })
     .then(data => setFetchedInvitedList(data))
   }, [setFetchedInvitedList]);
   
@@ -181,8 +156,8 @@ function MemoForm(props) {
     const submitData = {
       Title: memoTitle,
       Type: memoType,
-      ReportingSystem: reportOrgList.map((org) => (org.title)),
-      Invited: addUserList,
+      ReportingSystem: reportOrgList.map((org) => (org._id)),
+      Invited: addUserList.map((user) => (user._id)),
       Content: memoContent
     }
 
@@ -215,8 +190,8 @@ function MemoForm(props) {
     dataState('');
   }, [])
 
-  const deleteList = useCallback((listState, key) => {
-    listState(list => list.filter(e => (e.key !== key)));
+  const deleteList = useCallback((listState, id) => {
+    listState(list => list.filter(e => (e._id !== id)));
   }, []);
 
 
@@ -260,11 +235,12 @@ function MemoForm(props) {
               mode="multiple"
               bordered={false}
               value={reportOrg.length !== 0 ? reportOrg : undefined}
+              onFocus={fetchReportingSystem}
               onChange={setReportOrg}
             >
-              {orgType.map((item) => (
-                <Select.Option key={item.key} value={item.title}>
-                  {item.title}
+              {fetchedReportingSystem.map((item) => (
+                <Select.Option key={item._id} value={item.Title}>
+                  {item.Title}
                 </Select.Option>
               ))}
             </Select>
@@ -274,7 +250,7 @@ function MemoForm(props) {
               icon={<PlusOutlined />}
               onClick={() => {
                 if (reportOrg.length !== 0)
-                  reportOrg.forEach(({ key }) => addList(key, 'key', setReportOrg, setReportOrgList, orgType));
+                  reportOrg.forEach(({ key }) => addList(key, '_id', setReportOrg, setReportOrgList, fetchedReportingSystem));
               }}
             />
           </div>
@@ -282,7 +258,7 @@ function MemoForm(props) {
             reportOrgList.length !== 0 &&
             <div className={styles.formElement}>
               <p className={styles.formLabel}>보고 인원</p>
-              {reportOrgList.map((org) => linkedUnit(org.list, org.key, () => deleteList(setReportOrgList, org.key)))}
+              {reportOrgList.map((org) => linkedUnit(org.List, org._id, () => deleteList(setReportOrgList, org._id)))}
             </div>
           }
           <div className={styles.formElement}>
@@ -299,8 +275,8 @@ function MemoForm(props) {
                 onSearch={fetchInvitedFromKeyword}
               >
                 {fetchedInvitedList?.map((item) => (
-                  item.DoDID &&
-                  <Select.Option key={item.DoDID} value={'' + item.Rank + ' ' + item.Name}>
+                  item._id &&
+                  <Select.Option key={item._id} value={'' + item.Rank + ' ' + item.Name}>
                     {'' + item.Rank + ' ' + item.Name}
                   </Select.Option>
                 ))}
@@ -311,13 +287,13 @@ function MemoForm(props) {
                 icon={<PlusOutlined />}
                 onClick={() => {
                   if (addUser.length !== 0)
-                    addUser.forEach(({ key }) => addList(key, 'DoDID', setAddUser, setAddUserList, fetchedInvitedList));
+                    addUser.forEach(({ key }) => addList(key, '_id', setAddUser, setAddUserList, fetchedInvitedList));
                 }}
               />
             </div>
             {
               addUserList.length !== 0 &&
-              addUserList.map((user, index) => additionalPerson(user, index, () => deleteList(setAddUserList, user.key)))
+              addUserList.map((user, index) => additionalPerson(user, index, () => deleteList(setAddUserList, user._id)))
             }
           </div>
           <div className={styles.formElement}>

@@ -80,7 +80,6 @@ const allUsers = asyncHandler(async (req, res) => {
     "GEN",
   ];
 
-  console.log(req.query);
   const keyword = req.query.search; /*?
     {
       $or: [{
