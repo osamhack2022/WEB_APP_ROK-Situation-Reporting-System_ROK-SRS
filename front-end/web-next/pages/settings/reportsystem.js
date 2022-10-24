@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import Link from "next/link"
 import { useState, useEffect, useCallback } from 'react';
-import { PageHeader, Breadcrumb, Row, Col, Avatar, List, Button } from 'antd';
+import { Row, Col, Avatar, List, Button, Spin } from 'antd';
 import { PlusOutlined, ArrowRightOutlined, EditOutlined, CloseOutlined, UserOutlined } from '@ant-design/icons'
 import { getCookie } from 'cookies-next';
-import RegisterHeader from '../../componenets/registerheader'
 import ReportSystemForm from '../../componenets/ReportingSystemForm';
 import Styles from '../../styles/reportSystem.module.css'
 
@@ -136,48 +135,61 @@ const ReportSystem = (props) => {
       </Head>
       <div>
         {
-          systemList.length !== 0 &&
-          <div className={Styles.scrollableView}>
-            <List
-              className={Styles.systemLayout}
-              itemLayout="vertical"
-              dataSource={systemList}
-              renderItem={(item) => (
-                <List.Item>
-                  <Row
-                    className={Styles.systemTitle}
-                    gutter={5}
-                  >
-                    <Col>
-                      {item.Title}
-                    </Col>
-                    <Col>
-                      <Button
-                        className={Styles.formButton}
-                        icon={<EditOutlined style={{ fontSize: '12pt' }} />}
-                        shape="circle"
-                        onClick={() => {
-                          setFormData(item);
-                          setFormOpen(true);
-                        }}
-                      />
-                    </Col>
-                    <Col>
-                      <Button
-                        className={Styles.formButton}
-                        icon={<CloseOutlined style={{ fontSize: '12pt' }} />}
-                        shape="circle"
-                        onClick={() => {
-                          removeSystem(item._id);
-                        }}
-                      />
-                    </Col>
-                  </Row>
-                  <LinkedUser title={item.Title} list={item.List} />
-                </List.Item>
-              )}
-            />
-          </div>
+          systemList.length === 0
+            ? (
+              <Row
+                className={Styles.spinSkeleton}
+                align="middle"
+                justify="center"
+              >
+                <Col>
+                  <Spin size="large" />
+                </Col>
+              </Row>
+            )
+            : (
+              <div className={Styles.scrollableView}>
+                <List
+                  className={Styles.systemLayout}
+                  itemLayout="vertical"
+                  dataSource={systemList}
+                  renderItem={(item) => (
+                    <List.Item>
+                      <Row
+                        className={Styles.systemTitle}
+                        gutter={5}
+                      >
+                        <Col>
+                          {item.Title}
+                        </Col>
+                        <Col>
+                          <Button
+                            className={Styles.formButton}
+                            icon={<EditOutlined style={{ fontSize: '12pt' }} />}
+                            shape="circle"
+                            onClick={() => {
+                              setFormData(item);
+                              setFormOpen(true);
+                            }}
+                          />
+                        </Col>
+                        <Col>
+                          <Button
+                            className={Styles.formButton}
+                            icon={<CloseOutlined style={{ fontSize: '12pt' }} />}
+                            shape="circle"
+                            onClick={() => {
+                              removeSystem(item._id);
+                            }}
+                          />
+                        </Col>
+                      </Row>
+                      <LinkedUser title={item.Title} list={item.List} />
+                    </List.Item>
+                  )}
+                />
+              </div>
+            )
         }
         <ReportSystemForm
           isOpen={formOpen}
@@ -193,6 +205,7 @@ const ReportSystem = (props) => {
           }}
         />
       </div>
+      )
     </>
   )
 }
