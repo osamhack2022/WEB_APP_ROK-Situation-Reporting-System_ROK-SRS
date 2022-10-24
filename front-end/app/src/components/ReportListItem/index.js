@@ -36,7 +36,7 @@ export function ReportListItem(props) {
     if (createdAt) {
       setDate(
         moment(createdAt.slice(0, 10) + ' ' + createdAt.slice(11, 19)).format(
-          'YYYY-MM-DD hh:mm'
+          'MM/DD hh:mm'
         )
       )
     }
