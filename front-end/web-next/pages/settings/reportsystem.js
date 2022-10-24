@@ -90,7 +90,7 @@ const ReportSystem = (props) => {
     return () => {
       props.setHeaderExtra(undefined);
     }
-  }, []);
+  }, [refreshSystem, props.setHeaderExtra]);
 
   const refreshSystem = useCallback(() => {
     fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys', {
@@ -126,7 +126,7 @@ const ReportSystem = (props) => {
       })
       .catch(err => console.log(err))
     return;
-  }, [formOpen]);
+  }, [formOpen, refreshSystem]);
 
   return (
     <>
