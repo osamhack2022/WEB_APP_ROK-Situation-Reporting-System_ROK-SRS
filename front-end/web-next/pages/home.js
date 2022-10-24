@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import style from '../styles/homepage.module.css'
+import { useState, useEffect } from 'react';
 import {Image} from 'antd'
 import unitlogo from '../img/unitlogo.png'
 import { Descriptions, Tabs, Avatar, List, PageHeader, Button, Input, Space } from 'antd';
@@ -31,6 +32,22 @@ const data = [
 const Home = (props) => {
     let props1 = props['data'][0]
     let props2 = props['data2'][0]
+    const [unitUsers, setUnitUsers] = useState([]);
+
+    useEffect(() => {
+        fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user/unit', {
+            'method': 'GET',
+            'headers': {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${getCookie('usercookie')}`
+            }
+          })
+            .then(response => {
+              if (response.status == 200)
+                return response.json()
+            })
+            .then(data => setUnitUsers(data));
+    }, [setUnitUsers]);
 
     return <>
         <Head>
@@ -86,13 +103,13 @@ const Home = (props) => {
                             <Tabs.TabPane tab="부대 군인들" key="item-2">
                                 <List
                                     itemLayout="horizontal"
-                                    dataSource={data}
+                                    dataSource={unitUsers}
                                     renderItem={item => (
                                         <List.Item>
                                             <List.Item.Meta
-                                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                                                title={<a href="https://ant.design">{item.title}</a>}
-                                                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                                avatar={<Avatar src="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />}
+                                                title={item.Name}
+                                                description={item.Rank}
                                             />
                                         </List.Item>
                                     )}
