@@ -1,7 +1,18 @@
 const asyncHandler = require("express-async-handler");
 const Chat = require("../models/chatModel");
 const User = require("../models/userModel");
+const getScore = require('../ai/classifier.js')
 
+//@description     Returns NLP severity score of text
+//@route           POST /api/chat/score
+//@access          Protected
+const gettextScore = asyncHandler(async (req, res) => {
+  const text = req.query.text
+  let results = {
+    score: await getScore(text)
+  }
+  res.send(results)
+})
 //@description     Create or fetch One to One Chat
 //@route           POST /api/chat/
 //@access          Protected
@@ -228,6 +239,7 @@ const addToGroup = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  gettextScore,
   accessChat,
   fetchChats,
   createGroupChat,

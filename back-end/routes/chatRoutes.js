@@ -1,5 +1,6 @@
 const express = require("express");
 const {
+  gettextScore,
   accessChat,
   fetchChats,
   createGroupChat,
@@ -12,7 +13,7 @@ const {
 } = require("../middleware/authMiddleware");
 
 const router = express.Router();
-
+router.route("/score").get(protect, gettextScore);
 router.route("/").post(protect, accessChat);
 router.route("/").get(protect, fetchChats);
 router.route("/group").post(protect, createGroupChat);

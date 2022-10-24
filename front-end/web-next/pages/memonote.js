@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head'
 import { Layout, Row, Col, List, Button, Input, Divider, Select, Spin } from 'antd';
 import { FormOutlined } from '@ant-design/icons';
@@ -21,44 +21,26 @@ export default function Memo() {
         'Authorization': `Bearer ${getCookie('usercookie')}`
       }
     })
-      .then(response => response.json())
+      .then(response => {
+        if (response.status == 200)
+          return response.json()
+      })
       .then(data => setMemoRenderList(data));
-  }, [])
+  }, []);
 
-  const sampleData = [
-    {
-      'key': 0,
-      'name': 'Choe',
-      'position': '통신지원반',
-      'memo': 'XX시 XX분 부 위병소 앞 거수자 1명 식별. 긴급출동조는 지금 즉시 출동 바람.',
-      'datetime': '5분 전',
-      'title': '위병소 거수자 1명 식별',
-      'type': '긴급사항',
-      'level': 5,
-      'unit': '대대',
-      'isDone': false,
-      'comment': [
-        {
-          'name': 'Joe',
-          'position': '통신지원반',
-          'memo': '이상 무',
-          'datetime': '10분 전',
-        }
-      ]
-    },
-    {
-      'key': 1,
-      'name': 'Joe',
-      'position': '통신지원반',
-      'memo': '이상 무',
-      'datetime': '10분 전',
-      'title': '저녁 점호간 특이사항 보고',
-      'type': '보고사항',
-      'level': 0,
-      'unit': '중대',
-      'isDone': true
-    }
-  ];
+  const koreanTimeFormat = useCallback((UTCdate) => {
+    const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+    const krDate = new Date(new Date(UTCdate) + KR_TIME_DIFF);
+    return (
+      '' + krDate.getFullYear() + '/' + (krDate.getMonth() + 1) + '/' + krDate.getDate()
+      + ' ' + (krDate.getHours() < 10 ? '0' + krDate.getHours() : krDate.getHours())
+      + ':' + (krDate.getMinutes() < 10 ? '0' + krDate.getMinutes() : krDate.getMinutes())
+    )
+  }, []);
+
+  const selectStyle = useCallback((isSelected) => {
+    return (isSelected ? ({ backgroundColor: '#ccc' }) : ({}))
+  }, []);
 
   function Header(props) {
     return (
@@ -103,7 +85,7 @@ export default function Memo() {
               justify="center"
             >
               <Col>
-              <Spin size="large" />
+                <Spin size="large" />
               </Col>
             </Row>
           )
@@ -125,7 +107,7 @@ export default function Memo() {
                             popupClassName={Styles.siderTitle}
                             bordered={false}
                             value={memonoteType}
-                            onChange={(v) => { setMemonoteType(v); console.log(v) }}
+                            onChange={(value) => setMemonoteType(value)}
                           >
                             <Select.Option value="receiveMemo">받은 메모 보고</Select.Option>
                             <Select.Option value="sendMemo">보낸 메모 보고</Select.Option>
@@ -152,6 +134,7 @@ export default function Memo() {
                         <div>
                           <Button
                             className={Styles.siderMenuButton}
+                            style={selectStyle(index == selectedItem)}
                             type="link"
                             onClick={() => setSelection(index)}
                           >
@@ -168,7 +151,7 @@ export default function Memo() {
                               justify="end"
                             >
                               <Col>중요도: {item.Severity}</Col>
-                              <Col>{item.createdAt}</Col>
+                              <Col>{koreanTimeFormat(item.createdAt)}</Col>
                             </Row>
                           </Button>
                           <Divider className={Styles.bottomDivider} />
@@ -188,7 +171,7 @@ export default function Memo() {
                           title={memoRenderList[selectedItem].Title}
                           type={memoRenderList[selectedItem].Type}
                           level={memoRenderList[selectedItem].Severity}
-                          datetime={memoRenderList[selectedItem].createdAt}
+                          datetime={koreanTimeFormat(memoRenderList[selectedItem].createdAt)}
                           status={memoRenderList[selectedItem].Status}
                         />
                       }
@@ -197,9 +180,10 @@ export default function Memo() {
                       }
                       height="710px"
                       name={memoRenderList[selectedItem].User?.Name}
+                      rank={memoRenderList[selectedItem].User?.Rank}
                       position={memoRenderList[selectedItem].User?.Position}
                       memo={memoRenderList[selectedItem].Content}
-                      datetime={memoRenderList[selectedItem].createdAt}
+                      datetime={koreanTimeFormat(memoRenderList[selectedItem].createdAt)}
                       comment={memoRenderList[selectedItem].Comment}
                     />
                   </div>
