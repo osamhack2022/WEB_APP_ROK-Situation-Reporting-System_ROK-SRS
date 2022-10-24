@@ -33,21 +33,35 @@ const Home = (props) => {
     let props1 = props['data'][0]
     let props2 = props['data2'][0]
     const [unitUsers, setUnitUsers] = useState([]);
+    const [recentMemo, setRecentMemo] = useState([]);
 
     useEffect(() => {
         fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user/unit', {
             'method': 'GET',
             'headers': {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${getCookie('usercookie')}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getCookie('usercookie')}`
             }
-          })
+        })
             .then(response => {
-              if (response.status == 200)
-                return response.json()
+                if (response.status == 200)
+                    return response.json()
             })
             .then(data => setUnitUsers(data));
-    }, [setUnitUsers]);
+
+        fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/report/', {
+            'method': 'GET',
+            'headers': {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getCookie('usercookie')}`
+            }
+        })
+            .then(response => {
+                if (response.status == 200)
+                    return response.json()
+            })
+            .then(data => setRecentMemo(data));
+    }, [setUnitUsers, setRecentMemo]);
 
     return <>
         <Head>
@@ -116,7 +130,18 @@ const Home = (props) => {
                                 />
                             </Tabs.TabPane>
                             <Tabs.TabPane tab="최근 메모보고" key="item-3">
-                                Content 3
+                                <List
+                                    itemLayout="horizontal"
+                                    dataSource={recentMemo}
+                                    renderItem={item => (
+                                        <List.Item>
+                                            <List.Item.Meta
+                                                title={item.Title}
+                                                description={item.Content}
+                                            />
+                                        </List.Item>
+                                    )}
+                                />
                             </Tabs.TabPane>
                         </Tabs>
                     </div>
