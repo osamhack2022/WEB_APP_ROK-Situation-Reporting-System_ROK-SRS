@@ -11,6 +11,7 @@ import Styles from '../styles/MemoLayout.module.css';
 export default function Memo() {
   const [selectedItem, setSelection] = useState(undefined);
   const [memonoteType, setMemonoteType] = useState('receiveMemo');
+  const [memoFilter, setMemoFilter] = useState('');
   const [formOpened, setFormOpened] = useState(false);
   const [memoRenderList, setMemoRenderList] = useState([]);
 
@@ -120,13 +121,16 @@ export default function Memo() {
                   />
                 </Col>
               </Row>
-              <Input.Search className={Styles.menuSearcher} />
+              <Input.Search
+                className={Styles.menuSearcher}
+                onSearch={setMemoFilter}
+                />
             </div>
             <Divider className={Styles.bottomDivider} />
             <div className={Styles.scrollableDiv}>
               <List
                 itemLayout="horizontal"
-                dataSource={memoRenderList}
+                dataSource={memoRenderList.filter((list) => (list.Title.includes(memoFilter) || list.Content.includes(memoFilter)))}
                 renderItem={(item, index) => (
                   <div>
                     <Button

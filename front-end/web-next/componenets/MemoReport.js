@@ -73,11 +73,9 @@ function ReportLayout(props) {
       'body': JSON.stringify(submitData)
     })
       .then(res => {
-        console.log(res);
         if(res.status === 200 || res.status === 201)
           setCommentContent('');
       })
-      .catch(err => console.log(err))
   }, [props.id]);
 
   function ButtonGroup() {
@@ -98,7 +96,7 @@ function ReportLayout(props) {
       </div>
     )
   }
-console.log(props.comment)
+
   return (
     <div className={Styles.reportLayout}>
       <Row>
@@ -127,11 +125,14 @@ console.log(props.comment)
       <div className={Styles.memoFooterGroup}>
         <Input.Group compact>
           <Input
-            style={{ width: 'calc(100% - 60px)' }}
+            style={{ width: 'calc(100% - 60px)', border: '1px solid #aaa' }}
             value={commentContent}
             onChange={(event) => setCommentContent(event.target.value)}
           />
-          <Button onClick={() => submitComment(commentContent)}>
+          <Button
+          type="primary"
+          onClick={() => submitComment(commentContent)}
+          >
             전송
           </Button>
         </Input.Group>
