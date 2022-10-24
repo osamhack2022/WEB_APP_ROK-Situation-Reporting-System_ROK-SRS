@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Modal, Select, Button, Avatar, Row, Col } from 'antd';
 import { PlusOutlined, ArrowRightOutlined, CloseOutlined } from '@ant-design/icons'
 import { getCookie } from 'cookies-next';
@@ -103,6 +103,17 @@ function MemoForm(props) {
   const [memoContent, setMemoContent] = useState('');
   const [fetchedInvitedList, setFetchedInvitedList] = useState([]);
   const [fetchedReportingSystem, setFetchedReportingSystem] = useState([]);
+
+  useEffect(() => {
+    // remove all form data when unmounted
+    setMemoTitle('');
+    setMemoType(null);
+    setReportOrg([]);
+    setReportOrgList([]);
+    setAddUser([]);
+    setAddUserList([]);
+    setMemoContent('');
+  }, [props.isOpen]);
 
   const fetchReportingSystem = useCallback(async () => {
     fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/reportsys', {
