@@ -128,13 +128,13 @@ const UnitSettings = () => {
     const [Name, setName] = useState();
     const [Position, setPosition] = useState();
 
-    const [error1, seterror1] = useState(); 
-    const [success1, setsuccess1] = useState(); 
-    const [error2, seterror2] = useState(); 
-    const [success2, setsuccess2] = useState(); 
+    const [error1, seterror1] = useState();
+    const [success1, setsuccess1] = useState();
+    const [error2, seterror2] = useState();
+    const [success2, setsuccess2] = useState();
     const [error3, seterror3] = useState();
-    const [success3, setsuccess3] = useState(); 
- 
+    const [success3, setsuccess3] = useState();
+
 
     let submitnewuser = async (event) => {
         let endpoint = backendroot + 'api/user/add'
@@ -191,20 +191,7 @@ const UnitSettings = () => {
 
     return <>
         <div className={styles.background}>
-        <PageHeader className="site-page-header" title="부대설정"
-            breadcrumb={  
-            <Breadcrumb>
-                <Breadcrumb.Item>
-                    <a href = "/settings">계정설정</a>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item style = {{color: 'black', cursor: 'pointer'}}>부대설정</Breadcrumb.Item>
-                <Breadcrumb.Item className = {styles.lastitem}>
-                  <a href="settings/reportsystem">보고체계 설정</a>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    <a style = {{display: 'none'}}>hi</a>
-                </Breadcrumb.Item>
-              </Breadcrumb> } style={{backgroundColor: "white",  boxShadow: 'inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3)'}}/>            <div className={styles.formarea}>
+            <div className={styles.formarea}>
                 <div className={styles.formarea1}>
                     <Form className={styles.changeunitinfo} onFinish={submitunitinfo}>
                         <h1>부대정보 번경</h1>
@@ -217,9 +204,9 @@ const UnitSettings = () => {
                             <TextArea showCount maxLength={50} placeholder="부대슬로건 변경" allowClear onChange={(event) => { setuploadedunitslogan(event.target.value) }} name="Unitslogan" />
                         </Form.Item>
                         <Form.Item>
-                            <div style = {{display: 'flex'}}>
+                            <div style={{ display: 'flex' }}>
                                 <button className={styles.submitbutton} type="primary">부대정보 변경</button>
-                                <p id = {styles.error1}>Error Message 1</p>
+                                <p id={styles.error1}>Error Message 1</p>
                             </div>
                         </Form.Item>
 
@@ -237,8 +224,8 @@ const UnitSettings = () => {
                                     <Button>Upload</Button>
                                 </Upload.Dragger>
                                 <Form.Item>
-                                    <button className={styles.submitbutton} style = {{margin: 'auto', marginTop: '10px'}} type="primary">부대마크 변경</button>
-                                    <p id = {styles.error2}>Error Message 2</p>
+                                    <button className={styles.submitbutton} style={{ margin: 'auto', marginTop: '10px' }} type="primary">부대마크 변경</button>
+                                    <p id={styles.error2}>Error Message 2</p>
                                 </Form.Item>
                             </div>
 
@@ -275,8 +262,8 @@ const UnitSettings = () => {
                         </div>
                     </div>
 
-                        
-                    <Form className={styles.adduser} onFinish = {submitnewuser}>
+
+                    <Form className={styles.adduser} onFinish={submitnewuser}>
                         <h1>유저 추가</h1>
                         <h3>군번</h3>
                         <Form.Item name="DoDID" rules={[{ required: true }]}>
@@ -307,10 +294,10 @@ const UnitSettings = () => {
                             <Input placeholder="직책" className={styles.input} onChange={(event) => { setPosition(event.target.value) }} />
                         </Form.Item>
                         <Form.Item>
-                            <div style = {{display:'flex'}}>
+                            <div style={{ display: 'flex' }}>
                                 <button className={styles.submitbutton} type="primary">군인 추가</button>
-                                <p id = {styles.error3}>{error3}</p>
-                                <p id = {styles.success3}>{success3}</p>
+                                <p id={styles.error3}>{error3}</p>
+                                <p id={styles.success3}>{success3}</p>
 
                             </div>
                         </Form.Item>

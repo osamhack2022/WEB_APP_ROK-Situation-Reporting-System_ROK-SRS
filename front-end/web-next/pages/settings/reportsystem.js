@@ -69,13 +69,24 @@ function LinkedUser(props) {
   )
 }
 
-const ReportSystem = () => {
+const ReportSystem = (props) => {
   const [systemList, setSystemList] = useState([]);
   const [formOpen, setFormOpen] = useState(false);
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
     refreshSystem();
+    props.setHeaderExtra(
+      <Button
+        className={Styles.formButton}
+        icon={<PlusOutlined />}
+        shape="circle"
+        onClick={() => {
+          setFormData({});
+          setFormOpen(true);
+        }}
+      />
+    );
   }, []);
 
   const refreshSystem = useCallback(() => {
@@ -105,7 +116,7 @@ const ReportSystem = () => {
       'body': JSON.stringify({ _id: id })
     })
       .then(res => {
-        if(res.status === 200)
+        if (res.status === 200)
           refreshSystem();
         else
           console.log(res);
@@ -119,96 +130,65 @@ const ReportSystem = () => {
       <Head>
         <title>보고체계 설정</title>
       </Head>
-      <PageHeader
-        className="site-page-header"
-        style={{
-          backgroundColor: "white",
-          boxShadow: 'inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3)'
-        }}
-        title="보고체계 설정"
-        breadcrumb={
-          <Breadcrumb>
-            <Breadcrumb.Item>
-              <a href="/settings">계정설정</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <a href="/settings/unit">부대설정</a>
-            </Breadcrumb.Item>
-            <Breadcrumb.Item style={{ color: 'black', cursor: 'pointer' }}>보고체계 설정</Breadcrumb.Item>
-            <Breadcrumb.Item>
-              <a style={{ display: 'none' }}>Null</a>
-            </Breadcrumb.Item>
-          </Breadcrumb>
+      <div>
+        {
+          systemList.length !== 0 &&
+          <div className={Styles.scrollableView}>
+            <List
+              className={Styles.systemLayout}
+              itemLayout="vertical"
+              dataSource={systemList}
+              renderItem={(item) => (
+                <List.Item>
+                  <Row
+                    className={Styles.systemTitle}
+                    gutter={5}
+                  >
+                    <Col>
+                      {item.Title}
+                    </Col>
+                    <Col>
+                      <Button
+                        className={Styles.formButton}
+                        icon={<EditOutlined style={{ fontSize: '12pt' }} />}
+                        shape="circle"
+                        onClick={() => {
+                          setFormData(item);
+                          setFormOpen(true);
+                        }}
+                      />
+                    </Col>
+                    <Col>
+                      <Button
+                        className={Styles.formButton}
+                        icon={<CloseOutlined style={{ fontSize: '12pt' }} />}
+                        shape="circle"
+                        onClick={() => {
+                          removeSystem(item._id);
+                        }}
+                      />
+                    </Col>
+                  </Row>
+                  <LinkedUser title={item.Title} list={item.List} />
+                </List.Item>
+              )}
+            />
+          </div>
         }
-        extra={
-          <Button
-            className={Styles.formButton}
-            icon={<PlusOutlined />}
-            shape="circle"
-            onClick={() => {
-              setFormData({});
-              setFormOpen(true);
-            }}
-          />
-        }
-      />
-      {
-        systemList.length !== 0 &&
-        <div className={Styles.scrollableView}>
-          <List
-            className={Styles.systemLayout}
-            itemLayout="vertical"
-            dataSource={systemList}
-            renderItem={(item) => (
-              <List.Item>
-                <Row
-                  className={Styles.systemTitle}
-                  gutter={5}
-                >
-                  <Col>
-                    {item.Title}
-                  </Col>
-                  <Col>
-                    <Button
-                      className={Styles.formButton}
-                      icon={<EditOutlined style={{fontSize: '12pt'}} />}
-                      shape="circle"
-                      onClick={() => {
-                        setFormData(item);
-                        setFormOpen(true);
-                      }}
-                    />
-                  </Col>
-                  <Col>
-                    <Button
-                      className={Styles.formButton}
-                      icon={<CloseOutlined style={{fontSize: '12pt'}} />}
-                      shape="circle"
-                      onClick={() => {
-                        removeSystem(item._id);
-                      }}
-                    />
-                  </Col>
-                </Row>
-                <LinkedUser title={item.Title} list={item.List} />
-              </List.Item>
-            )}
-          />
-        </div>
-      }
-      <ReportSystemForm
-        isOpen={formOpen}
-        data={formData}
-        onSubmit={() => {
-          setFormOpen(false);
-          setFormData({});
-          refreshSystem();
-        }}
-        onCancel={() => {
-          setFormOpen(false);
-          setFormData({});
-        }}
-      />
+        <ReportSystemForm
+          isOpen={formOpen}
+          data={formData}
+          onSubmit={() => {
+            setFormOpen(false);
+            setFormData({});
+            refreshSystem();
+          }}
+          onCancel={() => {
+            setFormOpen(false);
+            setFormData({});
+          }}
+        />
+      </div>
     </>
   )
 }

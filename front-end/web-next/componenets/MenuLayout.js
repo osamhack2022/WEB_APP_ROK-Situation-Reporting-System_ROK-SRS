@@ -44,10 +44,6 @@ function MenuLayout(props) {
     }
   ];
 
-  if (props.exception && props.exception.includes(currentPath)) {
-    return props.children;
-  }
-
   return (
     <Layout className={styles.bodyLayout}>
       <Layout.Sider
