@@ -1,6 +1,5 @@
 import Chatpage from '../messages'
-import Head from 'next/head'
-import { Avatar, Form, Select, Input } from 'antd';
+import { Avatar, Form, Select, Input, Option } from 'antd';
 import styles from '../../styles/chatpage.module.css'
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useRouter } from "next/router"
@@ -18,7 +17,7 @@ function getid() {
     return id
 }
 
-function chatpage() {
+function Page() {
     const [form] = Form.useForm();
     const bottomOfChat = useRef();
     const router = useRouter()
@@ -99,6 +98,7 @@ function chatpage() {
         }, [messages, scrollToBottom])
         return messages?.map(message => {
             let participant = Getparticipantbyid(message.sender)
+            console.log(participant)
             if (message.sender != getid()) {
                 return generatechatelement('theirs', message.type, message.text, participant.name, participant.color)
             } else {
@@ -259,4 +259,4 @@ function generatechatelement(which, type, content, name, color) {
 
 }
 
-export default chatpage;
+export default Page;

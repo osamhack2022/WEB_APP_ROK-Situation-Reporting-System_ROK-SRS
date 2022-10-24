@@ -1,12 +1,10 @@
 import Head from 'next/head'
 import style from '../styles/homepage.module.css'
 import { useState, useEffect } from 'react';
-import {Image} from 'antd'
+import { Image } from 'antd'
 import unitlogo from '../img/unitlogo.png'
-import { Descriptions, Tabs, Avatar, List, PageHeader, Button, Input, Space } from 'antd';
-import {decryptuser, encryptuser} from '../encryption/userencryption'
-import { decodeJwt, jwtVerify } from 'jose';
-import { getCookie } from 'cookies-next';
+import { Descriptions, Tabs, Avatar, List, PageHeader, Input, Space } from 'antd';
+import { decodeJwt } from 'jose';
 
 
 const { Search } = Input;
@@ -71,11 +69,11 @@ const Home = (props) => {
             className="site-page-header"
             title="홈페이지"
             style={{ backgroundColor: "white", boxShadow: 'inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3)' }}
-            subTitle={[
+            subTitle={
                 <Space direction="vertical">
                     <Search placeholder="군인 이름/군번 검색" onSearch={onSearch} style={{ width: 250, marginLeft: '600px' }} />
                 </Space>
-            ]}
+            }
         />
         <div style={{ display: 'flex' }}>
             <div className={style.leftbar}>
@@ -193,7 +191,7 @@ export async function getServerSideProps(context) {
 
 
     }
-    
+
     return { props: { data } }
 }
 
