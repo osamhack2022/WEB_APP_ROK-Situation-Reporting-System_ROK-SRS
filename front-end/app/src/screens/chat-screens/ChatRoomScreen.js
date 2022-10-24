@@ -1,15 +1,15 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import { DrawerLayoutAndroid, TouchableOpacity, Image } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
 import { Colors, List, Avatar } from 'react-native-paper'
 import {
+  doc,
   collection,
   addDoc,
   updateDoc,
-  doc,
   orderBy,
   query,
   onSnapshot,
@@ -31,6 +31,8 @@ export function ChatRoomScreen({ route }) {
 
   const { userdata, users, chatid, name } = route.params
 
+  console.log(name)
+
   useEffect(() => {
     const collectionRef = collection(db, 'chats', chatid, 'messages')
     const q = query(collectionRef, orderBy('timestamp', 'desc'))
@@ -39,7 +41,7 @@ export function ChatRoomScreen({ route }) {
       setMessages(
         querySnapshot.docs.map((doc) => ({
           _id: doc.id,
-          createdAt: new Date(doc.data().timestamp.seconds),
+          createdAt: new Date(doc.data().timestamp.toDate()),
           text: doc.data().text,
           user: {
             _id: doc.data().sender,
@@ -63,8 +65,6 @@ export function ChatRoomScreen({ route }) {
     }
   }
 
-  console.log(isOpen)
-
   useEffect(() =>
     navigation.setOptions({
       title: name,
@@ -76,6 +76,19 @@ export function ChatRoomScreen({ route }) {
         >
           <Avatar.Icon
             icon="format-list-bulleted"
+            size={50}
+            style={{ backgroundColor: Colors.white }}
+          />
+        </TouchableOpacity>
+      ),
+      headerLeft: () => (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('ChatListScreen')
+          }}
+        >
+          <Avatar.Icon
+            icon="arrow-left"
             size={50}
             style={{ backgroundColor: Colors.white }}
           />
@@ -115,10 +128,10 @@ export function ChatRoomScreen({ route }) {
       text,
       type: '긴급',
     })
-    updateDoc(collection(db, 'chats', chatid), {
+    updateDoc(doc(db, 'chats', chatid), {
       recentmsg: text,
       rectime: new Date(createdAt),
-      severity: doc(db, 'chats', chatid).severity, // need some fix
+      // severity: doc(db, 'chats', chatid).severity, need some fix
     })
   }, [])
 
@@ -161,6 +174,12 @@ export function ChatRoomScreen({ route }) {
         onSend={(text) => onSend(text)}
         placeholder="메시지를 입력하세요."
         user={{ _id: userMe._id, name: `${userMe.Rank} ${userMe.Name}` }}
+        renderAvatar={() => (
+          <Image
+            source={{ uri: imgUrl }}
+            style={{ width: 38, height: 38, borderRadius: 15 }}
+          />
+        )}
       />
     </DrawerLayoutAndroid>
   )

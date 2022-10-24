@@ -7,10 +7,7 @@ const Stack = createStackNavigator()
 export default function ChatNavigator({ route }) {
   return (
     <Stack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
-      <Stack.Screen
-        name="ChatRoomScreen"
-        component={ChatRoomScreen}
-      />
+      <Stack.Screen name="ChatRoomScreen" component={ChatRoomScreen} />
       <Stack.Screen
         name="CreateChatScreen"
         component={CreateChatScreen}

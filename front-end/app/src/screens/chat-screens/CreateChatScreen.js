@@ -1,6 +1,9 @@
 import React, { useState, useRef, useCallback } from 'react'
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native'
+// prettier-ignore
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import { Colors, TextInput, IconButton } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
+import { window } from '../../constants/layout'
 import { GuideText } from '../../components/GuideText'
 import { MyButton } from '../../components/MyButton'
 import { Profile } from '../../components/Profile'
@@ -8,31 +11,53 @@ import searchUserApi from '../../apis/user/searchUserApi'
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase'
 
-export function CreateChatScreen() {
+export function CreateChatScreen({ route }) {
+  const navigation = useNavigation()
+  const { userMe } = route.params
   const [name, setName] = useState('')
   const [query, setQuery] = useState('')
   const [Invited, setInvited] = useState([])
   const plusRef = useRef(null)
 
-  const createChat = useCallback(() => {
-    const users = []
-    const userdata = []
+  console.log(Invited)
+
+  const createChat = async () => {
+    let users = [userMe._id]
+    console.log(users, name)
+
+    let userdata = [
+      {
+        full: `${userMe.Rank} ${userMe.Name}`,
+        name: userMe.Name,
+        rank: userMe.Rank,
+        color: '#aa2d06',
+      },
+    ]
     Invited.map((user) => {
-      users.append(user._id)
-      userdata.append({
+      users.push(user._id)
+      userdata.push({
         full: `${user.Rank} ${user.Name}`,
         name: user.Name,
         rank: user.Rank,
         color: '#aa2d06',
       })
     })
-    addDoc(collection(db, 'chats'), {
+    const docRef = await addDoc(collection(db, 'chats'), {
       name,
       users,
       userdata,
       recentmsg: '...',
     })
-  }, [])
+    navigation.navigate('ChatNavigator', {
+      screen: 'ChatRoomScreen',
+      params: {
+        users,
+        userdata,
+        chatid: docRef.id,
+        name,
+      },
+    })
+  }
 
   const getOneUserHandler = async () => {
     const res = await searchUserApi({ query })
@@ -51,7 +76,7 @@ export function CreateChatScreen() {
           label="채팅방 이름"
           dense={true}
           activeUnderlineColor="#008275"
-          onChangeText={(name) => setName(Name)}
+          onChangeText={(name) => setName(name)}
           style={styles.textInput}
         ></TextInput>
         <View style={styles.guideTextView}>
@@ -107,7 +132,7 @@ export function CreateChatScreen() {
           <MyButton
             text="채팅방 생성"
             onPress={() => createChat()}
-            style={{ marginBottom: 50 }}
+            style={{ width: '80%' }}
           />
         )}
       </ScrollView>
@@ -130,8 +155,8 @@ const styles = StyleSheet.create({
     width: '85%',
   },
   scrollView: {
-    width: '85%',
-    marginBottom: (15 / 812) * window.height,
+    width: '100%',
+    marginBottom: (45 / 812) * window.height,
   },
   textInput: {
     width: '100%',

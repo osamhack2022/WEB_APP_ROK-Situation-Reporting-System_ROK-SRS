@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { ScrollView, SafeAreaView, StyleSheet } from 'react-native'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { Colors, FAB } from 'react-native-paper'
 import { ChatListItem } from '../../components/ChatListItem'
 import { Searchbar } from '../../components/Searchbar'
@@ -14,6 +14,7 @@ export function ChatListScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
 
   const navigation = useNavigation()
+  const isFocused = useIsFocused()
   const [searchQuery, setSearchQuery] = useState('')
   const [chats, setChats] = useState([])
 
@@ -26,7 +27,7 @@ export function ChatListScreen() {
         querySnapshot.docs.map((doc) => ({
           name: doc.data().name,
           recentmsg: doc.data().recentmsg,
-          rectime: doc.data().rectime.seconds,
+          rectime: doc.data().rectime.toDate(),
           severity: doc.data().severity,
           userdata: doc.data().userdata,
           users: doc.data().users,
@@ -35,7 +36,7 @@ export function ChatListScreen() {
       )
     })
     return () => unsubscribe()
-  }, [])
+  }, [isFocused])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -66,6 +67,7 @@ export function ChatListScreen() {
         onPress={() =>
           navigation.navigate('ChatNavigator', {
             screen: 'CreateChatScreen',
+            params: { userMe },
           })
         }
         style={styles.fab}
