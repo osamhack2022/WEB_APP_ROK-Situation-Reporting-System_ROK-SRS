@@ -9,24 +9,42 @@ import Styles from '../styles/MemoLayout.module.css';
 
 export default function Memo() {
   const [selectedItem, setSelection] = useState(undefined);
-  const [memonoteType, setMemonoteType] = useState('받은 메모 보고');
+  const [memonoteType, setMemonoteType] = useState('receiveMemo');
   const [formOpened, setFormOpened] = useState(false);
   const [memoRenderList, setMemoRenderList] = useState([]);
 
   useEffect(() => {
-    fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/report/', {
-      'method': 'GET',
-      'headers': {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${getCookie('usercookie')}`
-      }
-    })
-      .then(response => {
-        if (response.status == 200)
-          return response.json()
+    setMemoRenderList([]);
+    setSelection(undefined);
+    if (memonoteType === 'receiveMemo') {
+      fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/report?receiver=true', {
+        'method': 'GET',
+        'headers': {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getCookie('usercookie')}`
+        }
       })
-      .then(data => setMemoRenderList(data));
-  }, []);
+        .then(response => {
+          if (response.status == 200)
+            return response.json()
+        })
+        .then(data => setMemoRenderList(data));
+    }
+    else if (memonoteType === 'sendMemo') {
+      fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/report?sender=true', {
+        'method': 'GET',
+        'headers': {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getCookie('usercookie')}`
+        }
+      })
+        .then(response => {
+          if (response.status == 200)
+            return response.json()
+        })
+        .then(data => setMemoRenderList(data));
+    }
+  }, [memonoteType]);
 
   const koreanTimeFormat = useCallback((UTCdate) => {
     const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
@@ -107,6 +125,7 @@ export default function Memo() {
                             popupClassName={Styles.siderTitle}
                             bordered={false}
                             value={memonoteType}
+                            defaultValue={'받은 메모 보고'}
                             onChange={(value) => setMemonoteType(value)}
                           >
                             <Select.Option value="receiveMemo">받은 메모 보고</Select.Option>
