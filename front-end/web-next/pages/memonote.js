@@ -199,12 +199,13 @@ export default function Memo() {
                       <Footer reportingSystem={memoRenderList[selectedItem].ReportingSystem} />
                     }
                     height="710px"
+                    id={memoRenderList[selectedItem]._id}
                     name={memoRenderList[selectedItem].User?.Name}
                     rank={memoRenderList[selectedItem].User?.Rank}
                     position={memoRenderList[selectedItem].User?.Position}
                     memo={memoRenderList[selectedItem].Content}
                     datetime={koreanTimeFormat(memoRenderList[selectedItem].createdAt)}
-                    comment={memoRenderList[selectedItem].Comment}
+                    comment={memoRenderList[selectedItem].Comments}
                   />
                 </div>
               )

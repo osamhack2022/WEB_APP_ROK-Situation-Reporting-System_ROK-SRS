@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Avatar, Button, List, Row, Col, Divider, Input } from 'antd';
+import { getCookie } from 'cookies-next';
 import Styles from '../styles/MemoReport.module.css';
 
 function ReportCard(props) {
@@ -54,6 +55,30 @@ function ReportList(props) {
 function ReportLayout(props) {
   const [commentContent, setCommentContent] = useState('');
 
+  const submitComment = useCallback((content) => {
+    const submitData = {
+      ReportId: props.id,
+      Type: '보고사항',
+      Content: content
+    }
+    
+    fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/comment/', {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+      'body': JSON.stringify(submitData)
+    })
+      .then(res => {
+        console.log(res);
+        if(res.status === 200 || res.status === 201)
+          setCommentContent('');
+      })
+      .catch(err => console.log(err))
+  }, [props.id]);
+
   function ButtonGroup() {
     return (
       <div>
@@ -72,7 +97,7 @@ function ReportLayout(props) {
       </div>
     )
   }
-
+console.log(props.comment)
   return (
     <div className={Styles.reportLayout}>
       <Row>
@@ -105,8 +130,7 @@ function ReportLayout(props) {
             value={commentContent}
             onChange={(event) => setCommentContent(event.target.value)}
           />
-          <Button
-            onClick={() => console.log(commentContent)}>
+          <Button onClick={() => submitComment(commentContent)}>
             전송
           </Button>
         </Input.Group>
