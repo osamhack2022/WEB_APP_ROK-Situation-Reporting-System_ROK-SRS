@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react'
-import { SafeAreaView, ScrollView } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native'
 import { Colors, TextInput, IconButton } from 'react-native-paper'
 import { GuideText } from '../../components/GuideText'
 import { MyButton } from '../../components/MyButton'

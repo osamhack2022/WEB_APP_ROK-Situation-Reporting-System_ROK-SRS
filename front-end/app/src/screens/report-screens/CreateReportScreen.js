@@ -27,7 +27,6 @@ export function CreateReportScreen() {
 
   const onRemove = (_id) => {
     console.log(Invited)
-
     setInvited(Invited.filter((user) => user._id !== _id))
   }
 
@@ -67,6 +66,7 @@ export function CreateReportScreen() {
     })
     if (res.Content) {
       Alert.alert('메모보고 등록에 성공하였습니다.')
+      navigation.navigate('SentReportScreen')
     } else {
       Alert.alert(res.message)
     }
@@ -190,7 +190,6 @@ export function CreateReportScreen() {
             text="보 고 하 기"
             onPress={() => {
               addReportHandler()
-              // navigation.navigate('RecdReportScreen')
             }}
           />
         )}

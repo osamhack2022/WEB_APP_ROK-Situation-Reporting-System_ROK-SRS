@@ -1,11 +1,10 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react'
-import { Icon } from 'react-native-vector-icons/MaterialCommunityIcons'
-import { DrawerLayout } from 'react-native-gesture-handler'
+import { DrawerLayoutAndroid, TouchableOpacity, Image } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { GiftedChat, Bubble } from 'react-native-gifted-chat'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
-import { Colors, List } from 'react-native-paper'
+import { Colors, List, Avatar } from 'react-native-paper'
 import {
   collection,
   addDoc,
@@ -58,24 +57,48 @@ export function ChatRoomScreen({ route }) {
   const toggleDrawer = () => {
     if (isOpen) {
       drawer.current.closeDrawer()
-      setIsOpen(false)
     } else {
       drawer.current.openDrawer()
       setIsOpen(true)
     }
   }
 
-  navigation.setOptions({
-    title: name,
-    headerRight: () => (
-      <Icon name="view-sequential" size={30} onPress={() => toggleDrawer()} />
-    ),
-  })
+  console.log(isOpen)
+
+  useEffect(() =>
+    navigation.setOptions({
+      title: name,
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => {
+            toggleDrawer()
+          }}
+        >
+          <Avatar.Icon
+            icon="format-list-bulleted"
+            size={50}
+            style={{ backgroundColor: Colors.white }}
+          />
+        </TouchableOpacity>
+      ),
+    })
+  )
 
   const navigationView = () => (
     <List.Section>
-      {userdata.map((user) => (
-        <List.Item title={user.full} icon={{ uri: imgUrl }} />
+      {Object.entries(userdata).map(([id, user]) => (
+        <List.Item
+          title={user.full}
+          left={() => (
+            <Image
+              source={{ uri: imgUrl }}
+              style={{ width: 40, height: 40, borderRadius: 15 }}
+            />
+          )}
+          key={id}
+          style={{ borderBottomWidth: 1, borderBottomColor: Colors.grey200 }}
+          titleStyle={{ fontSize: 14 }}
+        />
       ))}
     </List.Section>
   )
@@ -102,8 +125,16 @@ export function ChatRoomScreen({ route }) {
   const renderBubble = (props) => (
     <Bubble
       {...props}
-      wrapperStyle={{ left: { backgroundColor: Colors.amber200 } }}
-      textStyle={{ left: { color: Colors.black } }}
+      wrapperStyle={{
+        left: { backgroundColor: 'greenyellow' },
+        right: { backgroundColor: 'skyblue' },
+      }}
+      textStyle={{
+        left: {
+          color: Colors.black,
+          fontWeight: '300',
+        },
+      }}
       timeTextStyle={{ left: { color: Colors.black } }}
       usernameStyle={{ color: Colors.black }}
       key={props.key}
@@ -111,11 +142,12 @@ export function ChatRoomScreen({ route }) {
   )
 
   return (
-    <DrawerLayout
+    <DrawerLayoutAndroid
       ref={drawer}
-      drawerWidth={250}
+      drawerWidth={275}
       drawerPosition="right"
       renderNavigationView={navigationView}
+      onDrawerClose={() => setIsOpen(false)}
     >
       <GiftedChat
         messagesContainerStyle={{ backgroundColor: Colors.white }}
@@ -130,6 +162,6 @@ export function ChatRoomScreen({ route }) {
         placeholder="메시지를 입력하세요."
         user={{ _id: userMe._id, name: `${userMe.Rank} ${userMe.Name}` }}
       />
-    </DrawerLayout>
+    </DrawerLayoutAndroid>
   )
 }

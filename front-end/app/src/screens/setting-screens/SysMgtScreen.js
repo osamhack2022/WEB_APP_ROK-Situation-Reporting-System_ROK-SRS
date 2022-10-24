@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { SafeAreaView, ScrollView, StyleSheet, View, Text } from 'react-native'
 //prettier-ignore
-import { Colors, FAB, Provider, Modal, Portal, TextInput } from 'react-native-paper'
-import { ReportGroup } from '../../components/ReportGroup'
+import { Colors, FAB, Provider, Modal, Portal, TextInput, IconButton } from 'react-native-paper'
+import { UserCard } from '../../components/UserCard'
 import DATA from '../../data/procData'
 import getReportsysApi from '../../apis/report-sys/getReportsysApi'
 import addReportsysApi from '../../apis/report-sys/addReportsysApi'
@@ -27,12 +27,7 @@ export function SysMgtScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
   const [reportsys, setReportsys] = useState([])
   const [query, setQuery] = useState('')
-  const [users, setUsers] = useState([
-    { name: '김형민', position: '통신 분대장' },
-    { name: '김형민', position: '통신 분대장' },
-    { name: '김형민', position: '통신 분대장' },
-    { name: '김형민', position: '통신 분대장' },
-  ])
+  const [users, setUsers] = useState([])
   const [Title, setTitle] = useState('')
 
   const [visible, setVisible] = useState(false)
@@ -57,9 +52,13 @@ export function SysMgtScreen() {
     setReportsys(reportsys.filter((item) => item._id != _id))
   }
 
-  const searchUserHandler = async ({ query }) => {
+  const getOneUserHandler = async ({ query }) => {
     const res = await searchUserApi({ query })
-    setUsers(users.concat(res))
+    setUsers([...users, res[0]])
+  }
+
+  const onRemove = (_id) => {
+    setUsers(users.filter((user) => user._id !== _id))
   }
 
   return (
@@ -71,6 +70,11 @@ export function SysMgtScreen() {
             onDismiss={hideModal}
             contentContainerStyle={styles.modal}
           >
+            <View style={{ width: '100%', alignItems: 'center', padding: 10 }}>
+              <Text style={{ fontSize: 16, fontWeight: '600' }}>
+                보고체계 추가
+              </Text>
+            </View>
             <TextInput
               label="보고체계 이름"
               dense={true}
@@ -95,9 +99,31 @@ export function SysMgtScreen() {
               onSubmitEditing={() => {}}
               activeUnderlineColor="#008275"
             />
-            <View style={{ width: '85%', alignSelf: 'center' }}>
-              <ReportGroup List={users} Title={Title} />
-            </View>
+            <ScrollView
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              style={{ width: '85%' }}
+              contentContainerStyle={{ alignSelf: 'center' }}
+            >
+              {users.map((user) => (
+                <UserCard
+                  rank={user.Rank}
+                  name={user.Name}
+                  position={user.Position}
+                  style={styles.profile}
+                  key={user._id}
+                  right={
+                    <IconButton
+                      icon="window-close"
+                      size={20}
+                      style={styles.icon}
+                      color={Colors.red700}
+                      onPress={() => onRemove(user._id)}
+                    />
+                  }
+                />
+              ))}
+            </ScrollView>
             <MyButton text="보고체계 추가" style={{ width: '75%' }} />
           </Modal>
         </Portal>

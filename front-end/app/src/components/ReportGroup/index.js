@@ -13,6 +13,7 @@ const ItemSeparator = () => (
 
 const renderItem = ({ item, props }) => (
   <UserCard
+    rank={item.rank}
     name={item.name}
     position={item.position}
     source={item.source}

@@ -4,7 +4,6 @@ import { Card, Paragraph, Colors } from 'react-native-paper'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
-import getUserByIdApi from '../../apis/user/getUserByIdApi'
 import { styles } from './style'
 
 export function ReportListItem(props) {
@@ -20,16 +19,6 @@ export function ReportListItem(props) {
     Comments,
     User,
   } = props
-
-  const [author, setAuthor] = useState(null)
-  useEffect(() => {
-    if (User) {
-      const getUserByIdHandler = async ({ _id }) => {
-        setAuthor(await getUserByIdApi({ _id }))
-      }
-      getUserByIdHandler({ _id: User })
-    }
-  })
 
   const [date, setDate] = useState('')
   useEffect(() => {
@@ -58,7 +47,7 @@ export function ReportListItem(props) {
         ReportingSystem,
         Invited,
         Comments,
-        User: author[0],
+        User,
       },
     })
   }

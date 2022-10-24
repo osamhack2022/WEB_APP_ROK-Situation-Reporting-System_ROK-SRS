@@ -46,17 +46,20 @@ export function ChatListScreen() {
           setQuery={setSearchQuery}
         />
         {chats &&
-          chats.map((chat) => (chats.users.includes(userMe._id) &&
-            <ChatListItem
-              name={chat.name}
-              recentmsg={chat.recentmsg}
-              rectime={chat.rectime}
-              userdata={chat.userdata}
-              users={chat.users}
-              chatid={chat.chatid}
-              key={chat.chatid}
-            />
-          ))}
+          chats.map(
+            (chat) =>
+              chat.users.includes(userMe._id) && (
+                <ChatListItem
+                  name={chat.name}
+                  recentmsg={chat.recentmsg}
+                  rectime={chat.rectime}
+                  userdata={chat.userdata}
+                  users={chat.users}
+                  chatid={chat.chatid}
+                  key={chat.chatid}
+                />
+              )
+          )}
       </ScrollView>
       <FAB
         icon="message-plus"
