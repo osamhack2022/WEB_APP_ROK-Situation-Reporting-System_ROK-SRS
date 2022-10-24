@@ -22,7 +22,7 @@ export default function Memo() {
       }
     })
       .then(response => {
-        if(response.status == 200)
+        if (response.status == 200)
           return response.json()
       })
       .then(data => setMemoRenderList(data));
@@ -36,6 +36,10 @@ export default function Memo() {
       + ' ' + (krDate.getHours() < 10 ? '0' + krDate.getHours() : krDate.getHours())
       + ':' + (krDate.getMinutes() < 10 ? '0' + krDate.getMinutes() : krDate.getMinutes())
     )
+  }, []);
+
+  const selectStyle = useCallback((isSelected) => {
+    return (isSelected ? ({ backgroundColor: '#ccc' }) : ({}))
   }, []);
 
   function Header(props) {
@@ -130,6 +134,7 @@ export default function Memo() {
                         <div>
                           <Button
                             className={Styles.siderMenuButton}
+                            style={selectStyle(index == selectedItem)}
                             type="link"
                             onClick={() => setSelection(index)}
                           >
