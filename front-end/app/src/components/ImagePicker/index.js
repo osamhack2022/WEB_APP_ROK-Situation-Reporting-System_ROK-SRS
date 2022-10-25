@@ -3,6 +3,9 @@ import * as ExpoImagePicker from 'expo-image-picker'
 import { Pressable, Image, Text, View } from 'react-native'
 import { styles } from './style'
 
+const dftPic =
+  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+
 export function ImagePicker(props) {
   const [status, requestPermission] =
     ExpoImagePicker.useMediaLibraryPermissions()
@@ -30,12 +33,7 @@ export function ImagePicker(props) {
 
   return (
     <Pressable onPress={uploadImage} style={[styles.pressable, props.style]}>
-      <Image source={{ uri: props.imageUrl }} style={styles.image} />
-      {!props.imageUrl && (
-        <View style={styles.absolute}>
-          <Text style={styles.text}>{props.text}</Text>
-        </View>
-      )}
+      <Image source={{ uri: props.imageUrl || dftPic }} style={styles.image} />
     </Pressable>
   )
 }

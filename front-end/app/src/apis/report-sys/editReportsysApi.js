@@ -1,21 +1,22 @@
 import URL from '../../../url'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
-const getUnitApi = async ({ unitid }) => {
+const editReportsysApi = async ({ _id, Title, List, Unit }) => {
   try {
-    console.log('adfjasd;fjasdf;sdfj', unitid)
-    const res = await fetch(URL + '/api/unit/get?search=' + unitid, {
-      method: 'GET',
+    const res = await fetch(URL + '/api/reportsys', {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
         Authorization: `Bearer ${await asyncStorage.getItem('roksrs-token')}`,
       },
+      body: JSON.stringify({ Title, List, _id }),
+      user: JSON.stringify({ Unit }),
     })
-    console.log('unit', await res.json())
     return res.json()
   } catch (error) {
     console.log(error)
   }
 }
 
-export default getUnitApi
+export default editReportsysApi

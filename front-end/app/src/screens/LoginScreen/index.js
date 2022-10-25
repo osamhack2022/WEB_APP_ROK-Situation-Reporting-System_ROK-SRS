@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
-import { userState, unitState } from '../../states'
+import { userState } from '../../states'
 //prettier-ignore
 import { Image, SafeAreaView, View, Text, TouchableOpacity, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -14,7 +14,6 @@ import loginApi from '../../apis/sign/loginApi'
 
 export function LoginScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
-  const [myUnit, setMyUnit] = useRecoilState(unitState)
   let [fontsLoaded] = useNunitoFonts()
 
   const loginHandler = useCallback(async ({ DoDID, password }, cb) => {
@@ -28,9 +27,6 @@ export function LoginScreen() {
         setUserMe({
           ...res,
           token: null,
-        })
-        setMyUnit({
-          Unit: userMe.Unit,
         })
         cb()
       } else {

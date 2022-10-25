@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from 'react'
 import { ReportListItem } from '../../components/ReportListItem'
+import { useRecoilState } from 'recoil'
+import { userState } from '../../states'
 // prettier-ignore
 import { SafeAreaView, StyleSheet, ScrollView } from 'react-native'
 import { Colors, FAB } from 'react-native-paper'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 import getReportApi from '../../apis/report/getReportApi'
 
 export function SentReportScreen() {
+  const isFocused = useIsFocused()
+  const navigation = useNavigation()
+
+  const [userMe, setUserMe] = useRecoilState(userState)
   const [reports, setReports] = useState([])
 
   const getReportHandler = async () => {
-    setReports(await getReportApi())
+    const res = await getReportApi()
+    setReports(res.filter((report) => report.User._id === userMe._id))
   }
 
   useEffect(() => {
     getReportHandler()
-  }, [])
+  }, [isFocused])
 
-  const navigation = useNavigation()
 
   return (
     <SafeAreaView style={styles.container}>
@@ -25,7 +31,7 @@ export function SentReportScreen() {
         contentContainerStyle={styles.scrollView}
         scrollEnabled={true}
       >
-        {reports &&
+        {reports[0] &&
           reports.map((report) => (
             <ReportListItem
               Title={report.Title}

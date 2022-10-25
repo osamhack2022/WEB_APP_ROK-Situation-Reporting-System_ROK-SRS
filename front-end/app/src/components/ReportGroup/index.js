@@ -25,7 +25,7 @@ export function ReportGroup(props) {
   let [fontsLoaded] = useNunitoFonts()
 
   return (
-    <View>
+    <View style={props.style}>
       <FlatList
         data={props.List}
         renderItem={({ item }) => renderItem({ item, props })}
@@ -33,6 +33,7 @@ export function ReportGroup(props) {
         horizontal={true}
         ItemSeparatorComponent={ItemSeparator}
         showsHorizontalScrollIndicator={false}
+        ListFooterComponent={props.right || null}
       />
       <Text style={styles.text}>{props.Title}</Text>
     </View>

@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { Colors } from 'react-native-paper'
+import { window } from '../../constants/layout'
 
 export const styles = StyleSheet.create({
   pressable: {

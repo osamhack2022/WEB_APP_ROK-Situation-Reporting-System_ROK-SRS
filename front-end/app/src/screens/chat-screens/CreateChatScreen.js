@@ -130,7 +130,7 @@ export function CreateChatScreen({ route }) {
         </ScrollView>
         {name && Invited && (
           <MyButton
-            text="채팅방 생성"
+            text="채 팅 방   생 성"
             onPress={() => createChat()}
             style={{ width: '80%' }}
           />

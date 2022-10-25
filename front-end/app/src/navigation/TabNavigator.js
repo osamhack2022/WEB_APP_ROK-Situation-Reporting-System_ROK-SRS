@@ -13,6 +13,7 @@ import {
 const Tab = createBottomTabNavigator()
 
 const icons = {
+  HomeScreen: ['home', 'home-outline'],
   TopNavigator: ['note-text', 'note-text-outline'],
   ChatListScreen: ['message-text', 'message-text-outline'],
   OrgChartScreen: ['graph', 'graph-outline'],

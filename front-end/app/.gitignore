@@ -10,7 +10,6 @@ npm-debug.*
 *.orig.*
 web-build/
 .prettierrc
-/url.js
 
 # macOS
 .DS_Store

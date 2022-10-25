@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react'
-import { SafeAreaView, View, StyleSheet, Alert, Button } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
-import { TextInput } from 'react-native-paper'
+import { SafeAreaView, View, StyleSheet, Alert } from 'react-native'
+import { TextInput, Colors } from 'react-native-paper'
 import { ImagePicker } from '../../components/ImagePicker'
 import { window } from '../../constants/layout'
 import updateUnitApi from '../../apis/unit/addUnitApi'
@@ -14,21 +13,6 @@ export function UnitMgtScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
   const [Unitslogan, setUnitslogan] = useState('')
   const [Logo, setLogo] = useState('')
-
-  const navigation = useNavigation()
-
-  navigation.setOptions({
-    headerRight: () => (
-      <Button
-        title="저 장"
-        onPress={() => {
-          updateUnitHandler({ Unitname, Unitslogan })
-          setUnitslogan(Unitslogan)
-        }}
-        style={{ backgroundColor: Colors.white }}
-      />
-    ),
-  })
 
   const updateUnitHandler = useCallback(async ({ Unitname, Unitslogan }) => {
     const res = await updateUnitApi({ Unitname, Unitslogan, Unit: userMe.Unit })
@@ -69,15 +53,14 @@ export function UnitMgtScreen() {
           style={[styles.textInput, { marginBottom: 5 }]}
         />
       </View>
-      {/* <MyButton
-        text="부대 정보 변경"
-        onPress={() => updateUnitHandler({ Unitname, Unitslogan })}
-        style={{ marginBottom: 50 }}
-      />
       <MyButton
-        text="부대 로고 변경"
-        onPress={() => updateUnitLogoHandler({ Logo })}
-      /> */}
+        text="부대 정보 변경"
+        onPress={() => {
+          updateUnitHandler({ Unitname, Unitslogan })
+          updateUnitLogoHandler({ Logo })
+        }}
+        style={{ marginTop: 15, width: '65%' }}
+      />
     </SafeAreaView>
   )
 }
