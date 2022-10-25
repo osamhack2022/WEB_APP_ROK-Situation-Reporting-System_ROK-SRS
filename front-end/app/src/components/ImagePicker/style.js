@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native'
 import { Colors } from 'react-native-paper'
-import { window } from '../../constants/layout'
 
 export const styles = StyleSheet.create({
   pressable: {
@@ -9,12 +8,12 @@ export const styles = StyleSheet.create({
     marginBottom: window.height * 0.03,
   },
   image: {
-    width: 0.8 * window.width,
-    height: 0.8 * window.width,
-    backgroundColor: Colors.grey300,
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: Colors.grey500,
+    width: 100,
+    height: 100,
+    backgroundColor: Colors.grey100,
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: Colors.grey300,
   },
   absolute: {
     position: 'absolute',
