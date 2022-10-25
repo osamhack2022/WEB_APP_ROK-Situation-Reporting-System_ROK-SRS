@@ -1,13 +1,12 @@
 import Head from 'next/head'
-import style from '../styles/homepage.module.css'
+import style from '../../styles/homepage.module.css'
 import { useState, useEffect } from 'react';
 import { Image } from 'antd'
-import unitlogo from '../img/unitlogo.png'
+import unitlogo from '../../img/unitlogo.png'
 import { Descriptions, Tabs, Avatar, List, PageHeader, Input, Space } from 'antd';
 import { decodeJwt } from 'jose';
 import { getCookie } from 'cookies-next';
-import { encryptchat } from '../encryption/chatencryption';
-import { encryptuser } from '../encryption/userencryption';
+import { useRouter } from "next/router"
 
 const { Search } = Input;
 let onSearch = async (event) => {
@@ -54,7 +53,7 @@ const Home = (props) => {
 
     return <>
         <Head>
-            <title>홈페이지</title>
+            <title>{props1.Name}</title>
         </Head>
         <PageHeader
             className="site-page-header"
@@ -147,8 +146,8 @@ export async function getServerSideProps(context) {
     // console.log(decrypt)
     const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
     const endpoint = backendroot + 'api/user/id?search='
-    const JWTtoken = context.req.cookies['usercookie'];
-    const { id } = decodeJwt(JWTtoken)
+    const router = useRouter()
+    const { id } = router.query
     const options = {
         // The method is POST because we are sending data.
         method: 'GET',
