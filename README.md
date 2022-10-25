@@ -57,7 +57,7 @@
 <a id = "requirements"></a>
 ## 💻컴퓨터 구성 / 필수 조건 안내
 * ECMAScript 6 지원 브라우저 사용
-* 권장: Google Chrome 버젼 77 이상
+* 권장: Google Chrome 버전 77 이상
 
 <a id = "techniques"></a>
 ## 기술 스택 (Technique Used) 
@@ -97,8 +97,26 @@
 	  	  <td align='center'>Azure Keystore</td>
 	  <td align='center'>비밀 키 값 (Secret Key) 저장</td>
  </tr>
-
 </table> 
+
+<a id="functions"></a>
+## ⚙️화면 설계
+<table>
+	<tr>
+		<td>화면</td>
+		<td>기능</td>
+	</tr>
+	<tr>
+		<td>
+		<img src="https://user-images.githubusercontent.com/68419358/197477131-04da0323-6d54-4207-9538-f4209d285b12.png" />
+		</td>
+		<td>전반적인 정보들을 볼 수 있는 메인 페이지</td>
+	</tr>
+</table>
+
+<a id="opensource"></a>
+## 사용한 오픈소스
+* ...
 
 <a id = "installation"></a>
 ## 설치 안내 (Installation Process)
@@ -129,7 +147,7 @@ $ yarn start or npm run start
 	  <td align='center'><a href="s3kim2018@berkeley.edu"><img src="https://img.shields.io/badge/s3kim2018@berkeley.edu-green?logo=gmail&style=social"/></a></td>
  </tr>
  <tr>
-	  <td align='center'><img src="https://cdn-icons-png.flaticon.com/512/6142/6142226.png" width="50" height="63"></td>
+	  <td align='center'><img src="https://user-images.githubusercontent.com/68419358/197472945-18b649a8-3c68-48a8-9f6a-15506f0068a6.jpg" width="50" height="63"></td>
 	  <td align='center'>최윤성</td>
 	  <td align='center'>프론트엔드(WEB) 개발자</td>
 	  <td align='center'><a href="https://github.com/marunemo"><img src="http://img.shields.io/badge/marunemo-green?style=social&logo=github"/></a></td>
