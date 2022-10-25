@@ -21,7 +21,12 @@ export default function SettingHeader(props) {
     className="site-page-header"
     style={{
       backgroundColor: "white",
-      boxShadow: 'inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3)'
+      boxShadow: 'inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3)',
+      top: '0',
+      position: 'fixed',
+      width: '100%',
+      zIndex: '1000',
+      marginLeft: '2px'
     }}
     title={routeTitle[currentPath]}
     breadcrumb={

@@ -3,7 +3,7 @@
   display: block;
   min-width: 1100px;
   overflow-y: scroll;
-  overflow: auto; 
+  margin-top: 110px;
 }
 
 .formarea {
@@ -70,7 +70,7 @@
 }
 
 .uploadcontainer {
-  width: 160px;
+  width: 180px;
   height: 100px;
   margin: auto;
   margin-top: 45px;
@@ -168,7 +168,6 @@
   color: green;
   font-size: 14px;
   line-height: 30px;
-  margin-left: 15px;
   margin-top: 3px;
 }
 
@@ -185,15 +184,15 @@
   color: green;
   font-size: 14px;
   line-height: 30px;
-  margin-left: 15px;
   margin-top: 3px;
 }
 
 #error2 {
   color: red;
-  font-size: 14px;
+  font-size: 11px;
   text-align: center;
   margin-top: 5px;
+  width: 180px;
 }
 
 #success2 {
