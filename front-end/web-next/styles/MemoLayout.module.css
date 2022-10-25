@@ -1,101 +1,103 @@
 .mainLayout {
-    height: 100%;
-    background-color: #777;
+  height: 100%;
+  background-color: #777;
 }
 
 .siderLayout {
-    height: 100%;
-    border-right: 1px solid #e0e0e0;
-    background-color: transparent;
+  height: 100%;
+  border-right: 1px solid #e0e0e0;
+  background-color: transparent;
 }
 
 .siderMenu {
-    height: 100%;
-    background-color: #fff;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.2em 0.6em rgba(0, 0, 0, 0.3);
 }
 
 .siderHeader {
-    padding: 16px 32px;
+  padding: 16px 32px;
 }
 
 .siderTitle {
-    font-size: 16pt;
-    font-weight: bold;
+  font-size: 16pt;
+  font-weight: bold;
 }
 
 .formButton {
-    border: 2px solid #777;
+  border: 2px solid #777;
 }
 
 .menuSearcher {
-    margin-top: 15px;
-    margin-bottom: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .contentLayout {
-    width: 100%;
-    height: 100%;
-    background-color: #ddd;
+  width: 100%;
+  height: 100%;
+  background-color: #ddd;
 }
 
 .contentMenu {
-    height: 100%;
-    padding: 16px 24px;
-    background-color: #fff;
+  height: 100%;
+  padding: 16px 24px;
+  background-color: #fff;
+  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255), 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
 
 .headerTitle {
-    font-size: 18pt;
-    text-align: center;
-    font-weight: bold;
+  font-size: 18pt;
+  text-align: center;
+  font-weight: bold;
 }
 
 .headerType {
-    font-size: 14pt;
-    text-align: right;
+  font-size: 14pt;
+  text-align: right;
 }
 
 .footer {
-    font-size: 14pt;
-    font-weight: bold;
+  font-size: 14pt;
+  font-weight: bold;
 }
 
 .scrollableDiv {
-    max-height: calc(100% - 100px);
-    overflow: auto;
+  max-height: calc(100% - 100px);
+  overflow: auto;
 }
 
 .siderMenuButton {
-    width: 100%;
-    height: auto;
-    color: #000;
-    text-align: left;
-    padding: 15px 32px;
+  width: 100%;
+  height: auto;
+  color: #000;
+  text-align: left;
+  padding: 15px 32px;
 }
 
 .siderMenuTitle {
-    font-size: 14pt;
-    font-weight: bold;
+  font-size: 14pt;
+  font-weight: bold;
 }
 
 .siderMenuContent {
-    font-size: 13pt;
-    max-width: 360px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  font-size: 13pt;
+  max-width: 360px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .siderMenuFooter {
-    font-size: 12pt;
+  font-size: 12pt;
 }
 
 .bottomDivider {
-    margin: 0px;
-    border: 1px solid #e2e2e2;
+  margin: 0px;
+  border: 1px solid #e2e2e2;
 }
 
 .spinSkeleton {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }

@@ -1,17 +1,16 @@
 import Head from 'next/head'
-import style from '../styles/homepage.module.css'
+import style from '../../styles/homepage.module.css'
 import Link from "next/link"
 import { useState, useEffect } from 'react';
 import { Image } from 'antd'
-import unitlogo from '../img/unitlogo.png'
+import unitlogo from '../../img/unitlogo.png'
 import { Descriptions, Tabs, Avatar, List, PageHeader, Input, Space } from 'antd';
 import { decodeJwt } from 'jose';
 import { getCookie } from 'cookies-next';
-import { Convertrank } from '../helperfunction/convertrank'
+import { Convertrank } from '../../helperfunction/convertrank'
 import Router from 'next/router'
 
-import { encryptchat } from '../encryption/chatencryption';
-import { encryptuser } from '../encryption/userencryption';
+import { useRouter } from "next/router"
 
 const { Search } = Input;
 async function onSearch(value) {
@@ -165,14 +164,17 @@ const Home = (props) => {
 }
 
 
+
+
 export async function getServerSideProps(context) {
     // let ciphertext = await encryptuser('test133', 'hfipoawefjapoiwfhawpoeifjwf')
     // let decrypt = await decryptuser('test133', ciphertext)
     // console.log(decrypt)
     const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
     const endpoint = backendroot + 'api/user/id?search='
+    const { id } = context.query;
     const JWTtoken = context.req.cookies['usercookie'];
-    const { id } = decodeJwt(JWTtoken)
+
     const options = {
         // The method is POST because we are sending data.
         method: 'GET',

@@ -1,5 +1,5 @@
 import Chatpage from '../messages'
-import { Avatar, Form, Select, Input, Option } from 'antd';
+import { Avatar, Form, Select, Input } from 'antd';
 import styles from '../../styles/chatpage.module.css'
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useRouter } from "next/router"
@@ -96,13 +96,14 @@ function Page() {
         useEffect(() => {
             scrollToBottom()
         }, [messages, scrollToBottom])
+        let index = 0
         return messages?.map(message => {
+            index += 1
             let participant = Getparticipantbyid(message.sender)
-            console.log(participant)
             if (message.sender != getid()) {
-                return generatechatelement('theirs', message.type, message.text, participant.name, participant.color)
+                return generatechatelement('theirs', message.type, message.text, participant.name, participant.color, index)
             } else {
-                return generatechatelement('mine', message.type, message.text, participant.name, participant.color)
+                return generatechatelement('mine', message.type, message.text, participant.name, participant.color, index)
 
             }
         })
@@ -130,11 +131,11 @@ function Page() {
                 <div className={styles.footer}>
                     <Form form={form} initialValues={{ remember: true }} className={styles.messageform} onFinish={submitnewmessage}>
                         <Form.Item name="type">
-                            <Select id="type" name="type" defaultValue="regular" placeholder="메세지 종류" optionFilterProp="children" style={{ width: '140px' }}>
-                                <Option value="regular">일반메세지</Option>
-                                <Option value="report">상황보고</Option>
-                                <Option value="order">지시사항</Option>
-                                <Option value="secret">암구호</Option>
+                            <Select id="type" name="type" placeholder="메세지 종류" optionFilterProp="children" style={{ width: '140px' }}>
+                                <Select.Option value="regular">일반메세지</Select.Option>
+                                <Select.Option value="report">상황보고</Select.Option>
+                                <Select.Option value="order">지시사항</Select.Option>
+                                <Select.Option value="secret">암구호</Select.Option>
                             </Select>
                         </Form.Item>
                         <Form.Item name="message" style={{ flex: '1' }}>
@@ -150,24 +151,24 @@ function Page() {
     </>
 }
 
-function generatechatelement(which, type, content, name, color) {
+function generatechatelement(which, type, content, name, color, key) {
     if (which == 'mine') {
         if (type == 'regular') {
             return <>
-                <div className={styles.mychatelem}>
+                <div className={styles.mychatelem} key = {key}>
                     {content}
                 </div>
             </>
         } else if (type == 'report') {
             return <>
-                <div className={styles.mychatelem}>
+                <div className={styles.mychatelem} key = {key}>
                     <p style={{ color: 'green', textAlign: 'center', fontWeight: 'bold' }}>[상황보고]</p>
                     {content}
                 </div>
             </>
         } else if (type == 'order') {
             return <>
-                <div className={styles.mychatelem}>
+                <div className={styles.mychatelem} key = {key}>
                     <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold' }}>[지시사항]</p>
                     {content}
                 </div>
@@ -176,21 +177,21 @@ function generatechatelement(which, type, content, name, color) {
             function ScretText({ content }) {
                 const [isVisible, setIsVisible] = useState(false)
 
-                return <div className={styles.mychatelem} onClick={() => setIsVisible(p => !p)} style={{ cursor: 'pointer' }}>
+                return <div className={styles.mychatelem} onClick={() => setIsVisible(p => !p)} style={{ cursor: 'pointer' }} key = {key}>
                     <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold' }}>[기밀사항]</p>
                     {isVisible ? content : <>
                         클릭해 주세요.</>}
                 </div>
             }
 
-            return <ScretText content={content} />
+            return <ScretText content={content} key = {key}/>
 
         }
 
     } else if (which == 'theirs') {
         if (type == "regular") {
             return <>
-                <div style={{ display: 'flex', alignItems: 'center', alignSelf: 'flex-end' }}>
+                <div style={{ display: 'flex', alignItems: 'center', alignSelf: 'flex-end' }} key = {key}>
                     <div className={styles.theirchatelem}>
                         {content}
                     </div>
@@ -206,7 +207,7 @@ function generatechatelement(which, type, content, name, color) {
 
         else if (type == 'report') {
             return <>
-                <div style={{ display: 'flex', alignItems: 'center', alignSelf: 'flex-end' }}>
+                <div style={{ display: 'flex', alignItems: 'center', alignSelf: 'flex-end' }} key = {key}>
                     <div className={styles.theirchatelem}>
                         <p style={{ color: 'green', textAlign: 'center', fontWeight: 'bold' }}>[상황보고]</p>
                         {content}
@@ -220,7 +221,7 @@ function generatechatelement(which, type, content, name, color) {
             </>
         } else if (type == 'order') {
             return <>
-                <div style={{ display: 'flex', alignItems: 'center', alignSelf: 'flex-end' }}>
+                <div style={{ display: 'flex', alignItems: 'center', alignSelf: 'flex-end' }} key = {key}>
                     <div className={styles.theirchatelem}>
                         <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold' }}>[지시사항]</p>
                         {content}
@@ -236,7 +237,7 @@ function generatechatelement(which, type, content, name, color) {
             function ScretText({ content }) {
                 const [isVisible, setIsVisible] = useState(false)
 
-                return <><div onClick={() => setIsVisible(p => !p)} style={{ display: 'flex', alignItems: 'center', alignSelf: 'flex-end', cursor: 'pointer' }}>
+                return <><div onClick={() => setIsVisible(p => !p)} style={{ display: 'flex', alignItems: 'center', alignSelf: 'flex-end', cursor: 'pointer' }} key = {key}>
                     <div className={styles.theirchatelem}>
                         <p style={{ color: 'red', textAlign: 'center', fontWeight: 'bold' }}>[기밀사항]</p>
                         {isVisible ? content : <>
@@ -250,7 +251,7 @@ function generatechatelement(which, type, content, name, color) {
 
             }
 
-            return <ScretText content={content} />
+            return <ScretText content={content} key = {key} />
 
         }
 
