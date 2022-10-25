@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Avatar, Button, List, Row, Col, Divider, Input } from 'antd';
+import { getCookie } from 'cookies-next';
+import koreanTimeFormat from '../helperfunction/koreanDateFormat';
 import Styles from '../styles/MemoReport.module.css';
 
 function ReportCard(props) {
@@ -12,16 +14,16 @@ function ReportCard(props) {
         <Col>
           <Row gutter={12}>
             <Col>
-              <Avatar src="https://joeschmoe.io/api/v1/random" size={48} />
+              <Avatar src={props.pic} size={48} />
             </Col>
             <Col>
-              <div className={Styles.cardName}>{props.name}</div>
+              <div className={Styles.cardName}>{props.name} {props.rank}</div>
               <div className={Styles.cardPosition}>{props.position}</div>
             </Col>
           </Row>
         </Col>
         <Col className={Styles.cardDatetime}>
-          {props.datetime}
+          {koreanTimeFormat(props.datetime)}
         </Col>
       </Row>
       <div className={Styles.cardMemo}>
@@ -40,6 +42,7 @@ function ReportList(props) {
         <List.Item>
           <ReportCard
             name={item.User?.Name}
+            rank={item.User?.Rank}
             position={item.User?.Position}
             memo={item.Content}
             datetime={item.createdAt}
@@ -52,6 +55,28 @@ function ReportList(props) {
 
 function ReportLayout(props) {
   const [commentContent, setCommentContent] = useState('');
+
+  const submitComment = useCallback((content) => {
+    const submitData = {
+      ReportId: props.id,
+      Type: '보고사항',
+      Content: content
+    }
+    
+    fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/comment/', {
+      'method': 'POST',
+      'headers': {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${getCookie('usercookie')}`
+      },
+      'body': JSON.stringify(submitData)
+    })
+      .then(res => {
+        if(res.status === 200 || res.status === 201)
+          setCommentContent('');
+      })
+  }, [props.id]);
 
   function ButtonGroup() {
     return (
@@ -84,6 +109,7 @@ function ReportLayout(props) {
         <Col className={Styles.cardListLayout}>
           <ReportCard
             name={props.name}
+            rank={props.rank}
             position={props.position}
             memo={props.memo}
             datetime={props.datetime}
@@ -99,12 +125,14 @@ function ReportLayout(props) {
       <div className={Styles.memoFooterGroup}>
         <Input.Group compact>
           <Input
-            style={{ width: 'calc(100% - 60px)' }}
+            style={{ width: 'calc(100% - 60px)', border: '1px solid #aaa' }}
             value={commentContent}
             onChange={(event) => setCommentContent(event.target.value)}
           />
           <Button
-            onClick={() => console.log(commentContent)}>
+          type="primary"
+          onClick={() => submitComment(commentContent)}
+          >
             전송
           </Button>
         </Input.Group>

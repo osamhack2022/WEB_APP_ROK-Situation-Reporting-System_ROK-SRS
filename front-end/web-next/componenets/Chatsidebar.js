@@ -83,7 +83,7 @@ function Menuelement(props) {
                         if (thechat.severity == "5")
                             return styles.severityLevel5
                         return ""
-                    })()}>위험도: {thechat.severity}</p>
+                    })()}>중요도: {thechat.severity}</p>
                 </div>
             </div >
         )

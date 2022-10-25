@@ -6,30 +6,22 @@ const ReportM = require("../models/reportModel");
 //@route           POST /api/comment
 //@access          Protected
 const addComment = asyncHandler(async (req, res) => {
-  const { Type, Content, Title } = req.body;
+  const { ReportId, Type, Content } = req.body;
 
-  if (!Type || !Content || !Title) {
+  if (!ReportId || !Type || !Content) {
     res.status(400);
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  User = req.user._id;
-
-  report = await Report.find({ Title: { $eq: keyword } }).find({
-    Unit: { $eq: req.user.Unit },
-  });
-
-  Report = report._id;
-
   const comment = await Comment.create({
-    User,
+    User: req.user._id,
     Type,
     Content,
-    report,
+    Report: ReportId,
   });
 
   const editReport = await ReportM.findByIdAndUpdate(
-    report._id,
+    ReportId,
     {
       $push: {
         Comments: comment,
@@ -40,7 +32,7 @@ const addComment = asyncHandler(async (req, res) => {
     }
   );
 
-  if (editReport && editUnit && editUser) {
+  if (comment && editReport) {
     res.status(201).send(comment);
   } else {
     res.status(400);

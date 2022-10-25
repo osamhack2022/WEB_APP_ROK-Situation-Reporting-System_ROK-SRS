@@ -18,6 +18,33 @@ const getuserbyid = asyncHandler(async (req, res) => {
   }
 });
 
+//@description     Get all users in the unit
+//@route           GET /api/user/unit?unit=
+//@access          Protected
+const getUsersInUnit = asyncHandler(async (req, res) => {
+  let unit = req.query.unit;
+
+  if (!unit) {
+    try {
+      const currentUser = req.user;
+      unit = await currentUser.Unit;
+    }
+    catch (error) {
+      res.status(400);
+      throw new Error('부대에 소속되어 있지 않습니다.');
+    }
+  }
+
+  const usersInUnit = await User.find({ Unit: { $eq: unit } }).select("-password");
+  if (usersInUnit) {
+    res.send(usersInUnit);
+  }
+  else {
+    res.status(400);
+    throw new Error('오류가 발생했습니다.');
+  }
+});
+
 //@description     Get or Search all users
 //@route           GET /api/user?search=?index=
 //@access          Protected
@@ -53,7 +80,6 @@ const allUsers = asyncHandler(async (req, res) => {
     "GEN",
   ];
 
-  console.log(req.query);
   const keyword = req.query.search; /*?
     {
       $or: [{
@@ -436,6 +462,7 @@ const updatePic = asyncHandler(async (req, res) => {
 
 module.exports = {
   getuserbyid,
+  getUsersInUnit,
   allUsers,
   addUser,
   registerUser,
