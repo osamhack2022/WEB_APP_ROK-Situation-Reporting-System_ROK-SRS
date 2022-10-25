@@ -39,10 +39,8 @@ export async function getServerSideProps() {
 }
 function Menuelement(props) {
     const [snapshot, loading, error] = useCollection(collection(db, "chats"))
-
-    if (loading || !snapshot) return <div>Loading...</div>
-
     const id = getid()
+    if (loading || !snapshot) return <div>Loading...</div>
     if (snapshot.docs.length == 0) {
         return <>
 

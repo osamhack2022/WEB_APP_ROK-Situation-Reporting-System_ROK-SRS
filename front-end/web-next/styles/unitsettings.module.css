@@ -2,7 +2,8 @@
   height: 100%;
   display: block;
   min-width: 1100px;
-  overflow-x: scroll;
+  overflow-y: scroll;
+  overflow: auto; 
 }
 
 .formarea {
@@ -11,7 +12,6 @@
   height: calc(100vh - 90px);
   margin-top: 20px;
   margin-bottom: 20px;
-  background-color: white;
   border-radius: 10px;
 }
 
@@ -22,18 +22,23 @@
 
 .formarea2 {
   display: flex;
+  margin-top: 30px;
 }
 
 .changeunitinfo {
   width: 600px;
-  height: 300px;
+  height: 330px;
   margin-top: 25px;
-  margin-left: 50px;
+  margin-left: 0px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px; 
 }
 
 .changeunitinfo h1 {
   font-weight: bold;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .unitlogo {
@@ -45,14 +50,18 @@
 
 .changeunitlogo {
   margin-top: 25px;
-  width: 370px;
-  height: 300px;
-  margin-left: 25px;
+  width: 420px;
+  height: 330px;
+  margin-left: 30px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px; 
 }
 
 .changeunitlogo h1 {
   font-weight: bold;
   text-align: center;
+  margin-bottom: 15px;
 }
 
 .ant-image-img {
@@ -91,9 +100,12 @@
 }
 
 .userlist {
+  background-color: white;
+  border-radius: 10px;
   width: 600px;
-  margin-left: 50px;
   margin-top: 25px;
+  padding: 25px; 
+  height: 500px; 
 }
 
 .userlist h1 {
@@ -114,10 +126,13 @@
 
 
 .adduser {
-  width: 370px;
-  height: 300px;
+  width: 420px;
+  height: 450px;
   margin-left: 25px;
   margin-top: 25px;
+  background-color: white;
+  border-radius: 10px; 
+  padding: 20px; 
 }
 
 .adduser h3 {
