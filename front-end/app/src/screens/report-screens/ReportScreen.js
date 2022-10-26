@@ -21,14 +21,15 @@ export function ReportScreen({ route }) {
     Type,
     ReportingSystem,
     Invited,
-    Comments,
     User,
   } = route.params
+
+  const earlierComments = route.params.Comments
 
   const [userMe, setUserMe] = useRecoilState(userState)
 
   const [comment, setComment] = useState('')
-  const [comments, setComments] = useState([])
+  const [comments, setComments] = useState(earlierComments)
 
   const [open, setOpen] = useState(false)
   const [commentType, setCommentType] = useState('')
@@ -55,6 +56,7 @@ export function ReportScreen({ route }) {
         Name={User.Name}
         position={User.position}
         ReportingSystem={ReportingSystem}
+        Invited={Invited}
         Rank={User.Rank}
       />
       <View

@@ -22,7 +22,6 @@ import {
 import { db } from '../../config/firebase'
 
 // 추후에 textinput 디자인 수정
-// 시간 되면 modal 추가
 
 const imgUrl =
   'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'

@@ -21,11 +21,8 @@ export function ReportContent(props) {
       </View>
       <View style={styles.contView}>
         <View style={styles.seqView}>
-          <Text style={styles.seqText}>
-            {props.ReportingSystem
-              ? props.ReportingSystem
-              : `체계: 본부중대\n순서: 분대장 -> 소대장 -> 중대장`}
-          </Text>
+          <Text style={styles.seqText}>{props.ReportingSystem.Title}</Text>
+          <Text style={styles.seqText}>{props.Invited}</Text>
         </View>
         <View style={styles.buttonView}>
           <Button

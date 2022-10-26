@@ -1,6 +1,5 @@
 import 'dotenv/config'
 
-
 export default {
   expo: {
     name: 'RokSrs',
@@ -43,6 +42,7 @@ export default {
       messagingSenderId: process.env.MESSAGING_SENDER_ID,
       appId: process.env.APP_ID,
       measurementId: process.env.MEASUREMENT_ID,
+      appPublicBackendRoot: process.env.APP_PUBLIC_BACKEND_ROOT,
     },
   },
 }

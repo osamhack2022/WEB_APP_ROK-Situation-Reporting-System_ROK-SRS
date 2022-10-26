@@ -1,4 +1,3 @@
-import URL from '../../../url'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
 const logoutApi = async () => {
