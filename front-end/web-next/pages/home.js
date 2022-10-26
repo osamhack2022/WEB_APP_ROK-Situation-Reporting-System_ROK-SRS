@@ -41,6 +41,7 @@ async function onSearch(value) {
 const Home = (props) => {
     // console.log(encryptuser("test", "test"))
     // console.log(encryptchat("test", "test", "test"))
+    console.log(props)
     let props1 = props['data'][0]
     let props2 = props['data2'][0]
     const [unitUsers, setUnitUsers] = useState([]);

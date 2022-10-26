@@ -63,13 +63,15 @@ const addUnit = asyncHandler(async (req, res) => {
 });
 
 //@description     Update unit info
-//@route           POST /api/unit/
+//@route           PUT /api/unit/
 //@access          Protected(only admin)
 const updateUnit = asyncHandler(async (req, res) => {
   const {
     Unitname,
     Unitslogan
   } = req.body;
+  console.log(Unitname)
+  console.log(Unitslogan)
 
   if (!Unitname || !Unitslogan) {
     res.status(400);
@@ -77,8 +79,8 @@ const updateUnit = asyncHandler(async (req, res) => {
   }
 
   const unitId = req.user.Unit;
-
-  const updatedUnit = await User.findByIdAndUpdate(
+  console.log(unitId)
+  const updatedUnit = await Unit.findByIdAndUpdate(
     unitId, {
       Unitname: Unitname,
       Unitslogan: Unitslogan

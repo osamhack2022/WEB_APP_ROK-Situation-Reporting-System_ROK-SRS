@@ -13,6 +13,7 @@ const getReportCard = asyncHandler(async (req, res) => {
   const { sender, receiver } = req.query;
 
   const currentUser = req.user;
+  console.log(currentUser)
   let reportCards;
   if (receiver) {
     reportCards = await Report.find({ Receiver: currentUser._id });
@@ -23,20 +24,25 @@ const getReportCard = asyncHandler(async (req, res) => {
   else {
     reportCards = await Report.find({});
   }
-
-  for (const card of reportCards) {
-    card.User = await UserM.findById(card.User).select("-password");
-    for(const systemIndex in card.ReportingSystem) {
-      card.ReportingSystem[systemIndex] = await Reportsys.findById(card.ReportingSystem[systemIndex]);
-      for(const commentIndex in card.Comments) {
-        card.Comments[commentIndex] = await Comment.findById(card.Comments[commentIndex]);
-        if(card.Comments[commentIndex])
-          card.Comments[commentIndex].User = await UserM.findById(card.Comments[commentIndex].User).select("-password");
+  console.log(reportCards)
+  try {
+    for (const card of reportCards) {
+      card.User = await UserM.findById(card.User).select("-password");
+      for(const systemIndex in card.ReportingSystem) {
+        console.log(systemIndex)
+        card.ReportingSystem[systemIndex] = await Reportsys.findById(card.ReportingSystem[systemIndex]);
+        for(const commentIndex in card.Comments) {
+          card.Comments[commentIndex] = await Comment.findById(card.Comments[commentIndex]);
+          if(card.Comments[commentIndex])
+            card.Comments[commentIndex].User = await UserM.findById(card.Comments[commentIndex].User).select("-password");
+        }
       }
     }
+    res.send(reportCards);
+  } catch {
+    res.send(reportCards);
+
   }
-  
-  res.send(reportCards);
 });
 
 //@description     Create new report card
