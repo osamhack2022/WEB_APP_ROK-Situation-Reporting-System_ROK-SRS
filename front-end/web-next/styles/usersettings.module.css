@@ -1,11 +1,6 @@
 .background {
-  height: 100%;
   display: block;
-  min-width: 1100px;
-  overflow-y: auto;
   background-color: rgb(240, 242, 245);
-  margin-top: 110px; 
-
 }
 
 
