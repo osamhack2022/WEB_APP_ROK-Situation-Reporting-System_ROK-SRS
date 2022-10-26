@@ -1,10 +1,15 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react'
-import { DrawerLayoutAndroid, TouchableOpacity, Image } from 'react-native'
-import { useNavigation, useIsFocused } from '@react-navigation/native'
-import { GiftedChat, Bubble } from 'react-native-gifted-chat'
+import {
+  DrawerLayoutAndroid,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+} from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
-import { Colors, List, Avatar } from 'react-native-paper'
+import { Colors, List, Avatar, TextInput, IconButton } from 'react-native-paper'
 import {
   doc,
   collection,
@@ -25,9 +30,21 @@ const imgUrl =
 export function ChatRoomScreen({ route }) {
   const navigation = useNavigation()
 
+  const [focus, setFocus] = useState(false)
+  const inputRef = useRef(null)
+
   const [userMe, setUserMe] = useRecoilState(userState)
   const [messages, setMessages] = useState([])
+  const [text, setText] = useState('')
   const [isOpen, setIsOpen] = useState(false)
+
+  const [open, setOpen] = useState(false)
+  const [chatType, setChatType] = useState('')
+  const [typeItem, setTypeItem] = useState([
+    { label: '보고', value: 'report' },
+    { label: '지시', value: 'order' },
+    { label: '긴급', value: 'emergency' },
+  ])
 
   const { userdata, users, chatid, name } = route.params
 
@@ -42,12 +59,13 @@ export function ChatRoomScreen({ route }) {
         querySnapshot.docs.map((doc) => ({
           _id: doc.id,
           createdAt: new Date(doc.data().timestamp.toDate()),
-          text: doc.data().text,
+          text: `[${doc.data().type}] ${doc.data().text}`,
           user: {
             _id: doc.data().sender,
             name: doc.data().name,
             avatar: imgUrl,
           },
+          type: doc.data().type,
         }))
       )
     })
@@ -154,6 +172,51 @@ export function ChatRoomScreen({ route }) {
     />
   )
 
+  const customInput = () => (
+    <InputToolbar
+      renderActions={
+        <DropDownPicker
+          placeholder="유형"
+          open={open}
+          value={chatType}
+          items={typeItem}
+          setOpen={setOpen}
+          setValue={setChatType}
+          setItems={setTypeItem}
+          style={styles.dropDown}
+          containerStyle={{ width: '15%' }}
+          dropDownContainerStyle={styles.dropDown}
+          placeholderStyle={styles.dropDownText}
+          textStyle={styles.dropDownText}
+          showArrowIcon={false}
+          showTickIcon={false}
+        />
+      }
+      renderComposer={() => (
+        <View style={[styles.commentInput, borderColor(focus)]}>
+          <TextInput
+            placeholder={`메시지를 입력하세요.`}
+            multiline={true}
+            onChangeText={(text) => setText(text)}
+            value={text}
+            style={styles.input}
+            onFocus={() => setFocus(true)}
+            onBlur={() => setFocus(false)}
+            ref={inputRef}
+          />
+        </View>
+      )}
+      renderSend={() => (
+        <IconButton
+          icon="send-outline"
+          size={25}
+          color={focus ? '#008275' : Colors.grey500}
+          onPress={() => onSend(text)}
+        />
+      )}
+    />
+  )
+
   return (
     <DrawerLayoutAndroid
       ref={drawer}
@@ -168,6 +231,7 @@ export function ChatRoomScreen({ route }) {
         alignTop={true}
         isLoadingEarlier={true}
         renderBubble={renderBubble}
+        // renderInputToolbar={customInput}
         renderAvatarOnTop={true}
         messages={messages}
         multiline={true}
@@ -184,3 +248,37 @@ export function ChatRoomScreen({ route }) {
     </DrawerLayoutAndroid>
   )
 }
+
+const styles = StyleSheet.create({
+  dropDown: {
+    backgroundColor: Colors.red300,
+    borderWidth: 0,
+    borderRadius: 8,
+    elevation: 4,
+  },
+  dropDownText: {
+    color: 'white',
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  commentInput: {
+    width: '82%',
+    backgroundColor: Colors.grey100,
+    elevation: 4,
+    marginLeft: 3,
+    paddingLeft: 5,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomWidth: 1.5,
+    borderRadius: 8,
+  },
+  input: {
+    fontSize: 15,
+    flex: 1,
+  },
+})
+
+const borderColor = (focus) =>
+  StyleSheet.create({
+    borderBottomColor: focus ? '#008275' : Colors.grey400,
+  })
