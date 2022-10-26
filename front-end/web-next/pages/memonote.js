@@ -132,7 +132,7 @@ export default function Memo() {
                 itemLayout="horizontal"
                 dataSource={memoRenderList.filter((list) => (list.Title.includes(memoFilter) || list.Content.includes(memoFilter)))}
                 renderItem={(item, index) => (
-                  <div>
+                  <div key={index}>
                     <Button
                       className={Styles.siderMenuButton}
                       style={selectStyle(index == selectedItem)}
@@ -163,7 +163,6 @@ export default function Memo() {
           </div>
         </Layout.Sider>
         <Layout.Content className={Styles.contentLayout}>
-
           {
             memoRenderList.length === 0
               ? (
