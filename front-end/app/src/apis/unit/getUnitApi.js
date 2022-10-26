@@ -1,25 +1,26 @@
 import Constants from 'expo-constants'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
-const updateUnitLogoApi = async ({ Logo, Unit }) => {
-  console.log(Logo, Unit)
+const getUnitApi = async ({ unitid }) => {
   try {
+    console.log('adfjasd;fjasdf;sdfj', unitid)
     const res = await fetch(
-      Constants.manifest.extra.appPublicBackendRoot + 'api/unit/logo',
+      Constants.manifest.extra.appPublicBackendRoot +
+        'api/unit/get?search=' +
+        unitid,
       {
-        method: 'PUT',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${await asyncStorage.getItem('roksrs-token')}`,
         },
-        body: JSON.stringify({ Logo }),
-        user: JSON.stringify({ Unit }),
       }
     )
+    console.log('unit', await res.json())
     return res.json()
   } catch (error) {
     console.log(error)
   }
 }
 
-export default updateUnitLogoApi
+export default getUnitApi

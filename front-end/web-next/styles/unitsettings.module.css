@@ -3,7 +3,6 @@
   display: block;
   min-width: 1100px;
   overflow-y: scroll;
-  margin-top: 110px;
 }
 
 .formarea {
@@ -31,6 +30,7 @@
   margin-top: 25px;
   margin-left: 0px;
   background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   padding: 30px;
   border-radius: 10px; 
 }
@@ -54,6 +54,7 @@
   height: 330px;
   margin-left: 30px;
   background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   padding: 30px;
   border-radius: 10px; 
 }
@@ -106,6 +107,8 @@
   margin-top: 25px;
   padding: 25px; 
   height: 500px; 
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
 }
 
 .userlist h1 {
@@ -127,10 +130,11 @@
 
 .adduser {
   width: 420px;
-  height: 450px;
+  height: 500px;
   margin-left: 25px;
   margin-top: 25px;
   background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
   border-radius: 10px; 
   padding: 20px; 
 }

@@ -2,6 +2,8 @@ import React from 'react'
 import { StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import MainNavigator from './src/navigation/MainNavigator'
+import 'moment/locale/ko'
+
 import 'react-native-gesture-handler'
 import { Colors } from 'react-native-paper'
 import { RecoilRoot } from 'recoil'

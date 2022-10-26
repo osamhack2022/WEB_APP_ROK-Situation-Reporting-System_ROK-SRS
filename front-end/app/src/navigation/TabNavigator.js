@@ -3,11 +3,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Colors } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import TopNavigator from './TopNavigator'
-import { ChatListScreen, OrgChartScreen, SettingScreen } from '../screens'
+import {
+  ChatListScreen,
+  OrgChartScreen,
+  SettingScreen,
+  HomeScreen,
+} from '../screens'
 
 const Tab = createBottomTabNavigator()
 
 const icons = {
+  HomeScreen: ['home', 'home-outline'],
   TopNavigator: ['note-text', 'note-text-outline'],
   ChatListScreen: ['message-text', 'message-text-outline'],
   OrgChartScreen: ['graph', 'graph-outline'],
@@ -34,6 +40,11 @@ const screenOptions = ({ route }) => {
 export default function TabNavigator() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
+      <Tab.Screen
+        name="HomeScreen"
+        options={{ title: '홈' }}
+        component={HomeScreen}
+      />
       <Tab.Screen
         name="TopNavigator"
         options={{ tabBarLabel: '메모보고', headerShown: false }}

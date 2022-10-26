@@ -9,8 +9,11 @@ export function UserCard(props) {
   return (
     <View style={[styles.view, props.style]}>
       <Avatar.Image source={props.source} size={45} style={styles.image} />
-      <Text style={styles.title}>{props.name}</Text>
+      <Text style={styles.title}>
+        {props.rank} {props.name}
+      </Text>
       <Text style={styles.text}>{props.position}</Text>
+      {props.right}
     </View>
   )
 }

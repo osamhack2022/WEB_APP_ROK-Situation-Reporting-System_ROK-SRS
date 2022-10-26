@@ -21,12 +21,13 @@ export const styles = StyleSheet.create({
     color: Colors.grey900,
   },
   type: {
-    fontFamily: 'NunitoSans_600SemiBold',
     fontSize: 13,
-    marginRight: 3,
+    marginRight: 5,
+    fobtFamily: 'Roboto',
+    fontWeight: '700',
   },
   paragraph: {
-    fontFamily: 'NunitoSans_400Regular',
+    fontFamily: 'Roboto',
     fontSize: 13,
   },
   dateView: { alignItems: 'flex-end', flex: 1, marginRight: 10 },
