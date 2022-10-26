@@ -23,30 +23,30 @@ export function UnitAddScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.view}>
+        <ImagePicker
+          imageUrl={Logo}
+          setImageUrl={setLogo}
+          style={{ marginBottom: 30 }}
+        />
         <TextInput
-          label="부대 이름 변경"
+          label="부대 이름"
           dense={true}
           activeUnderlineColor="#008275"
           onChangeText={(Unitname) => setUnitname(Unitname)}
           style={styles.textInput}
         />
         <TextInput
-          label="부대 슬로건 변경"
+          label="부대 슬로건"
           dense={true}
           activeUnderlineColor="#008275"
           onChangeText={(Unitslogan) => setUnitslogan(Unitslogan)}
           style={styles.textInput}
         />
       </View>
-      <ImagePicker
-        imageUrl={Logo}
-        setImageUrl={setLogo}
-        style={{ marginBottom: 30 }}
-        text="부대 로고를 추가하려면 클릭."
-      />
       <MyButton
-        text="부대 추가"
+        text="새로운 부대 추가"
         onPress={() => addUnitHandler({ Unitname, Unitslogan, Logo })}
+        style={{ marginTop: 15, width: '65%' }}
       />
     </SafeAreaView>
   )

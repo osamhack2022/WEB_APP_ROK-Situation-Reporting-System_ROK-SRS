@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react'
+// prettier-ignore
 import { SafeAreaView, View, StyleSheet, Alert, ScrollView } from 'react-native'
 import { Colors, TextInput } from 'react-native-paper'
+import { useNavigation } from '@react-navigation/native'
 import RankItems from '../../data/ranks'
 import { GuideText } from '../../components/GuideText'
 import { window } from '../../constants/layout'
@@ -13,7 +15,19 @@ import { useRecoilState } from 'recoil'
 import { ImagePicker } from '../../components/ImagePicker'
 
 export function UserUpdateScreen() {
+  const navigation = useNavigation()
+
   const [userMe, setUserMe] = useRecoilState(userState)
+  const [Name, setName] = useState(userMe.Name)
+  const [email, setEmail] = useState(userMe.email)
+  const [Number, setNumber] = useState(userMe.Number)
+  const [milNumber, setMilNumber] = useState(userMe.milNumber)
+
+  const [RankOpen, setRankOpen] = useState(false)
+  const [Rank, setRank] = useState(userMe.Rank)
+  const [Ranks, setRanks] = useState(RankItems)
+
+  const [pic, setPic] = useState(userMe.pic)
 
   const updateUserHandler = useCallback(
     async ({ Rank, Name, email, milNumber, Number }) => {
@@ -39,24 +53,13 @@ export function UserUpdateScreen() {
     if (res.message) Alert.alert(res.message)
     else {
       setUserMe({ ...userMe, pic })
-      Alert.alert('사용자 이미지 정보가 변경되었습니다.')
     }
   })
-
-  const [Name, setName] = useState(userMe.Name)
-  const [email, setEmail] = useState(userMe.email)
-  const [Number, setNumber] = useState(userMe.Number)
-  const [milNumber, setMilNumber] = useState(userMe.milNumber)
-
-  const [RankOpen, setRankOpen] = useState(false)
-  const [Rank, setRank] = useState(userMe.Rank)
-  const [Ranks, setRanks] = useState(RankItems)
-
-  const [pic, setPic] = useState('')
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.view} showsVerticalScrollIndicator={false}>
+        <ImagePicker imageUrl={pic} setImageUrl={setPic} />
         <DropDownPicker
           placeholder="계급"
           open={RankOpen}
@@ -82,7 +85,7 @@ export function UserUpdateScreen() {
           activeUnderlineColor="#008275"
           onChangeText={(Name) => setName(Name)}
           style={styles.textInput}
-          placeholder={Name}
+          placeholder={userMe.Name}
         ></TextInput>
         <View style={styles.guideTextView}>
           <GuideText guideText={``} />
@@ -122,7 +125,7 @@ export function UserUpdateScreen() {
         </View>
         <MyButton
           text="내 정보 수정"
-          onPress={() =>
+          onPress={() => {
             updateUserHandler({
               Rank,
               Name,
@@ -130,21 +133,11 @@ export function UserUpdateScreen() {
               Number,
               milNumber,
             })
-          }
-          style={{ marginBottom: 50 }}
-        />
-        <ImagePicker
-          imageUrl={pic}
-          setImageUrl={setPic}
-          text="내 사진을 변경하려면 클릭."
-        />
-        <MyButton
-          text="내 사진 변경"
-          onPress={() =>
             updateUserPicHandler({
               pic,
             })
-          }
+          }}
+          style={{ marginBottom: 50, width: '80%' }}
         />
       </ScrollView>
     </SafeAreaView>

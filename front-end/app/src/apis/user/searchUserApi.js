@@ -1,10 +1,10 @@
-import URL from '../../../url'
+import Constants from 'expo-constants'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
 const searchUserApi = async ({ query, index }) => {
   const reqUrl = query
-    ? URL + `/api/user?search=${query}`
-    : URL + `/api/user?index=${index}`
+    ? Constants.manifest.extra.appPublicBackendRoot + `api/user?search=${query}`
+    : Constants.manifest.extra.appPublicBackendRoot + `api/user?index=${index}`
   console.log(reqUrl)
   try {
     const res = await fetch(reqUrl, {

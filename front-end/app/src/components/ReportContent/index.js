@@ -10,19 +10,19 @@ export function ReportContent(props) {
   return (
     <View style={[styles.contentView]}>
       <Profile
-        name="병장 김형민"
-        position="본부중대 통신"
+        name={props.Name}
+        Rank={props.Rank}
+        position={props.position ? props.position : '본부중대 통신'}
         size={43}
-        src={require('../../assets/images/avatar.png')}
+        src={props.pic ? props.pic : require('../../assets/images/avatar.png')}
       />
       <View style={styles.flexRow}>
         <Paragraph style={styles.paragraph}>{props.Content}</Paragraph>
       </View>
       <View style={styles.contView}>
         <View style={styles.seqView}>
-          <Text
-            style={styles.seqText}
-          >{`체계: 본부중대\n순서: 분대장 -> 소대장 -> 중대장`}</Text>
+          <Text style={styles.seqText}>{props.ReportingSystem.Title}</Text>
+          <Text style={styles.seqText}>{props.Invited}</Text>
         </View>
         <View style={styles.buttonView}>
           <Button
