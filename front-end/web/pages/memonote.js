@@ -246,6 +246,8 @@ export default function Memo() {
                   memo={memoRenderList[selectedItem].Content}
                   datetime={memoRenderList[selectedItem].createdAt}
                   comment={memoRenderList[selectedItem].Comments}
+                  selectedItem={selectedItem}
+                  setMemoRenderList={setMemoRenderList}
                 />
               </div>
             )

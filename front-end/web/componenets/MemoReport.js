@@ -1,8 +1,9 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { Avatar, Button, List, Row, Col, Divider, Input } from "antd";
 import { getCookie } from "cookies-next";
 import koreanTimeFormat from "../helperfunction/koreanDateFormat";
 import Styles from "../styles/MemoReport.module.css";
+import { Convertrank } from "../helperfunction/convertrank";
 
 function ReportCard(props) {
   return (
@@ -15,7 +16,7 @@ function ReportCard(props) {
             </Col>
             <Col>
               <div className={Styles.cardName}>
-                {props.name} {props.rank}
+                {Convertrank(props.rank)} {props.name}
               </div>
               <div className={Styles.cardPosition}>{props.position}</div>
             </Col>
@@ -51,8 +52,18 @@ function ReportList(props) {
 }
 
 function ReportLayout(props) {
+  const selectedItem = props.selectedItem;
+  const setMemoRenderList = props.setMemoRenderList;
   const [commentContent, setCommentContent] = useState("");
-
+  const bottomOfChat = useRef();
+  const scrollToBottom = useCallback(
+    () =>
+      bottomOfChat.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      }),
+    []
+  );
   const submitComment = useCallback(
     (content) => {
       const submitData = {
@@ -69,8 +80,23 @@ function ReportLayout(props) {
           Authorization: `Bearer ${getCookie("usercookie")}`,
         },
         body: JSON.stringify(submitData),
-      }).then((res) => {
-        if (res.status === 200 || res.status === 201) setCommentContent("");
+      }).then(async (res) => {
+        if (res.status === 200 || res.status === 201) {
+          const data = await res.json();
+          setMemoRenderList((prev) => {
+            const modifyData = {
+              ...prev[selectedItem],
+              Comments: [...prev[selectedItem].Comments, data],
+            };
+            return [
+              ...prev.slice(0, selectedItem),
+              modifyData,
+              ...prev.slice(selectedItem + 1),
+            ];
+          });
+          setCommentContent("");
+          scrollToBottom();
+        }
       });
     },
     [props.id]
@@ -107,6 +133,7 @@ function ReportLayout(props) {
               <ReportList data={props.comment} />
             </div>
           )}
+          <div ref={bottomOfChat} />
         </Col>
       </Row>
       <div className={Styles.memoFooterGroup}>
