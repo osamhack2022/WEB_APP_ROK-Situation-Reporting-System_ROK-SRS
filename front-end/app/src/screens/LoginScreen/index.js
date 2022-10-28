@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useRecoilState } from 'recoil'
-import { userState } from '../../states/userState'
+import { userState } from '../../states'
 //prettier-ignore
 import { Image, SafeAreaView, View, Text, TouchableOpacity, Alert } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage'

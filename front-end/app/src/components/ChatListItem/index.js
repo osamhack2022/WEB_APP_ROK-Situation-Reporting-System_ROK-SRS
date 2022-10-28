@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Image, View, Text, TouchableOpacity } from 'react-native'
 import styles from './style'
 import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 
-const chatHandler = () => {
-  return fetch('')
-    .then((res) => res.json())
-    .catch((error) => console.log(error))
-}
-
 export const ChatListItem = (props) => {
   let [fontsLoaded] = useNunitoFonts()
 
   const navigation = useNavigation()
   const goChatRoom = () => {
-    navigation.navigate('ChatRoomScreen')
+    navigation.navigate('ChatNavigator', {
+      screen: 'ChatRoomScreen',
+      params: {
+        name: props.name,
+        userdata: props.userdata,
+        users: props.users,
+        chatid: props.chatid,
+      },
+    })
   }
 
   return (
@@ -30,13 +32,11 @@ export const ChatListItem = (props) => {
           <View style={styles.midContainer}>
             <Text style={styles.username}>{props.name}</Text>
             <Text numberOfLines={2} style={styles.lastMessage}>
-              {props.lastMessage}
+              {props.recentmsg}
             </Text>
           </View>
         </View>
-        <Text style={styles.time}>
-          {props.createdAt || moment('2022-10-03 04:00').fromNow()}
-        </Text>
+        <Text style={styles.time}>{moment(props.rectime).fromNow()}</Text>
       </View>
     </TouchableOpacity>
   )

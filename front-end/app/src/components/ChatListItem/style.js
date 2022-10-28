@@ -31,14 +31,15 @@ const styles = StyleSheet.create({
   },
   lastMessage: {
     fontFamily: 'NunitoSans_400Regular',
-    fontSize: 12,
-    color: Colors.grey500,
+    fontSize: 13,
+    color: Colors.grey600,
   },
   time: {
     fontFamily: 'NunitoSans_400Regular',
-    fontSize: 11,
+    fontSize: 12,
+    marginTop: 3,
     marginRight: 5,
-    color: Colors.grey500,
+    color: Colors.grey600,
   },
 })
 

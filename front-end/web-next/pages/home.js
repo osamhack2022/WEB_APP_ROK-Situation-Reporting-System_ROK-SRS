@@ -1,33 +1,47 @@
 import Head from 'next/head'
 import style from '../styles/homepage.module.css'
+import Link from "next/link"
 import { useState, useEffect } from 'react';
 import { Image } from 'antd'
 import unitlogo from '../img/unitlogo.png'
 import { Descriptions, Tabs, Avatar, List, PageHeader, Input, Space } from 'antd';
 import { decodeJwt } from 'jose';
 import { getCookie } from 'cookies-next';
+import { Convertrank } from '../helperfunction/convertrank'
+import Router from 'next/router'
+
+import { encryptchat } from '../encryption/chatencryption';
+import { encryptuser } from '../encryption/userencryption';
 
 const { Search } = Input;
-let onSearch = async (event) => {
+async function onSearch(value) {
+    let endpoint = process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user?search='
+        const options = {
+            // The method is POST because we are sending data.
+            method: 'GET',
+            // Tell the server we're sending JSON.
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + getCookie('usercookie')
+            }
+        }
+        //Fetch data from external API
+        const res = await fetch(endpoint + value, options)
+        const data = await res.json()
+        if (data.length == 0) {
+            return 
+        } else {
+            let id = data[0]._id
+            Router.push('/home/' + id)
+        }
 }
 
-const data = [
-    {
-        title: 'Ant Design Title 1',
-    },
-    {
-        title: 'Ant Design Title 2',
-    },
-    {
-        title: 'Ant Design Title 3',
-    },
-    {
-        title: 'Ant Design Title 4',
-    },
-];
 
 
 const Home = (props) => {
+    // console.log(encryptuser("test", "test"))
+    // console.log(encryptchat("test", "test", "test"))
+    console.log(props)
     let props1 = props['data'][0]
     let props2 = props['data2'][0]
     const [unitUsers, setUnitUsers] = useState([]);
@@ -91,7 +105,7 @@ const Home = (props) => {
             <div>
                 <div className={style.mainarea}>
                     <div className={style.infocontainer}>
-                        <span className={style.rank}>{props1.Rank}</span> <span className={style.name}>{props1.Name}</span> <br />
+                        <span className={style.rank}>{Convertrank(props1.Rank)}</span> <span className={style.name}>{props1.Name}</span> <br />
                         <span className={style.role}>정보통신운용장교</span>
                         <Descriptions title="군인 정보" layout="vertical" style={{ marginTop: '20px' }}>
                             <Descriptions.Item label="군번">{props1.DoDID || "no data"}</Descriptions.Item>
@@ -117,12 +131,14 @@ const Home = (props) => {
                                     itemLayout="horizontal"
                                     dataSource={unitUsers}
                                     renderItem={item => (
-                                        <List.Item>
+                                        <List.Item style = {{cursor: 'pointer'}}>
+                                            <Link href = {`/home/${item._id}`}>
                                             <List.Item.Meta
-                                                avatar={<Avatar src="https://images.pexels.com/photos/1202726/pexels-photo-1202726.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />}
-                                                title={item.Name}
-                                                description={item.Rank}
+                                                avatar={<Avatar src={item.pic}/>}
+                                                title={Convertrank(item.Rank) + " " + item.Name}
+                                                description={item.Role}
                                             />
+                                            </Link>
                                         </List.Item>
                                     )}
                                 />

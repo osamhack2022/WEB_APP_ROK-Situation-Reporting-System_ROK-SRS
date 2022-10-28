@@ -8,14 +8,14 @@ export const styles = StyleSheet.create({
   },
   nameView: { marginLeft: 6, flex: 1, justifyContent: 'center' },
   name: {
-    fontSize: 13,
+    fontSize: 14,
     fontFamily: 'NunitoSans_700Bold',
   },
   avatarImg: {
     backgroundColor: Colors.grey400,
   },
   position: {
-    fontSize: 11,
+    fontSize: 12,
     fontFamily: 'NunitoSans_300Light',
     color: Colors.grey900,
   },

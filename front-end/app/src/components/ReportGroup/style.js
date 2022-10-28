@@ -9,8 +9,7 @@ export const styles = StyleSheet.create({
   text: {
     fontFamily: 'NunitoSans_300Light',
     color: Colors.grey800,
-    fontSize: 12,
-    paddingTop: 3,
-    marginBottom: 10,
+    fontSize: 13,
+    marginTop: 3,
   },
 })

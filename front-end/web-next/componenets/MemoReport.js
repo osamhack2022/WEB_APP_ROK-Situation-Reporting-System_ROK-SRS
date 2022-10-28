@@ -1,23 +1,22 @@
-import { useState, useCallback } from 'react';
-import { Avatar, Button, List, Row, Col, Divider, Input } from 'antd';
-import { getCookie } from 'cookies-next';
-import koreanTimeFormat from '../helperfunction/koreanDateFormat';
-import Styles from '../styles/MemoReport.module.css';
+import { useState, useCallback } from "react";
+import { Avatar, Button, List, Row, Col, Divider, Input } from "antd";
+import { getCookie } from "cookies-next";
+import koreanTimeFormat from "../helperfunction/koreanDateFormat";
+import Styles from "../styles/MemoReport.module.css";
 
 function ReportCard(props) {
   return (
     <div className={Styles.cardLayout}>
-      <Row
-        align="middle"
-        justify='space-between'
-      >
+      <Row align="middle" justify="space-between">
         <Col>
           <Row gutter={12}>
             <Col>
               <Avatar src={props.pic} size={48} />
             </Col>
             <Col>
-              <div className={Styles.cardName}>{props.name} {props.rank}</div>
+              <div className={Styles.cardName}>
+                {props.name} {props.rank}
+              </div>
               <div className={Styles.cardPosition}>{props.position}</div>
             </Col>
           </Row>
@@ -26,11 +25,9 @@ function ReportCard(props) {
           {koreanTimeFormat(props.datetime)}
         </Col>
       </Row>
-      <div className={Styles.cardMemo}>
-        {props.memo}
-      </div>
+      <div className={Styles.cardMemo}>{props.memo}</div>
     </div>
-  )
+  );
 }
 
 function ReportList(props) {
@@ -38,8 +35,8 @@ function ReportList(props) {
     <List
       itemLayout="vertical"
       dataSource={props.data}
-      renderItem={(item) => (
-        <List.Item>
+      renderItem={(item, index) => (
+        <List.Item key={index}>
           <ReportCard
             name={item.User?.Name}
             rank={item.User?.Rank}
@@ -50,59 +47,50 @@ function ReportList(props) {
         </List.Item>
       )}
     />
-  )
+  );
 }
 
 function ReportLayout(props) {
-  const [commentContent, setCommentContent] = useState('');
+  const [commentContent, setCommentContent] = useState("");
 
-  const submitComment = useCallback((content) => {
-    const submitData = {
-      ReportId: props.id,
-      Type: '보고사항',
-      Content: content
-    }
-    
-    fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/comment/', {
-      'method': 'POST',
-      'headers': {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${getCookie('usercookie')}`
-      },
-      'body': JSON.stringify(submitData)
-    })
-      .then(res => {
-        if(res.status === 200 || res.status === 201)
-          setCommentContent('');
-      })
-  }, [props.id]);
+  const submitComment = useCallback(
+    (content) => {
+      const submitData = {
+        ReportId: props.id,
+        Type: "보고사항",
+        Content: content,
+      };
+
+      fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + "api/comment/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${getCookie("usercookie")}`,
+        },
+        body: JSON.stringify(submitData),
+      }).then((res) => {
+        if (res.status === 200 || res.status === 201) setCommentContent("");
+      });
+    },
+    [props.id]
+  );
 
   function ButtonGroup() {
     return (
       <div>
-        <Button
-          type="primary"
-          size="large"
-          danger
-        >
+        <Button type="primary" size="large" danger>
           종결하기
         </Button>
-        <Button
-          size="large"
-        >
-          상급보고
-        </Button>
+        <Button size="large">상급보고</Button>
       </div>
-    )
+    );
   }
 
   return (
     <div className={Styles.reportLayout}>
       <Row>
-        <Col className={Styles.memoHeader}>
-          {props.header}
-        </Col>
+        <Col className={Styles.memoHeader}>{props.header}</Col>
       </Row>
       <Divider className={Styles.memoDivider} />
       <Row className={Styles.contentLayout}>
@@ -114,44 +102,35 @@ function ReportLayout(props) {
             memo={props.memo}
             datetime={props.datetime}
           />
-          {
-            props.comment &&
+          {props.comment && (
             <div className={Styles.memoComment}>
               <ReportList data={props.comment} />
             </div>
-          }
+          )}
         </Col>
       </Row>
       <div className={Styles.memoFooterGroup}>
         <Input.Group compact>
           <Input
-            style={{ width: 'calc(100% - 60px)', border: '1px solid #aaa' }}
+            style={{ width: "calc(100% - 60px)", border: "1px solid #aaa" }}
             value={commentContent}
             onChange={(event) => setCommentContent(event.target.value)}
           />
-          <Button
-          type="primary"
-          onClick={() => submitComment(commentContent)}
-          >
+          <Button type="primary" onClick={() => submitComment(commentContent)}>
             전송
           </Button>
         </Input.Group>
         <Divider className={Styles.memoDivider} />
-        <Row
-          className={Styles.memoFooter}
-          justify='space-between'
-        >
-          <Col>
-            {props.footer}
-          </Col>
+        <Row className={Styles.memoFooter} justify="space-between">
+          <Col>{props.footer}</Col>
           <Col>
             <ButtonGroup />
           </Col>
         </Row>
       </div>
     </div>
-  )
+  );
 }
 
 export default ReportLayout;
-export { ReportCard, ReportList }
+export { ReportCard, ReportList };

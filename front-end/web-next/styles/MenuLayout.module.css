@@ -1,56 +1,58 @@
 .bodyLayout {
-    height: 100%;
+  height: 100vh;
 }
 
 
 .sideLayout {
-    width: 280px;
-    height: 100%;
-    background-color: #008080;
-    border-right: 1px solid #004139;
-    padding: 60px 0px;
-    z-index: 100;
+  width: 280px;
+  height: 100%;
+  background-color: #008080;
+  border-right: 1px solid #004139;
+  padding: 60px 0px;
+  display: fixed;
 }
 
 .contentLayout {
-    height: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .sidebar {
-    background-color: transparent;
-    border: 0;
+  background-color: transparent;
+  border: 0;
 }
 
 .menuIcon {
-    width: 18pt;
-    height: 18pt;
-    margin-right: 15px;
+  width: 18pt;
+  height: 18pt;
+  margin-right: 15px;
 }
 
 .menuLabel {
-    font-size: 18pt;
-    font-weight: bold;
-    margin: 10px 0;
+  font-size: 18pt;
+  font-weight: bold;
+  margin: 10px 0;
 }
 
 .signoutButton {
-    width: 100%;
-    height: 55px;
-    line-height: 55px;
-    background-color: transparent;
-    border: 0;
-    text-align: left;
-    font-size: 18pt;
-    font-weight: bold;
-    padding: 4px 24px;
-    margin: 10px 0px;
-    color: #000;
-    position: absolute;
-    bottom: 60px;
+  width: 100%;
+  height: 55px;
+  line-height: 55px;
+  background-color: transparent;
+  border: 0;
+  text-align: left;
+  font-size: 18pt;
+  font-weight: bold;
+  padding: 4px 24px;
+  margin: 10px 0px;
+  color: #000;
+  position: absolute;
+  bottom: 60px;
 }
 
 .signoutButton:hover,
 .signoutButton:focus {
-    background-color: transparent;
-    color: #fff;
+  background-color: transparent;
+  color: #fff;
 }

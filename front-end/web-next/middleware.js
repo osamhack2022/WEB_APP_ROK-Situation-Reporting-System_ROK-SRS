@@ -12,7 +12,6 @@ export async function middleware(request) {
         } else {
             try {
                 const { payload, protectedHeader } = await jwtVerify(JWTtoken, new TextEncoder().encode(secret))
-                //console.log(payload)
                 return NextResponse.next();
             } catch (e) {
                 console.log(e)

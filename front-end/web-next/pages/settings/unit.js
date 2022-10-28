@@ -1,21 +1,20 @@
 import {
   Avatar,
   List,
-  Skeleton,
   Button,
   Input,
   Upload,
   Image,
   TreeSelect,
   Form,
-  PageHeader,
-  Breadcrumb,
 } from "antd";
 import styles from "../../styles/unitsettings.module.css";
-import Link from "next/link";
 import unitlogo from "../../img/unitlogo.png";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
+import { Convertrank } from '../../helperfunction/convertrank'
+import { decodeJwt } from 'jose';
 
 const { TextArea } = Input;
 const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT;
@@ -76,7 +75,9 @@ const treeData2 = [
   },
 ];
 
-const UnitSettings = () => {
+const UnitSettings = (props) => {
+    let props1 = props['data'][0]
+    let props2 = props['data2'][0]
     const [uploadedunitlogo, setuploadedunitlogo] = useState("none")
     const [uploadedunitname, setuploadedunitname] = useState("none")
     const [uploadedunitslogan, setuploadedunitslogan] = useState("none")
@@ -86,56 +87,26 @@ const UnitSettings = () => {
 
     //user loading function
     const count = 4;
-    const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
     const [list, setList] = useState([]);
+    const [unitUsers, setUnitUsers] = useState([]);
+
     useEffect(() => {
-        fetch(fakeDataUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                setInitLoading(false);
-                setData(res.results);
-                setList(res.results);
-            });
-    }, []);
-    const onLoadMore = () => {
-        setLoading(true);
-        setList(
-            data.concat(
-                [...new Array(count)].map(() => ({
-                    loading: true,
-                    name: {},
-                    picture: {},
-                })),
-            ),
-        );
-        fetch(fakeDataUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                const newData = data.concat(res.results);
-                setData(newData);
-                setList(newData);
-                setLoading(false); // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-                // In real scene, you can using public method of react-virtualized:
-                // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-                window.dispatchEvent(new Event('resize'));
-            });
-    };
-    const loadMore =
-        !initLoading && !loading ? (
-            <div
-                style={{
-                    textAlign: 'center',
-                    marginTop: 12,
-                    height: 30,
-                    lineHeight: '30px',
-                }}
-            >
-                <Button onClick={onLoadMore}>더 보기</Button>
-            </div>
-        ) : null;
+      fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user/unit', {
+          'method': 'GET',
+          'headers': {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${getCookie('usercookie')}`
+          }
+      })
+          .then(response => {
+              if (response.status == 200)
+                  return response.json()
+          })
+          .then(data => setUnitUsers(data));
+    }, [setUnitUsers]);
 
   //Submit NewUser
   const [DoDID, setDoDID] = useState();
@@ -193,7 +164,7 @@ const UnitSettings = () => {
     const result = await response.json();
     if (result["Invcode"]) {
       seterror3("");
-      setsuccess3("성공. 초대코드: " + result["Invcode"]);
+      setsuccess3("성공");
     } else {
       setsuccess3("");
       seterror3(result["message"]);
@@ -201,25 +172,57 @@ const UnitSettings = () => {
   };
 
   let submitunitinfo = async (event) => {
-    console.log(uploadedunitname);
-    console.log(uploadedunitslogan);
+    let endpoint = backendroot + "api/unit/";
+    console.log(uploadedunitname)
+    console.log(uploadedunitslogan)
+    const data = {
+      Unitname: uploadedunitname,
+      Unitslogan: uploadedunitslogan,
+    };
+    const JSONdata = JSON.stringify(data);
+    const options = {
+      // The method is POST because we are sending data.
+      method: "PUT",
+      // Tell the server we're sending JSON.
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("usercookie"),
+      },
+      // Body of the request is the JSON data we created above.
+      body: JSONdata,
+    };
+    const response = await fetch(endpoint, options);
+    const result = await response.json();
+    if (result["Unitname"]) {
+      seterror1("");
+      setsuccess1("성공. 초대코드: " + result["Unitname"]);
+    } else {
+      setsuccess1("");
+      seterror1(result["message"]);
+    }
+
   };
   let submitlogo = async (event) => {
     console.log(event.target);
     console.log(uploadedunitlogo);
     if (uploadedunitlogo == "none" || uploadedunitlogo.fileList.length == 0) {
-      console.log("no file");
+      seterror2("사진이 없습니다.")
+
     } else {
-      const formData = new FormData();
-      formData.append("Logo", uploadedunitlogo.file);
-      const request = new XMLHttpRequest();
-      request.open("POST", "/updateunitlogo");
-      request.send(formData);
+      seterror2("데모에서 사진을 바꾸실 수 없습니다.")
+      // const formData = new FormData();
+      // formData.append("Logo", uploadedunitlogo.file);
+      // const request = new XMLHttpRequest();
+      // request.open("POST", "/updateunitlogo");
+      // request.send(formData);
     }
   };
 
   return (
     <>
+    <Head>
+      <title>부대 설정</title>
+    </Head>
       <div className={styles.background}>
         <div className={styles.formarea}>
           <div className={styles.formarea1}>
@@ -229,6 +232,7 @@ const UnitSettings = () => {
               <Form.Item name="부대이름" rules={[{ required: true }]}>
                 <Input
                   placeholder="부대이름 변경"
+                  defaultValue={props2.Unitname}
                   allowClear
                   onChange={(event) => {
                     setuploadedunitname(event.target.value);
@@ -242,6 +246,7 @@ const UnitSettings = () => {
                   showCount
                   maxLength={50}
                   placeholder="부대슬로건 변경"
+                  defaultValue={props2.Unitslogan}
                   allowClear
                   onChange={(event) => {
                     setuploadedunitslogan(event.target.value);
@@ -254,7 +259,8 @@ const UnitSettings = () => {
                   <button className={styles.submitbutton} type="primary">
                     부대정보 변경
                   </button>
-                  <p id={styles.error1}>Error Message 1</p>
+                  <p id={styles.error1}>{error1}</p>
+                  <p id={styles.success1}>{success1}</p>
                 </div>
               </Form.Item>
             </Form>
@@ -280,7 +286,7 @@ const UnitSettings = () => {
                     <br></br>
                     <Button>Upload</Button>
                   </Upload.Dragger>
-                  <Form.Item>
+                  <Form.Item style = {{width: '180px'}}>
                     <button
                       className={styles.submitbutton}
                       style={{ margin: "auto", marginTop: "10px" }}
@@ -288,7 +294,7 @@ const UnitSettings = () => {
                     >
                       부대마크 변경
                     </button>
-                    <p id={styles.error2}>Error Message 2</p>
+                    <p id={styles.error2}>{error2}</p>
                   </Form.Item>
                 </div>
               </div>
@@ -297,39 +303,23 @@ const UnitSettings = () => {
           <br></br>
           <div className={styles.formarea2}>
             <div className={styles.userlist}>
-              <h1>유저 목록</h1>
+              <h1>군인 목록</h1>
               <div className={styles.userlistcontainer}>
-                <List
-                  className="demo-loadmore-list"
-                  loading={initLoading}
-                  itemLayout="horizontal"
-                  loadMore={loadMore}
-                  dataSource={list}
-                  renderItem={(item) => (
-                    <List.Item
-                      actions={[<a key="list-loadmore-edit">delete</a>]}
-                    >
-                      <Skeleton
-                        avatar
-                        title={false}
-                        loading={item.loading}
-                        active
-                      >
-                        <List.Item.Meta
-                          avatar={<Avatar src={item.picture.large} />}
-                          title={<p>{item.name?.last}</p>}
-                          description="통신운용장교"
-                        />
-                        <div>content</div>
-                      </Skeleton>
-                    </List.Item>
-                  )}
-                />
+              <List
+                itemLayout="horizontal"
+                dataSource={unitUsers}
+                renderItem={item => (
+                  <List.Item style = {{cursor: 'pointer'}}>
+                      <List.Item.Meta
+                        avatar={<Avatar src={item.pic}/>}
+                        title={Convertrank(item.Rank) + " " + item.Name}
+                        description={'초대코드: ' + item.Invcode}/>
+                  </List.Item>)}/>
               </div>
             </div>
 
             <Form className={styles.adduser} onFinish={submitnewuser}>
-              <h1>유저 추가</h1>
+              <h1>군인 추가</h1>
               <h3>군번</h3>
               <Form.Item name="DoDID" rules={[{ required: true }]}>
                 <Input
@@ -416,5 +406,52 @@ const UnitSettings = () => {
     </>
   );
 };
+
+export async function getServerSideProps(context) {
+  // let ciphertext = await encryptuser('test133', 'hfipoawefjapoiwfhawpoeifjwf')
+  // let decrypt = await decryptuser('test133', ciphertext)
+  // console.log(decrypt)
+  const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
+  const endpoint = backendroot + 'api/user/id?search='
+  const JWTtoken = context.req.cookies['usercookie'];
+  const { id } = decodeJwt(JWTtoken)
+  const options = {
+      // The method is POST because we are sending data.
+      method: 'GET',
+      // Tell the server we're sending JSON.
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + JWTtoken
+      }
+  }
+  //Fetch data from external API
+  const res = await fetch(endpoint + id, options)
+  const data = await res.json()
+  //Pass data to the page via props
+  // console.log('hi')
+  // console.log(data[0]['Unit'])
+
+  if (data[0] && data[0]['Unit']) {
+      let endpoint2 = backendroot + 'api/unit/get?search='
+      const options = {
+          // The method is POST because we are sending data.
+          method: 'GET',
+          // Tell the server we're sending JSON.
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + JWTtoken
+          }
+      }
+      const res2 = await fetch(endpoint2 + data[0]['Unit'], options)
+      const data2 = await res2.json()
+      return { props: { data, data2 } }
+
+
+  }
+
+  return { props: { data } }
+}
+
+
 
 export default UnitSettings;

@@ -1,9 +1,9 @@
-import URL from '../../../url'
+import Constants from 'expo-constants'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
 const addUnitApi = async ({ Unitname, Unitslogan, Logo }) => {
   try {
-    console.log(URL + '/api/unit')
+    console.log(Constants.manifest.extra.appPublicBackendRoot + 'api/unit')
     const res = await fetch(URL + '/api/unit/add', {
       method: 'POST',
       headers: {

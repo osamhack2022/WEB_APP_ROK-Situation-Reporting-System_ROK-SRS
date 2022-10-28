@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react'
 // prettier-ignore
-import { SafeAreaView, View, StyleSheet, ScrollView } from 'react-native'
+import { SafeAreaView, View, StyleSheet, ScrollView, Alert } from 'react-native'
 import { Colors, TextInput, IconButton } from 'react-native-paper'
+import { useRecoilState } from 'recoil'
+import { userState } from '../../states/userState'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportGroup } from '../../components/ReportGroup'
@@ -9,6 +11,7 @@ import { MyButton } from '../../components/MyButton'
 import { useNavigation } from '@react-navigation/native'
 import { Profile } from '../../components/Profile'
 import searchUserApi from '../../apis/user/searchUserApi'
+import addReportApi from '../../apis/report/addReportApi'
 import DATA from '../../data/procData'
 import { window } from '../../constants/layout'
 
@@ -17,25 +20,19 @@ export function CreateReportScreen() {
 
   const navigation = useNavigation()
 
+  const [userMe, setUserMe] = useRecoilState(userState)
+
   const [query, setQuery] = useState('')
-  const [addedUser, setAddedUser] = useState([])
+  const [Invited, setInvited] = useState([])
 
   const onRemove = (_id) => {
-    console.log(addedUser)
-
-    setAddedUser(addedUser.filter((user) => user._id !== _id))
+    console.log(Invited)
+    setInvited(Invited.filter((user) => user._id !== _id))
   }
 
-  const fetchUserHandler = async (query) => {
-    const res = await searchUserApi(query)
-    // console.log(res)
-    // console.log(addedUser)
-    setAddedUser([...addedUser, res])
-  }
-
-  const [typeOpen, setTypeOpen] = useState(false)
-  const [type, setType] = useState('')
-  const [typeItem, setTypeItem] = useState([
+  const [TypeOpen, setTypeOpen] = useState(false)
+  const [Type, setType] = useState('')
+  const [TypeItem, setTypeItem] = useState([
     { label: '긴급사항', value: 'emergency' },
     { label: '보고사항', value: 'report' },
     { label: '지시사항', value: 'order' },
@@ -48,10 +45,32 @@ export function CreateReportScreen() {
     { label: '본부중대', value: 'headquarter' },
   ])
 
-  const [title, setTitle] = useState('')
+  const [Title, setTitle] = useState('')
   const [text, setText] = useState('')
 
   const plusRef = useRef(null)
+
+  const getOneUserHandler = async () => {
+    const res = await searchUserApi({ query })
+    setInvited([...Invited, res[0]])
+  }
+
+  const addReportHandler = async () => {
+    const res = await addReportApi({
+      Title,
+      ReportingSystem: '당직',
+      Invited,
+      Content: text,
+      Type,
+      User: userMe,
+    })
+    if (res.Content) {
+      Alert.alert('메모보고 등록에 성공하였습니다.')
+      navigation.navigate('SentReportScreen')
+    } else {
+      Alert.alert(res.message)
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -64,16 +83,16 @@ export function CreateReportScreen() {
           label="제목"
           dense={true}
           style={styles.textInput}
-          onChangeText={(title) => setTitle(title)}
-          value={title}
+          onChangeText={(Title) => setTitle(Title)}
+          value={Title}
           activeUnderlineColor="#008275"
         ></TextInput>
         <View style={{ width: '88%', alignItems: 'center' }}>
           <DropDownPicker
             placeholder="보고종류"
-            open={typeOpen}
-            value={type}
-            items={typeItem}
+            open={TypeOpen}
+            value={Type}
+            items={TypeItem}
             setOpen={setTypeOpen}
             setValue={setType}
             setItems={setTypeItem}
@@ -81,7 +100,7 @@ export function CreateReportScreen() {
             zIndex={5001}
             textStyle={{
               fontSize: 16,
-              color: type ? Colors.black : Colors.grey600,
+              color: Type ? Colors.black : Colors.grey600,
               marginLeft: 7,
             }}
           />
@@ -124,13 +143,13 @@ export function CreateReportScreen() {
               size={25}
               style={{ marginTop: 15 }}
               onPress={() => {
-                fetchUserHandler(query)
+                getOneUserHandler()
                 plusRef.current.blur()
               }}
               forceTextInputFocus={false}
             />
           }
-          onSubmitEditing={() => fetchUserHandler(query)}
+          onSubmitEditing={() => getOneUserHandler()}
           activeUnderlineColor="#008275"
         />
         <ScrollView
@@ -138,7 +157,7 @@ export function CreateReportScreen() {
           style={styles.scrollView}
           showsHorizontalScrollIndicator={false}
         >
-          {addedUser.map((user) => (
+          {Invited.map((user) => (
             <Profile
               Rank={user.Rank}
               name={user.Name}
@@ -166,10 +185,12 @@ export function CreateReportScreen() {
           value={text}
           activeUnderlineColor="#008275"
         ></TextInput>
-        {type && groups && text && (
+        {Type && groups && text && (
           <MyButton
             text="보 고 하 기"
-            onPress={() => navigation.navigate('RecdReportScreen')}
+            onPress={() => {
+              addReportHandler()
+            }}
           />
         )}
       </ScrollView>
