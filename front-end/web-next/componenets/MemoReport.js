@@ -94,8 +94,8 @@ function ReportLayout(props) {
         if (res.status === 200 || res.status === 201) {
           setCommentContent("");
         }
+        props.onRefresh();
       });
-      props.onRefresh();
     },
     [props.id, props.onRefresh]
   );
