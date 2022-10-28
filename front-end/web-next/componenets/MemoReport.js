@@ -15,6 +15,8 @@ function ReportCard(props) {
             </Col>
             <Col>
               <div className={Styles.cardName}>
+                {/* for comment */}
+                {props.type ? '[' + props.type + '] ' : ''}
                 {props.name} {props.rank}
               </div>
               <div className={Styles.cardPosition}>{props.position}</div>
@@ -30,6 +32,7 @@ function ReportCard(props) {
   );
 }
 
+// component for report comment
 function ReportList(props) {
   return (
     <List
@@ -41,6 +44,7 @@ function ReportList(props) {
             name={item.User?.Name}
             rank={item.User?.Rank}
             position={item.User?.Position}
+            type={item.Type}
             memo={item.Content}
             datetime={item.createdAt}
           />
@@ -52,12 +56,25 @@ function ReportList(props) {
 
 function ReportLayout(props) {
   const [commentContent, setCommentContent] = useState("");
+  const [commentType, setCommentType] = useState(0);
+
+  const commentTypes = ['보고', '지시', '긴급'];
+  const commentTypeStyle = useCallback((type) => {
+    switch (type) {
+      case 0:
+        return ({ backgroundColor: '#16a34a' });
+      case 1:
+        return ({ backgroundColor: '#fb923c' });
+      case 2:
+        return ({ backgroundColor: '#dc2626' });
+    }
+  }, [])
 
   const submitComment = useCallback(
-    (content) => {
+    (type, content) => {
       const submitData = {
         ReportId: props.id,
-        Type: "보고사항",
+        Type: type,
         Content: content,
       };
 
@@ -111,12 +128,19 @@ function ReportLayout(props) {
       </Row>
       <div className={Styles.memoFooterGroup}>
         <Input.Group compact>
+          <Button
+            type="primary"
+            style={commentTypeStyle(commentType)}
+            onClick={() => setCommentType(index => (index + 1) % 3)}
+          >
+            {commentTypes[commentType]}
+          </Button>
           <Input
-            style={{ width: "calc(100% - 60px)", border: "1px solid #aaa" }}
+            style={{ width: "calc(100% - 120px)", border: "1px solid #aaa" }}
             value={commentContent}
             onChange={(event) => setCommentContent(event.target.value)}
           />
-          <Button type="primary" onClick={() => submitComment(commentContent)}>
+          <Button type="primary" onClick={() => submitComment(commentTypes[commentType] + '사항', commentContent)}>
             전송
           </Button>
         </Input.Group>
