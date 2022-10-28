@@ -60,16 +60,19 @@ function ReportLayout(props) {
   const [commentType, setCommentType] = useState(0);
 
   const commentTypes = ['보고', '지시', '긴급'];
-  const commentTypeStyle = useCallback((type) => {
-    switch (type) {
-      case 0:
-        return ({ backgroundColor: '#16a34a' });
-      case 1:
-        return ({ backgroundColor: '#fb923c' });
-      case 2:
-        return ({ backgroundColor: '#dc2626' });
-    }
-  }, [])
+  const commentTypeStyle = useCallback(
+    (type) => {
+      switch (type) {
+        case 0:
+          return ({ backgroundColor: '#16a34a' });
+        case 1:
+          return ({ backgroundColor: '#fb923c' });
+        case 2:
+          return ({ backgroundColor: '#dc2626' });
+      }
+    },
+    []
+  );
 
   const submitComment = useCallback(
     (type, content) => {
@@ -88,10 +91,13 @@ function ReportLayout(props) {
         },
         body: JSON.stringify(submitData),
       }).then((res) => {
-        if (res.status === 200 || res.status === 201) setCommentContent("");
+        if (res.status === 200 || res.status === 201) {
+          setCommentContent("");
+        }
       });
+      props.onRefresh();
     },
-    [props.id]
+    [props.id, props.onRefresh]
   );
 
   function ButtonGroup() {

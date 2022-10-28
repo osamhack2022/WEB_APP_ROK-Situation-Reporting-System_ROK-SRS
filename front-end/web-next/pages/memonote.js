@@ -15,11 +15,13 @@ export default function Memo() {
   const [formOpened, setFormOpened] = useState(false);
   const [memoRenderList, setMemoRenderList] = useState([]);
   const [isMemoLoaded, setMemoLoaded] = useState(false);
+  const [memoRefreshed, refreshMemo] = useState(true);
 
   useEffect(() => {
     setMemoRenderList([]);
     setMemoLoaded(false);
     setSelection(undefined);
+    refreshMemo(true);
     if (memonoteType === 'receiveMemo') {
       fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/report?receiver=true', {
         'method': 'GET',
@@ -52,7 +54,7 @@ export default function Memo() {
         })
         .then(data => setMemoRenderList(data));
     }
-  }, [memonoteType, setMemoRenderList, setMemoLoaded, setSelection]);
+  }, [memonoteType, memoRefreshed, refreshMemo, setMemoRenderList, setMemoLoaded, setSelection]);
 
   const selectStyle = useCallback((isSelected) => {
     return (isSelected ? ({ backgroundColor: '#ccc' }) : ({}))
@@ -222,6 +224,7 @@ export default function Memo() {
                         memo={memoRenderList[selectedItem].Content}
                         datetime={memoRenderList[selectedItem].createdAt}
                         comment={memoRenderList[selectedItem].Comments}
+                        onRefresh={() => refreshMemo(false)}
                       />
                     </div>
                   )
