@@ -7,7 +7,7 @@ import {
   AiOutlineSetting,
 } from "react-icons/ai";
 import { useRouter } from "next/router";
-import { removeCookies } from "cookies-next";
+import { deleteCookie } from "cookies-next";
 
 import styles from "../styles/MenuLayout.module.css";
 
@@ -65,7 +65,7 @@ function MenuLayout(props) {
           <Button
             className={styles.signoutButton}
             onClick={() => {
-              removeCookies("usercookie");
+              deleteCookie("usercookie");
               router.replace("/");
             }}
           >
