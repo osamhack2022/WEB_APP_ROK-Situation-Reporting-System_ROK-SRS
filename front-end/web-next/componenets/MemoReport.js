@@ -41,6 +41,7 @@ function ReportList(props) {
       renderItem={(item, index) => (
         <List.Item key={index}>
           <ReportCard
+            pic={item.User?.pic}
             name={item.User?.Name}
             rank={item.User?.Rank}
             position={item.User?.Position}
@@ -113,6 +114,7 @@ function ReportLayout(props) {
       <Row className={Styles.contentLayout}>
         <Col className={Styles.cardListLayout}>
           <ReportCard
+            pic={props.pic}
             name={props.name}
             rank={props.rank}
             position={props.position}

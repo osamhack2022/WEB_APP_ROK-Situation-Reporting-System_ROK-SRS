@@ -215,6 +215,7 @@ export default function Memo() {
                         }
                         height="710px"
                         id={memoRenderList[selectedItem]._id}
+                        pic={memoRenderList[selectedItem].User?.pic}
                         name={memoRenderList[selectedItem].User?.Name}
                         rank={memoRenderList[selectedItem].User?.Rank}
                         position={memoRenderList[selectedItem].User?.Position}
