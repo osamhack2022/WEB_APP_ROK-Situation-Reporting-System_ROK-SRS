@@ -24,7 +24,6 @@ const getReportCard = asyncHandler(async (req, res) => {
   try {
     for (const card of reportCards) {
       card.User = await UserM.findById(card.User).select("-password");
-      console.log(card);
       for (const systemIndex in card.ReportingSystem) {
         card.ReportingSystem[systemIndex] = await Reportsys.findById(
           card.ReportingSystem[systemIndex]
@@ -34,15 +33,15 @@ const getReportCard = asyncHandler(async (req, res) => {
         card.Comments[commentIndex] = await Comment.findById(
           card.Comments[commentIndex]
         );
-        card.Comments[commentIndex].User = await UserM.findById(
-          card.Comments[commentIndex].User
-        ).select("-password");
-        console.log(commentIndex, card.Comments[commentIndex]);
+        if (card.Comments[commentIndex].User) {
+          card.Comments[commentIndex].User = await UserM.findById(
+            card.Comments[commentIndex].User
+          ).select("-password");
+        }
       }
     }
     res.send(reportCards);
   } catch (e) {
-    console.log(e);
     res.send(reportCards);
   }
 });

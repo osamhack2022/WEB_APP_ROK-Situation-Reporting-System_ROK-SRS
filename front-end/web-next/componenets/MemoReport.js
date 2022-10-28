@@ -34,7 +34,7 @@ function ReportList(props) {
   return (
     <List
       itemLayout="vertical"
-      dataSource={props.data}
+      dataSource={props.data.filter((data) => (data))}
       renderItem={(item, index) => (
         <List.Item key={index}>
           <ReportCard

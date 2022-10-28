@@ -198,7 +198,7 @@ export default function Memo() {
                     </Row>
                   )
                   : (
-                    selectedItem &&
+                    selectedItem !== undefined &&
                     <div className={Styles.contentMenu}>
                       <ReportLayout
                         header={
