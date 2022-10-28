@@ -1,19 +1,16 @@
 import {
   Avatar,
   List,
-  Skeleton,
   Button,
   Input,
   Upload,
   Image,
   TreeSelect,
   Form,
-  PageHeader,
-  Breadcrumb,
 } from "antd";
 import styles from "../../styles/unitsettings.module.css";
-import Link from "next/link";
 import unitlogo from "../../img/unitlogo.png";
+import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { getCookie } from "cookies-next";
 import { Convertrank } from '../../helperfunction/convertrank'
@@ -223,6 +220,9 @@ const UnitSettings = (props) => {
 
   return (
     <>
+    <Head>
+      <title>부대 설정</title>
+    </Head>
       <div className={styles.background}>
         <div className={styles.formarea}>
           <div className={styles.formarea1}>
@@ -303,25 +303,23 @@ const UnitSettings = (props) => {
           <br></br>
           <div className={styles.formarea2}>
             <div className={styles.userlist}>
-              <h1>유저 목록</h1>
+              <h1>군인 목록</h1>
               <div className={styles.userlistcontainer}>
               <List
                 itemLayout="horizontal"
                 dataSource={unitUsers}
                 renderItem={item => (
                   <List.Item style = {{cursor: 'pointer'}}>
-                    <Link href = {`/home/${item._id}`}>
                       <List.Item.Meta
                         avatar={<Avatar src={item.pic}/>}
                         title={Convertrank(item.Rank) + " " + item.Name}
                         description={'초대코드: ' + item.Invcode}/>
-                        </Link>
                   </List.Item>)}/>
               </div>
             </div>
 
             <Form className={styles.adduser} onFinish={submitnewuser}>
-              <h1>유저 추가</h1>
+              <h1>군인 추가</h1>
               <h3>군번</h3>
               <Form.Item name="DoDID" rules={[{ required: true }]}>
                 <Input

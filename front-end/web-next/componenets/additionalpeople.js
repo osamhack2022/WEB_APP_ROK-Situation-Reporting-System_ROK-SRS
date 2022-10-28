@@ -140,7 +140,7 @@ const Addperson = ({
                     key={item._id}
                     value={"" + Convertrank(item.Rank) + " " + item.Name}
                   >
-                    {"" + Convertrank(item.Rank) + " " + item.Name}
+                    {item.Role + " " + Convertrank(item.Rank) + " " + item.Name}
                   </Select.Option>
                 )
             )}

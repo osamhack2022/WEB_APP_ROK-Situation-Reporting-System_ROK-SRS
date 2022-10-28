@@ -44,11 +44,6 @@ function MenuLayout(props) {
       label: <span className={styles.menuLabel}>메세지</span>,
     },
     {
-      key: "notifications",
-      icon: <AiOutlineBell className={styles.menuIcon} />,
-      label: <span className={styles.menuLabel}>알림</span>,
-    },
-    {
       key: "settings",
       icon: <AiOutlineSetting className={styles.menuIcon} />,
       label: <span className={styles.menuLabel}>설정</span>,

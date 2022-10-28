@@ -102,7 +102,7 @@ const Settings = (props) => {
   };
   return <>
     <Head>
-      <title>유저 설정</title>
+      <title>군인정보 설정</title>
     </Head>
     <div className={styles.background}>
       <div style={{ display: 'flex' }}>
