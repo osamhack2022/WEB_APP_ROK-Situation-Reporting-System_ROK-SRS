@@ -16,14 +16,13 @@ export function SentReportScreen() {
   const [reports, setReports] = useState([])
 
   const getReportHandler = async () => {
-    const res = await getReportApi()
-    setReports(res.filter((report) => report.User._id === userMe._id))
+    const res = await getReportApi({ sender: userMe._id })
+    setReports(res)
   }
 
   useEffect(() => {
     getReportHandler()
   }, [isFocused])
-
 
   return (
     <SafeAreaView style={styles.container}>

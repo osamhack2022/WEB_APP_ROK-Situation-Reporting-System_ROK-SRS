@@ -16,8 +16,8 @@ export function RecdReportScreen() {
   const [reports, setReports] = useState([])
 
   const getReportHandler = async () => {
-    const res = await getReportApi()
-    setReports(res.filter((report) => report.Invited.includes(userMe._id)))
+    const res = await getReportApi({ receiver: userMe._id })
+    setReports(res)
   }
 
   useEffect(() => {

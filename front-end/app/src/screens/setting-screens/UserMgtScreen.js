@@ -1,49 +1,73 @@
 import React, { useState, useEffect } from 'react'
-import { FAB, Avatar, Colors } from 'react-native-paper'
+import { FAB, Avatar, Colors, List } from 'react-native-paper'
 //prettier-ignore
 import { SafeAreaView, StyleSheet, TouchableOpacity, ScrollView, Text, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import searchUserApi from '../../apis/user/searchUserApi'
+import { useRecoilState } from 'recoil'
+import { userState } from '../../states'
+import getAllUsersApi from '../../apis/user/getAllUsersApi'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
-
-const Item = ({ Name, Rank, pic, Position }) => (
-  <View style={styles.item}>
-    <Avatar.Image soruce={{ uri: pic }} size={30} style={styles.image} />
-    <Text style={styles.text}>{Rank}</Text>
-    <Text style={styles.text}>{Name}</Text>
-    <Text style={styles.text}>{Position}</Text>
-    <TouchableOpacity style={{ flex: 1, alignItems: 'flex-end' }}>
-      <Text style={styles.btnText}>Delete</Text>
-    </TouchableOpacity>
-  </View>
-)
+import { convertRank } from '../../helperfunctions/convertRank'
 
 export function UserMgtScreen() {
   let [fontsLoaded] = useNunitoFonts()
-
-  const [data, setData] = useState([])
-  useEffect(() => {
-    const fetchUserHandler = async () => {
-      setData([...(await searchUserApi({ index: 1 }))])
-    }
-    fetchUserHandler()
-  }, [])
-
   const navigation = useNavigation()
+  const [userMe, setUserMe] = useRecoilState(userState)
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    const getAllUsersHandler = async () => {
+      const res = await getAllUsersApi(userMe.Unit)
+      setUsers(res)
+    }
+    getAllUsersHandler()
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.view}>
-        {data &&
-          data.map((user, idx) => (
-            <Item
-              Name={user.Name}
-              Rank={user.Rank}
-              pic={user.pic}
-              Position={user.Position}
-              key={idx}
-            />
-          ))}
+        <List.Section>
+          {users &&
+            users.map((user) => (
+              <List.Item
+                title={`${convertRank(user.Rank)} ${user.Name}`}
+                description={`초대코드: ${user.Invcode}`}
+                left={() => (
+                  <Avatar.Image
+                    source={{ uri: user.pic || dftPic }}
+                    size={40}
+                    style={{
+                      alignSelf: 'center',
+                      marginLeft: 15,
+                      marginRight: 5,
+                      backgroundColor: Colors.grey400,
+                    }}
+                  />
+                )}
+                right={() => (
+                  <TouchableOpacity style={{ flex: 1, alignItems: 'flex-end' }}>
+                    <Text style={styles.btnText}>Delete</Text>
+                  </TouchableOpacity>
+                )}
+                style={{
+                  borderBottomWidth: 1,
+                  borderBottomColor: Colors.grey200,
+                  padding: 0,
+                  paddingVertical: 3,
+                }}
+                titleStyle={{
+                  fontSize: 15,
+                  fontFamily: 'NunitoSans_400Regular',
+                }}
+                descriptionStyle={{
+                  fontSize: 12,
+                  fontFamily: 'NunitoSans_300Light',
+                  color: Colors.grey800,
+                }}
+                key={user._id}
+              />
+            ))}
+        </List.Section>
       </ScrollView>
       <FAB
         icon="account-plus"
@@ -64,7 +88,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   view: {
-    width: '90%',
+    width: '100%',
   },
   item: {
     width: '100%',
@@ -89,7 +113,6 @@ export const styles = StyleSheet.create({
   },
   text: {
     fontFamily: 'NunitoSans_400Regular',
-    marginRight: 4,
   },
   posText: {
     fontFamily: 'NunitoSans_400Regular',
@@ -98,6 +121,7 @@ export const styles = StyleSheet.create({
   btnText: {
     fontFamily: 'NunitoSans_400Regular',
     color: Colors.red400,
-    marginRight: 5,
+    marginRight: 15,
+    marginTop: 15,
   },
 })

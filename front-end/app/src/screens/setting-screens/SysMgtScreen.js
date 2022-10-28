@@ -60,6 +60,7 @@ export function SysMgtScreen() {
     })
     await getAllReportsysHandler()
   }
+  console.log(userMe.Unit)
 
   const removeReportsysHandler = async ({ _id }) => {
     const res = await removeReportsysApi({ _id, Unit: userMe.Unit })
@@ -220,7 +221,7 @@ export function SysMgtScreen() {
                   Title={sys.Title}
                   List={sys.List}
                   key={sys._id}
-                  style={{ width: '80%' }}
+                  style={{ width: '80%', padding: 5 }}
                 />
                 <IconButton
                   icon="circle-edit-outline"

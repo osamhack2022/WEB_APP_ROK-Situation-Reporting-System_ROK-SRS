@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 // prettier-ignore
 import { SafeAreaView, View, StyleSheet, ScrollView, Alert } from 'react-native'
 import { Colors, TextInput, IconButton } from 'react-native-paper'
@@ -11,48 +11,54 @@ import { MyButton } from '../../components/MyButton'
 import { useNavigation } from '@react-navigation/native'
 import { Profile } from '../../components/Profile'
 import searchUserApi from '../../apis/user/searchUserApi'
+import getUserByIdApi from '../../apis/user/getUserByIdApi'
 import addReportApi from '../../apis/report/addReportApi'
-import DATA from '../../data/procData'
+import getReportsysApi from '../../apis/report-sys/getReportsysApi'
 import { window } from '../../constants/layout'
+import { convertRank } from '../../helperfunctions/convertRank'
 
 export function CreateReportScreen() {
   let [fontsLoaded] = useNunitoFonts()
-
   const navigation = useNavigation()
 
   const [userMe, setUserMe] = useRecoilState(userState)
 
-  const [query, setQuery] = useState('')
-  const [Invited, setInvited] = useState([])
-
-  const onRemove = (_id) => {
-    console.log(Invited)
-    setInvited(Invited.filter((user) => user._id !== _id))
-  }
-
   const [TypeOpen, setTypeOpen] = useState(false)
   const [Type, setType] = useState('')
   const [TypeItem, setTypeItem] = useState([
-    { label: '긴급사항', value: 'emergency' },
-    { label: '보고사항', value: 'report' },
-    { label: '지시사항', value: 'order' },
+    { label: '기밀사항', value: '기밀사항' },
+    { label: '보고사항', value: '보고사항' },
+    { label: '지시사항', value: '지시사항' },
   ])
 
   const [groupOpen, setGroupOpen] = useState(false)
   const [groups, setGroups] = useState([])
-  const [groupItem, setGroupItem] = useState([
-    { label: '당직계통', value: 'onDuty' },
-    { label: '본부중대', value: 'headquarter' },
-  ])
+  const [groupItem, setGroupItem] = useState([])
+
+  const [users, setUsers] = useState([])
+  const [Invited, setInvited] = useState([])
+  const [userOpen, setUserOpen] = useState(false)
+  const [userItem, setUserItem] = useState([])
 
   const [Title, setTitle] = useState('')
   const [text, setText] = useState('')
 
   const plusRef = useRef(null)
 
-  const getOneUserHandler = async () => {
+  const onRemove = (_id) => {
+    console.log(Invited)
+    setInvited(Invited.filter((user) => user._id !== _id))
+  }
+
+  const searchUserHandler = async (query) => {
     const res = await searchUserApi({ query })
-    setInvited([...Invited, res[0]])
+    setUserItem(
+      res.map((user) => ({
+        ...user,
+        label: `${convertRank(user.Rank)} ${user.Name}`,
+        value: user._id,
+      }))
+    )
   }
 
   const addReportHandler = async () => {
@@ -71,6 +77,31 @@ export function CreateReportScreen() {
       Alert.alert(res.message)
     }
   }
+
+  console.log(users)
+
+  useEffect(() => {
+    const getReportsysHanlder = async () => {
+      const res = await getReportsysApi(userMe.Unit)
+      setGroupItem(
+        res.map((reportsys) => ({
+          ...reportsys,
+          label: reportsys.Title,
+          value: reportsys.Title,
+        }))
+      )
+    }
+    getReportsysHanlder()
+  }, [])
+
+  useEffect(() => {
+    const getUserByIdHandler = async (userid) => {
+      const res = await getUserByIdApi({ _id: userid })
+      setInvited([...Invited, res])
+    }
+    console.log(users)
+    // if (users) getUserByIdHandler(users.at(-1))
+  }, [users])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -95,7 +126,6 @@ export function CreateReportScreen() {
             items={TypeItem}
             setOpen={setTypeOpen}
             setValue={setType}
-            setItems={setTypeItem}
             style={styles.dropDown}
             zIndex={5001}
             textStyle={{
@@ -113,51 +143,53 @@ export function CreateReportScreen() {
             items={groupItem}
             setOpen={setGroupOpen}
             setValue={setGroups}
-            setItems={setGroupItem}
+            style={[styles.dropDown, { marginBottom: 30 }]}
+            textStyle={{
+              fontSize: 16,
+              color: groups.length ? Colors.black : Colors.grey600,
+              marginLeft: 7,
+            }}
+            zIndex={5002}
+          />
+        </View>
+        <View style={{ width: '85%' }}>
+          {groupItem.map((reportsys) => {
+            if (groups.includes(reportsys.value)) {
+              return (
+                <ReportGroup Title={reportsys.Title} List={reportsys.List} />
+              )
+            }
+          })}
+        </View>
+        <View style={{ width: '88%' }}>
+          <DropDownPicker
+            searchable={true}
+            placeholder="추가보고"
+            multiple={true}
+            multipleText={`${users.length}명 선택됨`}
+            open={userOpen}
+            value={users}
+            setValue={setUsers}
+            items={userItem}
+            setOpen={setUserOpen}
             style={[styles.dropDown, { marginBottom: 15 }]}
             textStyle={{
               fontSize: 16,
               color: groups.length ? Colors.black : Colors.grey600,
               marginLeft: 7,
             }}
+            disableLocalSearch={true}
+            onChangeSearchText={(query) => {
+              searchUserHandler(query)
+            }}
           />
         </View>
-        <View style={{ width: '85%' }}>
-          {groups.includes('onDuty') && (
-            <ReportGroup List={DATA.onDuty} Title="onDuty" />
-          )}
-          {groups.includes('headquarter') && (
-            <ReportGroup List={DATA.headquarter} Title="headquarter" />
-          )}
-        </View>
-        <TextInput
-          label="추가 보고"
-          dense={true}
-          style={[styles.textInput, { marginBottom: 15 }]}
-          onChangeText={(query) => setQuery(query)}
-          ref={plusRef}
-          right={
-            <TextInput.Icon
-              icon="plus"
-              color={query ? '#009975' : Colors.grey500}
-              size={25}
-              style={{ marginTop: 15 }}
-              onPress={() => {
-                getOneUserHandler()
-                plusRef.current.blur()
-              }}
-              forceTextInputFocus={false}
-            />
-          }
-          onSubmitEditing={() => getOneUserHandler()}
-          activeUnderlineColor="#008275"
-        />
         <ScrollView
           horizontal={true}
           style={styles.scrollView}
           showsHorizontalScrollIndicator={false}
         >
-          {Invited.map((user) => (
+          {/* {Invited.map((user) => (
             <Profile
               Rank={user.Rank}
               name={user.Name}
@@ -174,7 +206,7 @@ export function CreateReportScreen() {
                 />
               }
             />
-          ))}
+          ))} */}
         </ScrollView>
         <TextInput
           label="내용"
@@ -207,6 +239,7 @@ const styles = StyleSheet.create({
   view: {
     width: '100%',
     alignItems: 'center',
+    paddingBottom: 100,
   },
   scrollView: {
     width: '85%',

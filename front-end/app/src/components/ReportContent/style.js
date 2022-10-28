@@ -41,12 +41,11 @@ export const styles = StyleSheet.create({
   seqView: {
     flex: 1,
     alignItems: 'flex-start',
-    marginTop: 10,
+    justifyContent: 'flex-end',
   },
   seqText: {
-    paddingTop: 2,
     fontFamily: 'NunitoSans_400Regular',
-    fontSize: 12,
+    fontSize: 13,
     color: Colors.grey800,
   },
   buttonView: {

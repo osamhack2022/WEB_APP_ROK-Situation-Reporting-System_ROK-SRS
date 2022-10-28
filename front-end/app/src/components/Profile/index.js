@@ -9,7 +9,7 @@ export function Profile(props) {
   return (
     <View style={[styles.avatarView, props.style]}>
       <Avatar.Image
-        source={props.source || require('../../assets/images/avatar.png')}
+        source={props.source}
         size={props.size || 45}
         style={styles.avatarImg}
       />

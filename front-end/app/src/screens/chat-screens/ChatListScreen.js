@@ -58,6 +58,7 @@ export function ChatListScreen() {
                   users={chat.users}
                   chatid={chat.chatid}
                   key={chat.chatid}
+                  severity={chat.severity}
                 />
               )
           )}
