@@ -63,18 +63,18 @@
 
 <table>
 	<tr>
-		<td align='center' text-align="center" font-size="18px">데이터베이스 객체 암호와 </td>
-	</tr>
-	<tr>
 		<td align='center'>
-		<img src="https://i.ibb.co/M2cbbWx/Symmetric-Encryption-1.png" />
+			<img src="https://i.ibb.co/M2cbbWx/Symmetric-Encryption-1.png" />
 		</td>
 	</tr>
 	<tr>
-	<td align='center' style = "text-align: center">
-	대칭 암호화 체계를 이용해 데이터베이스 객체의 모든 항목을 암호화합니다. <br>
-	암호화 키값은 키값 저장소에 안전하게 저장됩니다. 
-	</td>
+		<td align='center'><b>데이터베이스 객체 암호화</b></td>
+	</tr>
+	<tr>
+		<td align='center' style = "text-align: center">
+		대칭 암호화 체계를 이용해 데이터베이스 객체의 모든 항목을 암호화합니다. <br>
+		암호화 키값은 키값 저장소에 안전하게 저장됩니다. 
+		</td>
 	</tr>
 </table>
 
