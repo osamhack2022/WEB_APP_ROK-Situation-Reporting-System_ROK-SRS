@@ -64,10 +64,12 @@ function LinkedUser(props) {
 
 const ReportSystem = (props) => {
   const [systemList, setSystemList] = useState([]);
+  const [isListLoaded, setListLoaded] = useState(false);
   const [formOpen, setFormOpen] = useState(false);
   const [formData, setFormData] = useState({});
 
   const refreshSystem = useCallback(() => {
+    setListLoaded(false);
     fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + "api/reportsys", {
       method: "GET",
       headers: {
@@ -76,11 +78,14 @@ const ReportSystem = (props) => {
       },
     })
       .then((response) => {
-        if (response.status == 200) return response.json();
+        if (response.status == 200) {
+          setListLoaded(true);
+          return response.json();
+        }
         return [];
       })
       .then((data) => setSystemList(data));
-  }, [setSystemList]);
+  }, [setListLoaded, setSystemList]);
 
   useEffect(() => {
     refreshSystem();
@@ -128,50 +133,63 @@ const ReportSystem = (props) => {
         <title>보고체계 설정</title>
       </Head>
       <div>
-        {systemList.length === 0 ? (
-          <Row className={Styles.spinSkeleton} align="middle" justify="center">
-            <Col>
-              <Spin size="large" />
-            </Col>
-          </Row>
-        ) : (
-          <div className={Styles.scrollableView}>
-            <List
-              className={Styles.systemLayout}
-              itemLayout="vertical"
-              dataSource={systemList}
-              renderItem={(item) => (
-                <List.Item>
-                  <Row className={Styles.systemTitle} gutter={5}>
-                    <Col>{item.Title}</Col>
-                    <Col>
-                      <Button
-                        className={Styles.formButton}
-                        icon={<EditOutlined style={{ fontSize: "12pt" }} />}
-                        shape="circle"
-                        onClick={() => {
-                          setFormData(item);
-                          setFormOpen(true);
-                        }}
-                      />
-                    </Col>
-                    <Col>
-                      <Button
-                        className={Styles.formButton}
-                        icon={<CloseOutlined style={{ fontSize: "12pt" }} />}
-                        shape="circle"
-                        onClick={() => {
-                          removeSystem(item._id);
-                        }}
-                      />
-                    </Col>
-                  </Row>
-                  <LinkedUser title={item.Title} list={item.List} />
-                </List.Item>
-              )}
-            />
-          </div>
-        )}
+        {
+          !isListLoaded
+            ? (
+              <Row className={Styles.spinSkeleton} align="middle" justify="center">
+                <Col>
+                  <Spin size="large" />
+                </Col>
+              </Row>
+            )
+            :
+            systemList.length === 0
+              ? (
+                <Row className={Styles.spinSkeleton} align="middle" justify="center">
+                  <Col>
+                    <p className={Styles.failedText}>{'설정된 보고체계가 없습니다.\n우측 상단의 버튼을 눌러 새 보고체계를 생성하십시오.'}</p>
+                  </Col>
+                </Row>
+              )
+              : (
+                <div className={Styles.scrollableView}>
+                  <List
+                    className={Styles.systemLayout}
+                    itemLayout="vertical"
+                    dataSource={systemList}
+                    renderItem={(item) => (
+                      <List.Item>
+                        <Row className={Styles.systemTitle} gutter={5}>
+                          <Col>{item.Title}</Col>
+                          <Col>
+                            <Button
+                              className={Styles.formButton}
+                              icon={<EditOutlined style={{ fontSize: "12pt" }} />}
+                              shape="circle"
+                              onClick={() => {
+                                setFormData(item);
+                                setFormOpen(true);
+                              }}
+                            />
+                          </Col>
+                          <Col>
+                            <Button
+                              className={Styles.formButton}
+                              icon={<CloseOutlined style={{ fontSize: "12pt" }} />}
+                              shape="circle"
+                              onClick={() => {
+                                removeSystem(item._id);
+                              }}
+                            />
+                          </Col>
+                        </Row>
+                        <LinkedUser title={item.Title} list={item.List} />
+                      </List.Item>
+                    )}
+                  />
+                </div>
+              )
+        }
         <ReportSystemForm
           isOpen={formOpen}
           data={formData}

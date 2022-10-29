@@ -24,7 +24,6 @@ const getReportCard = asyncHandler(async (req, res) => {
   try {
     for (const card of reportCards) {
       card.User = await UserM.findById(card.User).select("-password");
-      console.log(card);
       for (const systemIndex in card.ReportingSystem) {
         card.ReportingSystem[systemIndex] = await Reportsys.findById(
           card.ReportingSystem[systemIndex]
@@ -34,15 +33,15 @@ const getReportCard = asyncHandler(async (req, res) => {
         card.Comments[commentIndex] = await Comment.findById(
           card.Comments[commentIndex]
         );
-        card.Comments[commentIndex].User = await UserM.findById(
-          card.Comments[commentIndex].User
-        ).select("-password");
-        console.log(commentIndex, card.Comments[commentIndex]);
+        if (card.Comments[commentIndex].User) {
+          card.Comments[commentIndex].User = await UserM.findById(
+            card.Comments[commentIndex].User
+          ).select("-password");
+        }
       }
     }
     res.send(reportCards);
   } catch (e) {
-    console.log(e);
     res.send(reportCards);
   }
 });
@@ -111,7 +110,34 @@ const addReportCard = asyncHandler(async (req, res) => {
   }
 });
 
+//@description     Set the report to be resolved
+//@route           PUT /api/report
+//@access          Protected
+const resolveReport = asyncHandler(async (req, res) => {
+  const { reportId } = req.body;
+
+  if (!reportId) {
+    res.status(400);
+    throw new Error("모든 정보를 입력하세요.");
+  }
+
+  const report = await Report.findByIdAndUpdate(
+    reportId, {
+      Status: 'Resolved'
+    }
+  )
+
+  if(report) {
+    res.status(200).send(report);
+  }
+  else {
+    res.status(400);
+    throw new Error('메모보고를 수정할 수 없습니다.');
+  }
+});
+
 module.exports = {
   addReportCard,
   getReportCard,
+  resolveReport
 };

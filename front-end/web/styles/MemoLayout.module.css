@@ -103,6 +103,12 @@
   height: 100%;
 }
 
+.failedText {
+  font-size: 16pt;
+  font-weight: bold;
+  text-align: center;
+}
+
 .severityLevel1 {
   color: green;
 }
