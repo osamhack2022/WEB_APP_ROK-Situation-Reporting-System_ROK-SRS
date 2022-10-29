@@ -117,8 +117,8 @@ export default function Home() {
           <div className={styles.horizontalline}></div>
           <button className={styles.buttonfielddemo} onClick={submitofficer}>대대장 계정으로 로그인</button>
           <span className={styles.desctext}>수방사 제1방공대대 대대장 중령 김기철의 계정 채험하기!</span> <br></br>
-          <button className={styles.buttonfielddemo}>용사 계정으로 로그인</button>
-          <span className={styles.desctext} onClick={submitsoldier}>수방사 제1방공대대에서 근무중인 상병 김형민의 계정 채험하기!</span> <br></br>
+          <button className={styles.buttonfielddemo} onClick={submitsoldier}>용사 계정으로 로그인</button>
+          <span className={styles.desctext}>수방사 제1방공대대에서 근무중인 상병 김형민의 계정 채험하기!</span> <br></br>
         </div>
       </NotLoggedinLayout>
     </>
