@@ -1,5 +1,5 @@
 import Chatsidebar from "../componenets/Chatsidebar";
-import { Avatar, Form, Select, Input } from "antd";
+import { Avatar, Form, Select, Input, Spin } from "antd";
 import styles from "../styles/chatpage.module.css";
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
@@ -12,11 +12,10 @@ import {
 } from "react-firebase-hooks/firestore";
 import { orderBy } from "firebase/firestore";
 import { db } from "../firebaseauth";
+import Head from 'next/head'
 
 export function getServerSideProps({ req, res }) {
   const JWTtoken = req.cookies["usercookie"];
-
-  console.log(JWTtoken);
   if (!JWTtoken)
     return {
       redirect: `{
@@ -57,7 +56,7 @@ function Page({ userId }) {
   );
 
   const [snapshot, loading, error] = useCollection(collection(db, "chats"));
-  if (!snapshot) return <div>Loading...</div>;
+  if (!snapshot) return <><div style = {{display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center'}}><Spin size="large" /></div></>;
 
   let chatdata = null;
   for (let i = 0; i < snapshot.docs.length; i++) {
@@ -67,7 +66,6 @@ function Page({ userId }) {
   }
 
   let submitnewmessage = async (values) => {
-    console.log(values);
     let chattype = values.type;
     let message = values.message;
     if (!message) {
@@ -154,6 +152,9 @@ function Page({ userId }) {
   }
   return (
     <>
+    <Head>
+      <title>메세지</title>
+    </Head>
       <Chatsidebar userId={userId} snapshot={snapshot}>
         {id && (
           <div className={styles.container}>

@@ -50,7 +50,7 @@
 
 #error {
   color: red; 
-  font-size: 14px; 
+  font-size: 12px; 
   margin-left: 15px;
   line-height: 33px; 
   margin-top: 4px;
@@ -59,7 +59,7 @@
 
 #success {
   color: green; 
-  font-size: 14px; 
+  font-size: 12px; 
   line-height: 33px; 
   margin-top: 4px;
   margin-bottom: 0px;

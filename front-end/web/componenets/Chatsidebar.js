@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import { db } from "../firebaseauth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, addDoc } from "@firebase/firestore";
-import { decodeJwt } from "jose";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { BsFillChatFill } from "react-icons/bs";

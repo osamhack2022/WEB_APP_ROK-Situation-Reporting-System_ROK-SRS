@@ -12,6 +12,7 @@ import {
 import { getCookie } from "cookies-next";
 import ReportSystemForm from "../../componenets/ReportingSystemForm";
 import Styles from "../../styles/reportSystem.module.css";
+import { Convertrank } from '../../helperfunction/convertrank'
 
 function UserNode(props) {
   return (
@@ -21,7 +22,7 @@ function UserNode(props) {
       </Col>
       <Col>
         <div>
-          {props.rank} {props.name}
+          {Convertrank(props.rank)} {props.name}
         </div>
         <div>{props.position}</div>
       </Col>

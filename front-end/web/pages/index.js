@@ -69,7 +69,6 @@ export default function Home() {
         </Form>
         <div id={styles.loginfooter}>
           <span className={styles.descfield}>계정이 없으세요? </span><Link href="/register" passHref><a className={styles.links}>회원가입하기</a></Link> <br></br>
-          <span className={styles.descfield}>비밀번호를 잃어버리셨나요? </span><Link href="/forgotpass" passHref><a className={styles.links}>비밀번호 찾기</a></Link>
         </div>
         <div id={styles.demofooter}>
           <h1 id={styles.demofooterh2}>프로젝트 데모</h1>

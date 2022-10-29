@@ -31,13 +31,6 @@ const RankData = [
 ];
 
 
-let submituserimg = async (event) => {
-  console.log('hi')
-}
-
-let submitnewpassword = async (event) => {
-  console.log('pass')
-}
 
 const Settings = (props) => {
   let userprops = props['data'][0]
@@ -48,6 +41,7 @@ const Settings = (props) => {
   const [Armymail, setArmymail] = useState(userprops.email);
   const [Armyphone, setArmyphone] = useState(userprops.milNumber);
   const [Phone, setPhone] = useState(userprops.number);
+  const [uploadedprofilepic, setuploadedprofilelogo] = useState("none")
   let submitnewuser = async (event) => {
     let endpoint = backendroot + 'api/user/updateweb'
     const data = {
@@ -77,10 +71,20 @@ const Settings = (props) => {
     } else {
       seterror1(result['message'])
     }
-    console.log(result)
+  }
+  let submituserimg = async (event) => {
+    console.log(uploadedprofilepic.fileList)
+    if (uploadedprofilepic.fileList == null) {
+      seterror2("업로드된 사진이 없습니다")
+    } else {
+      seterror2("데모에서 사진을 바꾸실 수 없습니다.")
+    }
+  }
+  
+  let submitnewpassword = async (event) => {
+    console.log('pass')
   }
 
-  const [uploadedprofilelogo, setuploadedprofilelogo] = useState("none")
 
   const [currpassword, setcurrpassword] = useState("none")
   const [newpassword1, setnewpassword1] = useState("none")
@@ -165,8 +169,8 @@ const Settings = (props) => {
                 </Upload.Dragger>
                 <Form.Item>
                   <button className={styles.submitbutton} style={{ margin: 'auto', marginTop: '10px' }} type="primary">프로필사진 변경</button>
-                  <p id={styles.error2}>error</p>
-                  <p id={styles.success2}></p>
+                  <p id={styles.error2}>{error2}</p>
+                  <p id={styles.success2}>{success2}</p>
                 </Form.Item>
               </div>
             </div>

@@ -39,9 +39,6 @@ async function onSearch(value) {
 
 
 const Home = (props) => {
-    // console.log(encryptuser("test", "test"))
-    // console.log(encryptchat("test", "test", "test"))
-    console.log(props)
     let props1 = props['data'][0]
     let props2 = props['data2'][0]
     const [unitUsers, setUnitUsers] = useState([]);
@@ -106,7 +103,7 @@ const Home = (props) => {
                 <div className={style.mainarea}>
                     <div className={style.infocontainer}>
                         <span className={style.rank}>{Convertrank(props1.Rank)}</span> <span className={style.name}>{props1.Name}</span> <br />
-                        <span className={style.role}>정보통신운용장교</span>
+                        <span className={style.role}>{props1.Role || "no data"}</span>
                         <Descriptions title="군인 정보" layout="vertical" style={{ marginTop: '20px' }}>
                             <Descriptions.Item label="군번">{props1.DoDID || "no data"}</Descriptions.Item>
                             <Descriptions.Item label="직책">{props1.Role || "no data"}</Descriptions.Item>

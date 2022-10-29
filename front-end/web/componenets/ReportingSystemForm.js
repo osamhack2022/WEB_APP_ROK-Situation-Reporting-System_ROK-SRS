@@ -2,7 +2,10 @@ import { useState, useCallback, useEffect } from 'react';
 import { Modal, Select, Button, Input, Row, Col } from 'antd';
 import { PlusOutlined, DownOutlined, MinusOutlined } from '@ant-design/icons'
 import { getCookie } from 'cookies-next';
+import Router from "next/router";
 import styles from '../styles/ReportSystemForm.module.css';
+import { Convertrank } from '../helperfunction/convertrank'
+
 
 function UserSelector(props) {
   const [selectedUser, selectUser] = useState(undefined);
@@ -59,7 +62,7 @@ function UserSelector(props) {
       {userList?.map((item) => (
         item._id &&
         <Select.Option key={item._id} value={'' + item.Rank + ' ' + item.Name}>
-          {'' + item.Rank + ' ' + item.Name}
+          {item.Role + ' ' + Convertrank(item.Rank) + ' ' + item.Name}
         </Select.Option>
       ))}
     </Select>
@@ -133,6 +136,7 @@ function ReportSystemForm(props) {
     })
       .then(res => console.log(res))
       .catch(err => console.log(err))
+      Router.reload();
   }, []);
 
   return (

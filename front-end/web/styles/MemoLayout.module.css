@@ -78,6 +78,7 @@
 .siderMenuTitle {
   font-size: 14pt;
   font-weight: bold;
+  display: flex;
 }
 
 .siderMenuContent {
@@ -106,4 +107,25 @@
   font-size: 16pt;
   font-weight: bold;
   text-align: center;
+}
+
+.severityLevel1 {
+  color: green;
+}
+
+.severityLevel2 {
+  color: darkorange;
+}
+
+.severityLevel3 {
+  color: pink;
+}
+
+.severityLevel4 {
+  color: rgb(230, 92, 92);
+
+}
+
+.severityLevel5 {
+  color: red;
 }

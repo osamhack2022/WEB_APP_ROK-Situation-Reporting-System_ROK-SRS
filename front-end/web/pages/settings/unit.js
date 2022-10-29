@@ -162,6 +162,18 @@ const UnitSettings = (props) => {
     };
     const response = await fetch(endpoint, options);
     const result = await response.json();
+    fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + 'api/user/unit', {
+        'method': 'GET',
+        'headers': {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie('usercookie')}`
+        }
+    })
+        .then(response => {
+            if (response.status == 200)
+                return response.json()
+        })
+        .then(data => setUnitUsers(data));
     if (result["Invcode"]) {
       seterror3("");
       setsuccess3("성공");
@@ -203,8 +215,6 @@ const UnitSettings = (props) => {
 
   };
   let submitlogo = async (event) => {
-    console.log(event.target);
-    console.log(uploadedunitlogo);
     if (uploadedunitlogo == "none" || uploadedunitlogo.fileList.length == 0) {
       seterror2("사진이 없습니다.")
 

@@ -1,8 +1,9 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { Avatar, Button, List, Row, Col, Divider, Input } from "antd";
 import { getCookie } from "cookies-next";
 import koreanTimeFormat from "../helperfunction/koreanDateFormat";
 import Styles from "../styles/MemoReport.module.css";
+import { Convertrank } from "../helperfunction/convertrank";
 
 function ReportCard(props) {
   return (
@@ -17,7 +18,7 @@ function ReportCard(props) {
               <div className={Styles.cardName}>
                 {/* for comment */}
                 {props.type ? '[' + props.type + '] ' : ''}
-                {props.name} {props.rank}
+                {Convertrank(props.rank)} {props.name}
               </div>
               <div className={Styles.cardPosition}>{props.position}</div>
             </Col>
@@ -56,24 +57,36 @@ function ReportList(props) {
 }
 
 function ReportLayout(props) {
+  const selectedItem = props.selectedItem;
+  const setMemoRenderList = props.setMemoRenderList;
   const [commentContent, setCommentContent] = useState("");
   const [commentType, setCommentType] = useState(0);
-
+  const bottomOfChat = useRef();
+  
   const commentTypes = ['보고', '지시', '긴급'];
   const commentTypeStyle = useCallback(
     (type) => {
       switch (type) {
         case 0:
           return ({ backgroundColor: '#16a34a' });
-        case 1:
-          return ({ backgroundColor: '#fb923c' });
-        case 2:
-          return ({ backgroundColor: '#dc2626' });
-      }
-    },
+          case 1:
+            return ({ backgroundColor: '#fb923c' });
+            case 2:
+              return ({ backgroundColor: '#dc2626' });
+            }
+          },
+          []
+          );
+          
+  const scrollToBottom = useCallback(
+    () =>
+      bottomOfChat.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      }),
     []
   );
-
+  
   const submitComment = useCallback(
     (type, content) => {
       const submitData = {
@@ -90,14 +103,26 @@ function ReportLayout(props) {
           Authorization: `Bearer ${getCookie("usercookie")}`,
         },
         body: JSON.stringify(submitData),
-      }).then((res) => {
+      }).then(async (res) => {
         if (res.status === 200 || res.status === 201) {
+          const data = await res.json();
+          setMemoRenderList((prev) => {
+            const modifyData = {
+              ...prev[selectedItem],
+              Comments: [...prev[selectedItem].Comments, data],
+            };
+            return [
+              ...prev.slice(0, selectedItem),
+              modifyData,
+              ...prev.slice(selectedItem + 1),
+            ];
+          });
           setCommentContent("");
+          scrollToBottom();
         }
-        props.onRefresh();
       });
     },
-    [props.id, props.onRefresh]
+    [props.id]
   );
 
   function ButtonGroup() {
@@ -132,6 +157,7 @@ function ReportLayout(props) {
               <ReportList data={props.comment} />
             </div>
           )}
+          <div ref={bottomOfChat} />
         </Col>
       </Row>
       <div className={Styles.memoFooterGroup}>
