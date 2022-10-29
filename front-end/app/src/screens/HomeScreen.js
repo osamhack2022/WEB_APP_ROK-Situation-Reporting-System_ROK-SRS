@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     color: Colors.grey600,
   },
   img: {
-    backgroundColor: Colors.green200,
+    backgroundColor: Colors.grey400,
     marginBottom: 5,
     width: 70,
     height: 70,

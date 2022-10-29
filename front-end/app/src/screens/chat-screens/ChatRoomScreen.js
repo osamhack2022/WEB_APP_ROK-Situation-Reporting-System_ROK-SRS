@@ -19,6 +19,7 @@ import {
 } from 'firebase/firestore'
 import { db } from '../../config/firebase'
 import { convertRank } from '../../helperfunctions/convertRank'
+import { convertChatType } from '../../helperfunctions/convertChatType'
 
 const imgUrl =
   'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
@@ -37,9 +38,9 @@ export function ChatRoomScreen({ route }) {
   const [open, setOpen] = useState(false)
   const [chatType, setChatType] = useState('regular')
   const [typeItem, setTypeItem] = useState([
-    { label: '보고', value: '보고사항' },
-    { label: '지시', value: '지시사항' },
-    { label: '기밀', value: '기밀사항' },
+    { label: '보고', value: 'report' },
+    { label: '지시', value: 'order' },
+    { label: '기밀', value: 'secret' },
     { label: '일반', value: 'regular' },
   ])
 
@@ -54,7 +55,7 @@ export function ChatRoomScreen({ route }) {
         querySnapshot.docs.map((doc) => ({
           _id: doc.id,
           createdAt: new Date(doc.data().timestamp.toDate()),
-          text: `[${doc.data().type}] ${doc.data().text}`,
+          text: `[${convertChatType(doc.data().type)}] ${doc.data().text}`,
           user: {
             _id: doc.data().sender,
             name: doc.data().name,
@@ -131,7 +132,7 @@ export function ChatRoomScreen({ route }) {
     </List.Section>
   )
 
-  const onSend = useCallback((messages = []) => {
+  const onSend = useCallback(async (messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     )
@@ -147,6 +148,7 @@ export function ChatRoomScreen({ route }) {
       recentmsg: text,
       rectime: new Date(createdAt),
     })
+    console.log(await getScore(text))
   }, [])
 
   const renderBubble = (props) => (

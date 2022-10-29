@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     height: 45,
     borderRadius: 15,
     marginRight: 13,
-    backgroundColor: Colors.green200,
+    backgroundColor: Colors.grey400,
   },
   username: {
     fontSize: 14,

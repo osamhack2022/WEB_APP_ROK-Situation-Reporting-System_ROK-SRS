@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 // prettier-ignore
-import { ScrollView, SafeAreaView, StyleSheet } from 'react-native'
+import { ScrollView, SafeAreaView, StyleSheet, Text } from 'react-native'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
@@ -17,6 +17,8 @@ export function ChatListScreen() {
   const isFocused = useIsFocused()
   const [searchQuery, setSearchQuery] = useState('')
   const [chats, setChats] = useState([])
+
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const collectionRef = collection(db, 'chats')
@@ -35,6 +37,7 @@ export function ChatListScreen() {
         }))
       )
     })
+    setLoading(false)
     return () => unsubscribe()
   }, [isFocused])
 
@@ -46,13 +49,13 @@ export function ChatListScreen() {
           value={searchQuery}
           setQuery={setSearchQuery}
         />
-        {!chats ? (
+        {loading ? (
           <ActivityIndicator
             size={45}
             style={{ marginTop: 250 }}
             color={Colors.green500}
           />
-        ) : (
+        ) : chats[0] ? (
           chats.map(
             (chat) =>
               chat.users.includes(userMe._id) && (
@@ -68,6 +71,10 @@ export function ChatListScreen() {
                 />
               )
           )
+        ) : (
+          <Text style={{ marginTop: 250, fontSize: 16, alignSelf: 'center' }}>
+            생성된 채팅방이 없습니다
+          </Text>
         )}
       </ScrollView>
       <FAB

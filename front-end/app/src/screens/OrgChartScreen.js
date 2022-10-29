@@ -15,6 +15,8 @@ const dftPic =
 export function OrgChartScreen() {
   let [fontsLoaded] = useNunitoFonts()
 
+  const [loading, setLoading] = useState(true)
+
   const [userMe, setUserMe] = useRecoilState(userState)
   const [modalData, setModalData] = useState({ visible: false })
   const [users, setUsers] = useState([])
@@ -43,6 +45,7 @@ export function OrgChartScreen() {
       setUsers(res)
     }
     getAllUsersHandler()
+    setLoading(false)
   }, [])
 
   return (
@@ -51,7 +54,7 @@ export function OrgChartScreen() {
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View style={{ width: '100%' }}>
             <List.Section>
-              {!users ? (
+              {loading ? (
                 <ActivityIndicator
                   size={45}
                   style={{ marginTop: 275 }}
@@ -70,7 +73,7 @@ export function OrgChartScreen() {
                           alignSelf: 'center',
                           marginLeft: 15,
                           marginRight: 5,
-                          backgroundColor: Colors.green200,
+                          backgroundColor: Colors.grey400,
                         }}
                       />
                     )}

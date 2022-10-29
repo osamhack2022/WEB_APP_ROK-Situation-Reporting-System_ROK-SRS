@@ -151,7 +151,7 @@ export function CreateReportScreen() {
           <DropDownPicker
             loading={loading}
             searchable={true}
-            placeholder="추가보고"
+            placeholder="추가 보고"
             multiple={true}
             multipleText={`${Invited.length}명 선택됨`}
             open={userOpen}
@@ -214,14 +214,13 @@ export function CreateReportScreen() {
           value={text}
           activeUnderlineColor="#008275"
         ></TextInput>
-        {Type && groups && text && (
-          <MyButton
-            text="보 고 하 기"
-            onPress={() => {
-              addReportHandler()
-            }}
-          />
-        )}
+        <MyButton
+          text="보 고 하 기"
+          onPress={() => {
+            addReportHandler()
+          }}
+          style={{ marginTop: 30 }}
+        />
       </ScrollView>
     </SafeAreaView>
   )

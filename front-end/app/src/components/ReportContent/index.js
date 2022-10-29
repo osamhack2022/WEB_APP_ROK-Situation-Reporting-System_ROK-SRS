@@ -25,7 +25,7 @@ export function ReportContent(props) {
       </View>
       <View style={styles.contView}>
         <View style={styles.seqView}>
-          {props.ReportingSystem &&
+          {props.ReportingSystem[0] &&
             props.ReportingSystem.map((reportsys) => (
               <Text style={styles.seqText}>{reportsys.Title}</Text>
             ))}
