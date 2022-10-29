@@ -52,6 +52,24 @@
 
 <a id = "features"></a>
 ## 📖기능 설명
+
+###🔒암호와 기능
+<table>
+	<tr>
+		<td style = "font-weight: bold; text-align: center; font-size: 18px;">데이터베이스 객체 암호와 </td>
+	</tr>
+	<tr>
+		<td>
+		<img src="https://i.ibb.co/2gHWKVj/Symmetric-Encryption.png" />
+		</td>
+	</tr>
+	<tr>
+	<td style = "text-align: center">대칭 암호화 체계를 이용해 데이터베이스 객체의 모든 항목을 암호화합니다. 
+	암호화 키값은 키값 저장소에 안전하게 저장됩니다. 
+</td>
+	</tr>
+</table>
+
  - 설명 기입
 
 <a id = "requirements"></a>
