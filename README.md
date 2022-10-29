@@ -78,6 +78,25 @@
 	</tr>
 </table>
 
+<table>
+	<tr>
+		<td align='center'>
+			<img src="https://i.ibb.co/TLxbnph/Blank-diagram.png" />
+		</td>
+	</tr>
+	<tr>
+		<td align='center'><b>통신 암호화</b></td>
+	</tr>
+	<tr>
+		<td align='center' style = "text-align: center">
+		비대칭 암호화 체계를 이용해 군인들이 주고받는 메세지와 메모보고를 암호화합니다. <br>
+		군인의 공개키값으로 키를 암호와시킨후, 군인의 비공개키값으로 키를 해독 할 수 있습니다. <br>
+		암호화 키값은 키값 저장소에 안전하게 저장됩니다. 
+		</td>
+	</tr>
+</table>
+
+
 - 설명 기입
 
 <a id = "requirements"></a>
