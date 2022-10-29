@@ -24,9 +24,11 @@ export default function Memo() {
   const [memoFilter, setMemoFilter] = useState("");
   const [formOpened, setFormOpened] = useState(false);
   const [memoRenderList, setMemoRenderList] = useState([]);
+  const [isMemoLoaded, setMemoLoaded] = useState(false);
 
   useEffect(() => {
     setMemoRenderList([]);
+    setMemoLoaded(false);
     setSelection(undefined);
     if (memonoteType === "receiveMemo") {
       fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + "api/report?receiver=true", {
@@ -37,7 +39,10 @@ export default function Memo() {
         },
       })
         .then((response) => {
-          if (response.status == 200) return response.json();
+          if (response.status == 200) {
+            setMemoLoaded(true);
+            return response.json();
+          }
         })
         .then((data) => setMemoRenderList(data));
     } else if (memonoteType === "sendMemo") {
@@ -49,7 +54,10 @@ export default function Memo() {
         },
       })
         .then((response) => {
-          if (response.status == 200) return response.json();
+          if (response.status == 200) {
+            setMemoLoaded(true);
+            return response.json();
+          }
         })
         .then((data) => setMemoRenderList(data));
     }
@@ -208,7 +216,7 @@ export default function Memo() {
           </div>
         </Layout.Sider>
         <Layout.Content className={Styles.contentLayout}>
-          {memoRenderList.length === 0 ? (
+          {!isMemoLoaded ? (
             <Row
               className={Styles.spinSkeleton}
               align="middle"
@@ -219,39 +227,53 @@ export default function Memo() {
               </Col>
             </Row>
           ) : (
-            selectedItem !== undefined && (
-              <div className={Styles.contentMenu}>
-                <ReportLayout
-                  header={
-                    <Header
-                      title={memoRenderList[selectedItem].Title}
-                      type={memoRenderList[selectedItem].Type}
-                      level={memoRenderList[selectedItem].Severity}
-                      datetime={memoRenderList[selectedItem].createdAt}
-                      status={memoRenderList[selectedItem].Status}
-                    />
-                  }
-                  footer={
-                    <Footer
-                      reportingSystem={
-                        memoRenderList[selectedItem].ReportingSystem
+            memoRenderList.length === 0 ? (
+              <Row
+                className={Styles.spinSkeleton}
+                align="middle"
+                justify="center"
+              >
+                <Col>
+                  <p className={Styles.failedText}>
+                    현재 {(memonoteType === 'sendMemo') ? '보낸' : '받은'} 메모가 없습니다.
+                  </p>
+                </Col>
+              </Row>
+            ) : (
+                selectedItem !== undefined && (
+                  <div className={Styles.contentMenu}>
+                    <ReportLayout
+                      header={
+                        <Header
+                          title={memoRenderList[selectedItem].Title}
+                          type={memoRenderList[selectedItem].Type}
+                          level={memoRenderList[selectedItem].Severity}
+                          datetime={memoRenderList[selectedItem].createdAt}
+                          status={memoRenderList[selectedItem].Status}
+                        />
                       }
+                      footer={
+                        <Footer
+                          reportingSystem={
+                            memoRenderList[selectedItem].ReportingSystem
+                          }
+                        />
+                      }
+                      height="710px"
+                      id={memoRenderList[selectedItem]._id}
+                      pic={memoRenderList[selectedItem].User?.pic}
+                      name={memoRenderList[selectedItem].User?.Name}
+                      rank={memoRenderList[selectedItem].User?.Rank}
+                      position={memoRenderList[selectedItem].User?.Position}
+                      memo={memoRenderList[selectedItem].Content}
+                      datetime={memoRenderList[selectedItem].createdAt}
+                      comment={memoRenderList[selectedItem].Comments}
+                      selectedItem={selectedItem}
+                      setMemoRenderList={setMemoRenderList}
                     />
-                  }
-                  height="710px"
-                  id={memoRenderList[selectedItem]._id}
-                  pic={memoRenderList[selectedItem].User?.pic}
-                  name={memoRenderList[selectedItem].User?.Name}
-                  rank={memoRenderList[selectedItem].User?.Rank}
-                  position={memoRenderList[selectedItem].User?.Position}
-                  memo={memoRenderList[selectedItem].Content}
-                  datetime={memoRenderList[selectedItem].createdAt}
-                  comment={memoRenderList[selectedItem].Comments}
-                  selectedItem={selectedItem}
-                  setMemoRenderList={setMemoRenderList}
-                />
-              </div>
-            )
+                  </div>
+                )
+              )
           )}
         </Layout.Content>
       </Layout>
