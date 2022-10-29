@@ -218,6 +218,7 @@ function Page({ userId }) {
                 </Form.Item>
                 <Form.Item name="message" style={{ flex: "1" }}>
                   <Input
+                    allowClear 
                     id="message"
                     name="message"
                     placeholder="메세지를 입력해주세요"
