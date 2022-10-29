@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     fontFamily: 'NunitoSans_700Bold',
   },
   avatarImg: {
-    backgroundColor: Colors.grey400,
+    backgroundColor: Colors.grey300,
   },
   position: {
     fontSize: 12,

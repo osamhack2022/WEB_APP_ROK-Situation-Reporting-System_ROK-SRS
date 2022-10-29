@@ -12,7 +12,9 @@ export function UserCard(props) {
       <Text style={styles.title}>
         {props.rank} {props.name}
       </Text>
-      <Text style={styles.text}>{props.position}</Text>
+      <Text style={styles.text} numberOfLines={1} ellipsizeMode="clip">
+        {props.position}
+      </Text>
       {props.right}
     </View>
   )

@@ -9,7 +9,6 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 10,
   },
   left: {
     backgroundColor: Colors.white,

@@ -3,8 +3,8 @@ import { ReportListItem } from '../../components/ReportListItem'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states'
 // prettier-ignore
-import { SafeAreaView, StyleSheet, ScrollView } from 'react-native'
-import { Colors, FAB } from 'react-native-paper'
+import { SafeAreaView, StyleSheet, ScrollView, Text } from 'react-native'
+import { Colors, FAB, ActivityIndicator } from 'react-native-paper'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import getReportApi from '../../apis/report/getReportApi'
 
@@ -12,12 +12,14 @@ export function RecdReportScreen() {
   const navigation = useNavigation()
   const isFocused = useIsFocused()
 
+  const [loading, setLoading] = useState(true)
   const [userMe, setUserMe] = useRecoilState(userState)
   const [reports, setReports] = useState([])
 
   const getReportHandler = async () => {
-    const res = await getReportApi()
-    setReports(res.filter((report) => report.Invited.includes(userMe._id)))
+    const res = await getReportApi({ receiver: userMe._id })
+    setReports(res)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -30,7 +32,13 @@ export function RecdReportScreen() {
         contentContainerStyle={styles.scrollView}
         scrollEnabled={true}
       >
-        {reports[0] &&
+        {loading ? (
+          <ActivityIndicator
+            size={45}
+            style={{ marginTop: 300 }}
+            color={Colors.green500}
+          />
+        ) : reports[0] ? (
           reports.map((report) => (
             <ReportListItem
               Title={report.Title}
@@ -45,7 +53,12 @@ export function RecdReportScreen() {
               User={report.User}
               key={report._id}
             />
-          ))}
+          ))
+        ) : (
+          <Text style={{ marginTop: 300, fontSize: 16 }}>
+            받은 메모보고가 없습니다
+          </Text>
+        )}
       </ScrollView>
       {reports && (
         <FAB

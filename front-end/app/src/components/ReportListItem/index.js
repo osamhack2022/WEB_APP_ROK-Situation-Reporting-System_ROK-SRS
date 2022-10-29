@@ -5,6 +5,8 @@ import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import moment from 'moment'
 import { useNavigation } from '@react-navigation/native'
 import { styles } from './style'
+import { matchSeverityColor } from '../../helperfunctions/matchSeverityColor'
+import { convertRank } from '../../helperfunctions/convertRank'
 
 export function ReportListItem(props) {
   const {
@@ -79,11 +81,15 @@ export function ReportListItem(props) {
           numberOfLines={4}
           ellipsizeMode="tail"
         >
-          {Content}
+          [{convertRank(User.Rank) + ' ' + User.Name}] {Content}
         </Paragraph>
         <View style={styles.flexRowEnd}>
           <Text style={styles.severityText}>중요도:</Text>
-          <Text style={styles.severity}>{Severity}</Text>
+          <Text
+            style={[styles.severity, { color: matchSeverityColor(Severity) }]}
+          >
+            {Severity}
+          </Text>
           <Text style={styles.date}>{date && date}</Text>
         </View>
       </Card.Content>
