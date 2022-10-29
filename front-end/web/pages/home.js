@@ -89,7 +89,7 @@ const Home = (props) => {
         <div style={{ display: 'flex' }}>
             <div className={style.leftbar}>
                 <div className={style.user}>
-                    <Image width={180} height={180} src="https://camo.githubusercontent.com/3c2bd3f35721dc332ebf2b11ace89722c37a0f60b94eac42b2a0462fdeb2d420/68747470733a2f2f63646e2d69636f6e732d706e672e666c617469636f6e2e636f6d2f3531322f363134322f363134323232362e706e67" />
+                    <Image width={180} height={180} src={props1.pic} />
                 </div>
                 <div className={style.unit}>
                     <div className={style.orgunit}>{props2.Unitname || "no data"}</div>

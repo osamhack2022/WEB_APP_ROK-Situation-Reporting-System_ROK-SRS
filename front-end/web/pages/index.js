@@ -45,6 +45,48 @@ export default function Home() {
       }
     }
   }
+  let submitofficer = async (event) => {
+    const data = {
+      DoDID: '21-0000',
+      password: 'master1234'
+    }
+    const JSONdata = JSON.stringify(data)
+    const options = {
+      // The method is POST because we are sending data.
+      method: 'POST',
+      // Tell the server we're sending JSON.
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // Body of the request is the JSON data we created above.
+      body: JSONdata,
+    }
+    const response = await fetch(endpoint, options)
+    const result = await response.json()
+    setCookie('usercookie', result.token)
+    router.push('/home')
+  }
+  let submitsoldier = async (event) => {
+    const data = {
+      DoDID: '21-1000',
+      password: 'master1234'
+    }
+    const JSONdata = JSON.stringify(data)
+    const options = {
+      // The method is POST because we are sending data.
+      method: 'POST',
+      // Tell the server we're sending JSON.
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // Body of the request is the JSON data we created above.
+      body: JSONdata,
+    }
+    const response = await fetch(endpoint, options)
+    const result = await response.json()
+    setCookie('usercookie', result.token)
+    router.push('/home')
+  }
   return (
     <>
       <Head>
@@ -73,10 +115,10 @@ export default function Home() {
         <div id={styles.demofooter}>
           <h1 id={styles.demofooterh2}>프로젝트 데모</h1>
           <div className={styles.horizontalline}></div>
-          <button className={styles.buttonfielddemo}>대대장 계정으로 로그인</button>
-          <span className={styles.desctext}>수방사 제1방공여단 3대대 대대장 중령 김기철의 계정 채험하기!</span> <br></br>
+          <button className={styles.buttonfielddemo} onClick={submitofficer}>대대장 계정으로 로그인</button>
+          <span className={styles.desctext}>수방사 제1방공대대 대대장 중령 김기철의 계정 채험하기!</span> <br></br>
           <button className={styles.buttonfielddemo}>용사 계정으로 로그인</button>
-          <span className={styles.desctext}>수방 제1방공여단 3대대에서 근무중인 상병 김형민의 계정 채험하기!</span> <br></br>
+          <span className={styles.desctext} onClick={submitsoldier}>수방사 제1방공대대에서 근무중인 상병 김형민의 계정 채험하기!</span> <br></br>
         </div>
       </NotLoggedinLayout>
     </>

@@ -82,7 +82,7 @@ const Settings = (props) => {
   }
   
   let submitnewpassword = async (event) => {
-    console.log('pass')
+    seterror3("데모에서 비밀번호를 바꾸실 수 없습니다.")
   }
 
 
@@ -202,7 +202,7 @@ const Settings = (props) => {
           <Form.Item>
             <div style={{ display: 'flex' }}>
               <button className={styles.submitbutton} type="primary">비밀번호 변경</button>
-              <p id={styles.error1}>{error3}fd</p>
+              <p id={styles.error1}>{error3}</p>
               <p id={styles.success1}>{success3}</p>
             </div>
           </Form.Item>
