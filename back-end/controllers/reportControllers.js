@@ -110,7 +110,34 @@ const addReportCard = asyncHandler(async (req, res) => {
   }
 });
 
+//@description     Set the report to be resolved
+//@route           PUT /api/report
+//@access          Protected
+const resolveReport = asyncHandler(async (req, res) => {
+  const { reportId } = req.body;
+
+  if (!reportId) {
+    res.status(400);
+    throw new Error("모든 정보를 입력하세요.");
+  }
+
+  const report = await Report.findByIdAndUpdate(
+    reportId, {
+      Status: 'Resolved'
+    }
+  )
+
+  if(report) {
+    res.status(200).send(report);
+  }
+  else {
+    res.status(400);
+    throw new Error('메모보고를 수정할 수 없습니다.');
+  }
+});
+
 module.exports = {
   addReportCard,
   getReportCard,
+  resolveReport
 };

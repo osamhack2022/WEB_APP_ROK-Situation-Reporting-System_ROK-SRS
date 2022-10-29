@@ -125,10 +125,38 @@ function ReportLayout(props) {
     [props.id]
   );
 
+  const resolveReport = useCallback(
+    () => {
+      fetch(process.env.NEXT_PUBLIC_BACKEND_ROOT + "api/report/", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: `Bearer ${getCookie("usercookie")}`,
+        },
+        body: JSON.stringify({reportId: props.id})
+      }).then(() => {
+        setMemoRenderList((prevList) => {
+          return [
+            ...prevList.slice(0, selectedItem),
+            { ...prevList[selectedItem], Status: 'Resolved' },
+            ...prevList.slice(selectedItem + 1),
+          ];
+        });
+      })
+    },
+    [props.id]
+  )
+
   function ButtonGroup() {
     return (
       <div>
-        <Button type="primary" size="large" danger>
+        <Button
+        type="primary"
+        size="large"
+        danger
+        onClick={resolveReport}
+        >
           종결하기
         </Button>
         <Button size="large">상급보고</Button>
