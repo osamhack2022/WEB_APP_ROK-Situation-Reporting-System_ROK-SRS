@@ -107,20 +107,18 @@ export function UserAddScreen() {
         <View style={styles.guideTextView}>
           <GuideText guideText={``} />
         </View>
-        {DoDID && Rank && Name && AccountType && Position && (
-          <MyButton
-            text="사용자 추가"
-            onPress={() =>
-              addUserHandler({
-                Rank,
-                Name,
-                DoDID,
-                Type: AccountType,
-                Position,
-              })
-            }
-          />
-        )}
+        <MyButton
+          text="사용자 추가"
+          onPress={() =>
+            addUserHandler({
+              Rank,
+              Name,
+              DoDID,
+              Type: AccountType,
+              Position,
+            })
+          }
+        />
       </ScrollView>
     </SafeAreaView>
   )

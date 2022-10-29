@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil'
 import { userState } from '../../states'
 // prettier-ignore
 import { SafeAreaView, StyleSheet, ScrollView } from 'react-native'
-import { Colors, FAB } from 'react-native-paper'
+import { Colors, FAB, ActivityIndicator } from 'react-native-paper'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
 import getReportApi from '../../apis/report/getReportApi'
 
@@ -30,7 +30,13 @@ export function RecdReportScreen() {
         contentContainerStyle={styles.scrollView}
         scrollEnabled={true}
       >
-        {reports[0] &&
+        {!reports[0] ? (
+          <ActivityIndicator
+            size={45}
+            style={{ marginTop: 300 }}
+            color={Colors.green500}
+          />
+        ) : (
           reports.map((report) => (
             <ReportListItem
               Title={report.Title}
@@ -45,7 +51,8 @@ export function RecdReportScreen() {
               User={report.User}
               key={report._id}
             />
-          ))}
+          ))
+        )}
       </ScrollView>
       {reports && (
         <FAB

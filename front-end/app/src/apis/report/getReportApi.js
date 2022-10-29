@@ -2,7 +2,6 @@ import asyncStorage from '@react-native-async-storage/async-storage'
 import Constants from 'expo-constants'
 
 const getReportApi = async ({ sender, receiver }) => {
-  console.log(sender)
   const endpoint = sender
     ? `api/report?sender=${sender}`
     : `api/report?receiver=${receiver}`

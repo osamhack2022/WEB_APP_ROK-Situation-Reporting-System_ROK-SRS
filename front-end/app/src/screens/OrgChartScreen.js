@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 // prettier-ignore
 import { SafeAreaView, StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native'
 // prettier-ignore
-import { Portal, Modal, Avatar, Provider, Colors, List } from 'react-native-paper'
+import { Portal, Modal, Avatar, Provider, Colors, List, ActivityIndicator } from 'react-native-paper'
 import { useRecoilState } from 'recoil'
 import { userState } from '../states'
 import { useNunitoFonts } from '../hooks/useNunitoFonts'
@@ -51,7 +51,13 @@ export function OrgChartScreen() {
         <ScrollView contentContainerStyle={styles.scrollView}>
           <View style={{ width: '100%' }}>
             <List.Section>
-              {users &&
+              {!users ? (
+                <ActivityIndicator
+                  size={45}
+                  style={{ marginTop: 275 }}
+                  color={Colors.green500}
+                />
+              ) : (
                 users.map((user) => (
                   <List.Item
                     title={`${convertRank(user.Rank)} ${user.Name}`}
@@ -64,7 +70,7 @@ export function OrgChartScreen() {
                           alignSelf: 'center',
                           marginLeft: 15,
                           marginRight: 5,
-                          backgroundColor: Colors.grey400,
+                          backgroundColor: Colors.green200,
                         }}
                       />
                     )}
@@ -116,7 +122,8 @@ export function OrgChartScreen() {
                       })
                     }
                   />
-                ))}
+                ))
+              )}
             </List.Section>
           </View>
           <Portal>
@@ -210,7 +217,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   img: {
-    backgroundColor: Colors.grey400,
+    backgroundColor: Colors.green200,
     marginBottom: 5,
   },
   btnText: {

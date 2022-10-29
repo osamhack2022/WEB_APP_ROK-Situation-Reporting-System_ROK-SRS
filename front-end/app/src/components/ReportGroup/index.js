@@ -3,6 +3,7 @@ import { FlatList, Text, Image, View } from 'react-native'
 import { styles } from './style'
 import { useNunitoFonts } from '../../hooks/useNunitoFonts'
 import { UserCard } from '../UserCard'
+import { convertRank } from '../../helperfunctions/convertRank'
 
 const dftPic =
   'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
@@ -16,10 +17,10 @@ const ItemSeparator = () => (
 
 const renderItem = ({ item, props }) => (
   <UserCard
-    rank={item.rank}
-    name={item.name}
-    position={item.position}
-    source={item.source || { uri: dftPic }}
+    rank={convertRank(item.Rank)}
+    name={item.Name}
+    position={item.Role}
+    source={{ uri: item.pic || dftPic }}
     style={props.cardStyle}
   />
 )

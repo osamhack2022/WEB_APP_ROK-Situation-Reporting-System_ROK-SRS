@@ -25,9 +25,10 @@ export function ReportContent(props) {
       </View>
       <View style={styles.contView}>
         <View style={styles.seqView}>
-          <Text style={styles.seqText}>
-            보고체계: {props.ReportingSystem && props.ReportingSystem.Title}
-          </Text>
+          {props.ReportingSystem &&
+            props.ReportingSystem.map((reportsys) => (
+              <Text style={styles.seqText}>{reportsys.Title}</Text>
+            ))}
         </View>
         <View style={styles.buttonView}>
           <Button

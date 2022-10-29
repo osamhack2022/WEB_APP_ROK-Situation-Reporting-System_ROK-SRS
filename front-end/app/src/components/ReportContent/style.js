@@ -35,6 +35,8 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   contView: {
+    paddingTop: 20,
+
     width: '100%',
     flexDirection: 'row',
   },
@@ -46,7 +48,7 @@ export const styles = StyleSheet.create({
   seqText: {
     fontFamily: 'NunitoSans_400Regular',
     fontSize: 13,
-    color: Colors.grey800,
+    color: Colors.grey600,
   },
   buttonView: {
     marginTop: 15,

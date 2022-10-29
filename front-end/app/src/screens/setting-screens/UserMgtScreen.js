@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FAB, Avatar, Colors, List } from 'react-native-paper'
 //prettier-ignore
 import { SafeAreaView, StyleSheet, TouchableOpacity, ScrollView, Text, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states'
 import getAllUsersApi from '../../apis/user/getAllUsersApi'
@@ -11,6 +11,7 @@ import { convertRank } from '../../helperfunctions/convertRank'
 
 export function UserMgtScreen() {
   let [fontsLoaded] = useNunitoFonts()
+  const isFocused = useIsFocused()
   const navigation = useNavigation()
   const [userMe, setUserMe] = useRecoilState(userState)
   const [users, setUsers] = useState([])
@@ -21,7 +22,7 @@ export function UserMgtScreen() {
       setUsers(res)
     }
     getAllUsersHandler()
-  }, [])
+  }, [isFocused])
 
   return (
     <SafeAreaView style={styles.container}>

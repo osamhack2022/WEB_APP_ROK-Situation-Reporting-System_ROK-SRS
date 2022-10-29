@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
 // prettier-ignore
 import { SafeAreaView, ScrollView, StyleSheet, View, Text, Image, Alert } from 'react-native'
 //prettier-ignore
-import { Colors, FAB, Provider, Modal, Portal, TextInput, IconButton } from 'react-native-paper'
+import { Colors, FAB, Provider, Modal, Portal, TextInput, IconButton, ActivityIndicator } from 'react-native-paper'
 import { UserCard } from '../../components/UserCard'
 import { ReportGroup } from '../../components/ReportGroup'
 import getReportsysApi from '../../apis/report-sys/getReportsysApi'
@@ -12,7 +12,9 @@ import removeReportsysApi from '../../apis/report-sys/removeReportsysApi'
 import searchUserApi from '../../apis/user/searchUserApi'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
+import DropDownPicker from 'react-native-dropdown-picker'
 import { MyButton } from '../../components/MyButton'
+import { convertRank } from '../../helperfunctions/convertRank'
 
 const ItemSeparator = () => (
   <Image
@@ -30,19 +32,21 @@ export function SysMgtScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
   const [reportsys, setReportsys] = useState([])
   const [sysOnEdit, setSysOnEdit] = useState('')
-  const [query, setQuery] = useState('')
-  const [users, setUsers] = useState([])
+
   const [Title, setTitle] = useState('')
   const [modalType, setModalType] = useState('')
 
-  const [value, setValue] = useState('')
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [userOpen, setUserOpen] = useState(false)
+  const [userItem, setUserItem] = useState([])
 
   const [visible, setVisible] = useState(false)
   const showModal = () => setVisible(true)
   const hideModal = () => setVisible(false)
 
-  const getAllReportsysHandler = async () => {
-    const res = await getReportsysApi()
+  const getReportsysHandler = async () => {
+    const res = await getReportsysApi({ Unit: userMe.Unit })
     setReportsys(res)
   }
 
@@ -50,6 +54,7 @@ export function SysMgtScreen() {
     const res = await addReportsysApi({ Title, List: users, Unit: userMe.Unit })
     setReportsys([...reportsys, res])
     Alert.alert(`${Title} 보고체계가 추가되었습니다.`)
+    setVisible(false)
   }
 
   const editReportsysHandler = async () => {
@@ -58,35 +63,42 @@ export function SysMgtScreen() {
       List: users,
       Unit: userMe.Unit,
     })
-    await getAllReportsysHandler()
-  }
-  console.log(userMe.Unit)
-
-  const removeReportsysHandler = async ({ _id }) => {
-    const res = await removeReportsysApi({ _id, Unit: userMe.Unit })
-    if (res._id) {
-      Alert.alert('보고체계 삭제에 성공하였습니다.')
-    } else {
-      setReportsys(reportsys.filter((item) => item._id != _id))
-    }
+    await getReportsysHandler()
   }
 
-  const getOneUserHandler = async () => {
+  const removeReportsysHandler = async ({ Title, _id }) => {
+    Alert.alert('알림', `${Title} 보고체계를 삭제하시겠습니까?`, [
+      {
+        text: '삭제',
+        onPress: async () => {
+          const res = await removeReportsysApi({ _id, Unit: userMe.Unit })
+          setReportsys(reportsys.filter((item) => item._id != _id))
+          Alert.alert(`${Title} 보고체계를 삭제하였습니다.`)
+        },
+      },
+      {
+        text: '취소',
+      },
+    ])
+  }
+
+  const searchUserHandler = async (query) => {
     const res = await searchUserApi({ query })
-    if (!res[0].Rank) {
-      Alert.alert('사용자를 찾을 수 없습니다.')
-    } else {
-      setUsers([...users, res[0]])
-    }
+    setUserItem(
+      res.map((user) => ({
+        label: `${convertRank(user.Rank)} ${user.Name}`,
+        value: user,
+      }))
+    )
   }
 
   const onRemove = (_id) => {
     setUsers(users.filter((user) => user._id !== _id))
   }
 
-  useEffect(() => {
-    getAllReportsysHandler()
-  }, [])
+  useLayoutEffect(() => {
+    getReportsysHandler()
+  }, [reportsys])
 
   return (
     <Provider>
@@ -113,26 +125,36 @@ export function SysMgtScreen() {
                   style={styles.title}
                   onChangeText={(text) => setTitle(text)}
                 />
-                <TextInput
-                  label="보고 인원 추가"
-                  dense={true}
-                  style={[styles.textInput]}
-                  onChangeText={(query) => setQuery(query)}
-                  right={
-                    <TextInput.Icon
-                      icon="plus"
-                      color={query ? '#009975' : Colors.grey500}
-                      size={25}
-                      style={{ marginTop: 15 }}
-                      forceTextInputFocus={false}
-                      onPress={() => getOneUserHandler()}
-                    />
-                  }
-                  onSubmitEditing={() => {
-                    getOneUserHandler()
-                  }}
-                  activeUnderlineColor="#008275"
-                />
+                <View style={{ width: '88%' }}>
+                  <DropDownPicker
+                    loading={loading}
+                    searchable={true}
+                    placeholder="보고 인원 추가"
+                    multiple={true}
+                    multipleText={`${users.length}명 선택됨`}
+                    open={userOpen}
+                    value={users}
+                    setValue={setUsers}
+                    items={userItem}
+                    setOpen={setUserOpen}
+                    style={[styles.dropDown, { marginBottom: 15 }]}
+                    textStyle={{
+                      fontSize: 16,
+                      color: Colors.black,
+                      marginLeft: 7,
+                    }}
+                    disableLocalSearch={true}
+                    onChangeSearchText={(query) => {
+                      searchUserHandler(query)
+                      setLoading(true)
+                    }}
+                    dropDownDirection="TOP"
+                    listMode="SCROLLVIEW"
+                    scrollViewProps={{
+                      nestedScrollEnabled: true,
+                    }}
+                  />
+                </View>
                 <ScrollView
                   horizontal={true}
                   showsHorizontalScrollIndicator={false}
@@ -142,11 +164,12 @@ export function SysMgtScreen() {
                   {users.map((user) => (
                     <View style={{ flexDirection: 'row' }}>
                       <UserCard
-                        rank={user.Rank}
+                        rank={convertRank(user.Rank)}
                         name={user.Name}
-                        position={user.Position}
+                        position={user.Role}
                         style={{ paddingBottom: 0 }}
                         key={user._id}
+                        source={{ uri: user.pic }}
                         right={
                           <IconButton
                             mode="contained-tonal"
@@ -202,7 +225,13 @@ export function SysMgtScreen() {
           }}
           showsVerticalScrollIndicator={false}
         >
-          {reportsys &&
+          {!reportsys ? (
+            <ActivityIndicator
+              size={45}
+              style={{ marginTop: 300 }}
+              color={Colors.green500}
+            />
+          ) : (
             reportsys.map((sys) => (
               <View
                 style={{
@@ -239,10 +268,13 @@ export function SysMgtScreen() {
                   size={25}
                   style={styles.icon}
                   color={Colors.red700}
-                  onPress={() => removeReportsysHandler({ _id: sys._id })}
+                  onPress={() =>
+                    removeReportsysHandler({ Title: sys.Title, _id: sys._id })
+                  }
                 />
               </View>
-            ))}
+            ))
+          )}
         </ScrollView>
         <FAB
           icon="account-multiple-plus"
@@ -293,5 +325,13 @@ const styles = StyleSheet.create({
     bottom: 25,
     right: 25,
     backgroundColor: '#009572',
+  },
+  dropDown: {
+    width: '100%',
+    backgroundColor: 'white',
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderColor: Colors.grey400,
+    alignSelf: 'center',
   },
 })

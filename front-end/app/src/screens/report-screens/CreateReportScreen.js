@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 // prettier-ignore
 import { SafeAreaView, View, StyleSheet, ScrollView, Alert } from 'react-native'
 import { Colors, TextInput, IconButton } from 'react-native-paper'
@@ -11,7 +11,6 @@ import { MyButton } from '../../components/MyButton'
 import { useNavigation } from '@react-navigation/native'
 import { Profile } from '../../components/Profile'
 import searchUserApi from '../../apis/user/searchUserApi'
-import getUserByIdApi from '../../apis/user/getUserByIdApi'
 import addReportApi from '../../apis/report/addReportApi'
 import getReportsysApi from '../../apis/report-sys/getReportsysApi'
 import { window } from '../../constants/layout'
@@ -35,7 +34,8 @@ export function CreateReportScreen() {
   const [groups, setGroups] = useState([])
   const [groupItem, setGroupItem] = useState([])
 
-  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(false)
+
   const [Invited, setInvited] = useState([])
   const [userOpen, setUserOpen] = useState(false)
   const [userItem, setUserItem] = useState([])
@@ -43,10 +43,7 @@ export function CreateReportScreen() {
   const [Title, setTitle] = useState('')
   const [text, setText] = useState('')
 
-  const plusRef = useRef(null)
-
   const onRemove = (_id) => {
-    console.log(Invited)
     setInvited(Invited.filter((user) => user._id !== _id))
   }
 
@@ -54,9 +51,8 @@ export function CreateReportScreen() {
     const res = await searchUserApi({ query })
     setUserItem(
       res.map((user) => ({
-        ...user,
         label: `${convertRank(user.Rank)} ${user.Name}`,
-        value: user._id,
+        value: user,
       }))
     )
   }
@@ -64,7 +60,7 @@ export function CreateReportScreen() {
   const addReportHandler = async () => {
     const res = await addReportApi({
       Title,
-      ReportingSystem: '당직',
+      ReportingSystem: groups,
       Invited,
       Content: text,
       Type,
@@ -78,30 +74,18 @@ export function CreateReportScreen() {
     }
   }
 
-  console.log(users)
-
   useEffect(() => {
     const getReportsysHanlder = async () => {
-      const res = await getReportsysApi(userMe.Unit)
+      const res = await getReportsysApi({ Unit: userMe.Unit })
       setGroupItem(
         res.map((reportsys) => ({
-          ...reportsys,
           label: reportsys.Title,
-          value: reportsys.Title,
+          value: reportsys,
         }))
       )
     }
     getReportsysHanlder()
   }, [])
-
-  useEffect(() => {
-    const getUserByIdHandler = async (userid) => {
-      const res = await getUserByIdApi({ _id: userid })
-      setInvited([...Invited, res])
-    }
-    console.log(users)
-    // if (users) getUserByIdHandler(users.at(-1))
-  }, [users])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -127,7 +111,7 @@ export function CreateReportScreen() {
             setOpen={setTypeOpen}
             setValue={setType}
             style={styles.dropDown}
-            zIndex={5001}
+            zIndex={5003}
             textStyle={{
               fontSize: 16,
               color: Type ? Colors.black : Colors.grey600,
@@ -143,7 +127,7 @@ export function CreateReportScreen() {
             items={groupItem}
             setOpen={setGroupOpen}
             setValue={setGroups}
-            style={[styles.dropDown, { marginBottom: 30 }]}
+            style={[styles.dropDown, { marginBottom: 15 }]}
             textStyle={{
               fontSize: 16,
               color: groups.length ? Colors.black : Colors.grey600,
@@ -153,26 +137,32 @@ export function CreateReportScreen() {
           />
         </View>
         <View style={{ width: '85%' }}>
-          {groupItem.map((reportsys) => {
-            if (groups.includes(reportsys.value)) {
-              return (
-                <ReportGroup Title={reportsys.Title} List={reportsys.List} />
-              )
-            }
+          {groups.map((reportsys) => {
+            return (
+              <ReportGroup
+                Title={reportsys.Title}
+                List={reportsys.List}
+                style={{ marginBottom: 10 }}
+              />
+            )
           })}
         </View>
         <View style={{ width: '88%' }}>
           <DropDownPicker
+            loading={loading}
             searchable={true}
             placeholder="추가보고"
             multiple={true}
-            multipleText={`${users.length}명 선택됨`}
+            multipleText={`${Invited.length}명 선택됨`}
             open={userOpen}
-            value={users}
-            setValue={setUsers}
+            value={Invited}
+            setValue={setInvited}
             items={userItem}
             setOpen={setUserOpen}
-            style={[styles.dropDown, { marginBottom: 15 }]}
+            style={[
+              styles.dropDown,
+              { marginBottom: 15, marginTop: groups.length ? 0 : 15 },
+            ]}
             textStyle={{
               fontSize: 16,
               color: groups.length ? Colors.black : Colors.grey600,
@@ -181,6 +171,12 @@ export function CreateReportScreen() {
             disableLocalSearch={true}
             onChangeSearchText={(query) => {
               searchUserHandler(query)
+              setLoading(true)
+            }}
+            dropDownDirection="TOP"
+            listMode="SCROLLVIEW"
+            scrollViewProps={{
+              nestedScrollEnabled: true,
             }}
           />
         </View>
@@ -189,12 +185,13 @@ export function CreateReportScreen() {
           style={styles.scrollView}
           showsHorizontalScrollIndicator={false}
         >
-          {/* {Invited.map((user) => (
+          {Invited.map((user) => (
             <Profile
-              Rank={user.Rank}
+              Rank={convertRank(user.Rank)}
               name={user.Name}
-              Position={user.Position}
+              role={user.Role}
               style={styles.profile}
+              source={{ uri: user.pic }}
               key={user._id}
               right={
                 <IconButton
@@ -206,7 +203,7 @@ export function CreateReportScreen() {
                 />
               }
             />
-          ))} */}
+          ))}
         </ScrollView>
         <TextInput
           label="내용"

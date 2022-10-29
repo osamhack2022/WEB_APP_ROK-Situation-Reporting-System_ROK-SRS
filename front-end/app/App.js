@@ -1,5 +1,5 @@
 import React from 'react'
-import { StatusBar } from 'react-native'
+import { StatusBar, LogBox } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import MainNavigator from './src/navigation/MainNavigator'
 import 'moment/locale/ko'
@@ -9,6 +9,8 @@ import { Colors } from 'react-native-paper'
 import { RecoilRoot } from 'recoil'
 
 export default function App() {
+  LogBox.ignoreAllLogs() //Ignore all log notifications
+
   return (
     <NavigationContainer>
       <RecoilRoot>

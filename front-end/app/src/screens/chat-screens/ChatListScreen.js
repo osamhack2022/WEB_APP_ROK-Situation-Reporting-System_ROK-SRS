@@ -4,7 +4,7 @@ import { ScrollView, SafeAreaView, StyleSheet } from 'react-native'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
-import { Colors, FAB } from 'react-native-paper'
+import { Colors, FAB, ActivityIndicator } from 'react-native-paper'
 import { ChatListItem } from '../../components/ChatListItem'
 import { Searchbar } from '../../components/Searchbar'
 import { collection, orderBy, query, onSnapshot } from 'firebase/firestore'
@@ -46,7 +46,13 @@ export function ChatListScreen() {
           value={searchQuery}
           setQuery={setSearchQuery}
         />
-        {chats &&
+        {!chats ? (
+          <ActivityIndicator
+            size={45}
+            style={{ marginTop: 250 }}
+            color={Colors.green500}
+          />
+        ) : (
           chats.map(
             (chat) =>
               chat.users.includes(userMe._id) && (
@@ -61,7 +67,8 @@ export function ChatListScreen() {
                   severity={chat.severity}
                 />
               )
-          )}
+          )
+        )}
       </ScrollView>
       <FAB
         icon="message-plus"

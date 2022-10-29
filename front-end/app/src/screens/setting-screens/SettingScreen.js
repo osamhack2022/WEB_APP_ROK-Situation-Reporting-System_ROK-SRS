@@ -100,6 +100,7 @@ export function SettingScreen() {
           title="문의하기"
           left={() => <List.Icon icon="email-outline" />}
           style={styles.listItem}
+          onPress={() => Alert.alert('gudmin0526@gmail.com으로 메일주세요.')}
         />
       </ScrollView>
     </SafeAreaView>

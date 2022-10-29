@@ -10,7 +10,6 @@ import { Colors } from 'react-native-paper'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
 import addCommentApi from '../../apis/report/addCommentApi'
-import getReportsysApi from '../../apis/report-sys/getReportsysApi'
 import { convertRank } from '../../helperfunctions/convertRank'
 
 export function ReportScreen({ route }) {
@@ -28,13 +27,10 @@ export function ReportScreen({ route }) {
 
   const earlierComments = route.params.Comments
 
-  console.log(earlierComments)
-
   const [userMe, setUserMe] = useRecoilState(userState)
 
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState(earlierComments)
-  const [reportsys, setReportsys] = useState(null)
   const [open, setOpen] = useState(false)
   const [commentType, setCommentType] = useState('')
   const [typeItem, setTypeItem] = useState([
@@ -57,7 +53,7 @@ export function ReportScreen({ route }) {
       />
       <ReportContent
         Content={Content}
-        ReportingSystem={reportsys}
+        ReportingSystem={ReportingSystem}
         Invited={Invited}
         User={User}
       />
@@ -91,18 +87,8 @@ export function ReportScreen({ route }) {
   )
 
   const addCommentHandler = async ({ Type, Content, Title, _id }) => {
-    console.log({ Type, Content, Title, _id })
     const res = await addCommentApi({ Type, Content, Title, _id })
-    console.log(res)
   }
-
-  useEffect(() => {
-    const getReportsysHandler = async () => {
-      const res = await getReportsysApi(ReportingSystem)
-      setReportsys(res[0])
-    }
-    getReportsysHandler()
-  })
 
   return (
     <SafeAreaView style={styles.container}>
