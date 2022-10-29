@@ -13,12 +13,13 @@ const addComment = asyncHandler(async (req, res) => {
     throw new Error("모든 정보를 입력하세요.");
   }
 
-  const comment = await Comment.create({
+  let comment = await Comment.create({
     User: req.user._id,
     Type,
     Content,
     Report: ReportId,
   });
+  comment = await comment.populate('User').execPopulate()
 
   const editReport = await ReportM.findByIdAndUpdate(
     ReportId,
