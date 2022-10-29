@@ -15,7 +15,7 @@ const router = express.Router();
 router.route("/").post(onlyAdmin, addUnit);
 router.route("/").put(onlyAdmin, updateUnit);
 router.route("/logo").put(onlyAdmin, updateLogo);
-router.route("/get").get(onlyAdmin, getUnit);
+router.route("/get").get(protect, getUnit);
 
 
 module.exports = router;
