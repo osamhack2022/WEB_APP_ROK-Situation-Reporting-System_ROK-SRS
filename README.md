@@ -119,7 +119,8 @@
 
 ### Backend
 
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![Firebase](https://img.shields.io/badge/firebase-2C384A?style=for-the-badge&logo=firebase&logoColor=FFCA28)
+
 
 ### Database
 
@@ -157,6 +158,16 @@
 	  <td align='center'>비밀 키 값 (Secret Key) 저장</td>
  </tr>
 </table>
+
+### Open Source
+* cookies-next
+* react-draggable
+* react-firebase-hooks
+* react-infinite-scroll-component
+* react-organizational-chart
+* crypto-js
+* uuid
+* jose
 
 <a id="functions"></a>
 
@@ -213,12 +224,6 @@
 	</tr>
 	<tr><td></td><td></td></tr>
 </table>
-
-<a id="opensource"></a>
-
-## 사용한 오픈소스
-
-- ...
 
 <a id = "installation"></a>
 
