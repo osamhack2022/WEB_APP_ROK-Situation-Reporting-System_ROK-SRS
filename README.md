@@ -99,7 +99,7 @@
 
 
 ### 프로젝트 사용법 (Getting Started)
-[데모 영상]()
+[데모 영상](https://www.youtube.com/watch?v=4J2cPialaMY)
 
 <a id = "requirements"></a>
 
