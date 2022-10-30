@@ -1,0 +1,49 @@
+{
+  "name": "web-next",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "client": "cd ../'WEB&APP(BE)' && npx nodemon server.js",
+    "concurrent": "concurrently \"npm run dev\" \"npm run client\""
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@azure/identity": "^3.0.0",
+    "@azure/keyvault-secrets": "^4.6.0",
+    "antd": "^4.23.4",
+    "bootstrap-icons": "^1.9.1",
+    "buffer": "^6.0.3",
+    "classificator": "^0.3.4",
+    "colors": "^1.4.0",
+    "concurrently": "^7.4.0",
+    "cookies-next": "^2.1.1",
+    "crypto-js": "^4.1.1",
+    "cryptojs": "^2.5.3",
+    "firebase": "^9.12.1",
+    "formik-antd": "^2.0.4",
+    "jose": "^4.10.0",
+    "next": "^12.3.1",
+    "node-rsa": "^1.1.1",
+    "nodepapago": "^3.1.1",
+    "randomcolor": "^0.6.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-draggable": "^4.4.5",
+    "react-firebase-hooks": "^5.0.3",
+    "react-icons": "^4.4.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "react-organizational-chart": "^2.2.0",
+    "react-router": "^6.4.2",
+    "util": "^0.12.4",
+    "uuid": "^9.0.0",
+    "wink-pos-tagger": "^2.2.2"
+  },
+  "devDependencies": {
+    "eslint": "8.24.0",
+    "eslint-config-next": "12.3.1"
+  }
+}
