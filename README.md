@@ -264,14 +264,14 @@ $ cd front-end/web
 
 #### Frontend(APP)
 
-#### Prerequisites
+##### Prerequisites
 ```bash
 Sign up for Expo
 
 // 아이폰 설치 시
 Create Apple Developer account
 ```
-#### Installing
+##### Installing
 ```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd 'APP(FE)'
