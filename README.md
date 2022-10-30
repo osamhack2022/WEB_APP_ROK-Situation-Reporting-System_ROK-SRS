@@ -82,7 +82,7 @@
 
 ## 📖 기능 설명
 
-### 🔒 강력한 암호화
+### 🔒 강력한 암호화 <a href = "https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%EC%99%80-%EC%B2%B4%EA%B3%84">암호화 위키</a>
 
 <table>
 	<tr>
