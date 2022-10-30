@@ -249,10 +249,13 @@
 <a id = "installation"></a>
 ## 설치 안내 (Installation Process)
 
+- backend
 ```bash
-$ git clone git주소
-$ yarn or npm install
-$ yarn start or npm run start
+.env 파일 생성 후
+$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ cd back-end
+$ npm install
+$ npm run start
 ```
 
 <a id = "team"></a>
