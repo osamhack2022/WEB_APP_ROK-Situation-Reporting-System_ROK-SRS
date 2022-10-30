@@ -176,6 +176,20 @@
 </table>
 
 ### Open Source(Library)
+
+* mongoose
+* jsonwebtoken
+* bcryptjs
+* cors
+* classificator
+* colors
+* dotenv
+* express-async-handler
+* mongoose-encryption
+* nodemon
+* nodepapago
+* socket.io
+* wink-pos-tagger
 * cookies-next
 * react-draggable
 * react-firebase-hooks
@@ -184,7 +198,6 @@
 * crypto-js
 * uuid
 * jose
-#### Frontend(APP)
 * react-navigation
 * react-native-paper
 * react-native-async-storage
@@ -268,7 +281,7 @@
 
 #### Backend
 ```bash
-$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd back-end
 $ npm install
 .env 파일 생성 후
@@ -279,7 +292,7 @@ $ npm run start
 #### Frontend(WEB)
 
 ```bash
-$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd front-end/web
 ```
 <br/>
