@@ -179,9 +179,9 @@
 
 <table>
 	<tr>
-		<td width="44%"></td>
-		<td width="22%"></td>
-		<td width="34%"></td>
+		<td width="44%" style="text-align: center; font-size: 12pt; font-weight: bold;">데스크탑 화면</td>
+		<td width="22%" style="text-align: center; font-size: 12pt; font-weight: bold;">모바일 화면</td>
+		<td width="34%" style="text-align: center; font-size: 12pt; font-weight: bold;">기능 설명</td>
 	</tr>
 	<tr>
 		<td>
@@ -210,7 +210,7 @@
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865114-3132c66d-24cc-4a24-aabe-059f747947dc.PNG" alt="조직도세부페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867887-879ff28b-36b4-46a3-9889-77c7f37ef8ea.jpeg"style="clip-path: inset(12px 0 18px 0)" alt="모바일세부조직도" /></td>
-		<td>조직도 내 장병의 세부 정보 확인 / 권한에 따라 추가·수정·삭제 기능 부여</td>
+		<td>조직도 내 장병의 세부 정보 확인<br/>권한에 따라 추가·수정·삭제 기능 부여</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865108-41b5865a-2881-4c8a-b9d0-e73ae721bf4c.PNG" alt="메모보고페이지" /></td>
@@ -225,7 +225,7 @@
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865109-92b6de7a-c973-44a8-b8d0-b191b65725d9.PNG" alt="메세지페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867891-aac07311-21f7-40ec-a765-ed3d8b06611b.jpeg"style="clip-path: inset(12px 0 18px 0)" alt="모바일채팅방" /></td>
-		<td>기존의 통신 수단을 대체할 수 있는 채팅 서비스 구축 / 강력한 암호화 적용</td>
+		<td>기존의 통신 수단을 대체할 수 있는 채팅 서비스 구축<br/>강력한 암호화 적용</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865103-3656e848-b7b8-4d71-815e-8c802df1e9db.PNG" alt="계정설정페이지" /></td>
@@ -235,12 +235,12 @@
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865113-e9ab9427-70b2-49dd-a8cc-5c40ef048830.PNG" alt="부대설정페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867892-6cc8e03c-674f-401e-bc3e-a55e75633c31.jpeg"style="clip-path: inset(12px 0 18px 0)" alt="모바일부대설정" /></td>
-		<td>자신이 속한 부대 정보 조회 / 권한에 따라 추가·수정·삭제 기능 부여</td>
+		<td>자신이 속한 부대 정보 조회<br/>권한에 따라 추가·수정·삭제 기능 부여</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865111-a04cf9e3-a88d-491b-b925-9b8efdf1cd4e.PNG" alt="보고체계설정페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867895-3a4fc982-d36c-4eca-995e-4f98e21315e8.jpeg"style="clip-path: inset(12px 0 18px 0)" alt="모바일보고체계" /></td>
-		<td>상황 보고 단계에 대한 보고체계 리스트 / 권한에 따라 추가·수정·삭제 기능 부여</td>
+		<td>상황 보고 단계에 대한 보고체계 리스트<br/>권한에 따라 추가·수정·삭제 기능 부여</td>
 	</tr>
 </table>
 
