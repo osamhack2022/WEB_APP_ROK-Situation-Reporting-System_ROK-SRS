@@ -223,6 +223,13 @@
 - ECMAScript 6 지원 브라우저 사용
 - 권장: Google Chrome 버전 77 이상
 
+## 💻모바일 구성 / 필수 조건 안내
+#### iOS
+- 권장: iOS 14.0 이상
+#### ANDROID
+- 최소: 안드로이드 운영체제 6.0(Marshmallow) 이상
+- 권장: 안드로이드 운영체제 10.0 이상
+
 <a id = "techniques"></a>
 
 ## 기술 스택 (Technique Used)
