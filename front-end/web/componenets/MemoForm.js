@@ -219,6 +219,8 @@ function MemoForm(props) {
   return (
     <Modal
       open={props.isOpen}
+      okText="보고하기"
+      cancelText="취소"
       onOk={() => {
         submitMemo(
           memoTitle,
