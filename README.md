@@ -59,7 +59,7 @@
     </ol>
 	<li><a href="#team">팀 정보 (Team Information)</a></li>
 	<li><a href="#documentation"> 문서 (Documentation)</a></li>
-	<li><a href="#copyright">[저작권 및 사용권 정보 (Copyleft / End User License)</a></li>
+	<li><a href="#copyright">저작권 및 사용권 정보 (Copyleft / End User License)</a></li>
 </ol>
 
 <a id = "introduction"></a>
