@@ -82,7 +82,7 @@
 
 ## 📖 기능 설명
 
-### 🔒 강력한 암호화 <a href = "https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%EC%99%80-%EC%B2%B4%EA%B3%84">[암호화 위키]</a>
+### 🔒 강력한 암호화
 
 <table>
 	<tr>
@@ -288,7 +288,6 @@ $ npm install
 .env 파일 생성 후
 $ npm run start
 ```
-<br/>
 
 #### Frontend(WEB)
 
@@ -296,34 +295,20 @@ $ npm run start
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd front-end/web
 ```
-<br/>
 
-#### Frontend(APP)
+## APP 설치 안내 (App Installation Process)
 
-##### Prerequisites
 ```bash
-Sign up for Expo
+Prerequisite: expo sign up
 
-// 아이폰 설치 시
-Create Apple Developer account
-```
-##### Installing
-```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
-$ cd 'APP(FE)'
+$ cd front-end/app
 $ npm install
-이후 .dotenv 파일 생성
+$ npx eas build --profile preview
 
-$ npx eas login
-이후 Expo 아이디, 비밀번호를 입력하여 로그인
-
-// 안드로이드 설치 시
-$ npx eas build -p android --profile preview
-
-// 아이폰 설치 시
-$ npx eas build -p ios
-이후 Apple Developer account 아이디, 비밀번호를 입력하여 로그인
+android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
 ```
+
 <a id="opensource"></a>
 ## 오픈소스
 
@@ -358,18 +343,7 @@ $ npx eas build -p ios
 
 <a id = "installation"></a>
 
-## APP 설치 안내 (App Installation Process)
 
-```bash
-Prerequisite: expo sign up
-
-$ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
-$ cd front-end/app
-$ npm install
-$ npx eas build --profile preview
-
-android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
-```
 
 ## 프로젝트 사용법 (Getting Started)
 
