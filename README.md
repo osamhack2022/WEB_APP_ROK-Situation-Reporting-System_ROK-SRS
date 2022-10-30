@@ -6,7 +6,7 @@
 <br/>
 
 <div align="center">
-<a href="https://nine-collision-c7a.notion.site/c239b0b1de354ef4940fe0c56ec40e02"><img height="45px" src="./.docs/images/개발_계획서.png" alt="개발 계획서"/></a>&nbsp;&nbsp;<a href="https://rok-mabigmk4h-s3kim2018.vercel.app/"><img height="45px" src="./.docs/images/데모보기.png" alt="데모보기"/></a>&nbsp;&nbsp;<a href="https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%EC%99%80-%EC%B2%B4%EA%B3%84"><img height="45px" src="./.docs/images/암호화_체계.png" alt="암호화 체계"/></a>
+<a href="https://nine-collision-c7a.notion.site/c239b0b1de354ef4940fe0c56ec40e02"><img height="45px" src="./.docs/images/개발_계획서.png" alt="개발 계획서"/></a>&nbsp;&nbsp;<a href="https://rok-mabigmk4h-s3kim2018.vercel.app/"><img height="45px" src="./.docs/images/데모보기.png" alt="데모보기"/></a>&nbsp;&nbsp;<a href="https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%ED%99%94-%EC%B2%B4%EA%B3%84"><img height="45px" src="./.docs/images/암호화_체계.png" alt="암호화 체계"/></a>
 </div>
 
 <br/>
@@ -396,7 +396,7 @@ android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 
 <a id = "documentation"></a>
 
 ## 문서 (Documentation)
-- [암호화 체계](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%EC%99%80-%EC%B2%B4%EA%B3%84)
+- [암호화 체계](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%ED%99%94-%EC%B2%B4%EA%B3%84)
 - [백엔드 Docs](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Backend-Docs)
 - [Figma](https://www.figma.com/file/U4mcvflCMxzbLcmGABrCUy/SRS?node-id=0%3A1)
 - [Git Commit Convention](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Git-Commit-Convention)
