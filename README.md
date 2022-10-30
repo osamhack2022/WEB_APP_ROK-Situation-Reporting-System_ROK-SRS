@@ -28,7 +28,7 @@
     <li><a href="#introduction">프로젝트 소개</a></li>
     <ol>
         <li>
-            <a href="#problem">문재점</a>
+            <a href="#problem">문제점</a>
         </li>
         <li>
             <a href="#solution">국군 야전 상황보고체계의 해결책</a>
