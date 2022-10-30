@@ -1,3 +1,4 @@
+
 # 국군 야전 상황보고체계, ROK Situation Reporting System
 
 ![Logo](https://i.ibb.co/PmQxT82/450-300px-300-100px-900-300px.png)
@@ -129,7 +130,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td align='center'><b>AI가 보고사항에 대한 심각성/중요도 점수 파학</b></td>
+		<td align='center'><b>AI가 보고사항에 대한 심각성/중요도 점수 파악</b></td>
 	</tr>
 	<tr>
 		<td align='center' style = "text-align: center">
@@ -297,44 +298,27 @@ $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-S
 $ cd front-end/web
 ```
 
-#### Frontend(APP)
+## APP 설치 안내 (App Installation Process)
 
-##### Prerequisites
 ```bash
-Sign up for Expo
+Prerequisite: expo sign up
 
-// 아이폰 설치 시
-Create Apple Developer account
-```
-##### Installing
-```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
-$ cd 'APP(FE)'
+$ cd front-end/app
 $ npm install
-이후 .dotenv 파일 생성
+$ npx eas build --profile preview
 
-$ npx eas login
-이후 Expo 아이디, 비밀번호를 입력하여 로그인
-
-// 안드로이드 설치 시
-$ npx eas build -p android --profile preview
-
-// 아이폰 설치 시
-$ npx eas build -p ios
-이후 Apple Developer account 아이디, 비밀번호를 입력하여 로그인
+android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
 ```
-
 
 <a id="opensource"></a>
 ## 오픈소스
-
+### MIT License
 * mongoose
 * jsonwebtoken
 * bcryptjs
 * cors
-* classificator
 * colors
-* dotenv
 * express-async-handler
 * mongoose-encryption
 * nodemon
@@ -343,7 +327,6 @@ $ npx eas build -p ios
 * wink-pos-tagger
 * cookies-next
 * react-draggable
-* react-firebase-hooks
 * react-infinite-scroll-component
 * react-organizational-chart
 * crypto-js
@@ -355,6 +338,11 @@ $ npx eas build -p ios
 * react-native-dropdown-picker
 * react-native-gifted-chat
 * recoil
+
+### Others
+* dotenv [BSD-2-Clause]
+* react-firebase-hooks [Apache-2.0]
+* classificator [none]
 
 
 <a id = "installation"></a>
