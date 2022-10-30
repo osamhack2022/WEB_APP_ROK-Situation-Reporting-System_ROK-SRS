@@ -304,6 +304,9 @@ $ npm run start
 ```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd front-end/web
+$ npm install
+.env 파일 생성 후
+$ npm run dev
 ```
 
 ## APP 설치 안내 (App Installation Process)
