@@ -297,18 +297,33 @@ $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-S
 $ cd front-end/web
 ```
 
-## APP 설치 안내 (App Installation Process)
+#### Frontend(APP)
 
+##### Prerequisites
 ```bash
-Prerequisite: expo sign up
+Sign up for Expo
 
-$ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
-$ cd front-end/app
-$ npm install
-$ npx eas build --profile preview
-
-android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
+// 아이폰 설치 시
+Create Apple Developer account
 ```
+##### Installing
+```bash
+$ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ cd 'APP(FE)'
+$ npm install
+이후 .dotenv 파일 생성
+
+$ npx eas login
+이후 Expo 아이디, 비밀번호를 입력하여 로그인
+
+// 안드로이드 설치 시
+$ npx eas build -p android --profile preview
+
+// 아이폰 설치 시
+$ npx eas build -p ios
+이후 Apple Developer account 아이디, 비밀번호를 입력하여 로그인
+```
+
 
 <a id="opensource"></a>
 ## 오픈소스
