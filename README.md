@@ -1,37 +1,47 @@
 # 국군 야전 상황보고체계, ROK Situation Reporting System
+
 ![Logo](https://i.ibb.co/PmQxT82/450-300px-300-100px-900-300px.png)
 
-<p align="center">
-	<a href="https://rok-fjh0y4gyl-s3kim2018.vercel.app/">
-		<img src="https://user-images.githubusercontent.com/52823519/198875810-9016ac44-503e-4a8b-a544-3bb36b7e8201.png" />
-	<a href="https://www.youtube.com/watch?v=4J2cPialaMY">
-		<img src="https://user-images.githubusercontent.com/52823519/198875825-e343fae7-6a9b-4725-b0b9-1bb413a4ce3a.png" />
-	</a>
-</p>
+<br/>
+
+<div align="center">
+<a href="https://nine-collision-c7a.notion.site/793f13ecb47a4a60b5fe6938802590ed?v=3795ace74cfa47c09bfc3e95008d2671"><img height="45px" src="./.docs/images/개발_계획서.png" alt="개발 계획서"/></a>&nbsp;&nbsp;<a href="https://rok-mabigmk4h-s3kim2018.vercel.app/"><img height="45px" src="./.docs/images/데모보기.png" alt="데모보기"/></a>&nbsp;&nbsp;<a href="https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%EC%99%80-%EC%B2%B4%EA%B3%84"><img height="45px" src="./.docs/images/암호화_체계.png" alt="암호화 체계"/></a>
+</div>
+
+<br/>
+<div align="center">
+<h2>데모영상 시청</h2>
+<a href="https://www.youtube.com/watch?v=4J2cPialaMY"><img alt="demo video" src="https://user-images.githubusercontent.com/52823519/198877323-e6f38510-18d2-4e7e-89e9-c4f49e3c5fa9.png" width=90px></a>
+
+</div>
+
+<br/>
 
 1. [프로젝트 소개](#introduction)
 1. [기능 설명](#features)
+1. [화면 설계](#functions)
 1. [컴퓨터 구성 / 필수 조건 안내 (Prerequisites)](#requirements)
 1. [기술 스택 (Technique Used) ](#techniques)
-1. [화면 설계](#functions)
 1. [설치 안내 (Installation Process) ](#installation)
 1. [팀 정보 (Team Information) ](#team)
 1. [문서 (Documentation)](#documentation)
 1. [저작권 및 사용권 정보 (Copyleft / End User License) ](#copyright)
 
-
 <a id = "introduction"></a>
+
 ## 📢 프로젝트 소개
+
+<a id = "problem"></a>
 
 **🚩 문제점**
 
-  >  "7생활관 전원 코로나 걸렸대, 대대장님께 카톡으로 보고드려."
-  
-  >  "오늘 훈련한 거 사진 찍어서 대대 단톡방에 올려."
-  
-  >  "후임이 다쳤는데 군 전화도 주변에 없네… 어떻게 보고를 하지?"
-  
-  >  "밥이 너무 맛이 없는데 건의를 어떻게 하지? 연대장님께 전화해볼까?"
+> "7생활관 전원 코로나 걸렸대, 대대장님께 카톡으로 보고드려."
+
+> "오늘 훈련한 거 사진 찍어서 대대 단톡방에 올려."
+
+> "후임이 다쳤는데 군 전화도 주변에 없네… 어떻게 보고를 하지?"
+
+> "밥이 너무 맛이 없는데 건의를 어떻게 하지? 연대장님께 전화해볼까?"
 
 대대급 부대 내부에서 용사와 간부 또는 간부 대 간부 간 이용할 효율적이고 안전한 보고체계가 없습니다.
 
@@ -40,7 +50,9 @@
 - 보안성에 문제가 있을 뿐만 아니라, 군에서 원칙적으로 이행되어야 하는 보고체계를 준수하지 않고 보고하는 상황도 많이 발생합니다.
 - 이런 문제점들은 군대라는 조직에서 통제능력 상실과, 상황조치에 큰 차질을 초래할 것입니다.
 
-**💡 해결책**
+<a id = "solution"></a>
+
+**💡 국군 야전 상황보고체계의 해결책**
 
 - 부대 내의 모든 전파사항은 암호문 비구별성 원칙(IND-CPA)에 따라 암호화되며 무결성과 기밀성을 보장합니다.
 - 케르크호프스의 원리에 따라서 키값이 노출되지 않는 한 보안성이 보장되어, 국군 보안사고를 원천 차단하는 것이 목표입니다.
@@ -58,6 +70,8 @@
 - 저장된 부대 메모보고, 보고체계는 부대장이 관리하고 개선할 수 있다.
 - 모든 보고사항은 암호와되며 기밀성과 무결성을 보장한다.
 
+<a id = "market"></a>
+
 **💸 목표 시장**
 
 1. 독립중대, 대대, 단, 연대단위 군부대.
@@ -65,8 +79,8 @@
 3. 사령부 내부 부서/처.
 4. 국정원, 경호원, 무기체계 개발팀 등 기밀 사항 연구 보직.
 
-
 <a id = "features"></a>
+
 ## 📖 기능 설명
 
 ### 🔒 강력한 암호화
@@ -106,86 +120,28 @@
 	</tr>
 </table>
 
-
-### 프로젝트 사용법 (Getting Started)
-[데모 영상](https://www.youtube.com/watch?v=4J2cPialaMY)
-
-<a id = "requirements"></a>
-
-## 💻컴퓨터 구성 / 필수 조건 안내
-
-- ECMAScript 6 지원 브라우저 사용
-- 권장: Google Chrome 버전 77 이상
-
-<a id = "techniques"></a>
-
-## 기술 스택 (Technique Used)
-
-### Development Stack
-
-![img](https://i.ibb.co/Mg04TS5/Development-Stack.png)
-
-### Web Frontend
-
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![Ant-Design](https://img.shields.io/badge/-AntDesign-%230170FE?style=for-the-badge&logo=ant-design&logoColor=white)
-
-### Mobile Frontend
-
-![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
-
-
-### Backend
-
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![Firebase](https://img.shields.io/badge/firebase-2C384A?style=for-the-badge&logo=firebase&logoColor=FFCA28)
-
-
-### Database
-
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-2C384A?style=for-the-badge&logo=firebase&logoColor=FFCA28)
-
-### Collaboration Tools
-
-![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
-![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
-![Insomnia](https://img.shields.io/badge/Insomnia-black?style=for-the-badge&logo=insomnia&logoColor=5849BE)
-
-### Encryption Scheme
+### 💥 AI를 통한 심각성/중요도 점수
 
 <table>
-<tr>
-	  <td align='center'>Logo</td>
-	  <td align='center'>Name/Encryption Scheme</td>
-	  <td align='center'>Purpose</td>
- </tr>
- <tr>
-	  <td align='center'><img src = "https://upload.wikimedia.org/wikipedia/commons/2/2a/RSA_Security_logo2.svg" width = "55px" height = "30px"></td>
-	  <td align='center'>RSA</td>
-	  <td align='center'>비대칭 암호화 (암호화된 키 값 전송)</td>
-
- </tr>
-  <tr>
-	  <td align='center'><img src = "https://user-images.githubusercontent.com/52823519/198872012-f9999691-e701-4220-8cae-8dc802fbee98.png" width = "40px" height = "40px"></td>
-	  	  <td align='center'>Crypto.js</td>
-	  <td align='center'>대칭 암호화 기능 (AES, HMAC)</td>
- </tr>
-   <tr>
-	  <td align='center'><img src = "https://miro.medium.com/max/251/1*YUlYnXhu4NG61i-HRG50AQ.jpeg" width = "40px" height = "40px"></td>
-	  	  <td align='center'>Azure Keystore</td>
-	  <td align='center'>비밀 키 값 (Secret Key) 저장</td>
- </tr>
+	<tr>
+		<td align='center'>
+			<img src="https://i.ibb.co/BZRYGnN/AI.png" />
+		</td>
+	</tr>
+	<tr>
+		<td align='center'><b>AI가 보고사항에 대한 심각성/중요도 점수 파학</b></td>
+	</tr>
+	<tr>
+		<td align='center' style = "text-align: center">
+		명사와 동사를 감성분석기로 분석. <br>
+		1~5 심각성/중요도 점수 반환 
+		</td>
+	</tr>
 </table>
 
-### Open Source(Library)
-* cookies-next
-* react-draggable
-* react-firebase-hooks
-* react-infinite-scroll-component
-* react-organizational-chart
-* crypto-js
-* uuid
-* jose
+<a id="functions"></a>
 
-## ⚙️화면 설계
+### ⚙️화면 설계
 
 <table>
 	<tr>
@@ -254,35 +210,95 @@
 	</tr>
 </table>
 
+### 프로젝트 사용법 (Getting Started)
+
+[데모 영상](https://www.youtube.com/watch?v=4J2cPialaMY)
+
+<a id = "requirements"></a>
+
+## 💻컴퓨터 구성 / 필수 조건 안내
+
+- ECMAScript 6 지원 브라우저 사용
+- 권장: Google Chrome 버전 77 이상
+
+<a id = "techniques"></a>
+
+## 기술 스택 (Technique Used)
+
+### Development Stack
+
+![img](https://i.ibb.co/Mg04TS5/Development-Stack.png)
+
+### Web Frontend
+
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![Ant-Design](https://img.shields.io/badge/-AntDesign-%230170FE?style=for-the-badge&logo=ant-design&logoColor=white)
+
+### Mobile Frontend
+
+![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
+
+### Backend
+
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+
+### Database
+
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-2C384A?style=for-the-badge&logo=firebase&logoColor=FFCA28)
+
+### Collaboration Tools
+
+![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+![Insomnia](https://img.shields.io/badge/Insomnia-black?style=for-the-badge&logo=insomnia&logoColor=5849BE)
+
+### Encryption Scheme
+
+<table>
+<tr>
+	  <td align='center'>Logo</td>
+	  <td align='center'>Name/Encryption Scheme</td>
+	  <td align='center'>Purpose</td>
+ </tr>
+ <tr>
+	  <td align='center'><img src = "https://upload.wikimedia.org/wikipedia/commons/2/2a/RSA_Security_logo2.svg" width = "55px" height = "30px"></td>
+	  <td align='center'>RSA</td>
+	  <td align='center'>비대칭 암호화 (암호화된 키 값 전송)</td>
+
+ </tr>
+  <tr>
+	  <td align='center'><img src = "https://user-images.githubusercontent.com/52823519/198872012-f9999691-e701-4220-8cae-8dc802fbee98.png" width = "40px" height = "40px"></td>
+	  	  <td align='center'>Crypto.js</td>
+	  <td align='center'>대칭 암호화 기능 (AES, HMAC)</td>
+ </tr>
+   <tr>
+	  <td align='center'><img src = "https://miro.medium.com/max/251/1*YUlYnXhu4NG61i-HRG50AQ.jpeg" width = "40px" height = "40px"></td>
+	  	  <td align='center'>Azure Keystore</td>
+	  <td align='center'>비밀 키 값 (Secret Key) 저장</td>
+ </tr>
+</table>
+
 <a id = "installation"></a>
+
 ## 설치 안내 (Installation Process)
 
-- Backend
+#### Backend
 ```bash
-$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd back-end
 $ npm install
 .env 파일 생성 후
 $ npm run start
 ```
-<br/>
-- Frontend(Web)
+
+#### Frontend(WEB)
+
 ```bash
-$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd front-end/web
 ```
-<br/>
-- Frontend(App)
-```bash
-$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
-$ cd front-end/app
-```
-<a id="opensource"></a>
-## 오픈소스
-* ...
 
-<a id = "installation"></a>
 ## APP 설치 안내 (App Installation Process)
+
 ```bash
 Prerequisite: expo sign up
 
@@ -294,11 +310,48 @@ $ npx eas build --profile preview
 android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
 ```
 
+<a id="opensource"></a>
+## 오픈소스
+
+* mongoose
+* jsonwebtoken
+* bcryptjs
+* cors
+* classificator
+* colors
+* dotenv
+* express-async-handler
+* mongoose-encryption
+* nodemon
+* nodepapago
+* socket.io
+* wink-pos-tagger
+* cookies-next
+* react-draggable
+* react-firebase-hooks
+* react-infinite-scroll-component
+* react-organizational-chart
+* crypto-js
+* uuid
+* jose
+* react-navigation
+* react-native-paper
+* react-native-async-storage
+* react-native-dropdown-picker
+* react-native-gifted-chat
+* recoil
+
+
+<a id = "installation"></a>
+
+
 
 ## 프로젝트 사용법 (Getting Started)
+
 **마크다운 문법을 이용하여 자유롭게 기재**
 
- <a id = "team"></a>
+<a id = "team"></a>
+
 ## 팀 정보 (Team Information)
 
 <table>
@@ -340,10 +393,12 @@ android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 
 </table>
 
 <a id = "documentation"></a>
+
 ## 문서 (Documentation)
-- [Backend Docs](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Backend-Docs)
+- [암호화 체계](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%EC%99%80-%EC%B2%B4%EA%B3%84)
+- [백엔드 Docs](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Backend-Docs)
 - [Git Commit Convention](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Git-Commit-Convention)
-<a id = "copyright"></a>
+  <a id = "copyright"></a>
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
 
