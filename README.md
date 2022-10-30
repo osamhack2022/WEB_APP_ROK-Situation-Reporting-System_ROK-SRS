@@ -172,7 +172,7 @@
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865115-28fae6bd-05c2-41a8-8210-4ded72920aff.PNG" alt="조직도페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867886-ccde36c4-5b92-4cf3-b307-27791d8602f8.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일조직도" /></td>
-		<td>같은 부대 내 장병들의 조직 체계 조회 화면</td>
+		<td>같은 부대 내 장병들의 조직 체계 조회</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865114-3132c66d-24cc-4a24-aabe-059f747947dc.PNG" alt="조직도세부페이지" /></td>
@@ -182,12 +182,12 @@
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865108-41b5865a-2881-4c8a-b9d0-e73ae721bf4c.PNG" alt="메모보고페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867883-0e35397c-9f54-4e80-a287-ef983b583535.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일메모보고" /></td>
-		<td>보고 체계를 따르는 군 내 메모보고 조회 화면</td>
+		<td>보고 체계를 따르는 군 내 메모보고 조회</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865107-79daa5ba-7cfb-4046-9440-50e401bfc4d0.PNG" alt="메모보고작성창" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867880-3e8c0c7a-0a3e-413c-818a-283432db797a.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일메모보고작성" /></td>
-		<td>메모보고 업로드 화면</td>
+		<td>메모보고 업로드</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865109-92b6de7a-c973-44a8-b8d0-b191b65725d9.PNG" alt="메세지페이지" /></td>
@@ -202,12 +202,12 @@
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865113-e9ab9427-70b2-49dd-a8cc-5c40ef048830.PNG" alt="부대설정페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867892-6cc8e03c-674f-401e-bc3e-a55e75633c31.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일부대설정" /></td>
-		<td>자신이 속한 부대 정보 조회 화면<br/>권한에 따라 추가·수정·삭제</td>
+		<td>자신이 속한 부대 정보 조회<br/>권한에 따라 추가·수정·삭제 기능</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865111-a04cf9e3-a88d-491b-b925-9b8efdf1cd4e.PNG" alt="보고체계설정페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867895-3a4fc982-d36c-4eca-995e-4f98e21315e8.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일보고체계" /></td>
-		<td>보고체계 리스트 화면<br/>권한에 따라 추가·수정·삭제</td>
+		<td>상황 보고 단계에 대한 보고체계 리스트<br/>권한에 따라 추가·수정·삭제</td>
 	</tr>
 </table>
 
@@ -218,10 +218,12 @@
 
 <a id = "requirements"></a>
 
-## 💻컴퓨터 구성 / 필수 조건 안내
+## 💻컴퓨터 구성 / 필수 조건 안내(Prerequisites)
 
 - ECMAScript 6 지원 브라우저 사용
-- 권장: Google Chrome 버전 77 이상
+- 권장: <a href="https://browsersl.ist/#q=last+2+versions">last 2 versions</a>
+
+<img src="https://user-images.githubusercontent.com/68419358/198879212-9fbc5819-0cb0-4eed-8081-5d5e7888421b.png" alt="https://browsersl.ist/#q=last+2+versions">
 
 ## 💻모바일 구성 / 필수 조건 안내
 
@@ -350,12 +352,6 @@ $ npx eas build -p android --profile preview
 * dotenv [BSD-2-Clause]
 * react-firebase-hooks [Apache-2.0]
 * classificator [none]
-
-
-<a id = "installation"></a>
-
-
-
 
 <a id = "team"></a>
 
