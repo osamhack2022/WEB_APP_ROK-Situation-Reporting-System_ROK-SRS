@@ -12,7 +12,7 @@
 <br/>
 <div align="center">
 <h2>데모영상 시청</h2>
-<a href="https://www.youtube.com/watch?v=4J2cPialaMY"><img alt="demo video" src="https://user-images.githubusercontent.com/52823519/198877323-e6f38510-18d2-4e7e-89e9-c4f49e3c5fa9.png" width=90px></a>
+<a href="https://www.youtube.com/watch?v=4J2cPialaMY"><img alt="demo video" src="https://i.ibb.co/K2VFFtH/Blank-board-Page-1-1.png" width=800px></a>
 
 </div>
 
