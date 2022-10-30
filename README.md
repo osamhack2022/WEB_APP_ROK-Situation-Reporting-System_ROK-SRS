@@ -373,9 +373,9 @@ $ npx eas build -p android --profile preview
 빌드 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
 ```
 
+\
 <a id="opensource"></a>
 
-\
 ## 오픈소스(Open-Sources)
 
 ### MIT License
