@@ -18,12 +18,14 @@ const styles = StyleSheet.create({
   },
   midContainer: {
     justifyContent: 'space-around',
+    width: '70%',
   },
   avatar: {
     width: 45,
     height: 45,
     borderRadius: 15,
     marginRight: 13,
+    backgroundColor: Colors.grey400,
   },
   username: {
     fontSize: 14,
@@ -37,9 +39,12 @@ const styles = StyleSheet.create({
   time: {
     fontFamily: 'NunitoSans_400Regular',
     fontSize: 12,
-    marginTop: 3,
-    marginRight: 5,
     color: Colors.grey600,
+  },
+  severity: {
+    fontFamily: 'NunitoSans_400Regular',
+    fontSize: 12,
+    color: Colors.black,
   },
 })
 

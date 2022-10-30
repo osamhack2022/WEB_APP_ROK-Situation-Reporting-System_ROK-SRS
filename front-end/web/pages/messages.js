@@ -12,7 +12,7 @@ import {
 } from "react-firebase-hooks/firestore";
 import { orderBy } from "firebase/firestore";
 import { db } from "../firebaseauth";
-import Head from 'next/head'
+import Head from "next/head";
 
 export function getServerSideProps({ req, res }) {
   const JWTtoken = req.cookies["usercookie"];
@@ -56,7 +56,21 @@ function Page({ userId }) {
   );
 
   const [snapshot, loading, error] = useCollection(collection(db, "chats"));
-  if (!snapshot) return <><div style = {{display: 'flex', height: '100%', justifyContent: 'center', alignItems: 'center'}}><Spin size="large" /></div></>;
+  if (!snapshot)
+    return (
+      <>
+        <div
+          style={{
+            display: "flex",
+            height: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Spin size="large" />
+        </div>
+      </>
+    );
 
   let chatdata = null;
   for (let i = 0; i < snapshot.docs.length; i++) {
@@ -152,9 +166,9 @@ function Page({ userId }) {
   }
   return (
     <>
-    <Head>
-      <title>메세지</title>
-    </Head>
+      <Head>
+        <title>메세지</title>
+      </Head>
       <Chatsidebar userId={userId} snapshot={snapshot}>
         {id && (
           <div className={styles.container}>
@@ -204,6 +218,7 @@ function Page({ userId }) {
                 </Form.Item>
                 <Form.Item name="message" style={{ flex: "1" }}>
                   <Input
+                    allowClear 
                     id="message"
                     name="message"
                     placeholder="메세지를 입력해주세요"
@@ -225,41 +240,33 @@ function generatechatelement(which, type, content, name, color, key) {
   if (which == "mine") {
     if (type == "regular") {
       return (
-        <>
-          <div className={styles.mychatelem} key={key}>
-            {content}
-          </div>
-        </>
+        <div className={styles.mychatelem} key={key}>
+          {content}
+        </div>
       );
     } else if (type == "report") {
       return (
-        <>
-          <div className={styles.mychatelem} key={key}>
-            <p
-              style={{
-                color: "green",
-                textAlign: "center",
-                fontWeight: "bold",
-              }}
-            >
-              [상황보고]
-            </p>
-            {content}
-          </div>
-        </>
+        <div className={styles.mychatelem} key={key}>
+          <p
+            style={{
+              color: "green",
+              textAlign: "center",
+              fontWeight: "bold",
+            }}
+          >
+            [상황보고]
+          </p>
+          {content}
+        </div>
       );
     } else if (type == "order") {
       return (
-        <>
-          <div className={styles.mychatelem} key={key}>
-            <p
-              style={{ color: "red", textAlign: "center", fontWeight: "bold" }}
-            >
-              [지시사항]
-            </p>
-            {content}
-          </div>
-        </>
+        <div className={styles.mychatelem} key={key}>
+          <p style={{ color: "red", textAlign: "center", fontWeight: "bold" }}>
+            [지시사항]
+          </p>
+          {content}
+        </div>
       );
     } else if (type == "secret") {
       function ScretText({ content }) {

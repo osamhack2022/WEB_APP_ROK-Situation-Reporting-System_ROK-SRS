@@ -1,13 +1,24 @@
+# 국군 야전 상황보고체계, ROK Situation Reporting System
 ![Logo](https://i.ibb.co/PmQxT82/450-300px-300-100px-900-300px.png)
 
----
+<p align="center">
+	<a href="https://rok-fjh0y4gyl-s3kim2018.vercel.app/">
+		<img src="https://user-images.githubusercontent.com/52823519/198875810-9016ac44-503e-4a8b-a544-3bb36b7e8201.png" />
+	<a href="https://www.youtube.com/watch?v=4J2cPialaMY">
+		<img src="https://user-images.githubusercontent.com/52823519/198875825-e343fae7-6a9b-4725-b0b9-1bb413a4ce3a.png" />
+	</a>
+</p>
+
 1. [프로젝트 소개](#introduction)
-2. [기능 설명](#features)
-3. [컴퓨터 구성 / 필수 조건 안내 (Prerequisites)](#requirements)
-4. [기술 스택 (Technique Used) ](#techniques)
-5. [설치 안내 (Installation Process) ](#installation)
-6. [팀 정보 (Team Information) ](#team)
-7. [저작권 및 사용권 정보 (Copyleft / End User License) ](#copyright)
+1. [기능 설명](#features)
+1. [컴퓨터 구성 / 필수 조건 안내 (Prerequisites)](#requirements)
+1. [기술 스택 (Technique Used) ](#techniques)
+1. [화면 설계](#functions)
+1. [설치 안내 (Installation Process) ](#installation)
+1. [팀 정보 (Team Information) ](#team)
+1. [문서 (Documentation)](#documentation)
+1. [저작권 및 사용권 정보 (Copyleft / End User License) ](#copyright)
+
 
 <a id = "introduction"></a>
 ## 📢 프로젝트 소개
@@ -54,8 +65,8 @@
 3. 사령부 내부 부서/처.
 4. 국정원, 경호원, 무기체계 개발팀 등 기밀 사항 연구 보직.
 
-<a id = "features"></a>
 
+<a id = "features"></a>
 ## 📖 기능 설명
 
 ### 🔒 강력한 암호화
@@ -96,7 +107,8 @@
 </table>
 
 
-- 설명 기입
+### 프로젝트 사용법 (Getting Started)
+[데모 영상](https://www.youtube.com/watch?v=4J2cPialaMY)
 
 <a id = "requirements"></a>
 
@@ -121,6 +133,7 @@
 
 ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
 
+
 ### Backend
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![Firebase](https://img.shields.io/badge/firebase-2C384A?style=for-the-badge&logo=firebase&logoColor=FFCA28)
@@ -128,7 +141,7 @@
 
 ### Database
 
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-2C384A?style=for-the-badge&logo=firebase&logoColor=FFCA28)
 
 ### Collaboration Tools
 
@@ -151,10 +164,9 @@
 
  </tr>
   <tr>
-	  <td align='center'><img src = "https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F1252457264-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fspaces%252F-LVOh1OI8lhWfR_994H2%252Favatar.png%3Fgeneration%3D1546620224707409%26width="60%" height="60%" style="max-width: 100%" alt%3Dmedia" width = "40px" height = "40px"></td>
+	  <td align='center'><img src = "https://user-images.githubusercontent.com/52823519/198872012-f9999691-e701-4220-8cae-8dc802fbee98.png" width = "40px" height = "40px"></td>
 	  	  <td align='center'>Crypto.js</td>
 	  <td align='center'>대칭 암호화 기능 (AES, HMAC)</td>
-
  </tr>
    <tr>
 	  <td align='center'><img src = "https://miro.medium.com/max/251/1*YUlYnXhu4NG61i-HRG50AQ.jpeg" width = "40px" height = "40px"></td>
@@ -163,7 +175,7 @@
  </tr>
 </table>
 
-### Open Source
+### Open Source(Library)
 * cookies-next
 * react-draggable
 * react-firebase-hooks
@@ -172,8 +184,6 @@
 * crypto-js
 * uuid
 * jose
-
-<a id="functions"></a>
 
 ## ⚙️화면 설계
 
@@ -190,12 +200,12 @@
 		<td>
 		<img src="https://user-images.githubusercontent.com/68419358/198867881-b4bc41aa-79de-4c51-b986-23176ea0f54a.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일로그인" />
 		</td>
-		<td>기등록된 사용자의 로그인 지원</td>
+		<td>등록된 사용자의 로그인</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865117-f317810b-84e0-49e0-bd40-7528d2b60b2f.PNG" alt="회원가입페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867898-7ab203a4-571f-4e87-b095-e995ece66830.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일회원가입" /></td>
-		<td>부대로부터 초대 코드를 받은 장병에 한해 회원가입 허용</td>
+		<td>부대로부터 초대 코드를 받은 장병 회원가입</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865116-1bfcc644-bba5-44d4-a06e-0a4941f7df35.PNG" alt="홈페이지" /></td>
@@ -210,7 +220,7 @@
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865114-3132c66d-24cc-4a24-aabe-059f747947dc.PNG" alt="조직도세부페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867887-879ff28b-36b4-46a3-9889-77c7f37ef8ea.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일세부조직도" /></td>
-		<td>조직도 내 장병의 세부 정보 확인<br/>권한에 따라 추가·수정·삭제 기능 부여</td>
+		<td>조직도 내 장병의 세부 정보 확인<br/>권한에 따라 추가·수정·삭제</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865108-41b5865a-2881-4c8a-b9d0-e73ae721bf4c.PNG" alt="메모보고페이지" /></td>
@@ -220,12 +230,12 @@
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865107-79daa5ba-7cfb-4046-9440-50e401bfc4d0.PNG" alt="메모보고작성창" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867880-3e8c0c7a-0a3e-413c-818a-283432db797a.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일메모보고작성" /></td>
-		<td>메모보고 업로드 기능</td>
+		<td>메모보고 업로드</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865109-92b6de7a-c973-44a8-b8d0-b191b65725d9.PNG" alt="메세지페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867891-aac07311-21f7-40ec-a765-ed3d8b06611b.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일채팅방" /></td>
-		<td>기존의 통신 수단을 대체할 수 있는 채팅 서비스 구축<br/>강력한 암호화 적용</td>
+		<td>채팅 페이지</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865103-3656e848-b7b8-4d71-815e-8c802df1e9db.PNG" alt="계정설정페이지" /></td>
@@ -235,31 +245,60 @@
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865113-e9ab9427-70b2-49dd-a8cc-5c40ef048830.PNG" alt="부대설정페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867892-6cc8e03c-674f-401e-bc3e-a55e75633c31.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일부대설정" /></td>
-		<td>자신이 속한 부대 정보 조회<br/>권한에 따라 추가·수정·삭제 기능 부여</td>
+		<td>자신이 속한 부대 정보 조회<br/>권한에 따라 추가·수정·삭제 기능</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865111-a04cf9e3-a88d-491b-b925-9b8efdf1cd4e.PNG" alt="보고체계설정페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867895-3a4fc982-d36c-4eca-995e-4f98e21315e8.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일보고체계" /></td>
-		<td>상황 보고 단계에 대한 보고체계 리스트<br/>권한에 따라 추가·수정·삭제 기능 부여</td>
+		<td>상황 보고 단계에 대한 보고체계 리스트<br/>권한에 따라 추가·수정·삭제</td>
 	</tr>
 </table>
 
 <a id = "installation"></a>
-
 ## 설치 안내 (Installation Process)
 
+- Backend
 ```bash
-$ git clone git주소
-$ yarn or npm install
-$ yarn start or npm run start
+$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ cd back-end
+$ npm install
+.env 파일 생성 후
+$ npm run start
+```
+<br/>
+- Frontend(Web)
+```bash
+$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ cd front-end/web
+```
+<br/>
+- Frontend(App)
+```bash
+$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ cd front-end/app
+```
+<a id="opensource"></a>
+## 오픈소스
+* ...
+
+<a id = "installation"></a>
+## APP 설치 안내 (App Installation Process)
+```bash
+Prerequisite: expo sign up
+
+$ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ cd front-end/app
+$ npm install
+$ npx eas build --profile preview
+
+android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
 ```
 
-## 프로젝트 사용법 (Getting Started)
 
+## 프로젝트 사용법 (Getting Started)
 **마크다운 문법을 이용하여 자유롭게 기재**
 
-<a id = "team"></a>
-
+ <a id = "team"></a>
 ## 팀 정보 (Team Information)
 
 <table>
@@ -272,38 +311,42 @@ $ yarn start or npm run start
  </tr>
  <tr>
 	  <td align='center'><img src="https://i.imgur.com/5NlzJuu_d.webp?maxwidth=760&fidelity=grand" width="50" height="63"></td>
-	  <td align='center'>김상영</td>
-	  <td align='center'>팀장, 암호화 개발자</td>
+	  <td align='center'>김상영, 팀장</td>
+	  <td align='center'>암호화</td>
 	  <td align='center'><a href="https://github.com/s3kim2018"><img src="http://img.shields.io/badge/s3kim2018-green?style=social&logo=github"/></a></td>
 	  <td align='center'><a href="s3kim2018@berkeley.edu"><img src="https://img.shields.io/badge/s3kim2018@berkeley.edu-green?logo=gmail&style=social"/></a></td>
  </tr>
  <tr>
 	  <td align='center'><img src="https://user-images.githubusercontent.com/68419358/197472945-18b649a8-3c68-48a8-9f6a-15506f0068a6.jpg" width="50" height="63"></td>
 	  <td align='center'>최윤성</td>
-	  <td align='center'>프론트엔드(WEB) 개발자</td>
+	  <td align='center'>프론트엔드(WEB)</td>
 	  <td align='center'><a href="https://github.com/marunemo"><img src="http://img.shields.io/badge/marunemo-green?style=social&logo=github"/></a></td>
 	  <td align='center'><a href="chys3697@gmail.com"><img src="https://img.shields.io/badge/chys3697@gmail.com-green?logo=gmail&style=social"/></a></td>
  </tr>
  <tr>
-	 <td align='center'><img src="https://cdn-icons-png.flaticon.com/512/6142/6142226.png" width="50" height="63"></td>
+	<td align='center'><img src="https://user-images.githubusercontent.com/113012760/198868295-88d8a91b-8c91-4b6a-b180-f092c3304e32.jpg" width="50" height="63"></td>
   <td align='center'>김형민</td>
   <td align='center'>프론트엔드(APP) 개발자</td>
-  <td align='center'><a href="https://github.com/gudmin0526"><img src="http://img.shields.io/badge/gudmin0526-green?style=social&logo=github"/></a></td>
+	<td align='center'><a href="https://github.com/gudmin0526"><img src="http://img.shields.io/badge/gudmin0526-green?style=social&logo=github"/></a></td>
   <td align='center'><a href="gudmin0526@gmail.com"><img src="https://img.shields.io/badge/gudmin0526@gmail.com-green?logo=gmail&style=social"/></a></td>
  </tr>
  <tr>
 	  <td align='center'><img src="https://user-images.githubusercontent.com/52823519/195992813-c10b8189-7a98-4e8c-8f08-53ef9cdb7803.png" width="50" height="63"></td>
 	  <td align='center'>조영효</td>
-	  <td align='center'>백엔드 개발자</td>
+	  <td align='center'>백엔드</td>
 	  <td align='center'><a href="https://github.com/yhcho0405"><img src="http://img.shields.io/badge/yhcho0405-green?style=social&logo=github"/></a></td>
 	  <td align='center'><a href="yhcho0405@kakao.com"><img src="https://img.shields.io/badge/yhcho0405@kakao.com-green?logo=gmail&style=social"/></a></td>
  </tr>
 </table>
 
+<a id = "documentation"></a>
+## 문서 (Documentation)
+- [Backend Docs](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Backend-Docs)
+- [Git Commit Convention](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Git-Commit-Convention)
 <a id = "copyright"></a>
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
 
-- [MIT](https://github.com/osam2020-WEB/Sample-ProjectName-TeamName/blob/master/license.md)
+- [MIT](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/blob/main/LICENSE.md)
 
 This project is licensed under the terms of the MIT license.

@@ -5,12 +5,12 @@ const bcrypt = require("bcryptjs");
 const UnitM = require("../models/unitModel");
 
 const getuserbyid = asyncHandler(async (req, res) => {
-  const keyword = req.query.search
+  const keyword = req.query.search;
   const index = req.query.index;
   if (index) {
     res.send(users.slice(parseInt(index) * 4, parseInt(index) * 4 + 4));
   } else if (keyword) {
-    let user = await User.find({ _id: { $eq: keyword }}, {password: 0})
+    let user = await User.find({ _id: { $eq: keyword } }, { password: 0 });
     res.send(user); //.find({ _id: { $ne: req.user._id } }));
   } else {
     res.status(400);
@@ -28,20 +28,20 @@ const getUsersInUnit = asyncHandler(async (req, res) => {
     try {
       const currentUser = req.user;
       unit = await currentUser.Unit;
-    }
-    catch (error) {
+    } catch (error) {
       res.status(400);
-      throw new Error('부대에 소속되어 있지 않습니다.');
+      throw new Error("부대에 소속되어 있지 않습니다.");
     }
   }
 
-  const usersInUnit = await User.find({ Unit: { $eq: unit } }).select("-password");
+  const usersInUnit = await User.find({ Unit: { $eq: unit } }).select(
+    "-password"
+  );
   if (usersInUnit) {
     res.send(usersInUnit);
-  }
-  else {
+  } else {
     res.status(400);
-    throw new Error('오류가 발생했습니다.');
+    throw new Error("오류가 발생했습니다.");
   }
 });
 
@@ -277,8 +277,12 @@ const authUser = asyncHandler(async (req, res) => {
       Rank: user.Rank,
       DoDID: user.DoDID,
       email: user.email,
+      Role: user.Role,
+      number: user.number,
+      milNumber: user.milNumber,
       Type: user.Type,
       pic: user.pic,
+      Unit: user.Unit,
       token: generateToken(user._id),
     });
   } else {

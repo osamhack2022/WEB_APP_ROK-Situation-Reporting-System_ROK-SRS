@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Input, PageHeader, Modal, Form } from "antd";
 import React, { useState } from "react";
 import { db } from "../firebaseauth";
-import { useCollection } from "react-firebase-hooks/firestore";
 import { collection, addDoc } from "@firebase/firestore";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";

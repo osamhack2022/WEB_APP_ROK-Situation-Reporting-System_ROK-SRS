@@ -1,10 +1,13 @@
 import asyncStorage from '@react-native-async-storage/async-storage'
 import Constants from 'expo-constants'
 
-const getReportApi = async () => {
+const getReportApi = async ({ sender, receiver }) => {
+  const endpoint = sender
+    ? `api/report?sender=${sender}`
+    : `api/report?receiver=${receiver}`
   try {
     const res = await fetch(
-      Constants.manifest.extra.appPublicBackendRoot + 'api/report',
+      Constants.manifest.extra.appPublicBackendRoot + endpoint,
       {
         method: 'GET',
         headers: {
@@ -16,7 +19,7 @@ const getReportApi = async () => {
     )
     return res.json()
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 

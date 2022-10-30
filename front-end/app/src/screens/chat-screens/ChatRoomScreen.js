@@ -1,15 +1,13 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react'
-import {
-  DrawerLayoutAndroid,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-} from 'react-native'
+// prettier-ignore
+import React, { useState, useCallback, useEffect, useRef, useLayoutEffect } from 'react'
+//prettier-ignore
+import { DrawerLayoutAndroid, TouchableOpacity, Image, StyleSheet, View, TextInput } from 'react-native'
+import DropDownPicker from 'react-native-dropdown-picker'
 import { useNavigation } from '@react-navigation/native'
 import { GiftedChat, Bubble, InputToolbar } from 'react-native-gifted-chat'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
-import { Colors, List, Avatar, TextInput, IconButton } from 'react-native-paper'
+import { Colors, List, Avatar, IconButton } from 'react-native-paper'
 import {
   doc,
   collection,
@@ -20,11 +18,11 @@ import {
   onSnapshot,
 } from 'firebase/firestore'
 import { db } from '../../config/firebase'
-
-// 추후에 textinput 디자인 수정
+import { convertRank } from '../../helperfunctions/convertRank'
+import { convertChatType } from '../../helperfunctions/convertChatType'
 
 const imgUrl =
-  'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80'
+  'https://camo.githubusercontent.com/3c2bd3f35721dc332ebf2b11ace89722c37a0f60b94eac42b2a0462fdeb2d420/68747470733a2f2f63646e2d69636f6e732d706e672e666c617469636f6e2e636f6d2f3531322f363134322f363134323232362e706e67'
 
 export function ChatRoomScreen({ route }) {
   const navigation = useNavigation()
@@ -37,19 +35,20 @@ export function ChatRoomScreen({ route }) {
   const [text, setText] = useState('')
   const [isOpen, setIsOpen] = useState(false)
 
+  console.log(messages)
+
   const [open, setOpen] = useState(false)
-  const [chatType, setChatType] = useState('')
+  const [chatType, setChatType] = useState('regular')
   const [typeItem, setTypeItem] = useState([
     { label: '보고', value: 'report' },
     { label: '지시', value: 'order' },
-    { label: '긴급', value: 'emergency' },
+    { label: '기밀', value: 'secret' },
+    { label: '일반', value: 'regular' },
   ])
 
   const { userdata, users, chatid, name } = route.params
 
-  console.log(name)
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     const collectionRef = collection(db, 'chats', chatid, 'messages')
     const q = query(collectionRef, orderBy('timestamp', 'desc'))
 
@@ -58,7 +57,7 @@ export function ChatRoomScreen({ route }) {
         querySnapshot.docs.map((doc) => ({
           _id: doc.id,
           createdAt: new Date(doc.data().timestamp.toDate()),
-          text: `[${doc.data().type}] ${doc.data().text}`,
+          text: `[${convertChatType(doc.data().type)}] ${doc.data().text}`,
           user: {
             _id: doc.data().sender,
             name: doc.data().name,
@@ -82,36 +81,38 @@ export function ChatRoomScreen({ route }) {
     }
   }
 
-  useEffect(() =>
-    navigation.setOptions({
-      title: name,
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => {
-            toggleDrawer()
-          }}
-        >
-          <Avatar.Icon
-            icon="format-list-bulleted"
-            size={50}
-            style={{ backgroundColor: Colors.white }}
-          />
-        </TouchableOpacity>
-      ),
-      headerLeft: () => (
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('ChatListScreen')
-          }}
-        >
-          <Avatar.Icon
-            icon="arrow-left"
-            size={50}
-            style={{ backgroundColor: Colors.white }}
-          />
-        </TouchableOpacity>
-      ),
-    })
+  useEffect(
+    () =>
+      navigation.setOptions({
+        title: name,
+        headerRight: () => (
+          <TouchableOpacity
+            onPress={() => {
+              toggleDrawer()
+            }}
+          >
+            <Avatar.Icon
+              icon="format-list-bulleted"
+              size={50}
+              style={{ backgroundColor: Colors.white }}
+            />
+          </TouchableOpacity>
+        ),
+        headerLeft: () => (
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('ChatListScreen')
+            }}
+          >
+            <Avatar.Icon
+              icon="arrow-left"
+              size={50}
+              style={{ backgroundColor: Colors.white }}
+            />
+          </TouchableOpacity>
+        ),
+      }),
+    []
   )
 
   const navigationView = () => (
@@ -133,22 +134,21 @@ export function ChatRoomScreen({ route }) {
     </List.Section>
   )
 
-  const onSend = useCallback((messages = []) => {
+  const onSend = useCallback(async (messages = []) => {
     setMessages((previousMessages) =>
       GiftedChat.append(previousMessages, messages)
     )
-    const { user, createdAt, text } = messages[0]
+    const { user, createdAt, text, type } = messages[0]
     addDoc(collection(db, 'chats', chatid, 'messages'), {
       sender: user._id,
       name: `${user.name}`,
       timestamp: new Date(createdAt),
       text,
-      type: '긴급',
+      type,
     })
     updateDoc(doc(db, 'chats', chatid), {
       recentmsg: text,
       rectime: new Date(createdAt),
-      // severity: doc(db, 'chats', chatid).severity, need some fix
     })
   }, [])
 
@@ -171,47 +171,51 @@ export function ChatRoomScreen({ route }) {
     />
   )
 
-  const customInput = () => (
+  const customInput = (props) => (
     <InputToolbar
-      renderActions={
-        <DropDownPicker
-          placeholder="유형"
-          open={open}
-          value={chatType}
-          items={typeItem}
-          setOpen={setOpen}
-          setValue={setChatType}
-          setItems={setTypeItem}
-          style={styles.dropDown}
-          containerStyle={{ width: '15%' }}
-          dropDownContainerStyle={styles.dropDown}
-          placeholderStyle={styles.dropDownText}
-          textStyle={styles.dropDownText}
-          showArrowIcon={false}
-          showTickIcon={false}
-        />
-      }
+      {...props}
       renderComposer={() => (
-        <View style={[styles.commentInput, borderColor(focus)]}>
-          <TextInput
-            placeholder={`메시지를 입력하세요.`}
-            multiline={true}
-            onChangeText={(text) => setText(text)}
-            value={text}
-            style={styles.input}
-            onFocus={() => setFocus(true)}
-            onBlur={() => setFocus(false)}
-            ref={inputRef}
+        <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+          <DropDownPicker
+            {...props}
+            placeholder="유형"
+            open={open}
+            value={chatType}
+            items={typeItem}
+            setOpen={setOpen}
+            setValue={setChatType}
+            setItems={setTypeItem}
+            style={styles.dropDown}
+            containerStyle={{ width: '15%' }}
+            dropDownContainerStyle={styles.dropDown}
+            placeholderStyle={styles.dropDownText}
+            textStyle={styles.dropDownText}
+            showArrowIcon={false}
+            showTickIcon={false}
           />
+          <View style={[styles.commentInput, borderColor(focus)]}>
+            <TextInput
+              placeholder={`메시지를 입력하세요.`}
+              multiline={true}
+              onChangeText={(text) => setText(text)}
+              value={text}
+              style={styles.input}
+              onFocus={() => setFocus(true)}
+              onBlur={() => setFocus(false)}
+              ref={inputRef}
+            />
+            <IconButton
+              icon="send-outline"
+              size={25}
+              color={focus ? '#008275' : Colors.grey500}
+              onPress={() => {
+                props.onSend([
+                  { ...props.text[0], text: `${text}`, type: chatType },
+                ])
+              }}
+            />
+          </View>
         </View>
-      )}
-      renderSend={() => (
-        <IconButton
-          icon="send-outline"
-          size={25}
-          color={focus ? '#008275' : Colors.grey500}
-          onPress={() => onSend(text)}
-        />
       )}
     />
   )
@@ -230,13 +234,16 @@ export function ChatRoomScreen({ route }) {
         alignTop={true}
         isLoadingEarlier={true}
         renderBubble={renderBubble}
-        // renderInputToolbar={customInput}
+        renderInputToolbar={(props) => customInput(props)}
         renderAvatarOnTop={true}
         messages={messages}
         multiline={true}
         onSend={(text) => onSend(text)}
         placeholder="메시지를 입력하세요."
-        user={{ _id: userMe._id, name: `${userMe.Rank} ${userMe.Name}` }}
+        user={{
+          _id: userMe._id,
+          name: `${convertRank(userMe.Rank)} ${userMe.Name}`,
+        }}
         renderAvatar={() => (
           <Image
             source={{ uri: imgUrl }}
@@ -252,8 +259,9 @@ const styles = StyleSheet.create({
   dropDown: {
     backgroundColor: Colors.red300,
     borderWidth: 0,
-    borderRadius: 8,
+    paddingBottom: 2,
     elevation: 4,
+    borderRadius: 8,
   },
   dropDownText: {
     color: 'white',
@@ -261,15 +269,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   commentInput: {
-    width: '82%',
+    width: '84%',
+    marginLeft: 3,
     backgroundColor: Colors.grey100,
     elevation: 4,
-    marginLeft: 3,
     paddingLeft: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 1.5,
     borderRadius: 8,
+    flex: 1,
   },
   input: {
     fontSize: 15,
