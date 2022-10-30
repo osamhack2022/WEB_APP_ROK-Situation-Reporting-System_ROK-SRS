@@ -111,7 +111,7 @@
 
 ### Development Stack
 
-![Logo](https://i.ibb.co/bRLzn8d/new-Development-Stack.png)
+![img](https://i.ibb.co/m5v0TyR/new-Development-Stack-1.png)
 
 ### Web Frontend
 
