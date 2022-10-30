@@ -39,11 +39,7 @@ export function SettingScreen() {
           left={() => <List.Icon icon="logout" />}
           style={styles.listItem}
           onPress={() =>
-            logoutHandler(() =>
-              navigation.navigate('SettingNavigator', {
-                screen: 'LoginScreen',
-              })
-            )
+            logoutHandler(() => navigation.navigate('LoginScreen'))
           }
         />
         <List.Item

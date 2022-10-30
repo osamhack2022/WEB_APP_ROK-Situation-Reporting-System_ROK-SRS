@@ -20,6 +20,7 @@ export function ReportListItem(props) {
     Invited,
     Comments,
     User,
+    reportId,
   } = props
 
   const [date, setDate] = useState('')
@@ -50,6 +51,7 @@ export function ReportListItem(props) {
         Invited,
         Comments,
         User,
+        reportId,
       },
     })
   }
