@@ -146,67 +146,67 @@
 
 <table>
 	<tr>
-		<td width="44%" style="text-align: center; font-size: 12pt; font-weight: bold;">데스크탑 화면</td>
-		<td width="22%" style="text-align: center; font-size: 12pt; font-weight: bold;">모바일 화면</td>
-		<td width="34%" style="text-align: center; font-size: 12pt; font-weight: bold;">기능 설명</td>
+		<td width="44%" align='center'><b>스크탑 화면</b></td>
+		<td width="22%" align='center'><b>모바일 화면</b></td>
+		<td width="34%" align='center'><b>기능 설명</b></td>
 	</tr>
 	<tr>
-		<td>
+		<td align="center">
 		<img src="https://user-images.githubusercontent.com/68419358/198865106-c2e2b9bb-fa81-46f6-95b9-b1b3f04b0d16.PNG" alt="로그인페이지" />
 		</td>
-		<td>
+		<td align="center">
 		<img src="https://user-images.githubusercontent.com/68419358/198867881-b4bc41aa-79de-4c51-b986-23176ea0f54a.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일로그인" />
 		</td>
 		<td>등록된 사용자의 로그인</td>
 	</tr>
 	<tr>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198865117-f317810b-84e0-49e0-bd40-7528d2b60b2f.PNG" alt="회원가입페이지" /></td>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198867898-7ab203a4-571f-4e87-b095-e995ece66830.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일회원가입" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198865117-f317810b-84e0-49e0-bd40-7528d2b60b2f.PNG" alt="회원가입페이지" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198867898-7ab203a4-571f-4e87-b095-e995ece66830.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일회원가입" /></td>
 		<td>부대로부터 초대 코드를 받은 장병 회원가입</td>
 	</tr>
 	<tr>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198865116-1bfcc644-bba5-44d4-a06e-0a4941f7df35.PNG" alt="홈페이지" /></td>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198867882-78df53f9-3d4d-4594-a7af-d84ff1928a9e.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일홈" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198865116-1bfcc644-bba5-44d4-a06e-0a4941f7df35.PNG" alt="홈페이지" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198867882-78df53f9-3d4d-4594-a7af-d84ff1928a9e.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일홈" /></td>
 		<td>자신의 유저 정보 / 부대 정보 / 메모 보고 확인</td>
 	</tr>
 	<tr>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198865115-28fae6bd-05c2-41a8-8210-4ded72920aff.PNG" alt="조직도페이지" /></td>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198867886-ccde36c4-5b92-4cf3-b307-27791d8602f8.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일조직도" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198865115-28fae6bd-05c2-41a8-8210-4ded72920aff.PNG" alt="조직도페이지" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198867886-ccde36c4-5b92-4cf3-b307-27791d8602f8.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일조직도" /></td>
 		<td>같은 부대 내 장병들의 조직 체계 조회</td>
 	</tr>
 	<tr>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198865114-3132c66d-24cc-4a24-aabe-059f747947dc.PNG" alt="조직도세부페이지" /></td>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198867887-879ff28b-36b4-46a3-9889-77c7f37ef8ea.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일세부조직도" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198865114-3132c66d-24cc-4a24-aabe-059f747947dc.PNG" alt="조직도세부페이지" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198867887-879ff28b-36b4-46a3-9889-77c7f37ef8ea.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일세부조직도" /></td>
 		<td>조직도 내 장병의 세부 정보 확인<br/>권한에 따라 추가·수정·삭제</td>
 	</tr>
 	<tr>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198865108-41b5865a-2881-4c8a-b9d0-e73ae721bf4c.PNG" alt="메모보고페이지" /></td>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198867883-0e35397c-9f54-4e80-a287-ef983b583535.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일메모보고" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198865108-41b5865a-2881-4c8a-b9d0-e73ae721bf4c.PNG" alt="메모보고페이지" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198867883-0e35397c-9f54-4e80-a287-ef983b583535.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일메모보고" /></td>
 		<td>보고 체계를 따르는 군 내 메모보고 조회</td>
 	</tr>
 	<tr>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198865107-79daa5ba-7cfb-4046-9440-50e401bfc4d0.PNG" alt="메모보고작성창" /></td>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198867880-3e8c0c7a-0a3e-413c-818a-283432db797a.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일메모보고작성" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198865107-79daa5ba-7cfb-4046-9440-50e401bfc4d0.PNG" alt="메모보고작성창" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198867880-3e8c0c7a-0a3e-413c-818a-283432db797a.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일메모보고작성" /></td>
 		<td>메모보고 업로드</td>
 	</tr>
 	<tr>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198865109-92b6de7a-c973-44a8-b8d0-b191b65725d9.PNG" alt="메세지페이지" /></td>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198867891-aac07311-21f7-40ec-a765-ed3d8b06611b.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일채팅방" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198865109-92b6de7a-c973-44a8-b8d0-b191b65725d9.PNG" alt="메세지페이지" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198867891-aac07311-21f7-40ec-a765-ed3d8b06611b.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일채팅방" /></td>
 		<td>채팅 페이지</td>
 	</tr>
 	<tr>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198865103-3656e848-b7b8-4d71-815e-8c802df1e9db.PNG" alt="계정설정페이지" /></td>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198867888-eb7e6c42-5477-4fe7-a432-9aa519b5852f.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일계정설정" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198865103-3656e848-b7b8-4d71-815e-8c802df1e9db.PNG" alt="계정설정페이지" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198867888-eb7e6c42-5477-4fe7-a432-9aa519b5852f.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일계정설정" /></td>
 		<td>서비스 내에서 사용되는 유저의 정보 확인</td>
 	</tr>
 	<tr>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198865113-e9ab9427-70b2-49dd-a8cc-5c40ef048830.PNG" alt="부대설정페이지" /></td>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198867892-6cc8e03c-674f-401e-bc3e-a55e75633c31.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일부대설정" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198865113-e9ab9427-70b2-49dd-a8cc-5c40ef048830.PNG" alt="부대설정페이지" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198867892-6cc8e03c-674f-401e-bc3e-a55e75633c31.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일부대설정" /></td>
 		<td>자신이 속한 부대 정보 조회<br/>권한에 따라 추가·수정·삭제 기능</td>
 	</tr>
 	<tr>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198865111-a04cf9e3-a88d-491b-b925-9b8efdf1cd4e.PNG" alt="보고체계설정페이지" /></td>
-		<td><img src="https://user-images.githubusercontent.com/68419358/198867895-3a4fc982-d36c-4eca-995e-4f98e21315e8.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일보고체계" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198865111-a04cf9e3-a88d-491b-b925-9b8efdf1cd4e.PNG" alt="보고체계설정페이지" /></td>
+		<td align="center"><img src="https://user-images.githubusercontent.com/68419358/198867895-3a4fc982-d36c-4eca-995e-4f98e21315e8.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일보고체계" /></td>
 		<td>상황 보고 단계에 대한 보고체계 리스트<br/>권한에 따라 추가·수정·삭제</td>
 	</tr>
 </table>
