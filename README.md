@@ -288,7 +288,7 @@ $ yarn start or npm run start
 	 <td align='center'><img src="https://cdn-icons-png.flaticon.com/512/6142/6142226.png" width="50" height="63"></td>
   <td align='center'>김형민</td>
   <td align='center'>프론트엔드(APP) 개발자</td>
-  <td align='center'><a href="https://github.com/gudmin0526"><img src="http://img.shields.io/badge/gudmin0526-green?style=social&logo=github"/></a></td>
+  <td align='center'><a href="https://github.com/gudmin0526"><img src="https://user-images.githubusercontent.com/113012760/198868295-88d8a91b-8c91-4b6a-b180-f092c3304e32.jpg"/></a></td>
   <td align='center'><a href="gudmin0526@gmail.com"><img src="https://img.shields.io/badge/gudmin0526@gmail.com-green?logo=gmail&style=social"/></a></td>
  </tr>
  <tr>
