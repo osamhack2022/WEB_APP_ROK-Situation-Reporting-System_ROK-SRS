@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 //prettier-ignore
 import { SafeAreaView, StyleSheet, View, FlatList, Text, TextInput, Alert } from 'react-native'
-import { IconButton } from 'react-native-paper'
+import { ActivityIndicator, IconButton } from 'react-native-paper'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportHeader } from '../../components/ReportHeader'
 import { ReportContent } from '../../components/ReportContent'
@@ -87,7 +87,9 @@ export function ReportScreen({ route }) {
   )
 
   const renderItem = ({ item }) =>
-    item && (
+    !item.User ? (
+      <ActivityIndicator color={Colors.green500} />
+    ) : (
       <ReportComment User={item.User} Content={item.Content} Type={item.Type} />
     )
 
@@ -102,14 +104,16 @@ export function ReportScreen({ route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        ListHeaderComponent={ListHeaderComponent}
-        data={comments}
-        renderItem={renderItem}
-        ItemSeparatorComponent={ItemSeparator}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 10 }}
-      />
+      {comments.length && (
+        <FlatList
+          ListHeaderComponent={ListHeaderComponent}
+          data={comments}
+          renderItem={renderItem}
+          ItemSeparatorComponent={ItemSeparator}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 10 }}
+        />
+      )}
       <View style={styles.commentView}>
         <DropDownPicker
           placeholder="유형"

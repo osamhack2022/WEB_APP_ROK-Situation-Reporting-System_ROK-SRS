@@ -35,7 +35,11 @@ export const ChatListItem = (props) => {
           />
           <View style={styles.midContainer}>
             <Text style={styles.username}>{props.name}</Text>
-            <Text numberOfLines={2} style={styles.lastMessage}>
+            <Text
+              numberOfLines={1}
+              style={styles.lastMessage}
+              ellipsizeMode="tail"
+            >
               {props.recentmsg}
             </Text>
           </View>
