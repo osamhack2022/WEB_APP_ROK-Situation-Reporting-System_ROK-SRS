@@ -33,11 +33,28 @@ export async function encryptchat(userid, chatid, plaintext) {
     let secret = null
     try { //secret exists
         secret = await client.getSecret(userid + "-" + chatid);
-
-    } catch {
+        let ciphertext = AES.encrypt(plaintext, secret.value).toString()
+        return ciphertext
+    } catch { //secret doesn't exist, send key
         const key = new NodeRSA();
         console.log(key)
-        
+        let encryptedkey = generateKey(uuidv4())
+        const encrypted = key.encrypt(encryptedkey, 'base64');
+        secret = await client.setSecret(userid + "-" + chatid, encrypted);
+        let ciphertext = AES.encrypt(plaintext, secret.value).toString()
+        return ciphertext
     }
+
+}
+
+export async function decryptuser(userid, chatid, ciphertext) {
+    let secret = null
+    try { //secret exists
+        secret = await client.getSecret(userid + "-" + chatid);
+    } catch { //make new secret
+        return "unable to decrypt, id doesn't exist"
+    }
+    let bytes = AES.decrypt(ciphertext.toString(), secret.value)
+    return hex_to_ascii(bytes.toString(enc2.Utf8))
 
 }

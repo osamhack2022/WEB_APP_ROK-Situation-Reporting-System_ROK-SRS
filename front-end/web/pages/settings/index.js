@@ -1,8 +1,8 @@
 import Head from 'next/head'
 import { Button, Input, Upload, Image, TreeSelect, Form, PageHeader, Breadcrumb } from 'antd';
 import styles from '../../styles/usersettings.module.css'
-import React, { useEffect, useState } from 'react';
-import { decodeJwt, jwtVerify } from 'jose';
+import React, { useState } from 'react';
+import { decodeJwt } from 'jose';
 import { getCookie } from 'cookies-next';
 
 const backendroot = process.env.NEXT_PUBLIC_BACKEND_ROOT
@@ -43,6 +43,8 @@ const Settings = (props) => {
   const [Phone, setPhone] = useState(userprops.number);
   const [uploadedprofilepic, setuploadedprofilelogo] = useState("none")
   let submitnewuser = async (event) => {
+    seterror1("데모에서 정보를 바꾸실 수 없습니다.")
+    return
     let endpoint = backendroot + 'api/user/updateweb'
     const data = {
       DID: DoDID,
@@ -73,7 +75,6 @@ const Settings = (props) => {
     }
   }
   let submituserimg = async (event) => {
-    console.log(uploadedprofilepic.fileList)
     if (uploadedprofilepic.fileList == null) {
       seterror2("업로드된 사진이 없습니다")
     } else {
@@ -82,7 +83,7 @@ const Settings = (props) => {
   }
   
   let submitnewpassword = async (event) => {
-    console.log('pass')
+    seterror3("데모에서 비밀번호를 바꾸실 수 없습니다.")
   }
 
 
@@ -202,7 +203,7 @@ const Settings = (props) => {
           <Form.Item>
             <div style={{ display: 'flex' }}>
               <button className={styles.submitbutton} type="primary">비밀번호 변경</button>
-              <p id={styles.error1}>{error3}fd</p>
+              <p id={styles.error1}>{error3}</p>
               <p id={styles.success1}>{success3}</p>
             </div>
           </Form.Item>

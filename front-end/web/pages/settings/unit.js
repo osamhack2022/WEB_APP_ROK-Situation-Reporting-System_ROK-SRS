@@ -184,6 +184,8 @@ const UnitSettings = (props) => {
   };
 
   let submitunitinfo = async (event) => {
+    seterror1("데모에서 정보를 바꾸실 수 없습니다.")
+    return
     let endpoint = backendroot + "api/unit/";
     console.log(uploadedunitname)
     console.log(uploadedunitslogan)
@@ -239,7 +241,7 @@ const UnitSettings = (props) => {
             <Form className={styles.changeunitinfo} onFinish={submitunitinfo}>
               <h1>부대정보 번경</h1>
               <h2>부대이름</h2>
-              <Form.Item name="부대이름" rules={[{ required: true }]}>
+              <Form.Item name="부대이름">
                 <Input
                   placeholder="부대이름 변경"
                   defaultValue={props2.Unitname}
@@ -251,7 +253,7 @@ const UnitSettings = (props) => {
                 />
               </Form.Item>
               <h2>부대슬로건</h2>
-              <Form.Item name="부대슬로건" rules={[{ required: true }]}>
+              <Form.Item name="부대슬로건">
                 <TextArea
                   showCount
                   maxLength={50}

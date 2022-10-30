@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 //prettier-ignore
 import { SafeAreaView, StyleSheet, View, FlatList, Text, TextInput } from 'react-native'
 import { IconButton } from 'react-native-paper'
@@ -10,6 +10,7 @@ import { Colors } from 'react-native-paper'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
 import addCommentApi from '../../apis/report/addCommentApi'
+import { convertRank } from '../../helperfunctions/convertRank'
 
 export function ReportScreen({ route }) {
   const {
@@ -30,13 +31,12 @@ export function ReportScreen({ route }) {
 
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState(earlierComments)
-
   const [open, setOpen] = useState(false)
   const [commentType, setCommentType] = useState('')
   const [typeItem, setTypeItem] = useState([
-    { label: '보고', value: 'report' },
-    { label: '지시', value: 'order' },
-    { label: '긴급', value: 'emergency' },
+    { label: '보고', value: '보고사항' },
+    { label: '지시', value: '지시사항' },
+    { label: '기밀', value: '기밀사항' },
   ])
 
   const [focus, setFocus] = useState(false)
@@ -53,11 +53,9 @@ export function ReportScreen({ route }) {
       />
       <ReportContent
         Content={Content}
-        Name={User.Name}
-        position={User.position}
         ReportingSystem={ReportingSystem}
         Invited={Invited}
-        Rank={User.Rank}
+        User={User}
       />
       <View
         style={{
@@ -85,19 +83,11 @@ export function ReportScreen({ route }) {
   )
 
   const renderItem = ({ item }) => (
-    <ReportComment
-      name={item.Name}
-      position={item.position}
-      Content={item.Content}
-      Type={item.Type}
-      Rank={item.Rank}
-    />
+    <ReportComment User={User} Content={item.Content} Type={item.Type} />
   )
 
   const addCommentHandler = async ({ Type, Content, Title, _id }) => {
-    console.log({ Type, Content, Title, _id })
     const res = await addCommentApi({ Type, Content, Title, _id })
-    console.log(res)
   }
 
   return (
@@ -151,7 +141,7 @@ export function ReportScreen({ route }) {
                   position: userMe.Position,
                   Content: comment,
                   Type: commentType,
-                  Rank: userMe.Rank,
+                  Rank: convertRank(userMe.Rank),
                 },
               ])
               addCommentHandler({

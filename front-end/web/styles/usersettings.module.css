@@ -43,7 +43,7 @@
 
 .resetpassword {
   width: 700px;
-  height: 350px;
+  height: 390px;
   background-color: white;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -51,6 +51,7 @@
   margin-top: 20px;
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 #error1 {

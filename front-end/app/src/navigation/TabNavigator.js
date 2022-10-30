@@ -60,7 +60,7 @@ export default function TabNavigator() {
       />
       <Tab.Screen
         name="OrgChartScreen"
-        options={{ title: '조직도', headerTitle: '조 직 도' }}
+        options={{ title: '조직', headerTitle: '조 직' }}
         component={OrgChartScreen}
       />
       <Tab.Screen

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { SafeAreaView, View, StyleSheet, Alert } from 'react-native'
 import { TextInput, Colors } from 'react-native-paper'
 import { ImagePicker } from '../../components/ImagePicker'
@@ -7,10 +7,12 @@ import updateUnitApi from '../../apis/unit/addUnitApi'
 import updateUnitLogoApi from '../../apis/unit/updateUnitLogoApi'
 import { MyButton } from '../../components/MyButton'
 import { useRecoilState } from 'recoil'
-import { userState } from '../../states/userState'
+import { userState, unitState } from '../../states'
 
 export function UnitMgtScreen() {
   const [userMe, setUserMe] = useRecoilState(userState)
+  const [myUnit, setMyUnit] = useRecoilState(unitState)
+  const [Unitname, setUnitname] = useState('')
   const [Unitslogan, setUnitslogan] = useState('')
   const [Logo, setLogo] = useState('')
 
@@ -30,6 +32,12 @@ export function UnitMgtScreen() {
     }
   }, [])
 
+  useEffect(() => {
+    setUnitname(myUnit.Unitname)
+    setUnitslogan(myUnit.Unitslogan)
+    setLogo(myUnit.Logo)
+  })
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.view}>
@@ -37,9 +45,11 @@ export function UnitMgtScreen() {
           imageUrl={Logo}
           setImageUrl={setLogo}
           text="부대 로고를 변경하려면 클릭."
+          imgStyle={{ borderRadius: 0, borderWidth: 0, width: 85 }}
         />
         <TextInput
           label="부대 이름"
+          placeholder={Unitname}
           dense={true}
           activeUnderlineColor="#008275"
           onChangeText={(Unitname) => setUnitname(Unitname)}
@@ -47,6 +57,7 @@ export function UnitMgtScreen() {
         />
         <TextInput
           label="부대 슬로건"
+          placeholder={Unitslogan}
           dense={true}
           activeUnderlineColor="#008275"
           onChangeText={(Unitslogan) => setUnitslogan(Unitslogan)}

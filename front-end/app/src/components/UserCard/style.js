@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   },
   image: {
     marginBottom: 5,
-    backgroundColor: Colors.green400,
+    backgroundColor: Colors.grey400,
   },
   title: {
     fontSize: 12,
