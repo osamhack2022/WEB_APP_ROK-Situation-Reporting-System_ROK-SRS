@@ -18,15 +18,49 @@
 
 <br/>
 
-1. [프로젝트 소개](#introduction)
-1. [기능 설명](#features)
-1. [화면 설계](#functions)
-1. [컴퓨터 구성 / 필수 조건 안내 (Prerequisites)](#requirements)
-1. [기술 스택 (Technique Used) ](#techniques)
-1. [설치 안내 (Installation Process) ](#installation)
-1. [팀 정보 (Team Information) ](#team)
-1. [문서 (Documentation)](#documentation)
-1. [저작권 및 사용권 정보 (Copyleft / End User License) ](#copyright)
+<ol>
+    <li><a href="#introduction">프로젝트 소개</a></li>
+    <ol>
+        <li>
+            <a href="#problem">문재점</a>
+        </li>
+        <li>
+            <a href="#solution">국군 야전 상황보고체계의 해결책</a>
+        </li>
+                <li>
+            <a href="#market">목표 시장</a>
+        </li>
+    </ol>
+    <li><a href="#features">기능 설명</a></li>
+ 	<ol>
+        <li>
+            <a href="#encryption">강력한 암호화</a>
+        </li>
+        <li>
+            <a href="#ai">AI를 통한 심각성/중요도 점수</a>
+        </li>
+                <li>
+            <a href="#functions">화면 설계</a>
+        </li>
+    </ol>
+	<li><a href="#requirements">컴퓨터 구성 / 필수 조건 안내 (Prerequisites)</a></li>
+	<li><a href="#techniques">기술 스택 (Technique Used)</a></li>
+	<li><a href="#installation">설치 안내 (Installation Process)</a></li>
+	<ol>
+        <li>
+            <a href="#backendinstall">Backend 설치안내</a>
+        </li>
+        <li>
+            <a href="#frontendinstall">Frontend(Web) 설치안내</a>
+        </li>
+        <li>
+            <a href="#appinstall">APP 설치안내</a>
+        </li>
+    </ol>
+	<li><a href="#team">팀 정보 (Team Information)</a></li>
+	<li><a href="#documentation"> 문서 (Documentation)</a></li>
+	<li><a href="#copyright">[저작권 및 사용권 정보 (Copyleft / End User License)</a></li>
+</ol>
 
 <a id = "introduction"></a>
 
@@ -290,6 +324,8 @@
 
 ## 설치 안내 (Installation Process)
 
+<a id = "backendinstall"></a>
+
 #### Backend
 ```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
@@ -298,6 +334,7 @@ $ npm install
 .env 파일 생성 후
 $ npm run start
 ```
+<a id = "frontendinstall"></a>
 
 #### Frontend(WEB)
 
@@ -308,6 +345,7 @@ $ npm install
 .env 파일 생성 후
 $ npm run dev
 ```
+<a id = "appinstall"></a>
 
 ## APP 설치 안내 (App Installation Process)
 
