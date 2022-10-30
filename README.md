@@ -1,6 +1,14 @@
 # 국군 야전 상황보고체계, ROK Situation Reporting System
 ![Logo](https://i.ibb.co/PmQxT82/450-300px-300-100px-900-300px.png)
 
+<p align="center">
+	<a href="https://rok-fjh0y4gyl-s3kim2018.vercel.app/">
+		<img src="https://user-images.githubusercontent.com/52823519/198875810-9016ac44-503e-4a8b-a544-3bb36b7e8201.png" />
+	<a href="https://www.youtube.com/watch?v=4J2cPialaMY">
+		<img src="https://user-images.githubusercontent.com/52823519/198875825-e343fae7-6a9b-4725-b0b9-1bb413a4ce3a.png" />
+	</a>
+</p>
+
 1. [프로젝트 소개](#introduction)
 1. [기능 설명](#features)
 1. [컴퓨터 구성 / 필수 조건 안내 (Prerequisites)](#requirements)
