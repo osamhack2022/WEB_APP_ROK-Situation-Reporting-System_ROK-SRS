@@ -315,7 +315,35 @@ $ cd front-end/app
 ```
 <a id="opensource"></a>
 ## 오픈소스
-* ...
+
+* mongoose
+* jsonwebtoken
+* bcryptjs
+* cors
+* classificator
+* colors
+* dotenv
+* express-async-handler
+* mongoose-encryption
+* nodemon
+* nodepapago
+* socket.io
+* wink-pos-tagger
+* cookies-next
+* react-draggable
+* react-firebase-hooks
+* react-infinite-scroll-component
+* react-organizational-chart
+* crypto-js
+* uuid
+* jose
+* react-navigation
+* react-native-paper
+* react-native-async-storage
+* react-native-dropdown-picker
+* react-native-gifted-chat
+* recoil
+
 
 <a id = "installation"></a>
 
