@@ -24,7 +24,7 @@ function UserNode(props) {
         <div>
           {Convertrank(props.rank)} {props.name}
         </div>
-        <div>{props.position}</div>
+        <div>{props.role}</div>
       </Col>
     </Row>
   );
@@ -40,7 +40,7 @@ function LinkedUser(props) {
           avatar={user.pic}
           rank={user.Rank}
           name={user.Name}
-          position={user.Position}
+          role={user.Role}
         />
       </Col>
     );

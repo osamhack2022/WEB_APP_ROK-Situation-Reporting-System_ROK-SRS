@@ -19,7 +19,7 @@ export function Convertrank(val) {
     rank["MG"] = "소장"
     rank["LG"] = "중장"
     rank["GEN"] = "대장"
-    return rank[val]
+    return rank[val] ?? val;
 
 
 }
