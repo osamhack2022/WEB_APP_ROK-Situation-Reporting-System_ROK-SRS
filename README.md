@@ -1,8 +1,14 @@
-
 # 국군 야전 상황보고체계, ROK Situation Reporting System
 
 ![Logo](https://i.ibb.co/PmQxT82/450-300px-300-100px-900-300px.png)
 
+<p align="center">
+	<a href="https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/graphs/contributors/"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS?color=success"></a>
+	<a href="https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/blob/main/license.md"><img alt="GitHub license" src="https://img.shields.io/github/license/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS"></a>
+	<a href="https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/issues"><img alt="GitHub Issues" src="https://img.shields.io/github/issues/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS"></a>
+	<a href="https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/issues"><img alt="GitHub Issues Vlosed" src="https://img.shields.io/github/issues-closed/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS"></a>
+
+</p>
 <br/>
 
 <div align="center">
@@ -245,7 +251,6 @@
 	</tr>
 </table>
 
-
 ## 프로젝트 사용법 (Getting Started)
 
 [데모 영상](https://www.youtube.com/watch?v=4J2cPialaMY)
@@ -327,6 +332,7 @@
 <a id = "backendinstall"></a>
 
 #### Backend
+
 ```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd back-end
@@ -334,6 +340,7 @@ $ npm install
 .env 파일 생성 후
 $ npm run start
 ```
+
 <a id = "frontendinstall"></a>
 
 #### Frontend(WEB)
@@ -345,6 +352,7 @@ $ npm install
 .env 파일 생성 후
 $ npm run dev
 ```
+
 <a id = "appinstall"></a>
 
 ## APP 설치 안내 (App Installation Process)
@@ -362,37 +370,41 @@ $ npx eas build -p android --profile preview
 ```
 
 <a id="opensource"></a>
+
 ## 오픈소스
+
 ### MIT License
-* mongoose
-* jsonwebtoken
-* bcryptjs
-* cors
-* colors
-* express-async-handler
-* mongoose-encryption
-* nodemon
-* nodepapago
-* socket.io
-* wink-pos-tagger
-* cookies-next
-* react-draggable
-* react-infinite-scroll-component
-* react-organizational-chart
-* crypto-js
-* uuid
-* jose
-* react-navigation
-* react-native-paper
-* react-native-async-storage
-* react-native-dropdown-picker
-* react-native-gifted-chat
-* recoil
+
+- mongoose
+- jsonwebtoken
+- bcryptjs
+- cors
+- colors
+- express-async-handler
+- mongoose-encryption
+- nodemon
+- nodepapago
+- socket.io
+- wink-pos-tagger
+- cookies-next
+- react-draggable
+- react-infinite-scroll-component
+- react-organizational-chart
+- crypto-js
+- uuid
+- jose
+- react-navigation
+- react-native-paper
+- react-native-async-storage
+- react-native-dropdown-picker
+- react-native-gifted-chat
+- recoil
 
 ### Others
-* dotenv [BSD-2-Clause]
-* react-firebase-hooks [Apache-2.0]
-* classificator [none]
+
+- dotenv [BSD-2-Clause]
+- react-firebase-hooks [Apache-2.0]
+- classificator [none]
 
 <a id = "team"></a>
 
@@ -439,6 +451,7 @@ $ npx eas build -p android --profile preview
 <a id = "documentation"></a>
 
 ## 문서 (Documentation)
+
 - [암호화 체계](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%ED%99%94-%EC%B2%B4%EA%B3%84)
 - [백엔드 Docs](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Backend-Docs)
 - [Figma](https://www.figma.com/file/U4mcvflCMxzbLcmGABrCUy/SRS?node-id=0%3A1)
