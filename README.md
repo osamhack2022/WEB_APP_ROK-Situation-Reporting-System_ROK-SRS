@@ -2,12 +2,14 @@
 
 ---
 1. [프로젝트 소개](#introduction)
-2. [기능 설명](#features)
-3. [컴퓨터 구성 / 필수 조건 안내 (Prerequisites)](#requirements)
-4. [기술 스택 (Technique Used) ](#techniques)
-5. [설치 안내 (Installation Process) ](#installation)
-6. [팀 정보 (Team Information) ](#team)
-7. [저작권 및 사용권 정보 (Copyleft / End User License) ](#copyright)
+1. [기능 설명](#features)
+1. [컴퓨터 구성 / 필수 조건 안내 (Prerequisites)](#requirements)
+1. [기술 스택 (Technique Used) ](#techniques)
+1. [화면 설계](#functions)
+1. [설치 안내 (Installation Process) ](#installation)
+1. [팀 정보 (Team Information) ](#team)documentation
+1. [문서 (Documentation)](#documentation)
+1. [저작권 및 사용권 정보 (Copyleft / End User License) ](#copyright)
 
 <a id = "introduction"></a>
 ## 📢 프로젝트 소개
@@ -54,8 +56,8 @@
 3. 사령부 내부 부서/처.
 4. 국정원, 경호원, 무기체계 개발팀 등 기밀 사항 연구 보직.
 
-<a id = "features"></a>
 
+<a id = "features"></a>
 ## 📖 기능 설명
 
 ### 🔒 강력한 암호화
@@ -96,7 +98,8 @@
 </table>
 
 
-- 설명 기입
+### 프로젝트 사용법 (Getting Started)
+[데모 영상]()
 
 <a id = "requirements"></a>
 
@@ -172,8 +175,8 @@
 * uuid
 * jose
 
-<a id="functions"></a>
 
+<a id="functions"></a>
 ## ⚙️화면 설계
 
 <table>
@@ -209,7 +212,7 @@
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865114-3132c66d-24cc-4a24-aabe-059f747947dc.PNG" alt="조직도세부페이지" /></td>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198867887-879ff28b-36b4-46a3-9889-77c7f37ef8ea.jpeg" style="clip-path: inset(12px 0 18px 0)" alt="모바일세부조직도" /></td>
-		<td>조직도 내 장병의 세부 정보 확인<br/>권한에 따라 추가·수정·삭제 기능 부여</td>
+		<td>조직도 내 장병의 세부 정보 확인<br/>권한에 따라 추가·수정·삭제</td>
 	</tr>
 	<tr>
 		<td><img src="https://user-images.githubusercontent.com/68419358/198865108-41b5865a-2881-4c8a-b9d0-e73ae721bf4c.PNG" alt="메모보고페이지" /></td>
@@ -244,7 +247,6 @@
 </table>
 
 <a id = "installation"></a>
-
 ## 설치 안내 (Installation Process)
 
 ```bash
@@ -253,12 +255,7 @@ $ yarn or npm install
 $ yarn start or npm run start
 ```
 
-## 프로젝트 사용법 (Getting Started)
-
-**마크다운 문법을 이용하여 자유롭게 기재**
-
 <a id = "team"></a>
-
 ## 팀 정보 (Team Information)
 
 <table>
@@ -299,7 +296,8 @@ $ yarn start or npm run start
  </tr>
 </table>
 
-## Documentation
+<a id = "documentation"></a>
+## 문서 (Documentation)
 - [Backend Docs](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Backend-Docs)
 - [Git Commit Convention](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Git-Commit-Convention)
 <a id = "copyright"></a>
