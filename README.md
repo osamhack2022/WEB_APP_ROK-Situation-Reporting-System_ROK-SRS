@@ -260,23 +260,14 @@ $ npm install
 $ npm run start
 ```
 <br/>
-- Frontend(Web)
+- Frontend(WEB)
+
 ```bash
 $ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd front-end/web
 ```
 <br/>
-- Frontend(App)
-```bash
-$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
-$ cd front-end/app
-```
-<a id="opensource"></a>
-## 오픈소스
-* ...
-
-<a id = "installation"></a>
-## APP 설치 안내 (App Installation Process)
+- Frontend(APP)
 
 ### Prerequisites
 ```
@@ -302,6 +293,9 @@ $ npx eas build -p android --profile preview
 $ npx eas build -p ios
 이후 Apple Developer account 아이디, 비밀번호를 입력하여 로그인
 ```
+<a id="opensource"></a>
+## 오픈소스
+* ...
 
 
 ## 프로젝트 사용법 (Getting Started)
