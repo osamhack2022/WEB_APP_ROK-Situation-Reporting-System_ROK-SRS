@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 //prettier-ignore
-import { SafeAreaView, StyleSheet, View, FlatList, Text, TextInput } from 'react-native'
-import { IconButton } from 'react-native-paper'
+import { SafeAreaView, StyleSheet, View, FlatList, Text, TextInput, Alert } from 'react-native'
+import { ActivityIndicator, IconButton } from 'react-native-paper'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportHeader } from '../../components/ReportHeader'
 import { ReportContent } from '../../components/ReportContent'
@@ -10,9 +10,12 @@ import { Colors } from 'react-native-paper'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
 import addCommentApi from '../../apis/report/addCommentApi'
+import resolveReportApi from '../../apis/report/resolveReportApi'
+import { convertRank } from '../../helperfunctions/convertRank'
 
 export function ReportScreen({ route }) {
   const {
+    _id,
     Title,
     Status,
     Content,
@@ -22,6 +25,7 @@ export function ReportScreen({ route }) {
     ReportingSystem,
     Invited,
     User,
+    reportId,
   } = route.params
 
   const earlierComments = route.params.Comments
@@ -30,13 +34,12 @@ export function ReportScreen({ route }) {
 
   const [comment, setComment] = useState('')
   const [comments, setComments] = useState(earlierComments)
-
   const [open, setOpen] = useState(false)
   const [commentType, setCommentType] = useState('')
   const [typeItem, setTypeItem] = useState([
-    { label: '보고', value: 'report' },
-    { label: '지시', value: 'order' },
-    { label: '긴급', value: 'emergency' },
+    { label: '보고', value: '보고사항' },
+    { label: '지시', value: '지시사항' },
+    { label: '기밀', value: '기밀사항' },
   ])
 
   const [focus, setFocus] = useState(false)
@@ -53,11 +56,10 @@ export function ReportScreen({ route }) {
       />
       <ReportContent
         Content={Content}
-        Name={User.Name}
-        position={User.position}
         ReportingSystem={ReportingSystem}
         Invited={Invited}
-        Rank={User.Rank}
+        User={User}
+        onPress={resolveReportHandler}
       />
       <View
         style={{
@@ -84,32 +86,34 @@ export function ReportScreen({ route }) {
     />
   )
 
-  const renderItem = ({ item }) => (
-    <ReportComment
-      name={item.Name}
-      position={item.position}
-      Content={item.Content}
-      Type={item.Type}
-      Rank={item.Rank}
-    />
-  )
+  const renderItem = ({ item }) =>
+    !item.User ? (
+      <ActivityIndicator color={Colors.green500} />
+    ) : (
+      <ReportComment User={item.User} Content={item.Content} Type={item.Type} />
+    )
 
-  const addCommentHandler = async ({ Type, Content, Title, _id }) => {
-    console.log({ Type, Content, Title, _id })
-    const res = await addCommentApi({ Type, Content, Title, _id })
-    console.log(res)
+  const addCommentHandler = async ({ Type, Content, ReportId }) => {
+    const res = await addCommentApi({ Type, Content, ReportId })
+  }
+
+  const resolveReportHandler = async () => {
+    const res = await resolveReportApi({ reportId })
+    Alert.alert('종결되었습니다.')
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        ListHeaderComponent={ListHeaderComponent}
-        data={comments}
-        renderItem={renderItem}
-        ItemSeparatorComponent={ItemSeparator}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 10 }}
-      />
+      {comments.length && (
+        <FlatList
+          ListHeaderComponent={ListHeaderComponent}
+          data={comments}
+          renderItem={renderItem}
+          ItemSeparatorComponent={ItemSeparator}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 10 }}
+        />
+      )}
       <View style={styles.commentView}>
         <DropDownPicker
           placeholder="유형"
@@ -147,18 +151,15 @@ export function ReportScreen({ route }) {
               setComments([
                 ...comments,
                 {
-                  Name: userMe.Name,
-                  position: userMe.Position,
+                  User: userMe,
                   Content: comment,
                   Type: commentType,
-                  Rank: userMe.Rank,
                 },
               ])
               addCommentHandler({
-                Title,
                 Type: commentType,
                 Content: comment,
-                _id: userMe._id,
+                ReportId: reportId,
               })
               setComment('')
               inputRef.current.blur()

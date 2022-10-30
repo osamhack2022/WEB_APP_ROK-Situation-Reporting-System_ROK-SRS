@@ -33,7 +33,10 @@ export function ImagePicker(props) {
 
   return (
     <Pressable onPress={uploadImage} style={[styles.pressable, props.style]}>
-      <Image source={{ uri: props.imageUrl || dftPic }} style={styles.image} />
+      <Image
+        source={{ uri: props.imageUrl || dftPic }}
+        style={[styles.image, props.imgStyle]}
+      />
     </Pressable>
   )
 }

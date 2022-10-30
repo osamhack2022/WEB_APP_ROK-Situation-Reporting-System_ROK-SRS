@@ -1,7 +1,7 @@
 import Constants from 'expo-constants'
 import asyncStorage from '@react-native-async-storage/async-storage'
 
-const getReportsysApi = async (query) => {
+const getReportsysApi = async ({ query, Unit }) => {
   const searchQuery = query ? query : ''
   try {
     const res = await fetch(
@@ -13,6 +13,7 @@ const getReportsysApi = async (query) => {
         headers: {
           Authorization: `Bearer ${await asyncStorage.getItem('roksrs-token')}`,
         },
+        user: { Unit },
       }
     )
     return res.json()

@@ -23,7 +23,6 @@ const Register = () => {
     let endpoint = backendroot + 'api/user/register'
 
     let registeruser = async (event) => {
-        console.log("hi")
         const data = {
             DoDID: DoDID,
             password: Password,
@@ -93,7 +92,6 @@ const Register = () => {
                 </Form>
                 <div id={styles.loginfooter}>
                     <span className={styles.descfield}>계정이 있으세요? </span><Link href="/" passHref><a className={styles.links}>로그인</a></Link> <br></br>
-                    <span className={styles.descfield}>비밀번호를 잃어버리셨나요? </span><Link href="/forgotpass" passHref><a className={styles.links}>비밀번호 찾기</a></Link>
                 </div>
             </NotLoggedinLayout>
         </>

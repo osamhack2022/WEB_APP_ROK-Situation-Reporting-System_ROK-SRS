@@ -12,9 +12,9 @@ export default function SettingHeader(props) {
     "/settings/reportsystem": "보고체계 설정",
   };
 
-  const selectStyle = useCallback((isSelected) =>
-    isSelected ? { color: "black", cursor: "pointer" } : {}
-  );
+  const selectStyle = useCallback((isSelected) => (
+    isSelected ? { color: "black", cursor: "pointer", fontWeight: "bold" } : {}
+  ));
 
   return (
     <PageHeader
@@ -33,11 +33,12 @@ export default function SettingHeader(props) {
       breadcrumb={
         <Breadcrumb>
           {Object.entries(routeTitle).map((entry) => (
-            <Breadcrumb.Item
-              key={entry[1]}
-              style={selectStyle(entry[0] == currentPath)}
-            >
-              <Button type="text" onClick={() => router.replace(entry[0])}>
+            <Breadcrumb.Item key={entry[1]}>
+              <Button
+                style={selectStyle(entry[0] == currentPath)}
+                type="text"
+                onClick={() => router.replace(entry[0])}
+              >
                 {entry[1]}
               </Button>
             </Breadcrumb.Item>

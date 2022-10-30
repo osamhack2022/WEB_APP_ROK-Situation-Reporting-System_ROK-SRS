@@ -35,19 +35,20 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
   },
   contView: {
+    paddingTop: 20,
+
     width: '100%',
     flexDirection: 'row',
   },
   seqView: {
     flex: 1,
     alignItems: 'flex-start',
-    marginTop: 10,
+    justifyContent: 'flex-end',
   },
   seqText: {
-    paddingTop: 2,
     fontFamily: 'NunitoSans_400Regular',
-    fontSize: 12,
-    color: Colors.grey800,
+    fontSize: 13,
+    color: Colors.grey600,
   },
   buttonView: {
     marginTop: 15,

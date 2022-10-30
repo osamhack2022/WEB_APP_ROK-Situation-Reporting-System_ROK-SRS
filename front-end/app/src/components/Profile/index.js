@@ -9,7 +9,7 @@ export function Profile(props) {
   return (
     <View style={[styles.avatarView, props.style]}>
       <Avatar.Image
-        source={props.source || require('../../assets/images/avatar.png')}
+        source={props.source}
         size={props.size || 45}
         style={styles.avatarImg}
       />
@@ -17,7 +17,7 @@ export function Profile(props) {
         <Text style={[styles.name, props.nameStyle]}>
           {props.Rank} {props.name}
         </Text>
-        <Text style={styles.position}>{props.position || '본부중대 통신'}</Text>
+        <Text style={styles.position}>{props.role || '미지정'}</Text>
       </View>
       {props.date && (
         <View style={styles.dateView}>

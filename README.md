@@ -1,6 +1,6 @@
+# 국군 야전 상황보고체계, ROK Situation Reporting System
 ![Logo](https://i.ibb.co/PmQxT82/450-300px-300-100px-900-300px.png)
 
----
 1. [프로젝트 소개](#introduction)
 1. [기능 설명](#features)
 1. [컴퓨터 구성 / 필수 조건 안내 (Prerequisites)](#requirements)
@@ -10,6 +10,7 @@
 1. [팀 정보 (Team Information) ](#team)
 1. [문서 (Documentation)](#documentation)
 1. [저작권 및 사용권 정보 (Copyleft / End User License) ](#copyright)
+
 
 <a id = "introduction"></a>
 ## 📢 프로젝트 소개
@@ -123,6 +124,7 @@
 ### Mobile Frontend
 
 ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
+
 
 ### Backend
 
@@ -269,8 +271,28 @@ $ cd front-end/web
 $ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd front-end/app
 ```
+<a id="opensource"></a>
+## 오픈소스
+* ...
 
-<a id = "team"></a>
+<a id = "installation"></a>
+## APP 설치 안내 (App Installation Process)
+```bash
+Prerequisite: expo sign up
+
+$ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ cd front-end/app
+$ npm install
+$ npx eas build --profile preview
+
+android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
+```
+
+
+## 프로젝트 사용법 (Getting Started)
+**마크다운 문법을 이용하여 자유롭게 기재**
+
+ <a id = "team"></a>
 ## 팀 정보 (Team Information)
 
 <table>
@@ -283,20 +305,20 @@ $ cd front-end/app
  </tr>
  <tr>
 	  <td align='center'><img src="https://i.imgur.com/5NlzJuu_d.webp?maxwidth=760&fidelity=grand" width="50" height="63"></td>
-	  <td align='center'>김상영</td>
-	  <td align='center'>팀장, 암호화 개발자</td>
+	  <td align='center'>김상영, 팀장</td>
+	  <td align='center'>암호화</td>
 	  <td align='center'><a href="https://github.com/s3kim2018"><img src="http://img.shields.io/badge/s3kim2018-green?style=social&logo=github"/></a></td>
 	  <td align='center'><a href="s3kim2018@berkeley.edu"><img src="https://img.shields.io/badge/s3kim2018@berkeley.edu-green?logo=gmail&style=social"/></a></td>
  </tr>
  <tr>
 	  <td align='center'><img src="https://user-images.githubusercontent.com/68419358/197472945-18b649a8-3c68-48a8-9f6a-15506f0068a6.jpg" width="50" height="63"></td>
 	  <td align='center'>최윤성</td>
-	  <td align='center'>프론트엔드(WEB) 개발자</td>
+	  <td align='center'>프론트엔드(WEB)</td>
 	  <td align='center'><a href="https://github.com/marunemo"><img src="http://img.shields.io/badge/marunemo-green?style=social&logo=github"/></a></td>
 	  <td align='center'><a href="chys3697@gmail.com"><img src="https://img.shields.io/badge/chys3697@gmail.com-green?logo=gmail&style=social"/></a></td>
  </tr>
  <tr>
-	 <td align='center'><img src="https://user-images.githubusercontent.com/113012760/198868295-88d8a91b-8c91-4b6a-b180-f092c3304e32.jpg" width="50" height="63"></td>
+	<td align='center'><img src="https://user-images.githubusercontent.com/113012760/198868295-88d8a91b-8c91-4b6a-b180-f092c3304e32.jpg" width="50" height="63"></td>
   <td align='center'>김형민</td>
   <td align='center'>프론트엔드(APP) 개발자</td>
 	<td align='center'><a href="https://github.com/gudmin0526"><img src="http://img.shields.io/badge/gudmin0526-green?style=social&logo=github"/></a></td>
@@ -305,7 +327,7 @@ $ cd front-end/app
  <tr>
 	  <td align='center'><img src="https://user-images.githubusercontent.com/52823519/195992813-c10b8189-7a98-4e8c-8f08-53ef9cdb7803.png" width="50" height="63"></td>
 	  <td align='center'>조영효</td>
-	  <td align='center'>백엔드 개발자</td>
+	  <td align='center'>백엔드</td>
 	  <td align='center'><a href="https://github.com/yhcho0405"><img src="http://img.shields.io/badge/yhcho0405-green?style=social&logo=github"/></a></td>
 	  <td align='center'><a href="yhcho0405@kakao.com"><img src="https://img.shields.io/badge/yhcho0405@kakao.com-green?logo=gmail&style=social"/></a></td>
  </tr>

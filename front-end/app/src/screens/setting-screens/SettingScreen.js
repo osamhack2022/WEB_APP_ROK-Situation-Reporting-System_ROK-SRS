@@ -39,11 +39,7 @@ export function SettingScreen() {
           left={() => <List.Icon icon="logout" />}
           style={styles.listItem}
           onPress={() =>
-            logoutHandler(() =>
-              navigation.navigate('SettingNavigator', {
-                screen: 'LoginScreen',
-              })
-            )
+            logoutHandler(() => navigation.navigate('LoginScreen'))
           }
         />
         <List.Item
@@ -55,23 +51,6 @@ export function SettingScreen() {
               screen: 'UserUpdateScreen',
             })
           }
-        />
-        <List.Item
-          title="앱 알림 설정"
-          left={() => <List.Icon icon="bell" />}
-          right={() => (
-            <Switch
-              value={enabled}
-              onValueChange={toggleEnabled}
-              trackColor={{ false: Colors.grey300, true: Colors.green300 }}
-            />
-          )}
-          style={styles.listItem}
-        />
-        <List.Item
-          title="문의하기"
-          left={() => <List.Icon icon="email-outline" />}
-          style={styles.listItem}
         />
         <List.Item
           title="사용자 관리"
@@ -112,6 +91,12 @@ export function SettingScreen() {
               screen: 'SysMgtScreen',
             })
           }
+        />
+        <List.Item
+          title="문의하기"
+          left={() => <List.Icon icon="email-outline" />}
+          style={styles.listItem}
+          onPress={() => Alert.alert('gudmin0526@gmail.com으로 메일주세요.')}
         />
       </ScrollView>
     </SafeAreaView>

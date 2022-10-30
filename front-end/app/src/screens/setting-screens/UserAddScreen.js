@@ -9,9 +9,9 @@ import { MyButton } from '../../components/MyButton'
 import addUserApi from '../../apis/user/addUserApi'
 
 const AccountTypeItems = [
-  { label: '지휘관', value: 'Commander' },
-  { label: '지휘자', value: 'Leader' },
-  { label: '병사', value: 'Soldier' },
+  { label: '지휘관', value: 'commander' },
+  { label: '지휘자', value: 'leader' },
+  { label: '병사', value: 'soldier' },
 ]
 
 export function UserAddScreen() {
@@ -107,20 +107,18 @@ export function UserAddScreen() {
         <View style={styles.guideTextView}>
           <GuideText guideText={``} />
         </View>
-        {DoDID && Rank && Name && AccountType && Position && (
-          <MyButton
-            text="사용자 추가"
-            onPress={() =>
-              addUserHandler({
-                Rank,
-                Name,
-                DoDID,
-                Type: AccountType,
-                Position,
-              })
-            }
-          />
-        )}
+        <MyButton
+          text="사용자 추가"
+          onPress={() =>
+            addUserHandler({
+              Rank,
+              Name,
+              DoDID,
+              Type: AccountType,
+              Position,
+            })
+          }
+        />
       </ScrollView>
     </SafeAreaView>
   )

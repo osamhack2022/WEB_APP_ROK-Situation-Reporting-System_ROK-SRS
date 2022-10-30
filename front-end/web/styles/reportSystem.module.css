@@ -28,3 +28,10 @@
   width: 100%;
   height: calc(100vh - 150px);
 }
+
+.failedText {
+  font-size: 16pt;
+  font-weight: bold;
+  white-space: pre-wrap;
+  text-align: center;
+}

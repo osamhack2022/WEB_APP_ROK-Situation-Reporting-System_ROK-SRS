@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState } from 'react'
 // prettier-ignore
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import { Colors, TextInput, IconButton } from 'react-native-paper'
@@ -10,20 +10,22 @@ import { Profile } from '../../components/Profile'
 import searchUserApi from '../../apis/user/searchUserApi'
 import { collection, addDoc } from 'firebase/firestore'
 import { db } from '../../config/firebase'
+import DropDownPicker from 'react-native-dropdown-picker'
+import { convertRank } from '../../helperfunctions/convertRank'
 
 export function CreateChatScreen({ route }) {
   const navigation = useNavigation()
   const { userMe } = route.params
   const [name, setName] = useState('')
-  const [query, setQuery] = useState('')
-  const [Invited, setInvited] = useState([])
-  const plusRef = useRef(null)
 
-  console.log(Invited)
+  const [loading, setLoading] = useState(false)
+
+  const [Invited, setInvited] = useState([])
+  const [userOpen, setUserOpen] = useState(false)
+  const [userItem, setUserItem] = useState([])
 
   const createChat = async () => {
     let users = [userMe._id]
-    console.log(users, name)
 
     let userdata = [
       {
@@ -47,6 +49,7 @@ export function CreateChatScreen({ route }) {
       users,
       userdata,
       recentmsg: '...',
+      severity: 1,
     })
     navigation.navigate('ChatNavigator', {
       screen: 'ChatRoomScreen',
@@ -59,15 +62,19 @@ export function CreateChatScreen({ route }) {
     })
   }
 
-  const getOneUserHandler = async () => {
+  const searchUserHandler = async (query) => {
     const res = await searchUserApi({ query })
-    setInvited([...Invited, res[0]])
+    setUserItem(
+      res.map((user) => ({
+        label: `${convertRank(user.Rank)} ${user.Name}`,
+        value: user,
+      }))
+    )
   }
 
-  const onRemove = useCallback((_id) => {
-    console.log(Invited)
+  const onRemove = (_id) => {
     setInvited(Invited.filter((user) => user._id !== _id))
-  }, [])
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -82,28 +89,35 @@ export function CreateChatScreen({ route }) {
         <View style={styles.guideTextView}>
           <GuideText guideText={``} />
         </View>
-        <TextInput
-          label="추가 보고"
-          dense={true}
-          style={[styles.textInput, { marginBottom: 15 }]}
-          onChangeText={(query) => setQuery(query)}
-          ref={plusRef}
-          right={
-            <TextInput.Icon
-              icon="plus"
-              color={query ? '#009975' : Colors.grey500}
-              size={25}
-              style={{ marginTop: 15 }}
-              onPress={() => {
-                getOneUserHandler()
-                plusRef.current.blur()
-              }}
-              forceTextInputFocus={false}
-            />
-          }
-          onSubmitEditing={() => getOneUserHandler()}
-          activeUnderlineColor="#008275"
-        />
+        <View style={{ width: '88%', alignSelf: 'center' }}>
+          <DropDownPicker
+            loading={loading}
+            searchable={true}
+            placeholder="추가 보고"
+            multiple={true}
+            multipleText={`${Invited.length}명 선택됨`}
+            open={userOpen}
+            value={Invited}
+            setValue={setInvited}
+            items={userItem}
+            setOpen={setUserOpen}
+            style={[styles.dropDown, { paddingBottom: 15 }]}
+            textStyle={{
+              fontSize: 16,
+              color: Colors.grey600,
+              marginLeft: 7,
+            }}
+            disableLocalSearch={true}
+            onChangeSearchText={(query) => {
+              searchUserHandler(query)
+              setLoading(true)
+            }}
+            listMode="SCROLLVIEW"
+            scrollViewProps={{
+              nestedScrollEnabled: true,
+            }}
+          />
+        </View>
         <ScrollView
           horizontal={true}
           style={styles.scrollView}
@@ -111,9 +125,10 @@ export function CreateChatScreen({ route }) {
         >
           {Invited.map((user) => (
             <Profile
-              Rank={user.Rank}
+              Rank={convertRank(user.Rank)}
               name={user.Name}
-              Position={user.Position}
+              Position={user.Role}
+              source={{ uri: user.pic }}
               style={styles.profile}
               key={user._id}
               right={
@@ -128,13 +143,7 @@ export function CreateChatScreen({ route }) {
             />
           ))}
         </ScrollView>
-        {name && Invited && (
-          <MyButton
-            text="채 팅 방   생 성"
-            onPress={() => createChat()}
-            style={{ width: '80%' }}
-          />
-        )}
+        <MyButton text="채 팅 방   생 성" onPress={() => createChat()} />
       </ScrollView>
     </SafeAreaView>
   )
@@ -152,23 +161,20 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   view: {
-    width: '85%',
+    width: '100%',
+    paddingBottom: 100,
   },
   scrollView: {
-    width: '100%',
-    marginBottom: (45 / 812) * window.height,
+    width: '85%',
+    paddingBottom: 120,
+    alignSelf: 'center',
   },
   textInput: {
-    width: '100%',
+    width: '85%',
     backgroundColor: 'white',
+    alignSelf: 'center',
   },
-  dropDown: {
-    width: '100%',
-    backgroundColor: 'white',
-    borderWidth: 0,
-    borderBottomWidth: 1,
-    borderColor: Colors.grey400,
-  },
+
   fab: {
     borderRadius: 60,
     height: 56,
@@ -189,5 +195,14 @@ const styles = StyleSheet.create({
   },
   icon: {
     backgroundColor: Colors.grey200,
+  },
+  dropDown: {
+    width: '100%',
+    backgroundColor: 'white',
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderColor: Colors.grey400,
+    alignSelf: 'center',
+    marginBottom: 15,
   },
 })
