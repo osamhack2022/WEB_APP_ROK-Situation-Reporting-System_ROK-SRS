@@ -123,12 +123,12 @@
 
 ### Backend
 
-![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![Firebase](https://img.shields.io/badge/firebase-2C384A?style=for-the-badge&logo=firebase&logoColor=FFCA28)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) 
 
 
 ### Database
 
-![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white) ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white) ![Firebase](https://img.shields.io/badge/firebase-2C384A?style=for-the-badge&logo=firebase&logoColor=FFCA28)
 
 ### Collaboration Tools
 
@@ -151,10 +151,9 @@
 
  </tr>
   <tr>
-	  <td align='center'><img src = "https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F1252457264-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fspaces%252F-LVOh1OI8lhWfR_994H2%252Favatar.png%3Fgeneration%3D1546620224707409%26width="60%" height="60%" style="max-width: 100%" alt%3Dmedia" width = "40px" height = "40px"></td>
+	  <td align='center'><img src = "https://user-images.githubusercontent.com/52823519/198872012-f9999691-e701-4220-8cae-8dc802fbee98.png" width = "40px" height = "40px"></td>
 	  	  <td align='center'>Crypto.js</td>
 	  <td align='center'>대칭 암호화 기능 (AES, HMAC)</td>
-
  </tr>
    <tr>
 	  <td align='center'><img src = "https://miro.medium.com/max/251/1*YUlYnXhu4NG61i-HRG50AQ.jpeg" width = "40px" height = "40px"></td>
@@ -163,7 +162,7 @@
  </tr>
 </table>
 
-### Open Source
+### Open Source(Library)
 * cookies-next
 * react-draggable
 * react-firebase-hooks
