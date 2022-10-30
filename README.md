@@ -124,7 +124,7 @@
 ```bash
 Prerequisite: expo sign up
 
-$ git clone [git주소](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git)
+$ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd front-end/app
 $ npm install
 $ npx eas build
