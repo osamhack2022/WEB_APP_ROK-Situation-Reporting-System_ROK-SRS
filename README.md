@@ -216,10 +216,12 @@
 
 <a id = "requirements"></a>
 
-## 💻컴퓨터 구성 / 필수 조건 안내
+## 💻컴퓨터 구성 / 필수 조건 안내(Prerequisites)
 
 - ECMAScript 6 지원 브라우저 사용
-- 권장: Google Chrome 버전 77 이상
+- 권장: <a href="https://browsersl.ist/#q=last+2+versions">last 2 versions</a>
+
+<img src="https://user-images.githubusercontent.com/68419358/198879212-9fbc5819-0cb0-4eed-8081-5d5e7888421b.png" alt="https://browsersl.ist/#q=last+2+versions">
 
 <a id = "techniques"></a>
 
@@ -343,8 +345,6 @@ android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 
 
 
 <a id = "installation"></a>
-
-
 
 ## 프로젝트 사용법 (Getting Started)
 
