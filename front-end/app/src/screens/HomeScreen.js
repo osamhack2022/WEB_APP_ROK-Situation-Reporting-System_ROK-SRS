@@ -5,6 +5,7 @@ import { useRecoilState } from 'recoil'
 import { unitState, userState } from '../states'
 import getUnitApi from '../apis/unit/getUnitApi'
 import { convertRank } from '../helperfunctions/convertRank'
+import { convertUserType } from '../helperfunctions/covertUserType'
 
 const dftPic =
   'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
@@ -40,7 +41,7 @@ export function HomeScreen() {
             <View style={styles.box}>
               <Text style={styles.boxText}>계정 유형</Text>
             </View>
-            <Text style={styles.text}>{userMe.Type}</Text>
+            <Text style={styles.text}>{convertUserType(userMe.Type)}</Text>
           </View>
           <View style={styles.flexRow}>
             <View style={styles.box}>

@@ -22,7 +22,7 @@ import { convertRank } from '../../helperfunctions/convertRank'
 import { convertChatType } from '../../helperfunctions/convertChatType'
 
 const imgUrl =
-  'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+  'https://camo.githubusercontent.com/3c2bd3f35721dc332ebf2b11ace89722c37a0f60b94eac42b2a0462fdeb2d420/68747470733a2f2f63646e2d69636f6e732d706e672e666c617469636f6e2e636f6d2f3531322f363134322f363134323232362e706e67'
 
 export function ChatRoomScreen({ route }) {
   const navigation = useNavigation()
@@ -34,6 +34,8 @@ export function ChatRoomScreen({ route }) {
   const [messages, setMessages] = useState([])
   const [text, setText] = useState('')
   const [isOpen, setIsOpen] = useState(false)
+
+  console.log(messages)
 
   const [open, setOpen] = useState(false)
   const [chatType, setChatType] = useState('regular')
@@ -148,7 +150,6 @@ export function ChatRoomScreen({ route }) {
       recentmsg: text,
       rectime: new Date(createdAt),
     })
-    console.log(await getScore(text))
   }, [])
 
   const renderBubble = (props) => (

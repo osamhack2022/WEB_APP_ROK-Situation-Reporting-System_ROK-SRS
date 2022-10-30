@@ -16,7 +16,7 @@ export function ReportContent(props) {
       <Profile
         name={props.User.Name}
         Rank={convertRank(props.User.Rank)}
-        position={props.User.Role}
+        role={props.User.Role}
         size={43}
         source={{ uri: props.User.pic || dftPic }}
       />
@@ -34,7 +34,7 @@ export function ReportContent(props) {
           <Button
             style={styles.endButton}
             color="white"
-            onPress={() => console.log('pressed.')}
+            onPress={props.onPress}
             labelStyle={styles.ButtonLabel}
           >
             종결하기

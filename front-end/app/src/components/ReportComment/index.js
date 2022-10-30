@@ -30,7 +30,7 @@ export function ReportComment(props) {
       <Profile
         Rank={convertRank(props.User.Rank)}
         name={props.User.Name}
-        position={props.User.Role}
+        role={props.User.Role}
         size={40}
         source={{ uri: props.User.pic || dftPic }}
         date={moment().format('YYYY-MM-DD hh:mm')}

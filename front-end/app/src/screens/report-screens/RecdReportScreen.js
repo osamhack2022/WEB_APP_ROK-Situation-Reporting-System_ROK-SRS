@@ -18,6 +18,7 @@ export function RecdReportScreen() {
 
   const getReportHandler = async () => {
     const res = await getReportApi({ receiver: userMe._id })
+
     setReports(res)
     setLoading(false)
   }
@@ -52,6 +53,7 @@ export function RecdReportScreen() {
               Comments={report.Comments}
               User={report.User}
               key={report._id}
+              reportId={report._id}
             />
           ))
         ) : (

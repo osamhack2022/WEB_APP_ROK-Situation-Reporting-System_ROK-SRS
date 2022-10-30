@@ -9,9 +9,9 @@ import { MyButton } from '../../components/MyButton'
 import addUserApi from '../../apis/user/addUserApi'
 
 const AccountTypeItems = [
-  { label: '지휘관', value: 'Commander' },
-  { label: '지휘자', value: 'Leader' },
-  { label: '병사', value: 'Soldier' },
+  { label: '지휘관', value: 'commander' },
+  { label: '지휘자', value: 'leader' },
+  { label: '병사', value: 'soldier' },
 ]
 
 export function UserAddScreen() {

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 //prettier-ignore
-import { SafeAreaView, StyleSheet, View, FlatList, Text, TextInput } from 'react-native'
-import { IconButton } from 'react-native-paper'
+import { SafeAreaView, StyleSheet, View, FlatList, Text, TextInput, Alert } from 'react-native'
+import { ActivityIndicator, IconButton } from 'react-native-paper'
 import DropDownPicker from 'react-native-dropdown-picker'
 import { ReportHeader } from '../../components/ReportHeader'
 import { ReportContent } from '../../components/ReportContent'
@@ -10,10 +10,12 @@ import { Colors } from 'react-native-paper'
 import { useRecoilState } from 'recoil'
 import { userState } from '../../states/userState'
 import addCommentApi from '../../apis/report/addCommentApi'
+import resolveReportApi from '../../apis/report/resolveReportApi'
 import { convertRank } from '../../helperfunctions/convertRank'
 
 export function ReportScreen({ route }) {
   const {
+    _id,
     Title,
     Status,
     Content,
@@ -23,6 +25,7 @@ export function ReportScreen({ route }) {
     ReportingSystem,
     Invited,
     User,
+    reportId,
   } = route.params
 
   const earlierComments = route.params.Comments
@@ -56,6 +59,7 @@ export function ReportScreen({ route }) {
         ReportingSystem={ReportingSystem}
         Invited={Invited}
         User={User}
+        onPress={resolveReportHandler}
       />
       <View
         style={{
@@ -82,24 +86,34 @@ export function ReportScreen({ route }) {
     />
   )
 
-  const renderItem = ({ item }) => (
-    <ReportComment User={User} Content={item.Content} Type={item.Type} />
-  )
+  const renderItem = ({ item }) =>
+    !item.User ? (
+      <ActivityIndicator color={Colors.green500} />
+    ) : (
+      <ReportComment User={item.User} Content={item.Content} Type={item.Type} />
+    )
 
-  const addCommentHandler = async ({ Type, Content, Title, _id }) => {
-    const res = await addCommentApi({ Type, Content, Title, _id })
+  const addCommentHandler = async ({ Type, Content, ReportId }) => {
+    const res = await addCommentApi({ Type, Content, ReportId })
+  }
+
+  const resolveReportHandler = async () => {
+    const res = await resolveReportApi({ reportId })
+    Alert.alert('종결되었습니다.')
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        ListHeaderComponent={ListHeaderComponent}
-        data={comments}
-        renderItem={renderItem}
-        ItemSeparatorComponent={ItemSeparator}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 10 }}
-      />
+      {comments.length && (
+        <FlatList
+          ListHeaderComponent={ListHeaderComponent}
+          data={comments}
+          renderItem={renderItem}
+          ItemSeparatorComponent={ItemSeparator}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: 10 }}
+        />
+      )}
       <View style={styles.commentView}>
         <DropDownPicker
           placeholder="유형"
@@ -137,18 +151,15 @@ export function ReportScreen({ route }) {
               setComments([
                 ...comments,
                 {
-                  Name: userMe.Name,
-                  position: userMe.Position,
+                  User: userMe,
                   Content: comment,
                   Type: commentType,
-                  Rank: convertRank(userMe.Rank),
                 },
               ])
               addCommentHandler({
-                Title,
                 Type: commentType,
                 Content: comment,
-                _id: userMe._id,
+                ReportId: reportId,
               })
               setComment('')
               inputRef.current.blur()
