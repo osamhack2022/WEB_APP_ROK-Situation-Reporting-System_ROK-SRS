@@ -19,7 +19,7 @@ function linkedUnit(unitList, key, onRemove = null) {
           avatar={user.pic}
           rank={Convertrank(user.Rank)}
           name={user.Name}
-          position={user.Position}
+          role={user.Role}
         />
       </Col>
     );
@@ -60,7 +60,7 @@ function additionalPerson(user, key, onRemove = null) {
           avatar={user.pic}
           rank={Convertrank(user.Rank)}
           name={user.Name}
-          position={user.Position}
+          role={user.Role}
         />
       </Col>
       <Col>
@@ -85,7 +85,7 @@ function UserNode(props) {
         <div>
           {Convertrank(props.rank)} {props.name}
         </div>
-        <div>{props.position}</div>
+        <div>{props.role}</div>
       </Col>
     </Row>
   );
