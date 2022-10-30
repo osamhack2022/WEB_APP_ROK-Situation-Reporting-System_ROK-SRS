@@ -176,8 +176,7 @@
 * crypto-js
 * uuid
 * jose
-
-- APP
+#### Frontend(APP)
 * react-navigation
 * react-native-paper
 * react-native-async-storage
@@ -259,7 +258,7 @@
 <a id = "installation"></a>
 ## 설치 안내 (Installation Process)
 
-- Backend
+#### Backend
 ```bash
 $ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd back-end
@@ -268,23 +267,25 @@ $ npm install
 $ npm run start
 ```
 <br/>
-- Frontend(WEB)
+
+#### Frontend(WEB)
 
 ```bash
 $ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd front-end/web
 ```
 <br/>
-- Frontend(APP)
 
-### Prerequisites
-```
+#### Frontend(APP)
+
+#### Prerequisites
+```bash
 Sign up for Expo
 
 // 아이폰 설치 시
 Create Apple Developer account
 ```
-### Installing
+#### Installing
 ```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd 'APP(FE)'
