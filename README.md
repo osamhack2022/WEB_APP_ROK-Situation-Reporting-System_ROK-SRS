@@ -224,9 +224,7 @@
 - 권장: Google Chrome 버전 77 이상
 
 ## 💻모바일 구성 / 필수 조건 안내
-#### iOS
-- 권장: iOS 14.0 이상
-#### ANDROID
+
 - 최소: 안드로이드 운영체제 6.0(Marshmallow) 이상
 - 권장: 안드로이드 운영체제 10.0 이상
 
@@ -314,9 +312,10 @@ Prerequisite: expo sign up
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd front-end/app
 $ npm install
-$ npx eas build --profile preview
+.env 파일 생성 후
+$ npx eas build -p android --profile preview
 
-android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
+빌드 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
 ```
 
 <a id="opensource"></a>
