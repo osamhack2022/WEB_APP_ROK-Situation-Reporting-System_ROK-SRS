@@ -249,13 +249,25 @@
 <a id = "installation"></a>
 ## 설치 안내 (Installation Process)
 
-- backend
+- Backend
 ```bash
-.env 파일 생성 후
 $ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd back-end
 $ npm install
+.env 파일 생성 후
 $ npm run start
+```
+<br/>
+- Frontend(Web)
+```bash
+$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ cd front-end/web
+```
+<br/>
+- Frontend(App)
+```bash
+$ git clone https://github.com/osamhack2022/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
+$ cd front-end/app
 ```
 
 <a id = "team"></a>
