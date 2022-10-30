@@ -302,7 +302,7 @@ $ yarn start or npm run start
 
 ## Documentation
 - [Backend Docs](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Backend-Docs)
-
+- [Git Commit Convention](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Git-Commit-Convention)
 <a id = "copyright"></a>
 
 ## 저작권 및 사용권 정보 (Copyleft / End User License)
