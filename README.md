@@ -120,6 +120,7 @@
 3. 사령부 내부 부서/처.
 4. 국정원, 경호원, 무기체계 개발팀 등 기밀 사항 연구 보직.
 
+\
 <a id = "features"></a>
 
 ## 📖 기능 설명
@@ -180,6 +181,7 @@
 	</tr>
 </table>
 
+\
 <a id="functions"></a>
 
 ### ⚙️화면 설계
@@ -255,6 +257,7 @@
 
 [데모 영상](https://www.youtube.com/watch?v=4J2cPialaMY)
 
+\
 <a id = "requirements"></a>
 
 ## 💻컴퓨터 구성 / 필수 조건 안내(Prerequisites)
@@ -264,14 +267,15 @@
 
 <img src="https://user-images.githubusercontent.com/68419358/198879212-9fbc5819-0cb0-4eed-8081-5d5e7888421b.png" alt="https://browsersl.ist/#q=last+2+versions">
 
-## 💻모바일 구성 / 필수 조건 안내
+## 📱모바일 구성 / 필수 조건 안내(Prerequisites)
 
 - 최소: 안드로이드 운영체제 6.0(Marshmallow) 이상
 - 권장: 안드로이드 운영체제 10.0 이상
 
+\
 <a id = "techniques"></a>
 
-## 기술 스택 (Technique Used)
+## 🔗기술 스택 (Technique Used)
 
 ### Development Stack
 
@@ -325,13 +329,14 @@
  </tr>
 </table>
 
+\
 <a id = "installation"></a>
 
 ## 설치 안내 (Installation Process)
 
 <a id = "backendinstall"></a>
 
-#### Backend
+#### Back-End
 
 ```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
@@ -343,7 +348,7 @@ $ npm run start
 
 <a id = "frontendinstall"></a>
 
-#### Frontend(WEB)
+#### Front-End(WEB)
 
 ```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
@@ -355,7 +360,7 @@ $ npm run dev
 
 <a id = "appinstall"></a>
 
-## APP 설치 안내 (App Installation Process)
+#### Front-End(APP)
 
 ```bash
 Prerequisite: expo sign up
@@ -371,7 +376,8 @@ $ npx eas build -p android --profile preview
 
 <a id="opensource"></a>
 
-## 오픈소스
+\
+## 오픈소스(Open-Sources)
 
 ### MIT License
 
