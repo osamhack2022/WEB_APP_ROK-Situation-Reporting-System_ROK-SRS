@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "client": "cd ../../back-end && npx nodemon server.js",
+    "client": "cd ../WEB&APP(BE) && npx nodemon server.js",
     "concurrent": "concurrently \"npm run dev\" \"npm run client\""
   },
   "dependencies": {
