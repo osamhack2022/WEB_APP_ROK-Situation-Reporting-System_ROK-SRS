@@ -120,12 +120,18 @@
 * ...
 
 <a id = "installation"></a>
-## 설치 안내 (Installation Process)
+## APP 설치 안내 (App Installation Process)
 ```bash
-$ git clone git주소
-$ yarn or npm install
-$ yarn start or npm run start
+Prerequisite: expo sign up
+
+$ git clone [git주소](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git)
+$ cd front-end/app
+$ npm install
+$ npx eas build
+
+android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
 ```
+
 
 ## 프로젝트 사용법 (Getting Started)
 **마크다운 문법을 이용하여 자유롭게 기재**
