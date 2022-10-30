@@ -106,10 +106,6 @@
 	</tr>
 </table>
 
-
-### 프로젝트 사용법 (Getting Started)
-[데모 영상](https://www.youtube.com/watch?v=4J2cPialaMY)
-
 <a id = "requirements"></a>
 
 ## 💻컴퓨터 구성 / 필수 조건 안내
@@ -174,37 +170,6 @@
 	  <td align='center'>비밀 키 값 (Secret Key) 저장</td>
  </tr>
 </table>
-
-### Open Source(Library)
-
-* mongoose
-* jsonwebtoken
-* bcryptjs
-* cors
-* classificator
-* colors
-* dotenv
-* express-async-handler
-* mongoose-encryption
-* nodemon
-* nodepapago
-* socket.io
-* wink-pos-tagger
-* cookies-next
-* react-draggable
-* react-firebase-hooks
-* react-infinite-scroll-component
-* react-organizational-chart
-* crypto-js
-* uuid
-* jose
-* react-navigation
-* react-native-paper
-* react-native-async-storage
-* react-native-dropdown-picker
-* react-native-gifted-chat
-* recoil
-
 
 <a id="functions"></a>
 ## ⚙️화면 설계
@@ -325,11 +290,39 @@ $ npx eas build -p ios
 ```
 <a id="opensource"></a>
 ## 오픈소스
-* ...
+
+* mongoose
+* jsonwebtoken
+* bcryptjs
+* cors
+* classificator
+* colors
+* dotenv
+* express-async-handler
+* mongoose-encryption
+* nodemon
+* nodepapago
+* socket.io
+* wink-pos-tagger
+* cookies-next
+* react-draggable
+* react-firebase-hooks
+* react-infinite-scroll-component
+* react-organizational-chart
+* crypto-js
+* uuid
+* jose
+* react-navigation
+* react-native-paper
+* react-native-async-storage
+* react-native-dropdown-picker
+* react-native-gifted-chat
+* recoil
+
 
 
 ## 프로젝트 사용법 (Getting Started)
-**마크다운 문법을 이용하여 자유롭게 기재**
+[데모 영상](https://www.youtube.com/watch?v=4J2cPialaMY)
 
  <a id = "team"></a>
 ## 팀 정보 (Team Information)
