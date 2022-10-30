@@ -28,7 +28,7 @@
     <li><a href="#introduction">프로젝트 소개</a></li>
     <ol>
         <li>
-            <a href="#problem">문제점</a>
+            <a href="#problem">문재점</a>
         </li>
         <li>
             <a href="#solution">국군 야전 상황보고체계의 해결책</a>
@@ -145,7 +145,7 @@
 <table>
 	<tr>
 		<td align='center'>
-			<img src="https://i.ibb.co/TLxbnph/Blank-diagram.png" />
+			<img src="https://i.ibb.co/4Y55SZ9/Blank-diagram.png" />
 		</td>
 	</tr>
 	<tr>
@@ -334,7 +334,7 @@
 
 ```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
-$ cd back-end
+$ cd './WEB&APP(BE)'
 $ npm install
 .env 파일 생성 후
 $ npm run start
@@ -360,7 +360,7 @@ $ npm run dev
 Prerequisite: expo sign up
 
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
-$ cd front-end/app
+$ cd './APP(FE)'
 $ npm install
 .env 파일 생성 후
 $ npx eas build -p android --profile preview
