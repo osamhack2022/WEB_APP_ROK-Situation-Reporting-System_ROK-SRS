@@ -7,7 +7,7 @@
 1. [기술 스택 (Technique Used) ](#techniques)
 1. [화면 설계](#functions)
 1. [설치 안내 (Installation Process) ](#installation)
-1. [팀 정보 (Team Information) ](#team)documentation
+1. [팀 정보 (Team Information) ](#team)
 1. [문서 (Documentation)](#documentation)
 1. [저작권 및 사용권 정보 (Copyleft / End User License) ](#copyright)
 
