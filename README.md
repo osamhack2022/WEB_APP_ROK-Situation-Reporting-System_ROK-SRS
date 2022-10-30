@@ -146,9 +146,9 @@
 
 <table>
 	<tr>
-		<td width="44%" style="text-align: center; font-size: 12pt; font-weight: bold;">데스크탑 화면</td>
-		<td width="22%" style="text-align: center; font-size: 12pt; font-weight: bold;">모바일 화면</td>
-		<td width="34%" style="text-align: center; font-size: 12pt; font-weight: bold;">기능 설명</td>
+		<td width="44%" style="text-align: center; font-size: 12pt; font-weight: bold;"><b>스크탑 화면</b></td>
+		<td width="22%" style="text-align: center; font-size: 12pt; font-weight: bold;"><b>모바일 화면</b></td>
+		<td width="34%" style="text-align: center; font-size: 12pt; font-weight: bold;"><b>기능 설명</b></td>
 	</tr>
 	<tr>
 		<td>
