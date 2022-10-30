@@ -404,6 +404,8 @@ $ npx eas build -p android --profile preview
 - [암호화 체계](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%ED%99%94-%EC%B2%B4%EA%B3%84)
 - [백엔드 Docs](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Backend-Docs)
 - [Figma](https://www.figma.com/file/U4mcvflCMxzbLcmGABrCUy/SRS?node-id=0%3A1)
+- [시연 영상](https://www.youtube.com/watch?v=4J2cPialaMY)
+- [발표 자료](https://docs.google.com/presentation/d/1xoaN6NwMw7Pc6bkBr5REyQXApMOlUOQPs59Sq_nAH0U/edit?usp=sharing)
 - [Git Commit Convention](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Git-Commit-Convention)
   <a id = "copyright"></a>
 
