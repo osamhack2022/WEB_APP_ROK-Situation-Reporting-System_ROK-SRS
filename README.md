@@ -1,3 +1,4 @@
+
 # 국군 야전 상황보고체계, ROK Situation Reporting System
 
 ![Logo](https://i.ibb.co/PmQxT82/450-300px-300-100px-900-300px.png)
@@ -5,13 +6,13 @@
 <br/>
 
 <div align="center">
-<a href="https://nine-collision-c7a.notion.site/793f13ecb47a4a60b5fe6938802590ed?v=3795ace74cfa47c09bfc3e95008d2671"><img height="45px" src="./.docs/images/개발_계획서.png" alt="개발 계획서"/></a>&nbsp;&nbsp;<a href="https://rok-mabigmk4h-s3kim2018.vercel.app/"><img height="45px" src="./.docs/images/데모보기.png" alt="데모보기"/></a>&nbsp;&nbsp;<a href="https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%EC%99%80-%EC%B2%B4%EA%B3%84"><img height="45px" src="./.docs/images/암호화_체계.png" alt="암호화 체계"/></a>
+<a href="https://nine-collision-c7a.notion.site/c239b0b1de354ef4940fe0c56ec40e02"><img height="45px" src="./.docs/images/개발_계획서.png" alt="개발 계획서"/></a>&nbsp;&nbsp;<a href="https://rok-mabigmk4h-s3kim2018.vercel.app/"><img height="45px" src="./.docs/images/데모보기.png" alt="데모보기"/></a>&nbsp;&nbsp;<a href="https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%ED%99%94-%EC%B2%B4%EA%B3%84"><img height="45px" src="./.docs/images/암호화_체계.png" alt="암호화 체계"/></a>
 </div>
 
 <br/>
 <div align="center">
 <h2>데모영상 시청</h2>
-<a href="https://www.youtube.com/watch?v=4J2cPialaMY"><img alt="demo video" src="https://user-images.githubusercontent.com/52823519/198877323-e6f38510-18d2-4e7e-89e9-c4f49e3c5fa9.png" width=90px></a>
+<a href="https://www.youtube.com/watch?v=4J2cPialaMY"><img alt="demo video" src="https://i.ibb.co/K2VFFtH/Blank-board-Page-1-1.png" width=700px></a>
 
 </div>
 
@@ -129,7 +130,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td align='center'><b>AI가 보고사항에 대한 심각성/중요도 점수 파학</b></td>
+		<td align='center'><b>AI가 보고사항에 대한 심각성/중요도 점수 파악</b></td>
 	</tr>
 	<tr>
 		<td align='center' style = "text-align: center">
@@ -210,7 +211,8 @@
 	</tr>
 </table>
 
-### 프로젝트 사용법 (Getting Started)
+
+## 프로젝트 사용법 (Getting Started)
 
 [데모 영상](https://www.youtube.com/watch?v=4J2cPialaMY)
 
@@ -222,6 +224,11 @@
 - 권장: <a href="https://browsersl.ist/#q=last+2+versions">last 2 versions</a>
 
 <img src="https://user-images.githubusercontent.com/68419358/198879212-9fbc5819-0cb0-4eed-8081-5d5e7888421b.png" alt="https://browsersl.ist/#q=last+2+versions">
+
+## 💻모바일 구성 / 필수 조건 안내
+
+- 최소: 안드로이드 운영체제 6.0(Marshmallow) 이상
+- 권장: 안드로이드 운영체제 10.0 이상
 
 <a id = "techniques"></a>
 
@@ -307,21 +314,20 @@ Prerequisite: expo sign up
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd front-end/app
 $ npm install
-$ npx eas build --profile preview
+.env 파일 생성 후
+$ npx eas build -p android --profile preview
 
-android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
+빌드 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
 ```
 
 <a id="opensource"></a>
 ## 오픈소스
-
+### MIT License
 * mongoose
 * jsonwebtoken
 * bcryptjs
 * cors
-* classificator
 * colors
-* dotenv
 * express-async-handler
 * mongoose-encryption
 * nodemon
@@ -330,7 +336,6 @@ android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 
 * wink-pos-tagger
 * cookies-next
 * react-draggable
-* react-firebase-hooks
 * react-infinite-scroll-component
 * react-organizational-chart
 * crypto-js
@@ -343,12 +348,10 @@ android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 
 * react-native-gifted-chat
 * recoil
 
-
-<a id = "installation"></a>
-
-## 프로젝트 사용법 (Getting Started)
-
-**마크다운 문법을 이용하여 자유롭게 기재**
+### Others
+* dotenv [BSD-2-Clause]
+* react-firebase-hooks [Apache-2.0]
+* classificator [none]
 
 <a id = "team"></a>
 
@@ -395,8 +398,9 @@ android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 
 <a id = "documentation"></a>
 
 ## 문서 (Documentation)
-- [암호화 체계](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%EC%99%80-%EC%B2%B4%EA%B3%84)
+- [암호화 체계](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/%EC%95%94%ED%98%B8%ED%99%94-%EC%B2%B4%EA%B3%84)
 - [백엔드 Docs](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Backend-Docs)
+- [Figma](https://www.figma.com/file/U4mcvflCMxzbLcmGABrCUy/SRS?node-id=0%3A1)
 - [Git Commit Convention](https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS/wiki/Git-Commit-Convention)
   <a id = "copyright"></a>
 
