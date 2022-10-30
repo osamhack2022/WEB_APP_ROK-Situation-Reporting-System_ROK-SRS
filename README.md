@@ -10,7 +10,7 @@
 7. [저작권 및 사용권 정보 (Copyleft / End User License) ](#copyright)
 
 <a id = "introduction"></a>
-## 📢 로젝트 소개
+## 📢 프로젝트 소개
 
 **🚩 문제점**
 
@@ -146,7 +146,7 @@
 
  </tr>
   <tr>
-	  <td align='center'><img src = "https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F1252457264-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fspaces%252F-LVOh1OI8lhWfR_994H2%252Favatar.png%3Fgeneration%3D1546620224707409%26alt%3Dmedia" width = "40px" height = "40px"></td>
+	  <td align='center'><img src = "https://www.gitbook.com/cdn-cgi/image/width=40,height=40,fit=contain,dpr=1,format=auto/https%3A%2F%2F1252457264-files.gitbook.io%2F~%2Ffiles%2Fv0%2Fb%2Fgitbook-legacy-files%2Fo%2Fspaces%252F-LVOh1OI8lhWfR_994H2%252Favatar.png%3Fgeneration%3D1546620224707409%26width="60%" height="60%" style="max-width: 100%" alt%3Dmedia" width = "40px" height = "40px"></td>
 	  	  <td align='center'>Crypto.js</td>
 	  <td align='center'>대칭 암호화 기능 (AES, HMAC)</td>
 
@@ -164,15 +164,54 @@
 
 <table>
 	<tr>
-		<td>화면</td>
-		<td>기능</td>
+		<td></td>
+		<td></td>
 	</tr>
 	<tr>
-		<td>
-		<img src="https://user-images.githubusercontent.com/68419358/197477131-04da0323-6d54-4207-9538-f4209d285b12.png" />
-		</td>
-		<td>전반적인 정보들을 볼 수 있는 메인 페이지</td>
+		<td><img src="https://user-images.githubusercontent.com/68419358/198865106-c2e2b9bb-fa81-46f6-95b9-b1b3f04b0d16.PNG" width="60%" height="60%" style="max-width: 100%" alt="로그인페이지" /></td>
+		<td>기등록된 사용자의 로그인 지원</td>
 	</tr>
+	<tr>
+		<td><img src="https://user-images.githubusercontent.com/68419358/198865117-f317810b-84e0-49e0-bd40-7528d2b60b2f.PNG" width="60%" height="60%" style="max-width: 100%" alt="회원가입페이지" /></td>
+		<td>부대로부터 초대 코드를 받은 장병에 한해 회원가입 허용</td>
+	</tr>
+	<tr>
+		<td><img src="https://user-images.githubusercontent.com/68419358/198865116-1bfcc644-bba5-44d4-a06e-0a4941f7df35.PNG" width="60%" height="60%" style="max-width: 100%" alt="홈페이지" /></td>
+		<td>자신의 유저 정보 / 부대 정보 / 메모 보고 확인</td>
+	</tr>
+	<tr>
+		<td><img src="https://user-images.githubusercontent.com/68419358/198865115-28fae6bd-05c2-41a8-8210-4ded72920aff.PNG" width="60%" height="60%" style="max-width: 100%" alt="조직도페이지" /></td>
+		<td>같은 부대 내 장병들의 조직 체계 조회</td>
+	</tr>
+	<tr>
+		<td><img src="https://user-images.githubusercontent.com/68419358/198865114-3132c66d-24cc-4a24-aabe-059f747947dc.PNG" width="60%" height="60%" style="max-width: 100%" alt="조직도세부페이지" /></td>
+		<td>조직도 내 장병의 세부 정보 확인 / 권한에 따라 추가·수정·삭제 기능 부여</td>
+	</tr>
+	<tr>
+		<td><img src="https://user-images.githubusercontent.com/68419358/198865108-41b5865a-2881-4c8a-b9d0-e73ae721bf4c.PNG" width="60%" height="60%" style="max-width: 100%" alt="메모보고페이지" /></td>
+		<td>보고 체계를 따르는 군 내 메모보고 조회</td>
+	</tr>
+	<tr>
+		<td><img src="https://user-images.githubusercontent.com/68419358/198865107-79daa5ba-7cfb-4046-9440-50e401bfc4d0.PNG" width="60%" height="60%" style="max-width: 100%" alt="메모보고작성창" /></td>
+		<td>메모보고 업로드 기능</td>
+	</tr>
+	<tr>
+		<td><img src="https://user-images.githubusercontent.com/68419358/198865109-92b6de7a-c973-44a8-b8d0-b191b65725d9.PNG" width="60%" height="60%" style="max-width: 100%" alt="메세지페이지" /></td>
+		<td>기존의 통신 수단을 대체할 수 있는 채팅 서비스 구축 / 강력한 암호화 적용</td>
+	</tr>
+	<tr>
+		<td><img src="https://user-images.githubusercontent.com/68419358/198865106-c2e2b9bb-fa81-46f6-95b9-b1b3f04b0d16.PNG" width="60%" height="60%" style="max-width: 100%" alt="계정설정페이지" /></td>
+		<td>서비스 내에서 사용되는 유저의 정보 확인</td>
+	</tr>
+	<tr>
+		<td><img src="https://user-images.githubusercontent.com/68419358/198865113-e9ab9427-70b2-49dd-a8cc-5c40ef048830.PNG" width="60%" height="60%" style="max-width: 100%" alt="부대설정페이지" /></td>
+		<td>자신이 속한 부대 정보 조회 / 권한에 따라 추가·수정·삭제 기능 부여</td>
+	</tr>
+	<tr>
+		<td><img src="https://user-images.githubusercontent.com/68419358/198865111-a04cf9e3-a88d-491b-b925-9b8efdf1cd4e.PNG" width="60%" height="60%" style="max-width: 100%" alt="보고체계설정페이지" /></td>
+		<td>상황 보고 단계에 대한 보고체계 리스트 / 권한에 따라 추가·수정·삭제 기능 부여</td>
+	</tr>
+	<tr><td></td><td></td></tr>
 </table>
 
 <a id="opensource"></a>
