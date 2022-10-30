@@ -127,7 +127,7 @@ Prerequisite: expo sign up
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
 $ cd front-end/app
 $ npm install
-$ npx eas build
+$ npx eas build --profile preview
 
 android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 스마트폰으로 이동하여 설치
 ```
