@@ -177,6 +177,14 @@
 * uuid
 * jose
 
+- APP
+* react-navigation
+* react-native-paper
+* react-native-async-storage
+* react-native-dropdown-picker
+* react-native-gifted-chat
+* recoil
+
 
 <a id="functions"></a>
 ## ⚙️화면 설계
