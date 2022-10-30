@@ -146,7 +146,7 @@
 
 <table>
 	<tr>
-		<td width="44%" align='center'><b>스크탑 화면</b></td>
+		<td width="44%" align='center'><b>데스크탑 화면</b></td>
 		<td width="22%" align='center'><b>모바일 화면</b></td>
 		<td width="34%" align='center'><b>기능 설명</b></td>
 	</tr>
@@ -220,7 +220,7 @@
 
 ## 💻컴퓨터 구성 / 필수 조건 안내(Prerequisites)
 
-- ECMAScript 6 지원 브라우저 사용
+- 최소: ECMAScript 6 지원 브라우저
 - 권장: <a href="https://browsersl.ist/#q=last+2+versions">last 2 versions</a>
 
 <img src="https://user-images.githubusercontent.com/68419358/198879212-9fbc5819-0cb0-4eed-8081-5d5e7888421b.png" alt="https://browsersl.ist/#q=last+2+versions">
