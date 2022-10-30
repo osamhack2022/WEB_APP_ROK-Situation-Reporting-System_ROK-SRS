@@ -1,39 +1,41 @@
-import 'dotenv/config'
+import "dotenv/config";
 
 export default {
   expo: {
-    name: 'RokSrs',
-    slug: 'roksrs',
-    version: '1.0.0',
-    orientation: 'portrait',
-    icon: './src/assets/images/logo.png',
-    userInterfaceStyle: 'light',
+    name: "RokSrs",
+    slug: "roksrs",
+    version: "1.0.0",
+    orientation: "portrait",
+    icon: "./src/assets/images/logo.png",
+    userInterfaceStyle: "light",
     splash: {
-      image: './src/assets/images/logo.png',
-      resizeMode: 'contain',
-      backgroundColor: '#FFFFFF',
+      image: "./src/assets/images/logo.png",
+      resizeMode: "contain",
+      backgroundColor: "#FFFFFF",
     },
     updates: {
       fallbackToCacheTimeout: 0,
     },
-    assetBundlePatterns: ['**/*'],
+    assetBundlePatterns: ["**/*"],
     ios: {
       supportsTablet: true,
+      bundleIdentifier: "com.gudmin0526.roksrs",
+      buildNumber: "1.0.0",
     },
     android: {
       adaptiveIcon: {
-        foregroundImage: './src/assets/images/logo.png',
-        backgroundColor: '#FFFFFF',
+        foregroundImage: "./src/assets/images/logo.png",
+        backgroundColor: "#FFFFFF",
       },
-      package: 'com.gudmin0526.roksrs',
+      package: "com.gudmin0526.roksrs",
       versionCode: 1,
     },
     web: {
-      favicon: './src/assets/images/logo.png',
+      favicon: "./src/assets/images/logo.png",
     },
     extra: {
       eas: {
-        projectId: '255449b4-7dc8-430e-87c8-42b409a70f5e',
+        projectId: "255449b4-7dc8-430e-87c8-42b409a70f5e",
       },
       apiKey: process.env.API_KEY,
       authDomain: process.env.AUTH_DOMAIN,
@@ -45,4 +47,4 @@ export default {
       appPublicBackendRoot: process.env.APP_PUBLIC_BACKEND_ROOT,
     },
   },
-}
+};
