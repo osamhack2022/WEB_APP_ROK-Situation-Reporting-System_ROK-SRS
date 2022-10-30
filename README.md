@@ -335,7 +335,7 @@
 
 ```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
-$ cd back-end
+$ cd 'WEB&APP(BE)'
 $ npm install
 .env 파일 생성 후
 $ npm run start
@@ -347,7 +347,7 @@ $ npm run start
 
 ```bash
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
-$ cd front-end/web
+$ cd 'WEB(FE)'
 $ npm install
 .env 파일 생성 후
 $ npm run dev
@@ -361,7 +361,7 @@ $ npm run dev
 Prerequisite: expo sign up
 
 $ git clone https://github.com/osamhack2022-v2/WEB_APP_ROK-Situation-Reporting-System_ROK-SRS.git
-$ cd front-end/app
+$ cd 'APP(FE)'
 $ npm install
 .env 파일 생성 후
 $ npx eas build -p android --profile preview
