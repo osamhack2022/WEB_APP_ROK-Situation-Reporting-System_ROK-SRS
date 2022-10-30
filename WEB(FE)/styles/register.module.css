@@ -1,0 +1,70 @@
+.inputfield {
+  width: 380px;
+  height: 35px;
+  margin: auto;
+  font-size: 17px;
+  display: block;
+  border-top: none; 
+  border-left: none; 
+  border-right: none; 
+}
+
+.buttonfield {
+  width: 170px;
+  height: 33px;
+  font-size: 18px;
+  background-color: #008272;
+  color: white; 
+  border-radius: 5px;
+  border: none;
+  margin-top: 5px;
+  display: block;
+  letter-spacing: 1.5px;
+}
+
+.buttonfield:hover {
+  cursor: pointer; 
+  background-color: #016459;
+}
+
+.ant-form-item {
+  margin-bottom: 0px;
+}
+
+
+#loginfooter {
+  width: 400px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.links {
+  color: blue;
+  font-size: 15px;
+}
+.links:hover {
+  color:rgb(0, 0, 158);
+  text-decoration: underline;
+
+}
+
+#error {
+  color: red; 
+  font-size: 12px; 
+  margin-left: 15px;
+  line-height: 33px; 
+  margin-top: 4px;
+  margin-bottom: 0px;
+}
+
+#success {
+  color: green; 
+  font-size: 12px; 
+  line-height: 33px; 
+  margin-top: 4px;
+  margin-bottom: 0px;
+}
+
+.inputfield {
+  margin-bottom: 20px;
+}
