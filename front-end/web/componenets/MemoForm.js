@@ -77,7 +77,7 @@ function additionalPerson(user, key, onRemove = null) {
 
 function UserNode(props) {
   return (
-    <Row>
+    <Row gutter={10}>
       <Col>
         <Avatar src={props.avatar} size={48} />
       </Col>
