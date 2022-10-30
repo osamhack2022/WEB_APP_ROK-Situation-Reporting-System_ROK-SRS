@@ -211,7 +211,8 @@
 	</tr>
 </table>
 
-### 프로젝트 사용법 (Getting Started)
+
+## 프로젝트 사용법 (Getting Started)
 
 [데모 영상](https://www.youtube.com/watch?v=4J2cPialaMY)
 
@@ -349,9 +350,6 @@ android 혹은 ios를 선택하여 build 진행 이후 .apk 파일을 본인의 
 
 
 
-## 프로젝트 사용법 (Getting Started)
-
-**마크다운 문법을 이용하여 자유롭게 기재**
 
 <a id = "team"></a>
 
